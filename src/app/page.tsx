@@ -127,9 +127,9 @@ export default function Home() {
       </div>
 
       <div
-        className={`bg-[#FAFAFA] -mt-[100px] flex flex-col justify-between  lg:flex-row w-full max-w-[1440px] mx-auto z-10 px-[15px] lg:px-[100px] gap-[150px]`}
+        className={`bg-[#FAFAFA] -mt-[100px] pt-[50px] flex flex-col justify-between  lg:flex-row w-full max-w-[1440px] mx-auto z-10 px-[15px] lg:px-[100px] gap-[150px]`}
       >
-        <div className=" w-full lg:min-w-[607px] mt-[60px] lg:mt-[258px] min-h-[220px]  ">
+        <div className=" w-full lg:min-w-[607px] mt-[10px] lg:mt-[208px] min-h-[220px] lg:mb-[75px] ">
           <p
             className={`text-[23px] md:text-[34px] text-[#212121] tracking-[-0.04em] leading-[30px] md:leading-[48px] text-start font-[800] ${jost.className}`}
           >
@@ -147,7 +147,7 @@ export default function Home() {
             Join Community
           </button>
         </div>
-        <div className="  flex flex-col md:flex-row items-center justify-center mt-[50px] lg:mt-[163px] mb-[75px] lg:mb-[130px] max-h-[330px] lg:max-h-[476px] max-w-[330px] lg:max-w-[476px] border border-slate-500">
+        <div className="flex flex-col md:flex-row items-center justify-center mt-[50px] lg:mt-[163px] mb-[75px] lg:mb-[130px] max-h-[330px] lg:max-h-[476px] max-w-[330px] lg:max-w-[476px] border border-slate-500">
           ANimation
         </div>
       </div>
