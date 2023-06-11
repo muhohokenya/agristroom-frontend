@@ -148,7 +148,7 @@ export default function Home() {
           </button>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-center mt-[50px] lg:mt-[163px] mb-[75px] lg:mb-[130px] max-h-[330px] lg:max-h-[476px] max-w-[330px] lg:max-w-[476px] border border-slate-500">
-          ANimation
+          Animation here
         </div>
       </div>
 

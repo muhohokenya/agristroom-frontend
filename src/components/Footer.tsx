@@ -58,11 +58,11 @@ export const Footer = () => {
           </div>
           <div className="flex flex-col">
             <h2
-              className={`font-[600] text[20px] leading-[24px] tracking-[-0.04em] text-[#212121]  ${jost.className}`}
+              className={`font-[600] mt-[40px] lg:mt-0 text[20px] leading-[24px] tracking-[-0.04em] text-[#212121]  ${jost.className}`}
             >
               Company
             </h2>
-            <ul className="flex flex-col mt-[15px]">
+            <ul className="flex flex-col mt-[10px]  lg:mt-[15px]">
               <li
                 className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
@@ -87,11 +87,11 @@ export const Footer = () => {
           </div>
           <div className="flex flex-col">
             <h2
-              className={`font-[600] text[20px] leading-[24px] tracking-[-0.04em] text-[#212121]  ${jost.className}`}
+              className={`font-[600] mt-[40px] lg:mt-0 text[20px] leading-[24px] tracking-[-0.04em] text-[#212121]  ${jost.className}`}
             >
               Products
             </h2>
-            <ul className="flex flex-col mt-[15px]">
+            <ul className="flex flex-col mt-[10px]  lg:mt-[15px]">
               <li
                 className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
@@ -116,12 +116,12 @@ export const Footer = () => {
           </div>
           <div className="flex flex-col">
             <h2
-              className={`font-[600] text[20px] leading-[24px] tracking-[-0.04em] text-[#212121]  ${jost.className}`}
+              className={`font-[600] mt-[40px] lg:mt-0 text[20px] leading-[24px] tracking-[-0.04em] text-[#212121]  ${jost.className}`}
             >
               Research
             </h2>
   
-            <ul className="flex flex-col mt-[15px]">
+            <ul className="flex flex-col mt-[10px]  lg:mt-[15px]">
               <li
                 className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
@@ -146,11 +146,11 @@ export const Footer = () => {
           </div>
           <div className="flex flex-col !mt-2 h-full">
             <h2
-              className={`font-[600] text[20px] leading-[24px] tracking-[-0.04em] text-[#212121]  ${jost.className}`}
+              className={`font-[600] mt-[40px] lg:mt-0 text[20px] leading-[24px] tracking-[-0.04em] text-[#212121]  ${jost.className}`}
             >
               Follow Us!
             </h2>
-            <ul className="flex flex-wrap mt-[15px] gap-[14px]">
+            <ul className="flex flex-wrap mt-[10px]  lg:mt-[15px] gap-[14px]">
               <span className="bg-[#DBF3D9] w-[32px] h-[34px] flex items-center justify-center rounded-md cursor-pointer ">
                 <AiFillInstagram className={`w-[24px] h-[24px] text-[#2F9B4E]`} />
               </span>
