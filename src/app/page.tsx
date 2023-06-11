@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <main className=" min-h-screen flex flex-col items-start bg-[#FAFAFA] w-full max-w-[1440px] mx-auto ">
-      <div className="bg-[#BFBFBF]/40 relative w-full max-w-[1440px] mx-auto h-[100px] flex justify-between items-center border-b-2 border-slate-600/20 pt-[17px] px-[15px] lg:px-[100px] ">
+      <div className="fixed top-0 bg-[#F5F5F5] z-50 w-full max-w-[1440px] mx-auto h-[100px] flex justify-between items-center border-b-2 border-slate-600/20 pt-[17px] px-[15px] lg:px-[100px] ">
         <div className="flex gap-2 items-center ">
           <Image
             src="/menu.png"
@@ -77,12 +77,14 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* side nav bar */}
       <div
         className={`${
           showSideNav
             ? "-translate-x-2 transform transition-all duration-700"
             : " -translate-x-[130px] transform transition-all duration-500"
-        } w-fit shadow-md lg:hidden absolute top-[100px] z-40 bg-white`}
+        } w-fit shadow-md lg:hidden sticky top-[100px] z-40 bg-white`}
       >
         <ul className="w-full px-3 py-1 flex flex-col gap-4 h-auto">
           <li
@@ -123,8 +125,9 @@ export default function Home() {
           </li>
         </ul>
       </div>
+
       <div
-        className={`bg-[#FAFAFA] flex flex-col justify-between  lg:flex-row w-full max-w-[1440px] mx-auto z-10 px-[15px] lg:px-[100px] gap-[150px]`}
+        className={`bg-[#FAFAFA] -mt-[100px] flex flex-col justify-between  lg:flex-row w-full max-w-[1440px] mx-auto z-10 px-[15px] lg:px-[100px] gap-[150px]`}
       >
         <div className=" w-full lg:min-w-[607px] mt-[60px] lg:mt-[258px] min-h-[220px]  ">
           <p
