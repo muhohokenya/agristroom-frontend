@@ -8,128 +8,18 @@ import { MasterClassCard } from "../components/MasterClass";
 import { jost, satoshi } from "../utils/Fonts";
 import { cards, discussions, masterClasses } from "../utils/data";
 import { DiscussionCard } from "../components/DiscussionCard";
+import Link from "next/link";
 
 export default function Home() {
-  const [showSideNav, setShowSideNav] = useState(false);
-
-  const toggleSideNav = () => {
-    setShowSideNav(!showSideNav);
-  };
 
 
   return (
     <main className=" min-h-screen flex flex-col items-start bg-[#FAFAFA] w-full max-w-[1440px] mx-auto ">
-      <div className="fixed top-0 bg-[#F5F5F5] z-50 w-full max-w-[1440px] mx-auto h-[100px] flex justify-between items-center border-b-2 border-slate-600/20 pt-[17px] px-[15px] lg:px-[100px] ">
-        <div className="flex gap-2 items-center ">
-          <Image
-            src="/menu.png"
-            alt="menu"
-            width={18}
-            height={14}
-            onClick={toggleSideNav}
-            className="flex lg:hidden top-[5px] left-[3px] h-[14px] w-[18px] cursor-pointer"
-          />
-          <Image
-            src="/logo-box.png"
-            alt="Logo"
-            priority
-            width={44}
-            height={50}
-            className="object-contain w-[22.12px] h-[25.13px] md:w-[44px] md:h-[50px]"
-          />
-          <Image
-            src="/logo.png"
-            alt="Logo"
-            priority
-            width={123}
-            height={38}
-            className="object-contain w-[62.83px] h-[19.1px] md:w-[123px] md:h-[38px]"
-          />
-        </div>
-        <div className="flex gap-5 items-center">
-          <ul className="hidden lg:flex justify-between gap-3">
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
-              About Us
-            </li>
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
-              Blog
-            </li>
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
-              Products
-            </li>
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
-              Events
-            </li>
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
-              Contact us
-            </li>
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#2F9B4E]">
-              Partner with us
-            </li>
-          </ul>
-          <div className="flex items-center gap-3">
-            <button className="flex items-center text-white justify-center py-[10px] px-[20px] gap-[10px] w-[78px] md:w-[88px] h-[33px] md:h-[39px] bg-[#2F9B4E] rounded-[3px] text-[14px] whitespace-nowrap">
-              Sign Up
-            </button>
-            <button className="flex items-center text-[#2F9B4E] justify-center py-[10px] px-[20px] gap-[10px] w-[78px] h-[39px] bg-[#DBF3D9] rounded-[3px] text-[14px] whitespace-nowrap">
-              Log In
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* side nav bar */}
-      <div
-        className={`${
-          showSideNav
-            ? "-translate-x-2 transform transition-all duration-700"
-            : " -translate-x-[130px] transform transition-all duration-500"
-        } w-fit shadow-md lg:hidden sticky top-[100px] z-40 bg-white`}
-      >
-        <ul className="w-full px-3 py-1 flex flex-col gap-4 h-auto">
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121]"
-          >
-            About Us
-          </li>
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121]"
-          >
-            Blog
-          </li>
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121]"
-          >
-            Products
-          </li>
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121]"
-          >
-            Events
-          </li>
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121]"
-          >
-            Contact us
-          </li>
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#2F9B4E]"
-          >
-            Partner with us
-          </li>
-        </ul>
-      </div>
 
       <div
-        className={`bg-[#FAFAFA] -mt-[100px] pt-[50px] flex flex-col justify-between  lg:flex-row w-full max-w-[1440px] mx-auto z-10 px-[15px] lg:px-[100px] gap-[150px]`}
+        className={`w-fit -mt-[100px]  pt-[50px] flex flex-col justify-between  lg:flex-row lg:items-center z-10 px-[15px] lg:px-[100px] gap-[50px] lg:gap-[100px]`}
       >
-        <div className=" w-full lg:min-w-[607px] mt-[10px] lg:mt-[208px] min-h-[220px] lg:mb-[75px] ">
+        <div className=" w-full  lg:w-[50%] lg:min-w-[607px] mt-[10px] lg:mt-[208px] min-h-[220px] lg:mb-[75px] ">
           <p
             className={`text-[23px] md:text-[34px] text-[#212121] tracking-[-0.04em] leading-[30px] md:leading-[48px] text-start font-[800] ${jost.className}`}
           >
@@ -147,8 +37,66 @@ export default function Home() {
             Join Community
           </button>
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-center mt-[50px] lg:mt-[163px] mb-[75px] lg:mb-[130px] max-h-[330px] lg:max-h-[476px] max-w-[330px] lg:max-w-[476px] border border-slate-500">
-          Animation here
+        <div className="w-full  lg:w-[50%] flex items-center justify-center">
+        <div className="relative  border-1 flex flex-col md:flex-row  mt-[50px] lg:mt-[230px] mb-[75px] lg:mb-[130px] h-[330px]  lg:h-[476px]  sm:w-[330px] lg:w-[476px] border border-[#DBF3D9] rounded-full">
+          <p
+            className={` absolute bottom-4 z-20 lg:bottom-3 max-h-[56px] lg:max-h-[60px]   max-w-[152px] lg:max-w-[222px] right-0 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px]  leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
+          >
+            Monitor and help smallholder farmers increase their resilience and
+            cope with devastating challenges in their crop and animal farms.
+          </p>
+          <p
+            className={` absolute  top-[220px] lg:top-[325px] max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/70 tracking-[-0.04em] lg:tracking-[-0.02em] ${satoshi.className}`}
+          >
+            Monitor and help smallholder farmers increase their resilience and
+            cope with devastating challenges in their crop and animal farms.
+          </p>
+          <div className="m-[42px] lg:m-[61px] relative border border-[#DBF3D9] rounded-full h-[245px] lg:h-[354px] w-[245px] lg:w-[354px] ">
+            <div className="absolute fade-in-image top-32 lg:top-48 -left-3 lg:-left-10 bg-[#DBF3D9] rounded-full w-[48px] lg:w-[70px] h-[48px] lg:h-[70px] flex items-center justify-center">
+            <Image
+                src="/Vector.png"
+                alt="Logo"
+                priority
+                width={37}
+                height={44}
+                className="object-contain w-[37px] h-[44px]"
+              />
+            </div>
+            <div className="absolute fade-in-image2 bottom-2 right-16 w-[45px] lg:w-[66px] h-[45px] lg:h-[66px] ">
+              <Image
+                src="/user-3.png"
+                alt="Logo"
+                priority
+                width={66}
+                height={66}
+                className="object-contain w-[45px] lg:w-[66px] h-[45px] lg:h-[66px] bg-[#F8F29F] rounded-full"
+              />
+            </div>
+
+            <div className="absolute fade-in-image3 right-0 top-0 w-[48px] lg:w-[70px] h-[48px] lg:h-[70px]">
+              <Image
+                src="/user-2.png"
+                alt="Logo"
+                priority
+                width={70}
+                height={70}
+                className="object-contain w-[48px] lg:w-[70px] h-[48px] lg:h-[70px] bg-[#DBF3D9] rounded-full"
+              />
+            </div>
+            <div className="m-[34px] lg:m-[50px] border border-[#DBF3D9] rounded-full h-[175px] lg:h-[254px] w-[175px] lg:w-[254px] ">
+              <div className="m-[33px] lg:m-[49px] bg-[#DBF3D9] rounded-full h-[108px]  lg:h-[150px] w-[108px] lg:w-[150px] flex items-center justify-center ">
+                <Image
+                  src="/logo-box-large.png"
+                  alt="Logo"
+                  priority
+                  width={100}
+                  height={112}
+                  className="object-contain w-[70] lg:w-[100px] h-[77px] lg:h-[112px] "
+                />
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
 
@@ -174,11 +122,13 @@ export default function Home() {
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[50px] bg-[#2F9B4E] min-h-[223px] py-[40px] lg:py-0 justify-center lg:px-[160px]">
         <div className="flex flex-col items-center justify-center w-full">
-          <span className={`text-[34px]  leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
+          <span
+            className={`text-[34px]  leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
           >
             20+
           </span>
-          <p className={`font-[500] text-[18px] w-[100%] text-center leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+          <p
+            className={`font-[500] text-[18px] w-[100%] text-center leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
           >
             Active Farmers
           </p>
@@ -221,19 +171,18 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-[#FAFAFA] flex flex-col items-center justify-center w-full max-w-[1440px] mx-auto ">
+      <div className="bg-[#FAFAFA] w-full mx-auto flex flex-col items-center justify-center ">
         <span
           className={`mt-[45px] lg:mt-[80px] font-[800] text-[23px] lg:text-[34px] leading-[33px] lg:leading-[43px] tracking-[-0.04em] text-[#2F9B4E] ${jost.className}`}
         >
           <span className="text-[#212121]">Popular</span> Community Discussions
         </span>
-        <div className="mt-[20px] bg-white md:mx-[10px] lg:mx-[160px]  max-w-full">
+        <div className="mt-[20px] bg-white md:mx-[10px] lg:mx-[150px] ">
           <div className="pt-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[460px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
-            {
-              discussions.map((discussion, indx) => {
-                return (
-                  <DiscussionCard 
-                  key={indx} 
+            {discussions.map((discussion, indx) => {
+              return (
+                <DiscussionCard
+                  key={indx}
                   date={discussion.date}
                   likesCount={discussion.likesCount}
                   resplies={discussion.resplies}
@@ -244,11 +193,9 @@ export default function Home() {
                   time={discussion.time}
                   question={discussion.question}
                   authorsImage={discussion.authorsImage}
-                   />
-                )
-              })
-            }
-         
+                />
+              );
+            })}
           </div>
         </div>
       </div>
@@ -630,4 +577,3 @@ const Partners = () => {
     </div>
   );
 };
-
