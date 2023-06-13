@@ -1,4 +1,9 @@
-import { Card, Discussion, MasterClass } from "./types";
+import { FaTractor, FaUsers } from "react-icons/fa";
+import { CiGlobe } from "react-icons/ci";
+import { AiFillBulb } from "react-icons/ai";
+import { RiQuestionnaireFill } from "react-icons/ri";
+import { BsShieldCheck, BsPeopleFill } from "react-icons/bs";
+import { Account, Card, Discussion, MasterClass } from "./types";
 
 export const masterClasses: MasterClass[] = [
     {
@@ -220,3 +225,35 @@ export const masterClasses: MasterClass[] = [
     },
 
   ];
+
+
+  export const accountTypes = [
+   {
+    Icon: <FaUsers className="h-8 w-8" />,
+    name: "A Farmer"
+   },
+   {
+    Icon: <FaTractor className="h-8 w-8" />,
+    name: "An Agri-expert"
+   },
+   {
+    Icon: <CiGlobe className="h-8 w-8" />,
+    name: "An Aggregator"
+   },
+   {
+    Icon: <BsShieldCheck className="h-8 w-8" />,
+    name: "Farm Insurance partner"
+   },
+   {
+    Icon: <RiQuestionnaireFill className="h-8 w-8" />,
+    name: "Quality input supplier"
+   },
+   {
+    Icon: <BsPeopleFill className="h-8 w-8" />,
+    name: "Agribusiness partner"
+   },
+   {
+    Icon: <AiFillBulb className="h-[32px] w-[32px]" />,
+    name: "Farm Intelligence"
+   },
+  ]

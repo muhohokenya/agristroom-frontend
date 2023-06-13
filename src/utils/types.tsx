@@ -1,3 +1,6 @@
+import { Icon } from "next/dist/lib/metadata/types/metadata-types";
+import React, { ReactNode } from "react"
+
 export type Card = {
     heading?: string;
     image?: string;
@@ -35,4 +38,9 @@ export type Card = {
     authorsImage?: string;
     likesCount?: number;
     resplies?: Reply[]
+  }
+
+  export type Account = {
+    Icon?: ReactNode;
+    name?: string
   }

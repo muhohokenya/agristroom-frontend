@@ -14,12 +14,11 @@ export default function Home() {
 
 
   return (
-    <main className=" min-h-screen flex flex-col items-start bg-[#FAFAFA] w-full max-w-[1440px] mx-auto ">
-
+    <main className=" ">
       <div
-        className={`w-fit -mt-[100px]  pt-[50px] flex flex-col justify-between  lg:flex-row lg:items-center z-10 px-[15px] lg:px-[100px] gap-[50px] lg:gap-[100px]`}
+        className={`w-fit mt-[100px]   pt-[50px] flex flex-col justify-between  lg:flex-row lg:items-center z-10 px-[15px] lg:px-[100px] gap-[50px] lg:gap-[100px]`}
       >
-        <div className=" w-full  lg:w-[50%] lg:min-w-[607px] mt-[10px] lg:mt-[208px] min-h-[220px] lg:mb-[75px] ">
+        <div className=" w-full  lg:w-[50%] lg:min-w-[607px] mt-[10px] lg:mt-[58px] min-h-[220px] lg:mb-[75px] ">
           <p
             className={`text-[23px] md:text-[34px] text-[#212121] tracking-[-0.04em] leading-[30px] md:leading-[48px] text-start font-[800] ${jost.className}`}
           >
@@ -38,7 +37,7 @@ export default function Home() {
           </button>
         </div>
         <div className="w-full  lg:w-[50%] flex items-center justify-center">
-        <div className="relative  border-1 flex flex-col md:flex-row  mt-[50px] lg:mt-[230px] mb-[75px] lg:mb-[130px] h-[330px]  lg:h-[476px]  sm:w-[330px] lg:w-[476px] border border-[#DBF3D9] rounded-full">
+        <div className="relative  border-1 flex flex-col md:flex-row  mt-[50px] lg:mt-[50px] mb-[75px] lg:mb-[130px] h-[330px]  lg:h-[476px]  sm:w-[330px] lg:w-[476px] border border-[#DBF3D9] rounded-full">
           <p
             className={` absolute bottom-4 z-20 lg:bottom-3 max-h-[56px] lg:max-h-[60px]   max-w-[152px] lg:max-w-[222px] right-0 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px]  leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
           >
@@ -504,7 +503,7 @@ export default function Home() {
 
       <Partners />
 
-      <Footer />
+      
     </main>
   );
 }

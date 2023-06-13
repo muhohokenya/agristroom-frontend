@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import React, {useState} from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
+import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 interface Props {}
 
 function Navbar(props: Props) {
-    const {} = props
-    const [showSideNav, setShowSideNav] = useState(false);
+  const {} = props;
+  const [showSideNav, setShowSideNav] = useState(false);
 
-    const toggleSideNav = () => {
-      setShowSideNav(!showSideNav);
-    };
+  const toggleSideNav = () => {
+    setShowSideNav(!showSideNav);
+  };
 
-    return (
-        <>
-        <div className="fixed top-0 bg-[#F5F5F5] z-50 w-full max-w-[1440px] mx-auto h-[100px] flex justify-between items-center border-b-2 border-slate-600/20 pt-[17px] px-[15px] lg:px-[100px] ">
+  return (
+    <div className="fixed top-0 w-full max-w-[1440px] mx-auto z-40  bg-transparent ">
+      <div className=" w-full max-w-[1440px] mx-auto bg-[#FAFAFA]  z-50  h-[100px] flex justify-between items-center border-b-2 border-slate-600/20 pt-[17px] px-[15px] lg:px-[100px] ">
         <div className="flex gap-2 items-center ">
           <Image
             src="/menu.png"
@@ -64,12 +64,18 @@ function Navbar(props: Props) {
             </li>
           </ul>
           <div className="flex items-center gap-3">
-            <Link href="/signup" className="flex items-center text-white justify-center py-[10px] px-[20px] gap-[10px] w-[78px] md:w-[88px] h-[33px] md:h-[39px] bg-[#2F9B4E] rounded-[3px] text-[14px] whitespace-nowrap">
+            <Link
+              href="/signup"
+              className="flex items-center text-white justify-center py-[10px] px-[20px] gap-[10px] w-[78px] md:w-[88px] h-[33px] md:h-[39px] bg-[#2F9B4E] rounded-[3px] text-[14px] whitespace-nowrap"
+            >
               Sign Up
             </Link>
-            <Link href="/login" className="flex items-center text-[#2F9B4E] justify-center py-[10px] px-[20px] gap-[10px] w-[78px] h-[39px] bg-[#DBF3D9] rounded-[3px] text-[14px] whitespace-nowrap">
+            <Link
+              href="/login"
+              className="flex items-center text-[#2F9B4E] justify-center py-[10px] px-[20px] gap-[10px] w-[78px] h-[39px] bg-[#DBF3D9] rounded-[3px] text-[14px] whitespace-nowrap"
+            >
               Log In
-            </Link >
+            </Link>
           </div>
         </div>
       </div>
@@ -79,50 +85,50 @@ function Navbar(props: Props) {
         className={`${
           showSideNav
             ? "-translate-x-2 transform transition-all duration-700"
-            : " -translate-x-[130px] transform transition-all duration-500"
-        } w-fit shadow-md lg:hidden sticky top-[100px] z-40 bg-white`}
+            : " -translate-x-[170px] transform transition-all duration-500"
+        } w-fit shadow-md lg:hidden  top-[100px]  bg-white px-[12px] py-[17px]` }
       >
-        <ul className="w-full px-3 py-1 flex flex-col gap-4 h-auto">
+        <ul className="w-full px-3 py-1 flex flex-col gap-5 h-auto">
           <li
             onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121]"
+            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
           >
             About Us
           </li>
           <li
             onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121]"
+            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
           >
             Blog
           </li>
           <li
             onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121]"
+            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
           >
             Products
           </li>
           <li
             onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121]"
+            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
           >
             Events
           </li>
           <li
             onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121]"
+            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
           >
             Contact us
           </li>
           <li
             onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#2F9B4E]"
+            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#2F9B4E] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
           >
             Partner with us
           </li>
         </ul>
       </div>
-        </>
-    )
+    </div>
+  );
 }
 
-export default Navbar
+export default Navbar;
