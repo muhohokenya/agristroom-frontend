@@ -4,12 +4,14 @@ import React, {useState} from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import Button from "@/src/components/Button";
+import { satoshi } from "@/src/utils/Fonts";
+import {useRouter} from "next/navigation"
 
 interface Props {}
 
 function SignUp(props: Props) {
-    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
   const {} = props;
 
   return (
@@ -59,7 +61,12 @@ function SignUp(props: Props) {
           </div>
         </div>
         <p className="mt-[10px] text-[#2F9B4E] mx-[15px] lg:mx-[40px] text-[12px] leading-[16px] tracking-[-0.04em] font-[500] w-full max-w-[315px] lg:min-w-[394px]  text-end">Forgot password?</p>
-        <Button text="Continue" />
+        <button
+          type="button"
+          onClick={() => router.push('/signup/createaccounts')}
+          className={`mt-[35px] bg-[#2F9B4E]  max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}>
+            Continue
+        </button>
 
         <div className="mt-[15px] text-[14px] text-[#212121]/50 font-[500] leading-[19px] tracking-[-0.04em]">Already have an account? <Link className="ml-[5px] font-[700] text-[#2F9B4E]" href="/login">Log In</Link></div>
       </div>

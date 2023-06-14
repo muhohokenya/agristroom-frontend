@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
 import Image from "next/image";
-import { useState } from "react";
 import { Footer } from "../components/Footer";
 import { Card, MasterClass } from "../utils/types";
 import { MasterClassCard } from "../components/MasterClass";
 import { jost, satoshi } from "../utils/Fonts";
 import { cards, discussions, masterClasses } from "../utils/data";
 import { DiscussionCard } from "../components/DiscussionCard";
-import Link from "next/link";
+import { MdArrowForwardIos } from "react-icons/md";
+
 
 export default function Home() {
 
@@ -345,20 +345,8 @@ export default function Home() {
                 >
                   Read More
                 </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="text-[#2F9B4E] w-4 h-4"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                  />
-                </svg>
+                <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
+                
               </div>
             </div>
           </div>
@@ -391,20 +379,7 @@ export default function Home() {
                 >
                   Read More
                 </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="text-[#2F9B4E] w-4 h-4"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                  />
-                </svg>
+                <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
               </div>
             </div>
           </div>
@@ -437,20 +412,7 @@ export default function Home() {
                 >
                   Read More
                 </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="text-[#2F9B4E] w-4 h-4"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                  />
-                </svg>
+                <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
               </div>
             </div>
           </div>
@@ -503,7 +465,7 @@ export default function Home() {
 
       <Partners />
 
-      
+      <Footer />
     </main>
   );
 }
