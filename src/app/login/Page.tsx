@@ -8,12 +8,11 @@ import Button from "@/src/components/Button";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import Modal from "@/src/components/Modal";
 
-interface Props {}
 
-function Login(props: Props) {
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { openModal, setOpenModal } = useContext(ManagedUI);
-  const {} = props;
+  const { openModal,  } = useContext(ManagedUI);
+
 
   return (
     <div className="mt-[100px] w-full max-w-[1440px] mx-auto flex">
@@ -72,7 +71,7 @@ function Login(props: Props) {
             <Button text="Log In" />
 
             <div className="mt-[15px] text-[14px] text-[#212121]/50 font-[500] leading-[19px] tracking-[-0.04em]">
-              Don't have an account yet?{" "}
+              Dont have an account yet?{" "}
               <Link
                 className="ml-[5px] font-[700] text-[#2F9B4E]"
                 href="/signup"

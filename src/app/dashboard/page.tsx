@@ -44,6 +44,7 @@ function Dashboard(props: Props) {
             {discussions.map((discussion, indx) => {
               return (
                 <div
+                 key={indx}
                   onClick={() => router.push("/dashboard/answers")}
                   className="flex min-w-[350px] md:max-w-full lg:max-w-[713px] min-h-[167px] lg:min-h-[220px] xl:min-h-[167px] cursor-pointer lg:px-0 "
                 >
