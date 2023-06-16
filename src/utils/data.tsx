@@ -223,6 +223,108 @@ export const masterClasses: MasterClass[] = [
         },
       ]
     },
+    {
+    country: "Nigeria",
+    county: "Enugu State",
+    countryFlagImage: "/Flag_of_Kenya.png",
+    question: "What are the common challenges that apple farmers face and how do we solve them?",
+    date: "15/4/2023",
+    time: "2.30pm",
+    image: "/fruit.png",
+    author: "Nsiah",
+    authorsImage: "/user.png",
+    likesCount: 6.8,
+    resplies: [
+        {
+            time: "2.30pm",
+            date: "15/4/2023",
+            response: "Pest and disease management.",
+        },
+        {
+            time: "1.30pm",
+            date: "12/4/2023",
+            response: "Climate variability",
+        },
+        {
+            time: "2.30pm",
+            date: "15/4/2023",
+            response: "Labor availability",
+        },
+        {
+            time: "2.30pm",
+            date: "15/4/2023",
+            response: "Market demand and competition",
+        },
+      ]
+    },
+    {
+    country: "Nigeria",
+    county: "Enugu State",
+    countryFlagImage: "/Flag_of_Kenya.png",
+    question: "What are the common challenges that apple farmers face and how do we solve them?",
+    date: "15/4/2023",
+    time: "2.30pm",
+    image: "/fruit.png",
+    author: "Nsiah",
+    authorsImage: "/user.png",
+    likesCount: 6.8,
+    resplies: [
+        {
+            time: "2.30pm",
+            date: "15/4/2023",
+            response: "Pest and disease management.",
+        },
+        {
+            time: "1.30pm",
+            date: "12/4/2023",
+            response: "Climate variability",
+        },
+        {
+            time: "2.30pm",
+            date: "15/4/2023",
+            response: "Labor availability",
+        },
+        {
+            time: "2.30pm",
+            date: "15/4/2023",
+            response: "Market demand and competition",
+        },
+      ]
+    },
+    {
+    country: "Nigeria",
+    county: "Enugu State",
+    countryFlagImage: "/Flag_of_Kenya.png",
+    question: "What are the common challenges that apple farmers face and how do we solve them?",
+    date: "15/4/2023",
+    time: "2.30pm",
+    image: "/fruit.png",
+    author: "Nsiah",
+    authorsImage: "/user.png",
+    likesCount: 6.8,
+    resplies: [
+        {
+            time: "2.30pm",
+            date: "15/4/2023",
+            response: "Pest and disease management.",
+        },
+        {
+            time: "1.30pm",
+            date: "12/4/2023",
+            response: "Climate variability",
+        },
+        {
+            time: "2.30pm",
+            date: "15/4/2023",
+            response: "Labor availability",
+        },
+        {
+            time: "2.30pm",
+            date: "15/4/2023",
+            response: "Market demand and competition",
+        },
+      ]
+    },
 
   ];
 

@@ -12,7 +12,9 @@ import { jost, satoshi } from "../utils/Fonts";
 
 export const Footer = () => {
     return (
-      <div className=" bg-white w-full py-[35px] lg:py-[77px] px-[15px] lg:px-[100px]">
+      <div className=" bg-white w-full   py-[35px] lg:py-[77px] px-[15px] lg:px-[100px]">
+        <div className="max-w-[1440px] mx-auto">
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 items-center mb-[50px]  ">
           <div className="flex flex-col  justify-center">
             <div className="flex gap-2 items-center ">
@@ -177,6 +179,7 @@ export const Footer = () => {
         >
           © Copyright Agistroom 2023
         </p>
+        </div>
       </div>
     );
   };

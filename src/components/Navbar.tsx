@@ -1,21 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ManagedUI } from "../hooks/useModalContext";
 interface Props {}
 
 function Navbar(props: Props) {
   const {} = props;
   const [showSideNav, setShowSideNav] = useState(false);
+  const {openModal, setOpenModal} = useContext(ManagedUI)
 
   const toggleSideNav = () => {
     setShowSideNav(!showSideNav);
   };
 
   return (
-    <div className="fixed top-0 w-full max-w-[1440px] mx-auto z-40  bg-transparent ">
-      <div className=" w-full max-w-[1440px] mx-auto bg-[#FAFAFA]  z-50  h-[100px] flex justify-between items-center border-b-2 border-slate-600/20 pt-[17px] px-[15px] lg:px-[100px] ">
+    <div className="border-b-2 fixed top-0 inset-x-0 z-40  border-slate-600/20 bg-[#FAFAFA]">
+      <div className=" w-full max-w-[1440px] mx-auto ">
+      <div className=" w-full max-w-[1440px] mx-auto  z-50  h-[100px] flex justify-between items-center  pt-[17px] px-[15px] lg:px-[100px] ">
         <div className="flex gap-2 items-center ">
           <Image
             src="/menu.png"
@@ -65,12 +68,14 @@ function Navbar(props: Props) {
           </ul>
           <div className="flex items-center gap-3">
             <Link
+             onClick={() => setOpenModal(true)}
               href="/signup"
               className="flex items-center text-white justify-center py-[10px] px-[20px] gap-[10px] w-[78px] md:w-[88px] h-[33px] md:h-[39px] bg-[#2F9B4E] rounded-[3px] text-[14px] whitespace-nowrap"
             >
               Sign Up
             </Link>
             <Link
+            onClick={() => setOpenModal(true)}
               href="/login"
               className="flex items-center text-[#2F9B4E] justify-center py-[10px] px-[20px] gap-[10px] w-[78px] h-[39px] bg-[#DBF3D9] rounded-[3px] text-[14px] whitespace-nowrap"
             >
@@ -81,7 +86,7 @@ function Navbar(props: Props) {
       </div>
 
       {/* side nav bar */}
-      <div
+      {/* <div
         className={`${
           showSideNav
             ? "-translate-x-2 transform transition-all duration-700"
@@ -126,8 +131,10 @@ function Navbar(props: Props) {
             Partner with us
           </li>
         </ul>
-      </div>
+      </div> */}
     </div>
+    </div>
+    
   );
 }
 
