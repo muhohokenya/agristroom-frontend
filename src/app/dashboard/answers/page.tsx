@@ -150,13 +150,13 @@ function Page(props: Props) {
 
               <hr className="mt-[30px]"></hr>
 
-              <div className="flex flex-col items-start gap-[20px] px-[30px]">
+              <div className="flex flex-col items-start gap-[20px] px-[5px] lg:px-[30px] bg-blue-400">
                 <h1
                   className={`leading-[38px] py-[15px] font-[600] text-[26px] tracking-[-0.04em] text-[#212121] ${jost.className}`}
                 >
                   1 Answer
                 </h1>
-                <div className=" flex   items-end ">
+                <div className=" flex bg-red-400  items-end ">
                   <TextEditor />
                 </div>
                 <button

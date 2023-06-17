@@ -4,6 +4,8 @@ import { Discussion } from "../utils/types";
 import {
   MdOutlineKeyboardArrowUp,
   MdOutlineKeyboardArrowDown,
+  MdArrowDropUp,
+  MdArrowDropDown,
 } from "react-icons/md";
 import { BiMessage } from "react-icons/bi";
 
@@ -13,14 +15,14 @@ export const DiscussionCard: React.FC<Discussion> = ({
   return (
     <div className="flex">
       <div className="flex flex-col pt-[20px] px-[8px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
-        <MdOutlineKeyboardArrowUp className="w-[20px] h-[17px] text-[#2F9B4E]" />
+        <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />
 
         <span
           className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
         >
           {discussion.likesCount}k
         </span>
-        <MdOutlineKeyboardArrowDown className="w-[20px] h-[17px] text-[#2F9B4E]" />
+        <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
       </div>
       <div className="flex flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px] bg-[#FAFAFA] w-full rounded-r-md ">
         <div className="flex gap-[5px]">

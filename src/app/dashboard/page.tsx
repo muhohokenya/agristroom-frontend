@@ -1,17 +1,15 @@
 "use client";
 
 import TextEditor from "@/src/components/TextEditor";
-import DashLayout from "@/src/components/layouts/dashboard/dash-layout";
 import { jost, satoshi } from "@/src/utils/Fonts";
 import { discussions } from "@/src/utils/data";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { BiMessage } from "react-icons/bi";
-import { FaAppleAlt, FaHome, FaPlayCircle } from "react-icons/fa";
 import {
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowUp,
+  MdArrowDropDown,
+  MdArrowDropUp,
 } from "react-icons/md";
 
 interface Props {}
@@ -44,19 +42,19 @@ function Dashboard(props: Props) {
             {discussions.map((discussion, indx) => {
               return (
                 <div
-                 key={indx}
+                  key={indx}
                   onClick={() => router.push("/dashboard/answers")}
                   className="flex min-w-[350px] md:max-w-full lg:max-w-[713px] min-h-[167px] lg:min-h-[220px] xl:min-h-[167px] cursor-pointer lg:px-0 "
                 >
                   <div className="flex flex-col pt-[20px] px-[8px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
-                    <MdOutlineKeyboardArrowUp className="w-[20px] h-[17px] text-[#2F9B4E]" />
+                    <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />
 
                     <span
                       className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
                     >
                       {discussion.likesCount}k
                     </span>
-                    <MdOutlineKeyboardArrowDown className="w-[20px] h-[17px] text-[#2F9B4E]" />
+                    <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
                   </div>
                   <div className="flex w-full flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px]  bg-[#FAFAFA] rounded-r-md ">
                     <div className="flex gap-[5px]">
@@ -125,7 +123,13 @@ function Dashboard(props: Props) {
 
         <div className="min-w-[300px] mx-[15px] lg:mx-[21px]   lg:border-l lg:border-[#BFBFBF]/60 lg:pl-[15px]">
           <div className="mt-[20px]">
-            <Image src="/pink.png" alt="" width={350} height={250} className="lg:w-[350px]" />
+            <Image
+              src="/pink.png"
+              alt=""
+              width={350}
+              height={250}
+              className="lg:w-[350px]"
+            />
           </div>
           <div className="mt-[25px] border border-[#FAFAFA] shadow-sm ">
             <h2

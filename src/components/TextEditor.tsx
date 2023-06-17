@@ -29,8 +29,9 @@ function TextEditor(props: Props) {
       <Editor
         editorState={editorState}
         onEditorStateChange={onEditorStateChange}
-        toolbarClassName="flex  z-50 !justify-start mx-auto"
-        editorClassName="mt-1  px-2 min-h-[200px] shadow-lg max-w-[802px] mx-auto"
+        toolbarClassName="flex  z-50 !justify-start mx-auto min-w-[345px] lg:min-w-[802px]"
+        editorClassName="mt-1  px-2 min-h-[200px] shadow-lg min-w-[345px] lg:min-w-[802px] mx-auto"
+        
       />
     </div>
   );

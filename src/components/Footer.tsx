@@ -12,8 +12,8 @@ import { jost, satoshi } from "../utils/Fonts";
 
 export const Footer = () => {
     return (
-      <div className=" bg-white w-full   py-[35px] lg:py-[77px] px-[15px] lg:px-[100px]">
-        <div className="max-w-[1440px] mx-auto">
+      <div className=" bg-white w-full   ">
+        <div className="max-w-[1440px] w-full py-[35px] lg:py-[77px] px-[15px] lg:px-[100px] mx-auto">
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 items-center mb-[50px]  ">
           <div className="flex flex-col  justify-center">
@@ -152,7 +152,7 @@ export const Footer = () => {
             >
               Follow Us!
             </h2>
-            <ul className="flex flex-wrap mt-[10px]  lg:mt-[15px] gap-[14px]">
+            <ul className="flex flex-wrap mt-[10px]  lg:mt-[15px] gap-[14px] w-fit">
               <span className="bg-[#DBF3D9] w-[32px] h-[34px] flex items-center justify-center rounded-md cursor-pointer ">
                 <AiFillInstagram className={`w-[24px] h-[24px] text-[#2F9B4E]`} />
               </span>

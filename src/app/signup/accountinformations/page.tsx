@@ -90,7 +90,7 @@ function Page(props: Props) {
                   <select
                     value={countryCode}
                     onChange={handleChange}
-                    className="h-[48px] border rounded-md border-[#BFBFBF]/60 px-2"
+                    className="h-[48px] border rounded-md border-[#BFBFBF]/60 px-2 w-[100px]"
                   >
                     <option>Select Country</option>
                     {counties.map((country, indx) => {
