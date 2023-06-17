@@ -2,6 +2,7 @@
 import TextEditor from "@/src/components/TextEditor";
 import { jost, satoshi } from "@/src/utils/Fonts";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BsDot } from "react-icons/bs";
 import {
@@ -17,6 +18,7 @@ function Page(props: Props) {
   const {} = props;
 
   const [showSideNav, setShowSideNav] = useState(false);
+  const router = useRouter()
 
   const toggleSideNav = () => {
     setShowSideNav(!showSideNav);
@@ -51,7 +53,7 @@ function Page(props: Props) {
             help? Where can I get them?
           </p>
         </div>
-        <button className="h-[50px] whitespace-nowrap w-[151px] bg-[#2F9B4E] rounded-[5px] py-[14px] px-[24px] font-[700] text-[16px] leading-[22px] tracking-[-0.04em] text-[#FFFFFF]">
+        <button onClick={() => router.push("/dashboard")} className="h-[50px] whitespace-nowrap w-[151px] bg-[#2F9B4E] rounded-[5px] py-[14px] px-[24px] font-[700] text-[16px] leading-[22px] tracking-[-0.04em] text-[#FFFFFF]">
           Ask a Question
         </button>
       </div>
@@ -163,7 +165,7 @@ function Page(props: Props) {
                   type="button"
                   className={`mt-[35px] bg-[#2F9B4E] ml-auto  w-[144px] h-[50px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
                 >
-                  Post Question
+                  Post Answer
                 </button>
               </div>
             </div>
