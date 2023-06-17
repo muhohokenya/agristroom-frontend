@@ -1,12 +1,12 @@
 "use client";
 import TextEditor from "@/src/components/TextEditor";
 import { jost, satoshi } from "@/src/utils/Fonts";
-import { discussions } from "@/src/utils/data";
 import Image from "next/image";
 import React, { useState } from "react";
 import { BsDot } from "react-icons/bs";
-import { FaAppleAlt, FaHome, FaPlayCircle } from "react-icons/fa";
 import {
+  MdArrowDropDown,
+  MdArrowDropUp,
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
@@ -62,14 +62,14 @@ function Page(props: Props) {
         <div className="flex flex-col">
           <div className="flex px-[30px]">
             <div className="flex flex-col pt-[10px] pr-[8px] items-center justify-start bg-white w-[42px] lg:w-[64px] rounded-l-md">
-              <MdOutlineKeyboardArrowUp className="w-[20px] h-[17px] text-[#2F9B4E]" />
+              <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />
 
               <span
                 className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
               >
                 19.3k
               </span>
-              <MdOutlineKeyboardArrowDown className="w-[20px] h-[17px] text-[#2F9B4E]" />
+              <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
             </div>
             <div className="flex flex-col pb-[21px] px-[12px] lg:pr-[30px] bg-white rounded-r-md ">
               <p
@@ -108,14 +108,14 @@ function Page(props: Props) {
             <div className="flex flex-col">
               <div className="flex px-[30px]">
                 <div className="flex flex-col pt-[10px] pr-[8px] items-center justify-start bg-white w-[42px] lg:w-[64px]">
-                  <MdOutlineKeyboardArrowUp className="w-[20px] h-[17px] text-[#2F9B4E]" />
+                  <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />
 
                   <span
                     className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
                   >
                     19.3k
                   </span>
-                  <MdOutlineKeyboardArrowDown className="w-[20px] h-[17px] text-[#2F9B4E]" />
+                  <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
                 </div>
                 <div className="flex flex-col pb-[21px] px-[12px] lg:pr-[30px] bg-white ">
                   <p
@@ -150,13 +150,13 @@ function Page(props: Props) {
 
               <hr className="mt-[30px]"></hr>
 
-              <div className="flex flex-col items-start gap-[20px] px-[5px] lg:px-[30px] bg-blue-400">
+              <div className="flex flex-col items-start gap-[20px] px-[5px] lg:px-[30px] ">
                 <h1
                   className={`leading-[38px] py-[15px] font-[600] text-[26px] tracking-[-0.04em] text-[#212121] ${jost.className}`}
                 >
                   1 Answer
                 </h1>
-                <div className=" flex bg-red-400  items-end ">
+                <div className=" flex  items-end ">
                   <TextEditor />
                 </div>
                 <button
