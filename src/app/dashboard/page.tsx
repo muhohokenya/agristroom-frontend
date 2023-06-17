@@ -124,7 +124,7 @@ function Dashboard(props: Props) {
         <div className="min-w-[300px] mx-[15px] lg:mx-[21px]   lg:border-l lg:border-[#BFBFBF]/60 lg:pl-[15px]">
           <div className="mt-[20px]">
             <Image
-              src="/pink.png"
+              src="/airtel_add.png"
               alt=""
               width={350}
               height={250}

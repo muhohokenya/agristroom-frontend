@@ -82,8 +82,8 @@ function Navbar(props: Props) {
                 Sign Up
               </Link>
               <Link
-                onClick={() => setOpenModal(true)}
                 href="/login"
+                onClick={() => setOpenModal(true)}
                 className="flex items-center text-[#2F9B4E] justify-center py-[10px] px-[20px] gap-[10px] w-[78px] h-[39px] bg-[#DBF3D9] rounded-[3px] text-[14px] whitespace-nowrap"
               >
                 Log In

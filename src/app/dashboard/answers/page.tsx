@@ -172,7 +172,7 @@ function Page(props: Props) {
         <div className=" lg:border-l lg:border-[#BFBFBF]/60 ">
           <div className="mt-[20px] px-[15px]">
             <Image
-              src="/pink.png"
+              src="/airtel_add.png"
               alt=""
               width={350}
               height={250}
