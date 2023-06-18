@@ -11,7 +11,7 @@ export const jost = Jost({
     src: [
       {
         path: "../../public/fonts/Satoshi-Regular.otf",
-        weight: "500",
+        weight: "400",
       },
     ],
   });

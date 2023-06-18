@@ -36,7 +36,7 @@ export const DiscussionCard: React.FC<Discussion> = ({
           />
           <div className="flex gap-[5px] items-center">
             <p
-              className={`text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
+              className={`text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
             >
               {discussion.author} - {discussion.county} County,{" "}
               {discussion.country}
@@ -65,7 +65,7 @@ export const DiscussionCard: React.FC<Discussion> = ({
           />
         ) : null}
         <div className="flex flex-row items-center justify-between mt-[21px]">
-          <div className="flex gap-3">
+          <div className="flex items-center gap-3">
             <BiMessage className="w-[12.8px] lg:w-[20px] h-[12px] lg:h-[18px] text-[#212121]/70" />
 
             <p

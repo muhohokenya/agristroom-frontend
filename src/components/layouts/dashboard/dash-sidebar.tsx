@@ -21,7 +21,7 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
   return (
     <div
       className={`
-          fixed inset-0 lg:w-[312px] lg:static z-[1000] transition
+          fixed inset-0 lg:w-[230px] lg:static z-[1000] transition
           ${
             showSideNav
               ? "translate-x-0 transform transition-all duration-700"
@@ -32,7 +32,7 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
     >
       <div
         className={`
-         w-[312px] bg-[#BFBFBF] lg:bg-[#BFBFBF]/40 h-screen lg:h-[calc(100vh-77px)] mt-[77px] lg:mt-0 pt-[30px] px-[30px]
+         w-[230px] bg-[#BFBFBF] lg:bg-[#BFBFBF]/40 h-screen lg:h-[calc(100vh-77px)] mt-[77px] lg:mt-0 pt-[30px] px-[20px]
         
         `}
         ref={sidebarRef}

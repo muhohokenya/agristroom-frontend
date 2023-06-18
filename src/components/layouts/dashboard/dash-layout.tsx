@@ -18,7 +18,7 @@ const DashLayout = ({ children }: { children: ReactNode }) => {
           showSideNav={showSideNav}
         />
 
-        <div className="flex-1 h-[calc(100vh-77px)] light-scrollbar overflow-y-auto">
+        <div className="flex-1 h-[calc(100vh-77px)] light-scrollbar overflow-y-auto overflow-x-hidden">
           {children}
         </div>
       </div>

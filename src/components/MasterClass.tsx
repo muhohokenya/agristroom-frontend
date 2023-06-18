@@ -9,14 +9,14 @@ export const MasterClassCard: React.FC<MasterClass> = ({
     ...masterclass
   }: MasterClass) => {
     return (
-      <div className="flex flex-col bg-[#FAFAFA] rounded-md max-w-[399px] max-h-[485px]">
-        <div className=" rounded-t-md relative">
+      <div className="flex flex-col bg-[#FAFAFA] rounded-md max-w-[350px] lg:min-w-[400px] h-[485px] lg:h-[485px] box-content">
+        <div className=" rounded-t-md relative ">
           <Image
             src={masterclass.image!}
             alt=""
             width={399}
             height={221}
-            className="rounded-t-md relative "
+            className="rounded-t-md relative object-contain "
           />
           <div className="absolute bottom-0 left-0 right-0 h-24  text-left bg-gradient-to-t from-black/40 flex items-end  ">
             <p className="pb-[15px] pl-[15px] text-white">{masterclass.title}</p>
@@ -50,14 +50,14 @@ export const MasterClassCard: React.FC<MasterClass> = ({
           </div>
         </div>
         <p
-          className={`text-[14px] overflow-hidden  max-w-fit max-h-fit lg:w-fit lg:max-w-[369px]  lg:min-h-[112px]  mb-[20px] px-[15px] pt-[18px]  lg:text-[16px] font-[500] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em]  ${satoshi.className}`}
+          className={`text-[14px] overflow-hidden line-clamp-3  mb-[20px] px-[15px] pt-[18px]  lg:text-[16px] font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em]  ${satoshi.className}`}
         >
           {masterclass.description}
         </p>
   
         <hr></hr>
   
-        <div className=" min-mx-[15px] my-[15px] flex items-center gap-[17px]">
+        <div className="mx-[15px] my-[15px] flex items-center gap-[17px]">
           <button
             className={`rounded-md whitespace-nowrap flex bg-[#2F9B4E] text-white py-[10px] lg:py-[13px] px-[18px] lg:px-[24px] font-[700] text-[14px] lg:text-[16px] leading-[19px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className}`}
           >

@@ -24,7 +24,7 @@ export const masterClasses: MasterClass[] = [
       title: "Your Farm as a Business",
       classStatus: "Ongoing",
       description:
-        "What’s the name of your farm? Do you view it as a business venture? Get expert advice on how you can transform your mindset to view your farm as a business.Earn Money from your passion easily",
+        "What’s the name of your farm? Do you view it as a business venture? Get expert advice on how you can transform your mindset to view your farm as a business.",
       username: "",
       userProfile: "/user.png",
       author: "Emmanuel Makoha",
@@ -37,7 +37,7 @@ export const masterClasses: MasterClass[] = [
       title: "Pest control in Apples",
       classStatus: "Ongoing",
       description:
-        "Are you struggling with pests in your apple farm? Joan the agronomist shares intriguing tested and approved techniques to ensure your farm is free of pests all year round. Stay pests free.",
+        "Are you struggling with pests in your apple farm? Joan the agronomist shares intriguing tested and approved techniques to ensure your farm is free of pests all year round.",
       username: "The Agronomist",
       userProfile: "/user.png",
       author: "Joan",

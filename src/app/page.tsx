@@ -9,8 +9,10 @@ import { cards, discussions, masterClasses } from "../utils/data";
 import { DiscussionCard } from "../components/DiscussionCard";
 import { MdArrowForwardIos } from "react-icons/md";
 import Navbar from "../components/Navbar";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <main className=" ">
       <Navbar />
@@ -27,11 +29,12 @@ export default function Home() {
                 <span className="text-[#2F9B4E]">Apple farming</span> experience
               </p>
               <p
-                className={`mt-[10px] md:mt-[20px] text-[16px] md:text-[18px] leading-[27px] tracking-[-0.02em] md:leading-[24px] font-[500] text-[#212121]/70 ${satoshi.className}`}
+                className={`mt-[10px] md:mt-[20px] text-[16px] md:text-[18px] leading-[27px] tracking-[-0.02em] md:leading-[24px] font-[400] text-[#212121]/70 ${satoshi.className}`}
               >
                 Every farmer needs a community for a successful farming venture
               </p>
               <button
+                onClick={() => router.push("/signup")}
                 className={`bg-[#2F9B4E] rounded-md py-[14px] px-[24px] flex items-center justify-center mt-[40px] text-white text-center text-[16px] tracking-[-0.04em] leading-[22px] font-[700]  ${satoshi.className}`}
               >
                 Join Community
@@ -135,7 +138,7 @@ export default function Home() {
               20+
             </span>
             <p
-              className={`font-[500] text-[18px] w-[100%] text-center leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+              className={`font-[400] text-[18px] w-[100%] text-center leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
             >
               Active Farmers
             </p>
@@ -147,7 +150,7 @@ export default function Home() {
               1,000+
             </span>
             <p
-              className={`font-[500] w-[100%] text-center text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+              className={`font-[400] w-[100%] text-center text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
             >
               Vibrant Communities
             </p>
@@ -159,7 +162,7 @@ export default function Home() {
               2,100+
             </span>
             <p
-              className={`font-[500] w-[100%] text-center text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+              className={`font-[400] w-[100%] text-center text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
             >
               Cumulative years of experience
             </p>
@@ -171,7 +174,7 @@ export default function Home() {
               5,000+
             </span>
             <p
-              className={`font-[500] w-[100%] text-center text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+              className={`font-[400] w-[100%] text-center text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
             >
               Discussions to learn from
             </p>
@@ -219,10 +222,10 @@ export default function Home() {
             Our Impact
           </h2>
           <p
-            className={` text-center max-w-[1091px] mx-[15px] lg:mx-auto text-[18px] leading-[32px] font-[500] text-white tracking-[-0.02em] ${satoshi.className}`}
+            className={` text-center max-w-[1091px] mx-[15px] lg:mx-auto text-[18px] leading-[32px] font-[400] text-white tracking-[-0.01em] ${satoshi.className}`}
           >
             We are committed to making a positive and lasting impact in the
-            world through our work.We believe by aligning our agenda with the
+            world through our work. We believe by aligning our agenda with the
             United Nations 2030 Sustainable Development Goals, we will be able
             to contribute to a more sustainable and equitable future for all.
           </p>
@@ -338,8 +341,8 @@ export default function Home() {
           >
             <span className="text-[#212121]">Popular</span> Guides & Tutorials
           </h2>
-          <div className="mt-[20px]  lg:mt-[30px] grid gap-[21px] grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-[15px] lg:mx-[100px] items-center">
-            <div className="flex flex-col bg-white">
+          <div className="mt-[20px]  lg:mt-[30px] grid gap-[21px] place-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-[15px] lg:mx-[100px] items-center">
+            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
               <Image
                 src="/guide-images/apples-one.png"
                 alt=""
@@ -354,7 +357,7 @@ export default function Home() {
                   Nutritional Program for Wambugu Apples
                 </h3>
                 <p
-                  className={`text-[14px] lg:text-[16px] font-[500] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
+                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
                 >
                   Soil test is important to determine and understand fertilizer
                   requirements for your apple farm. Both organic and inorganic
@@ -372,7 +375,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col bg-white">
+            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
               <Image
                 src="/guide-images/apples-two.png"
                 alt=""
@@ -387,13 +390,12 @@ export default function Home() {
                   Nutritional Program for Wambugu Apples
                 </h3>
                 <p
-                  className={`text-[14px] lg:text-[16px] font-[500] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
+                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
                 >
-                  Soil test is important to determine and understand fertilizer
-                  requirements for your apple farm. Both organic and inorganic
-                  fertilizers - foliar and basal are important to supply
-                  nutrient needs for the plant. Read on to understand timing and
-                  split application of fertilizers.
+                  Did you know the propagation story of the now popular Wambugu
+                  apple? Learn how this superb and all weather apple triumphs
+                  over other varieties and why you should choose it because of
+                  its distinctive features.
                 </p>
                 <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
                   <span
@@ -405,7 +407,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col bg-white">
+            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
               <Image
                 src="/guide-images/apples-three.png"
                 alt=""
@@ -420,13 +422,13 @@ export default function Home() {
                   Nutritional Program for Wambugu Apples
                 </h3>
                 <p
-                  className={`text-[14px] lg:text-[16px] font-[500] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
+                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
                 >
-                  Soil test is important to determine and understand fertilizer
-                  requirements for your apple farm. Both organic and inorganic
-                  fertilizers - foliar and basal are important to supply
-                  nutrient needs for the plant. Read on to understand timing and
-                  split application of fertilizers.
+                  Chinzinga shares how recent floods in Zambia swept away her 2
+                  acres of apples barely 2 months after planting. Learn more
+                  about how farm insurance helps smallholder farmers and advice
+                  from a farm insurance company on why smallholder farmers need
+                  to consider insurance.
                 </p>
                 <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
                   <span
@@ -450,7 +452,7 @@ export default function Home() {
             <span className="text-[#212121]">Current</span> Masterclasses
             Available
           </h2>
-          <div className="mt-[20px]  lg:mt-[30px] grid gap-[21px] grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-[15px] lg:mx-[100px] items-center">
+          <div className="mt-[20px]  lg:mt-[30px] grid gap-[21px] grid-cols-1 place-items-center justify-center md:grid-cols-2 xl:grid-cols-3 mx-[15px] lg:mx-[100px] items-center">
             {masterClasses.map(
               (
                 {
@@ -506,7 +508,7 @@ const SingleCard: React.FC<Card> = ({ ...card }: Card) => {
       </h3>
       <div className="mt-[5px]">
         <p
-          className={`font-[500] text-[14px] leading-[28px] tracking-tighter text-[#212121]/70 ${satoshi.className}`}
+          className={`font-[400] text-[14px] leading-[28px] tracking-tighter text-[#212121]/70 ${satoshi.className}`}
         >
           {card.text}
         </p>

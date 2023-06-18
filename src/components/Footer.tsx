@@ -37,22 +37,22 @@ export const Footer = () => {
             </div>
             <ul className="flex flex-col mt-[8px]">
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
@@ -66,22 +66,22 @@ export const Footer = () => {
             </h2>
             <ul className="flex flex-col mt-[10px]  lg:mt-[15px]">
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
@@ -95,22 +95,22 @@ export const Footer = () => {
             </h2>
             <ul className="flex flex-col mt-[10px]  lg:mt-[15px]">
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
@@ -125,22 +125,22 @@ export const Footer = () => {
   
             <ul className="flex flex-col mt-[10px]  lg:mt-[15px]">
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
               <li
-                className={`font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 Loren Inpsum Dolor
               </li>
@@ -175,7 +175,7 @@ export const Footer = () => {
         </div>
         <hr></hr>
         <p
-          className={`mt-[26px] font-[500] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
+          className={`mt-[26px] font-[400] text-[16px] leading-[28px] tracking-[-0.04em] ${satoshi.className}`}
         >
           © Copyright Agistroom 2023
         </p>

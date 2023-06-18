@@ -67,7 +67,7 @@ function Dashboard(props: Props) {
                       />
                       <div className="flex gap-[5px] items-center ">
                         <p
-                          className={`text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
+                          className={`text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
                         >
                           {discussion.author} - {discussion.county} County,{" "}
                           {discussion.country}
@@ -133,55 +133,53 @@ function Dashboard(props: Props) {
           </div>
           <div className="mt-[25px] border border-[#FAFAFA] shadow-sm ">
             <h2
-              className={`font-[600] py-[15px] bg-[#FAFAFA]  text-[26px] leading-[42px] tracking-[-0.04em] tex-[#212121] ${jost.className}`}
+              className={`font-[600] py-[15px] bg-[#FAFAFA]  text-[18px] leading-[26px] tracking-[-0.03em] text-[#212121]/90 ${jost.className}`}
             >
               Hot Topics
             </h2>
             <div className="flex flex-col gap-[20px] mt-[15px] py-[10px] w-[300px] ">
               <p
-                className={`font-[500] text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
+                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
               >
                 <span>🍎</span>
                 Can any agronomist please share with me a nutritional program
                 for apples suitable for Kilifi-south sub-county?
               </p>
               <p
-                className={`font-[500] text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
+                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
               >
                 <span>🙋🏼‍♂️</span>A nutritional program for apples suitable
               </p>
               <p
-                className={`font-[500] text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
+                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
               >
                 <span>🍎</span>
                 Can any agronomist please share with me a nutritional program
                 for apples suitable for Kilifi-south sub-county?
               </p>
               <p
-                className={`font-[500] text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
+                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
               >
                 <span>🙋🏼‍♂️</span>A nutritional program for apples suitable
               </p>
               <p
-                className={`font-[500] text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
+                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
               >
                 <span>🍎</span>
                 Can any agronomist please share with me a nutritional program
                 for apples suitable for Kilifi-south sub-county?
               </p>
               <p
-                className={`font-[500] text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
+                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
               >
                 <span>🍎</span>
-                Can any agronomist please share with me a nutritional program
-                for apples suitable for Kilifi-south sub-county?
+                A nutritional program for apples suitable
               </p>
               <p
-                className={`font-[500] text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
+                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
               >
                 <span>🍎</span>
-                Can any agronomist please share with me a nutritional program
-                for apples suitable for Kilifi-south sub-county?
+                A nutritional program for apples suitable
               </p>
             </div>
           </div>
