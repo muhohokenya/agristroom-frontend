@@ -7,23 +7,36 @@ import Link from "next/link";
 import Button from "@/src/components/Button";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import Modal from "@/src/components/Modal";
-
+import { MdClose } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { openModal,  } = useContext(ManagedUI);
+  const { openModal, setOpenModal } = useContext(ManagedUI);
+
+  const router = useRouter();
 
 
   return (
     <div className="mt-[100px] w-full max-w-[1440px] mx-auto flex">
       {openModal && (
         <Modal>
-          <div className=" flex flex-col items-center justify-center max-h-[528px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md">
-            <h2
-              className={`font-[600] text-[20px] leading-[24px]  tracking-[0.04em] text-[#212121]`}
-            >
-              Login In to Agristroom
-            </h2>
+          <div className="relative flex flex-col items-center justify-center max-h-[528px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md">
+          <MdClose
+              className="absolute top-3 right-3 text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
+              onClick={() => {
+                router.push("/");
+                setOpenModal(false);
+              }}
+            />
+            <div className="flex ">
+              <h2
+                className={`font-[600] text-[20px] leading-[24px]  tracking-[0.04em] text-[#212121]`}
+              >
+                Login In to Agristroom
+              </h2>
+            </div>
+           
             <div className="mt-[15px] flex flex-col gap-[10px] lg:mt-[35px] w-full max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
               <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]   ">
                 <FcGoogle className="h-[24px] w-[23.85px]" />

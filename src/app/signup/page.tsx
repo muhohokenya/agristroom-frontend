@@ -8,6 +8,7 @@ import { satoshi } from "@/src/utils/Fonts";
 import { useRouter } from "next/navigation";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import Modal from "@/src/components/Modal";
+import { MdClose } from "react-icons/md";
 
 interface Props {}
 
@@ -21,12 +22,21 @@ function SignUp(props: Props) {
     <div className="mt-[100px] w-full max-w-[1440px] mx-auto flex">
       {openModal && (
         <Modal>
-          <div className=" flex flex-col items-center justify-center max-h-[528px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md">
-            <h2
-              className={`font-[600] text-[20px] leading-[24px]  tracking-[0.04em] text-[#212121]`}
-            >
-              Sign Up to Agristroom
-            </h2>
+          <div className="relative flex flex-col items-center justify-center max-h-[528px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md">
+            <MdClose
+              className="absolute top-3 right-3 text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
+              onClick={() => {
+                router.push("/");
+                setOpenModal(false);
+              }}
+            />
+            <div className="flex ">
+              <h2
+                className={`font-[600] text-[20px] leading-[24px]  tracking-[0.04em] text-[#212121]`}
+              >
+                Sign Up to Agristroom
+              </h2>
+            </div>
             <div className="mt-[15px] flex flex-col gap-[10px] lg:mt-[35px] w-full max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
               <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]   ">
                 <FcGoogle className="h-[24px] w-[23.85px]" />
@@ -62,7 +72,9 @@ function SignUp(props: Props) {
                     className="  w-full  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px]  focus:outline focus:outline-[#BFBFBF]/60 "
                   />
                   <FaEyeSlash
-                    onClick={() => {setShowPassword(!showPassword)}}
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
                     className="absolute cursor-pointer right-3  h-6 w-6 text-[#282828]/70"
                   />
                 </div>
@@ -74,8 +86,8 @@ function SignUp(props: Props) {
             <button
               type="button"
               onClick={() => {
-                setOpenModal(true)
-                router.push("/signup/createaccounts")
+                setOpenModal(true);
+                router.push("/signup/createaccounts");
               }}
               className={`mt-[35px] bg-[#2F9B4E]  max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.04em] ${satoshi.className}`}
             >
