@@ -4,11 +4,11 @@ import React, { useState, useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import Button from "@/src/components/Button";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import Modal from "@/src/components/Modal";
 import { MdClose } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import Button from "@/src/components/ui/Button";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +21,7 @@ const Login = () => {
     <div className="mt-[100px] w-full max-w-[1440px] mx-auto flex">
       {openModal && (
         <Modal>
-          <div className="relative flex flex-col items-center justify-center max-h-[528px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md">
+          <div className="relative flex flex-col items-center justify-center max-h-[550px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md">
           <MdClose
               className="absolute top-3 right-3 text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
               onClick={() => {
@@ -29,7 +29,7 @@ const Login = () => {
                 setOpenModal(false);
               }}
             />
-            <div className="flex ">
+            <div className="flex mt-[30px]">
               <h2
                 className={`font-[600] text-[20px] leading-[24px]  tracking-[0.04em] text-[#212121]`}
               >

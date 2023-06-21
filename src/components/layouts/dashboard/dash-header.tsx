@@ -42,21 +42,21 @@ const DashHeader = ({toggleSideNav}: IProps) => {
               />
             </div>
         </div>
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 items-center mr-[30px]">
           <ul className="hidden lg:flex justify-between gap-[55px]">
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
+            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121] cursor-pointer tracking-[-0.04em]">
               About Us
             </li>
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
+            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121] cursor-pointer tracking-[-0.04em]">
               Blog
             </li>
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
+            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121] cursor-pointer tracking-[-0.04em]">
               Products
             </li>
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
+            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121] cursor-pointer tracking-[-0.04em]">
               Events
             </li>
-            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
+            <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121] cursor-pointer tracking-[-0.04em]">
               Contact us
             </li>
           </ul>

@@ -1,8 +1,9 @@
 "use client";
 
-import TextEditor from "@/src/components/TextEditor";
-import { jost, satoshi } from "@/src/utils/Fonts";
-import { discussions } from "@/src/utils/data";
+
+import TextEditor from "@/src/components/ui/TextEditor";
+import { jost, satoshi } from "@/src/fonts/Fonts";
+import { discussions } from "@/src/lib/data/data";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";

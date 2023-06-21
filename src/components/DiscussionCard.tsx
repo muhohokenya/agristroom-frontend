@@ -1,13 +1,11 @@
 import Image from "next/image";
-import { jost, satoshi } from "../utils/Fonts";
-import { Discussion } from "../utils/types";
 import {
-  MdOutlineKeyboardArrowUp,
-  MdOutlineKeyboardArrowDown,
   MdArrowDropUp,
   MdArrowDropDown,
 } from "react-icons/md";
 import { BiMessage } from "react-icons/bi";
+import { Discussion } from "../types/types";
+import { jost, satoshi } from "../fonts/Fonts";
 
 export const DiscussionCard: React.FC<Discussion> = ({
   ...discussion
@@ -55,7 +53,7 @@ export const DiscussionCard: React.FC<Discussion> = ({
         >
           {discussion.question}
         </p>
-        {discussion.image !== "" && discussion.image == undefined? (
+        {discussion.image !== "" && (
           <Image
             src={discussion.image!}
             alt="photo"
@@ -63,7 +61,7 @@ export const DiscussionCard: React.FC<Discussion> = ({
             height={277}
             className="hidden lg:block rounded-sm mt-[21px]"
           />
-        ) : null}
+        )}
         <div className="flex flex-row items-center justify-between mt-[21px]">
           <div className="flex items-center gap-3">
             <BiMessage className="w-[12.8px] lg:w-[20px] h-[12px] lg:h-[18px] text-[#212121]/70" />

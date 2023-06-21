@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import "./globals.css";
+import "../styles/globals.css";
 import { Inter } from "next/font/google";
 import { ManagedUIProvider } from "../hooks/useModalContext";
 
@@ -9,7 +9,13 @@ export const metadata: Metadata = {
   title: "Agristroom",
   description: "An agribusiness startup",
   icons: "/logo-box.png",
-  keywords: ["Agristroom", "Apple Farming", "Communities", "Guides", "MasterClasses"]
+  keywords: [
+    "Agristroom",
+    "Apple Farming",
+    "Communities",
+    "Guides",
+    "MasterClasses",
+  ],
 };
 
 export default function RootLayout({

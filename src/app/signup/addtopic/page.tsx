@@ -1,10 +1,10 @@
 "use client";
 import React, { useContext } from "react";
 import { ManagedUI } from "@/src/hooks/useModalContext";
-import { jost, satoshi } from "@/src/utils/Fonts";
 import { useRouter } from "next/navigation";
 import { MdArrowBackIos } from "react-icons/md";
 import Modal from "@/src/components/Modal";
+import { jost, satoshi } from "@/src/fonts/Fonts";
 
 const AddTopic = () => {
   const router = useRouter();

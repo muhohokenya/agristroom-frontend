@@ -6,7 +6,7 @@ import {
     AiOutlineTwitter,
   } from "react-icons/ai";
   import { FaFacebook } from "react-icons/fa";
-import { jost, satoshi } from "../utils/Fonts";
+import { jost, satoshi } from "../fonts/Fonts";
 
 
 

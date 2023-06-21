@@ -3,7 +3,7 @@ import { CiGlobe } from "react-icons/ci";
 import { AiFillBulb } from "react-icons/ai";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { BsShieldCheck, BsPeopleFill } from "react-icons/bs";
-import { Account, Card, Discussion, MasterClass } from "./types";
+import { Card, Discussion, MasterClass } from "@/src/types/types";
 
 export const masterClasses: MasterClass[] = [
     {

@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import { Jost } from "next/font/google";
 
 export const jost = Jost({
-    weight: ["600", "800"],
+    weight: ["500", "600", "800"],
     style: "normal",
     subsets: ["latin"],
   });

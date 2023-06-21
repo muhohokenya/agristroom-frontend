@@ -1,7 +1,6 @@
 "use client";
 import React , {useContext} from "react"
 import { ManagedUI } from "@/src/hooks/useModalContext";
-import { jost, satoshi } from "@/src/utils/Fonts";
 import { useRouter } from "next/navigation";
 import {
   MdArrowBackIos,
@@ -9,6 +8,7 @@ import {
   MdOutlineEdit,
 } from "react-icons/md";
 import Modal from "@/src/components/Modal";
+import { jost, satoshi } from "@/src/fonts/Fonts";
 
 const ProfileSummary = () => {
   const router = useRouter();

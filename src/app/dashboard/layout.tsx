@@ -1,7 +1,6 @@
 "use client";
 import DashLayout from "@/src/components/layouts/dashboard/dash-layout";
 import { Inter } from "next/font/google";
-import { useSelectedLayoutSegment } from "next/navigation";
 import React from "react";
 
 interface Props {

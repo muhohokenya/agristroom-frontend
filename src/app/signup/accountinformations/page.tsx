@@ -1,10 +1,12 @@
 "use client";
-import { jost, satoshi } from "@/src/utils/Fonts";
+
 import { MdArrowBackIos } from "react-icons/md";
 import React, { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import Modal from "@/src/components/Modal";
+import PhoneInput from "@/src/components/ui/PhoneInput";
+import { jost, satoshi } from "@/src/fonts/Fonts";
 
 interface Props {}
 
@@ -87,27 +89,8 @@ function Page(props: Props) {
               <div className="flex flex-col gap-[8px] w-full">
                 <label>Phone Number</label>
                 <div className=" flex items-center gap-[8px]">
-                  <select
-                    value={countryCode}
-                    onChange={handleChange}
-                    className="h-[48px] border rounded-md border-[#BFBFBF]/60 px-2 w-[100px]"
-                  >
-                    <option>Select Country</option>
-                    {counties.map((country, indx) => {
-                      return (
-                        <option key={indx} value={country.code}>
-                          {country.name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <div className="  flex items-center border border-[#BFBFBF]/60 rounded-md w-full">
-                    <span className="">{countryCode}</span>
-                    <input
-                      type="text"
-                      className="  w-full bg-transparent  h-[48px] px-2 border-0 outline-0  rounded-[5px]  focus:outline-0 "
-                    />
-                  </div>
+                  <PhoneInput />
+                  
                 </div>
               </div>
             </div>
@@ -117,7 +100,7 @@ function Page(props: Props) {
                 setOpenModal(true);
                 router.push("/signup/interest");
               }}
-              className={`mt-[35px] mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[494px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
+              className={`my-[20px] mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[494px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
             >
               Continue
             </button>

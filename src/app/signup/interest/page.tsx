@@ -1,5 +1,5 @@
 "use client";
-import { jost, satoshi } from "@/src/utils/Fonts";
+
 import { MdArrowBackIos } from "react-icons/md";
 import { BiSearch } from "react-icons/bi";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
@@ -7,6 +7,7 @@ import React, { useState, useRef, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import Modal from "@/src/components/Modal";
+import { jost, satoshi } from "@/src/fonts/Fonts";
 
 interface Props {}
 

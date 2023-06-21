@@ -1,5 +1,5 @@
 import { BsExclamationCircle } from "react-icons/bs";
-import { satoshi } from "../utils/Fonts";
+import { satoshi } from "../fonts/Fonts";
 
 export const SlotsLeft = () => {
     return (

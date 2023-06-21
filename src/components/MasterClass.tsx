@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { LikesViews } from "./LikesViews";
 import { SlotsLeft } from "./SlotsLeft";
-import { MasterClass } from "../utils/types";
-import { satoshi } from "../utils/Fonts";
+import { satoshi } from "../fonts/Fonts";
+import { MasterClass } from "../types/types";
 
 
 export const MasterClassCard: React.FC<MasterClass> = ({

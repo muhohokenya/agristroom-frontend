@@ -25,7 +25,7 @@ function TextEditor(props: Props) {
   };
 
   return (
-    <div className="max-w-[802px] sticky top-[200px] min-h-[230px] shadow-md">
+    <div className="max-w-[802px] sticky top-[200px] min-h-[230px] shadow-2xl">
       <Editor
         editorState={editorState}
         onEditorStateChange={onEditorStateChange}

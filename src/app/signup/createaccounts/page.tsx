@@ -3,11 +3,11 @@
 import React, { useState, useContext } from "react";
 import { MdOutlineRadioButtonUnchecked } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
-import { accountTypes } from "@/src/utils/data";
-import { satoshi } from "@/src/utils/Fonts";
 import { useRouter } from "next/navigation";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import Modal from "@/src/components/Modal";
+import { accountTypes } from "@/src/lib/data/data";
+import { satoshi } from "@/src/fonts/Fonts";
 
 interface Props {}
 

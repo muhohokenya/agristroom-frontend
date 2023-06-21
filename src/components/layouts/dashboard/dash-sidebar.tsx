@@ -1,5 +1,7 @@
 "use client";
 
+
+import { jost } from "@/src/fonts/Fonts";
 import { Dispatch, useRef } from "react";
 import { FaAppleAlt, FaHome, FaPlayCircle } from "react-icons/fa";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -21,7 +23,7 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
   return (
     <div
       className={`
-          fixed inset-0 lg:w-[230px] lg:static z-[1000] transition
+          fixed inset-0 lg:w-[200px] lg:static z-[1000] transition
           ${
             showSideNav
               ? "translate-x-0 transform transition-all duration-700"
@@ -32,7 +34,7 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
     >
       <div
         className={`
-         w-[230px] bg-[#BFBFBF] lg:bg-[#BFBFBF]/40 h-screen lg:h-[calc(100vh-77px)] mt-[77px] lg:mt-0 pt-[30px] px-[20px]
+         w-[200px] bg-[#BFBFBF] lg:bg-[#BFBFBF]/40 h-screen lg:h-[calc(100vh-77px)] mt-[77px] lg:mt-0 pt-[30px] px-[20px]
         
         `}
         ref={sidebarRef}
@@ -42,11 +44,11 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
             FEEDS
           </h4>
           <div className="flex flex-col mt-[16px] gap-[24px]">
-            <span className="flex gap-[16px] items-center text-[16px] leading-[22px] font-[700] tracking-[-0.02em] text-[#2F9B4E] cursor-pointer">
-              <FaHome /> Home
+            <span className={`flex gap-[16px] items-center text-[16px] leading-[22px] font-[400] tracking-[-0.02em] text-[#2F9B4E] cursor-pointer ${jost.className}`}>
+              <FaHome /><span>Home</span> 
             </span>
-            <span className="flex gap-[16px] items-center text-[16px] leading-[22px] font-[500] tracking-[-0.02em] text-[#212121]/70 cursor-pointer">
-              <FaPlayCircle className=" rotate-45" /> Popular
+            <span className="flex gap-[16px] items-center text-[16px] leading-[22px] font-[400] tracking-[-0.02em] text-[#212121]/70 cursor-pointer">
+              <FaPlayCircle className=" rotate-45" /> <span>Popular</span>
             </span>
           </div>
         </div>
@@ -57,16 +59,16 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
           <div className="flex items-start ju gap-[16px] mt-[15px]">
             <FaAppleAlt />
             <ul className="flex flex-col gap-[16px]">
-              <li className="text-[16px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em] cursor-pointer ">
+              <li className="text-[16px] leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.02em] cursor-pointer ">
                 Apple Farms
               </li>
-              <li className="text-[16px] leading-[22px] font-[500] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
+              <li className="text-[16px] leading-[22px] font-[400] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
                 Honey Crisp
               </li>
-              <li className="text-[16px] leading-[22px] font-[500] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
+              <li className="text-[16px] leading-[22px] font-[400] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
                 EverCrisp
               </li>
-              <li className="text-[16px] leading-[22px] font-[500] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
+              <li className="text-[16px] leading-[22px] font-[400] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
                 Lady Alice
               </li>
             </ul>

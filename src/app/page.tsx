@@ -1,18 +1,21 @@
 "use client";
 
+import React, {useContext} from "react"
 import Image from "next/image";
 import { Footer } from "../components/Footer";
-import { Card, MasterClass } from "../utils/types";
 import { MasterClassCard } from "../components/MasterClass";
-import { jost, satoshi } from "../utils/Fonts";
-import { cards, discussions, masterClasses } from "../utils/data";
 import { DiscussionCard } from "../components/DiscussionCard";
 import { MdArrowForwardIos } from "react-icons/md";
 import Navbar from "../components/Navbar";
 import { useRouter } from "next/navigation";
+import { ManagedUI } from "../hooks/useModalContext";
+import { Card, MasterClass } from "../types/types";
+import { jost, satoshi } from "../fonts/Fonts";
+import { cards, discussions, masterClasses } from "../lib/data/data";
 
 export default function Home() {
   const router = useRouter();
+  const { openModal, setOpenModal } = useContext(ManagedUI);
   return (
     <main className=" ">
       <Navbar />
@@ -34,7 +37,10 @@ export default function Home() {
                 Every farmer needs a community for a successful farming venture
               </p>
               <button
-                onClick={() => router.push("/signup")}
+                onClick={() => {
+                  setOpenModal(true)
+                  router.push('/signup')
+                }}
                 className={`bg-[#2F9B4E] rounded-md py-[14px] px-[24px] flex items-center justify-center mt-[40px] text-white text-center text-[16px] tracking-[-0.04em] leading-[22px] font-[700]  ${satoshi.className}`}
               >
                 Join Community
@@ -191,7 +197,7 @@ export default function Home() {
             Discussions
           </span>
           <div className="mt-[20px] bg-white md:mx-[10px] lg:mx-[150px] ">
-            <div className="pt-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[460px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
+            <div className="py-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[760px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
               {discussions.map((discussion, indx) => {
                 return (
                   <DiscussionCard
