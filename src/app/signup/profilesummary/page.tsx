@@ -1,18 +1,15 @@
 "use client";
-import React, { useContext } from "react";
-import { ManagedUI } from "@/src/hooks/useModalContext";
+import React from "react";
 import { useRouter } from "next/navigation";
 import {
   MdArrowBackIos,
   MdKeyboardArrowRight,
   MdOutlineEdit,
 } from "react-icons/md";
-import Modal from "@/src/components/Modal";
 import { jost, satoshi } from "@/src/fonts/Fonts";
 
 const ProfileSummary = () => {
   const router = useRouter();
-  const { openModal, setOpenModal } = useContext(ManagedUI);
 
   return (
     <div className="mt-[100px] w-full max-w-[1440px] mx-auto flex">
