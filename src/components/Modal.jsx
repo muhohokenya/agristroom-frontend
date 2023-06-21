@@ -6,12 +6,13 @@ import { createPortal } from 'react-dom';
 import {useRouter} from "next/navigation"
 
 
+
 function Modal(props) {
     const {children} = props;
     const {setOpenModal} = useContext(ManagedUI);
     const modalRef = useRef();
     const router = useRouter();
-
+    
     const closeModal = (e) => {
         if(modalRef.current === e.target){
             router.back()
@@ -23,7 +24,7 @@ function Modal(props) {
         <div 
         ref={modalRef}
         onClick={(e) => closeModal(e)}
-        className="absolute w-[100vw] h-[100vh] z-[999] top-0 left-0 flex justify-center items-center bg-zinc-300 ">
+        className="fixed w-[100vw] min-h-screen z-[999] top-0 left-0 flex justify-center items-center bg-black/70 ">
             {children}
         </div>, document.body
     )

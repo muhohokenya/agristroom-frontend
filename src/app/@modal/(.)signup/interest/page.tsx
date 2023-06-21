@@ -57,7 +57,9 @@ function Page(props: Props) {
   const {} = props;
 
   return (
-    <div className="mt-[100px] w-full max-w-[1440px] mx-auto flex">
+    <div className=" absolute w-full max-w-[1440px] mx-auto flex">
+      {openModal && (
+        <Modal>
           <div className=" flex flex-col  max-h-[500px] items-start  lg:max-h-[500px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md">
             <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
               <MdArrowBackIos
@@ -133,6 +135,8 @@ function Page(props: Props) {
               {topicFound === "" ? "Continue" : "Add Topic"}
             </button>
           </div>
+        </Modal>
+      )}
     </div>
   );
 }

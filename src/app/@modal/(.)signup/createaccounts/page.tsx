@@ -22,7 +22,9 @@ function CreateAccountAs(props: Props) {
   const {} = props;
 
   return (
-    <div className="mt-[100px] w-full max-w-[1440px] mx-auto flex ">
+    <div className="mt-[100px] absolute w-full max-w-[1440px] mx-auto flex ">
+      {openModal && (
+        <Modal>
           <div className=" relative flex flex-col items-center justify-center max-h-[638px] lg:max-h-[565px] mt-10 py-[40px] bg-white w-full max-w-[400px] lg:max-w-[638px] mx-auto rounded-md">
             <h2
               className={`font-[600] text-[20px] leading-[24px]  tracking-[0.04em] text-[#212121]`}
@@ -81,6 +83,8 @@ function CreateAccountAs(props: Props) {
               Continue
             </button>
           </div>
+        </Modal>
+      )}
     </div>
   );
 }

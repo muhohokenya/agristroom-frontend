@@ -20,15 +20,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body
         className={`${inter.className} min-h-screen flex flex-col  bg-[#FAFAFA] w-full`}
       >
-        <ManagedUIProvider>{children}</ManagedUIProvider>
+        <ManagedUIProvider>
+          {children}
+          {modal}
+        </ManagedUIProvider>
       </body>
     </html>
   );

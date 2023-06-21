@@ -1,27 +1,27 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import Modal from "@/src/components/Modal";
 import { MdClose } from "react-icons/md";
-import { satoshi } from "@/src/fonts/Fonts";
+import { useRouter } from "next/navigation";
+import Button from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
 
-interface Props {}
-
-function SignUp(props: Props) {
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { openModal, setOpenModal } = useContext(ManagedUI);
+
   const router = useRouter();
-  const {} = props;
 
   return (
-    <div className="mt-[100px] w-full max-w-[1440px] mx-auto flex">
-          <div className="relative flex flex-col items-center justify-center max-h-[550px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md">
+    <div className="mt-[100px] absolute w-full max-w-[1440px] mx-auto flex">
+      {openModal && (
+        <Modal>
+          <div className="relative flex flex-col items-center justify-center max-h-[550px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[550px] mx-auto rounded-md">
             <MdClose
               className="absolute top-3 right-3 text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
               onClick={() => {
@@ -29,13 +29,14 @@ function SignUp(props: Props) {
                 setOpenModal(false);
               }}
             />
-            <div className="flex mt-[30px] ">
+            <div className="flex mt-[30px]">
               <h2
                 className={`font-[600] text-[20px] leading-[24px]  tracking-[0.04em] text-[#212121]`}
               >
-                Sign Up to Agristroom
+                Login In to Agristroom
               </h2>
             </div>
+
             <div className="mt-[15px] flex flex-col gap-[10px] lg:mt-[35px] w-full max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
               <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]   ">
                 <FcGoogle className="h-[24px] w-[23.85px]" />
@@ -58,12 +59,20 @@ function SignUp(props: Props) {
             <div className="w-full flex flex-col gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
               <div className="flex flex-col gap-[8px] w-full ">
                 <label>Email Address</label>
-                <Input className="focus-visible:ring-[#2F9B4E]" />
+                <div className="relative flex items-center">
+                  <Input
+                    type={"text"}
+                    className="focus-visible:ring-[#2F9B4E] w-full"
+                  />
+                </div>
               </div>
               <div className="flex flex-col gap-[8px] w-full">
                 <label>Password</label>
                 <div className="relative flex items-center">
-                  <Input type={showPassword ? "text" : "password"} className="focus-visible:ring-[#2F9B4E]" />
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    className="focus-visible:ring-[#2F9B4E] w-full"
+                  />
                   <FaEyeSlash
                     onClick={() => {
                       setShowPassword(!showPassword);
@@ -76,29 +85,22 @@ function SignUp(props: Props) {
             <p className="mt-[10px] text-[#2F9B4E] mx-[15px] lg:mx-[40px] text-[12px] leading-[16px] tracking-[-0.04em] font-[500] w-full max-w-[315px] lg:min-w-[394px]  text-end">
               Forgot password?
             </p>
-            <button
-              type="button"
-              onClick={() => {
-                setOpenModal(true);
-                router.push("/signup/createaccounts");
-              }}
-              className={`mt-[35px] bg-[#2F9B4E]  max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.04em] ${satoshi.className}`}
-            >
-              Continue
-            </button>
+            <Button text="Log In" />
 
             <div className="mt-[15px] text-[14px] text-[#212121]/50 font-[500] leading-[19px] tracking-[-0.04em]">
-              Already have an account?{" "}
+              Dont have an account yet?{" "}
               <Link
                 className="ml-[5px] font-[700] text-[#2F9B4E]"
-                href="/login"
+                href="/signup"
               >
-                Log In
+                Sign Up
               </Link>
             </div>
           </div>
+        </Modal>
+      )}
     </div>
   );
-}
+};
 
-export default SignUp;
+export default Login;

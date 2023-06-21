@@ -10,7 +10,9 @@ const AddTopic = () => {
   const router = useRouter();
   const { openModal, setOpenModal } = useContext(ManagedUI);
   return (
-    <div className="mt-[100px] w-full max-w-[1440px] mx-auto flex">
+    <div className="mt-[100px] absolute w-full max-w-[1440px] mx-auto flex">
+      {openModal && (
+        <Modal>
           <div className=" flex flex-col  max-h-[262px] items-start  lg:max-h-[309px] mt-10 py-[20px] lg:py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[474px] mx-auto rounded-md">
             <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
               <MdArrowBackIos
@@ -49,6 +51,8 @@ const AddTopic = () => {
               </button>
             </div>
           </div>
+        </Modal>
+      )}
     </div>
   );
 };
