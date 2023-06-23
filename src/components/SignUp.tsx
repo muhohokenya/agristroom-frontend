@@ -23,8 +23,8 @@ function SignUpPage(props: Props) {
       <MdClose
         className="absolute top-3 right-3 text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
         onClick={() => {
-          router.push("/");
-          setOpenModal(false);
+          router.back();
+        //   setOpenModal(false);
         }}
       />
       <div className="flex mt-[30px] ">
