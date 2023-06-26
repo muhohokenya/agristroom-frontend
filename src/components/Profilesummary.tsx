@@ -41,7 +41,7 @@ const ProfileSummary = () => {
     phone_number: "+254704078652",
     password: userData?.password
   }
-  console.log("userData", obj, userRegisterData, selectedAccount);
+  console.log("userData",  userRegisterData, selectedAccount);
 
   const createUserAccount = async() => {
     setLoading(true)
