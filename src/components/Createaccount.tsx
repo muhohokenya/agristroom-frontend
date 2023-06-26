@@ -13,7 +13,8 @@ function CreateAccountAs(props: Props) {
   const router = useRouter();
   const [selectedAccount, setSelectedAccount] = useState("");
 
-  const {} = props;
+  console.log("<selected account", selectedAccount);
+  
 
   return (
       <div className=" relative flex flex-col items-center justify-center max-h-[638px] lg:max-h-[565px] mt-10 py-[40px] bg-white w-full max-w-[400px] lg:max-w-[638px] mx-auto rounded-md shadow-md">
@@ -27,7 +28,7 @@ function CreateAccountAs(props: Props) {
             return (
               <div
                 onClick={() =>
-                  setSelectedAccount(selectedAccount === name ? "" : name)
+                    setSelectedAccount(selectedAccount === name ? "" : name)
                 }
                 key={indx}
                 className={`relative flex flex-col items-center cursor-pointer ${
@@ -66,7 +67,11 @@ function CreateAccountAs(props: Props) {
         </div>
         <button
           type="button"
-          onClick={() => router.push("/signup/accountinformations")}
+          onClick={() => {
+            router.push("/signup/accountinformations")
+            localStorage.setItem("selectedAcount",JSON.stringify(selectedAccount))
+          }
+          }
           className={`mt-[35px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[560px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
         >
           Continue

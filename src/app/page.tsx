@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useContext} from "react"
+import React, {useContext} from "react";
 import Image from "next/image";
 import { Footer } from "../components/Footer";
 import { MasterClassCard } from "../components/MasterClass";
@@ -12,12 +12,13 @@ import { ManagedUI } from "../hooks/useModalContext";
 import { Card, MasterClass } from "../types/types";
 import { jost, satoshi } from "../fonts/Fonts";
 import { cards, discussions, masterClasses } from "../lib/data/data";
+import { CarouselComponent } from "../components/Carousel";
 
 export default function Home() {
   const router = useRouter();
   const { openModal, setOpenModal } = useContext(ManagedUI);
   return (
-    <main className=" ">
+    <main className="">
       <Navbar />
       <div className="bg-[#FAFAFA] w-full">
         <div className="max-w-[1440px] mx-auto w-full">
@@ -347,6 +348,9 @@ export default function Home() {
           >
             <span className="text-[#212121]">Popular</span> Guides & Tutorials
           </h2>
+          <CarouselComponent>
+        
+          </CarouselComponent>
           <div className="mt-[20px]  lg:mt-[30px] grid gap-[21px] place-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-[15px] lg:mx-[100px] items-center">
             <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
               <Image

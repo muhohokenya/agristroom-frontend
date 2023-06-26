@@ -9,14 +9,33 @@ import { ManagedUI } from "@/src/hooks/useModalContext";
 import { MdClose } from "react-icons/md";
 import { satoshi } from "@/src/fonts/Fonts";
 import { Input } from "@/src/components/ui/Input";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { log } from "console";
+import { json } from "stream/consumers";
 
 interface Props {}
+type Inputs = {
+  email: string;
+  password: string;
+};
 
 function SignUpPage(props: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const { setOpenModal } = useContext(ManagedUI);
   const router = useRouter();
-  const {} = props;
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isLoading },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    localStorage.setItem("user_data", JSON.stringify(data));
+    console.log("data entered", data);
+  };
+
+  console.log("<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>");
 
   return (
     <div className="relative flex flex-col items-center justify-center max-h-[550px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
@@ -24,7 +43,7 @@ function SignUpPage(props: Props) {
         className="absolute top-3 right-3 text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
         onClick={() => {
           router.back();
-        //   setOpenModal(false);
+          //   setOpenModal(false);
         }}
       />
       <div className="flex mt-[30px] ">
@@ -53,40 +72,55 @@ function SignUpPage(props: Props) {
           Or log in with email
         </p>
       </div>
-      <div className="w-full flex flex-col gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
-        <div className="flex flex-col gap-[8px] w-full ">
-          <label>Email Address</label>
-          <Input className="focus-visible:ring-[#2F9B4E]" />
-        </div>
-        <div className="flex flex-col gap-[8px] w-full">
-          <label>Password</label>
-          <div className="relative flex items-center">
+      <form
+        action=""
+        className="flex flex-col w-full"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="w-full flex flex-col gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
+          <div className="flex flex-col gap-[8px] w-full ">
+            <label>Email Address</label>
             <Input
-              type={showPassword ? "text" : "password"}
               className="focus-visible:ring-[#2F9B4E]"
-            />
-            <FaEyeSlash
-              onClick={() => {
-                setShowPassword(!showPassword);
-              }}
-              className="absolute cursor-pointer right-3  h-6 w-6 text-[#282828]/70"
+              {...register("email", { required: true })}
             />
           </div>
+          <div className="flex flex-col gap-[8px] w-full">
+            <label>Password</label>
+            <div className="relative flex items-center">
+              <Input
+                type={showPassword ? "text" : "password"}
+                className="focus-visible:ring-[#2F9B4E]"
+                {...register("password", { required: true })}
+              />
+              <FaEyeSlash
+                onClick={() => {
+                  setShowPassword(!showPassword);
+                }}
+                className="absolute cursor-pointer right-3  h-6 w-6 text-[#282828]/70"
+              />
+            </div>
+            {errors.password && (
+              <span className="text-red-500">Password is required</span>
+            )}
+          </div>
         </div>
-      </div>
-      <p className="mt-[10px] text-[#2F9B4E] mx-[15px] lg:mx-[40px] text-[12px] leading-[16px] tracking-[-0.04em] font-[500] w-full max-w-[315px] lg:min-w-[394px]  text-end">
-        Forgot password?
-      </p>
-      <button
-        type="button"
-        onClick={() => {
-          setOpenModal(true);
-          router.push("/signup/createaccounts");
-        }}
-        className={`mt-[35px] bg-[#2F9B4E]  max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.04em] ${satoshi.className}`}
-      >
-        Continue
-      </button>
+        <p className="mt-[10px] text-[#2F9B4E] mx-[15px] lg:mx-[40px] text-[12px] leading-[16px] tracking-[-0.04em] font-[500] w-full max-w-[315px] lg:min-w-[394px]  text-end">
+          Forgot password?
+        </p>
+        <div className="flex w-full mt-[35px] items-center justify-center">
+          <button
+            type="submit"
+            onClick={() => {
+              setOpenModal(true);
+              router.push("/signup/createaccounts");
+            }}
+            className={` bg-[#2F9B4E]  max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.04em] ${satoshi.className}`}
+          >
+            Continue
+          </button>
+        </div>
+      </form>
 
       <div className="mt-[15px] text-[14px] text-[#212121]/50 font-[500] leading-[19px] tracking-[-0.04em]">
         Already have an account?{" "}

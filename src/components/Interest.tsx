@@ -10,7 +10,35 @@ import { jost, satoshi } from "@/src/fonts/Fonts";
 
 interface Props {}
 
-const interests = [
+const interestList = [
+  // {
+  //   name: "Apples",
+  //   image: "🍎"
+  // },
+  // {
+  //   name: "Pears",
+  //   image: "🍐"
+  // },
+  // {
+  //   name: "Green Apples",
+  //   image: "🍏"
+  // },
+  // {
+  //   name: "Carrots",
+  //   image: "🥕"
+  // },
+  // {
+  //   name: "Lemons",
+  //   image: "🍋"
+  // },
+  // {
+  //   name: "Strawberries",
+  //   image: "🍓"
+  // },
+  // {
+  //   name: "Watermelons",
+  //   image: "🍉"
+  // },
   "🍎  Apples",
   "🍐  Pears",
   "🍏  Green Apples",
@@ -25,7 +53,7 @@ const interests = [
 
 function InterestPage(props: Props) {
   const router = useRouter();
-  const [interest, setInterest] = useState("");
+  const [interests, setInterest] = useState<string[]>([]);
   const { setOpenModal } = useContext(ManagedUI);
   const [topic, setTopic] = useState("");
   const [topicFound, setTopicFound] = useState("");
@@ -33,11 +61,6 @@ function InterestPage(props: Props) {
     string[] | undefined
   >([]);
 
-  const onInterestChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!interests.includes(interest)) {
-      setTopicFound("Topic not found");
-    }
-  };
 
   const removeitem = (topic: string) => {
     if (selectedInterests?.includes(topic)) {
@@ -48,6 +71,18 @@ function InterestPage(props: Props) {
       setSelectedInterests(updatedArray);
     }
   };
+
+  const interestChange = () => {
+   if(topicFound === ""){
+    setInterest(interestList);
+   }
+   const filtered = interestList.filter((item) => {
+    if(item.toLowerCase().includes(topicFound.toLowerCase())) return item
+   })
+
+   setInterest(filtered)
+   
+  }
 
   console.log("interest:", selectedInterests);
   console.log("topic:", topic);
@@ -77,10 +112,13 @@ function InterestPage(props: Props) {
             What are your interests?
           </p>
           <div className="flex items-center  gap-[5px] w-full ">
-            <BiSearch className="-mr-10 text-2xl text-[#BFBFBF]/60 h-[25px] w-[27px]" />
+            <BiSearch className="-mr-10 text-2xl text-[#BFBFBF]/60 h-[25px] w-[27px] cursor-pointer" />
             <input
               placeholder="Search Topic"
-              onChange={onInterestChange}
+              onChange={(e) => {
+                setTopicFound(e.target.value)
+                interestChange()
+              }}
               type="text"
               className="w-full bg-transparent  h-[48px] mx-[5px] pl-10 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px] bg-[#FFFFFF] focus:outline focus:outline-[#BFBFBF]/60 "
             />
@@ -88,7 +126,7 @@ function InterestPage(props: Props) {
 
           <div className="flex flex-wrap gap-[20px]">
             {topicFound === "" ? (
-              interests.map((topic: string, indx) => {
+              interestList.map((topic: string, indx) => {
                 return (
                   <div
                     key={indx}
@@ -117,13 +155,22 @@ function InterestPage(props: Props) {
             )}
           </div>
         </div>
+        {
+          topicFound === "" && (
+        <div className="flex items-center  py-2 ml-auto  justify-end max-w-[315px] lg:min-w-[494px] mx-[15px] lg:mx-[40px]">
+          <p className="w-full text-end text-[12px]  text-[#212121]/70">You have selected {selectedInterests?.length} item/s</p>
+        </div>
+
+          )
+        }
 
         <button
           onClick={() => {
             setOpenModal(true);
             topicFound === ""
-              ? router.push("/signup/profilesummary")
+              ?  router.push("/signup/profilesummary")
               : router.push("/signup/addtopic");
+              localStorage.setItem("interest",JSON.stringify(selectedInterests))
           }}
           className={`mt-[35px] mx-[15px] lg:mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[494px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
         >

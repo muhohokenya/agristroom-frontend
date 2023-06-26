@@ -1,5 +1,5 @@
 "use client";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import { useRouter } from "next/navigation";
 import {
   MdArrowBackIos,
@@ -8,10 +8,52 @@ import {
 } from "react-icons/md";
 import { jost, satoshi } from "@/src/fonts/Fonts";
 import { ManagedUI } from "../hooks/useModalContext";
+import { AiOutlineReload } from "react-icons/ai";
+import { useAppDispatch } from "../hooks/react-redux-hooks";
+import { signUpUserAction } from "../redux/actions/auth.action";
+import { UserRegisterData } from "../types/types";
 
 const ProfileSummary = () => {
   const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
+  const dispatch = useAppDispatch();
+  const userData:any =  JSON.parse(localStorage.getItem("user_data")!);
+  const selectedAccount:any =  localStorage.getItem("selectedAcount")!;
+  const userInfo:any =  JSON.parse(localStorage.getItem("user_info")!);
+  const interests:any =  JSON.parse(localStorage.getItem("interest")!);
+
+  const [loading, setLoading] = useState(false);
+  
+  const obj = {
+    accountType: selectedAccount,
+    fullName: `${userInfo?.firstName} ${userInfo?.lastName}`,
+    email: userData?.email,
+    password: userData?.password,
+    userName: userInfo?.userName,
+    phone: "+254704078652",
+    interests: interests
+  }
+  
+  const userRegisterData:UserRegisterData = {
+    first_name: userInfo?.firstName,
+    last_name: userInfo?.lastName,
+    email: userData?.email,
+    phone_number: "+254704078652",
+    password: userData?.password
+  }
+  console.log("userData", obj, userRegisterData, selectedAccount);
+
+  const createUserAccount = async() => {
+    setLoading(true)
+    console.log("registering user");
+    const res = await dispatch(signUpUserAction(userRegisterData))
+    console.log("res", res);
+    
+    setLoading(false)
+  }
+  
+
+  
 
   return (
       <div className=" flex flex-col  max-h-[500px] items-start  lg:max-h-[600px] mt-10 py-[20px] lg:py-[40px] bg-white w-full  max-w-[345px] lg:min-w-[574px] mx-auto rounded-md shadow-md">
@@ -61,31 +103,31 @@ const ProfileSummary = () => {
               <span
                 className={`flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
               >
-                Account Type{" "}
+                {obj.accountType}{" "}
                 <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
               </span>
               <span
                 className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
               >
-                Jack Harlow{" "}
+                {obj.fullName}{" "}
                 <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
               </span>
               <span
                 className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
               >
-                Jack12345@gmail.com{" "}
+                {obj.email}{" "}
                 <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
               </span>
               <span
                 className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
               >
-                @JackieHarlow{" "}
+                {obj.userName}{" "}
                 <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
               </span>
               <span
                 className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
               >
-                +254 718291231{" "}
+                {obj.phone}{" "}
                 <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
               </span>
             </div>
@@ -107,31 +149,32 @@ const ProfileSummary = () => {
           </div>
 
           <div className="flex gap-[6px] flex-wrap  items-center w-full  mt-[13px]">
-            <span
-              className={`bg-[#D7FBD7] cursor-pointer py-[5px] px-[8px] rounded-[30px] text-[14px] leading-[19px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
-            >
-              🍎 Apples
-            </span>
-            <span
-              className={`bg-[#D7FBD7] cursor-pointer py-[5px] px-[8px] rounded-[30px] text-[14px] leading-[19px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
-            >
-              🍎 Apples
-            </span>
-            <span
-              className={`bg-[#D7FBD7] cursor-pointer py-[5px] px-[8px] rounded-[30px] text-[14px] leading-[19px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
-            >
-              🍎 Apples
-            </span>
+            {
+              obj.interests.map((interest: any, indx: React.Key | null | undefined) => {
+                return (
+                  <span
+                  key={indx}
+                  className={`bg-[#D7FBD7] cursor-pointer py-[5px] px-[8px] rounded-[30px] text-[14px] leading-[19px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
+                >
+                  {interest}
+                </span>
+                )
+              })
+            }
+           
           </div>
 
           <button
             onClick={() => {
+              createUserAccount()
                 setOpenModal(false)
                 router.push("/dashboard")
             }}
-            className={`my-[40px] mx-[15px] lg:mx-[40px] bg-[#2F9B4E] min-w-[315px] lg:min-w-[474px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
+            disabled={loading}
+            className={`my-[40px] ${loading && 'cursor-not-allowed'} flex items-center justify-center gap-3 mx-[15px] lg:mx-[40px] bg-[#2F9B4E] min-w-[315px] lg:min-w-[474px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
           >
-            Create Account
+           {loading ? (<AiOutlineReload className="spin h-8 w-9" />) : "Create Account"} 
+            
           </button>
         </div>
       </div>

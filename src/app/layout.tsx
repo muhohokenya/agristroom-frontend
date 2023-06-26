@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import "../styles/globals.css";
 import { Inter } from "next/font/google";
 import { ManagedUIProvider } from "../hooks/useModalContext";
+import { Providers } from "../redux/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,10 +31,12 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen flex flex-col  bg-[#FAFAFA] w-full`}
       >
-        <ManagedUIProvider>
-          {children}
-          {modal}
-        </ManagedUIProvider>
+        <Providers>
+          <ManagedUIProvider>
+            {children}
+            {modal}
+          </ManagedUIProvider>
+        </Providers>
       </body>
     </html>
   );

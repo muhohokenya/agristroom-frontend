@@ -53,3 +53,11 @@ export interface ICountry {
   // "unicode": string,
   // "image": string
 }
+
+export interface UserRegisterData {
+  first_name: string,
+    last_name: string,
+    email: string,
+    phone_number: string,
+    password: string
+}
