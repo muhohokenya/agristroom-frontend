@@ -9,14 +9,33 @@ import { MdArrowForwardIos } from "react-icons/md";
 import Navbar from "../components/Navbar";
 import { useRouter } from "next/navigation";
 import { ManagedUI } from "../hooks/useModalContext";
-import { Card, MasterClass } from "../types/types";
+import { Card, MasterClass, UserRegisterData } from "../types/types";
 import { jost, satoshi } from "../fonts/Fonts";
 import { cards, discussions, masterClasses } from "../lib/data/data";
 import { CarouselComponent } from "../components/Carousel";
+import { useAppDispatch } from "../hooks/react-redux-hooks";
+import { signUpUserAction } from "../redux/actions/auth.action";
 
 export default function Home() {
   const router = useRouter();
   const { openModal, setOpenModal } = useContext(ManagedUI);
+  const dispatch = useAppDispatch()
+
+  const userRegisterData:UserRegisterData = {
+    first_name: "Samuel",
+    last_name: "Kirigha",
+    email: "sammy@test.com",
+    phone_number: "+254704078652",
+    password: "Password1234"
+  }
+
+  const createUserAccount = async() => {
+    console.log("registering user");
+    const res = await dispatch(signUpUserAction(userRegisterData))
+    console.log("res", res);
+  }
+
+
   return (
     <main className="">
       <Navbar />
@@ -39,8 +58,9 @@ export default function Home() {
               </p>
               <button
                 onClick={() => {
-                  setOpenModal(true)
-                  router.push('/signup')
+                  createUserAccount()
+                  // setOpenModal(true)
+                  // router.push('/signup')
                 }}
                 className={`bg-[#2F9B4E] rounded-md py-[14px] px-[24px] flex items-center justify-center mt-[40px] text-white text-center text-[16px] tracking-[-0.04em] leading-[22px] font-[700]  ${satoshi.className}`}
               >
