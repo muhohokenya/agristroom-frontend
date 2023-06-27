@@ -4,10 +4,10 @@ import { MdArrowBackIos } from "react-icons/md";
 import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { ManagedUI } from "@/src/hooks/useModalContext";
-import PhoneInput from "@/src/components/ui/PhoneInput";
 import { jost, satoshi } from "@/src/fonts/Fonts";
 import {SubmitHandler, useForm} from "react-hook-form"
 import { Input } from "./ui/Input";
+import { PhoneInput } from "./ui/PhoneInput";
 
 interface Props {}
 
