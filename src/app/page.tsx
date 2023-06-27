@@ -23,7 +23,7 @@ export default function Home() {
 
   useEffect(() => {
     const checkWidthSize = () => {
-      if(typeof window !== "undefined"){
+      if (typeof window !== "undefined") {
         if (window.innerWidth > 866) {
           setShow(3);
         } else if (window.innerWidth > 600) {
@@ -31,9 +31,8 @@ export default function Home() {
         } else {
           setShow(1);
         }
-      };
       }
-      
+    };
 
     checkWidthSize();
 
@@ -45,22 +44,21 @@ export default function Home() {
 
   console.log("show", show);
 
-  const userRegisterData:UserRegisterData = {
-    first_name: "Sammy",
-    last_name: "Kirigha",
-    email: "sammy@gmail.com",
-    phone_number: "+254704078652",
-    password: "password"
-  }
+  // const userRegisterData: UserRegisterData = {
+  //   first_name: "Sammy",
+  //   last_name: "Kirigha",
+  //   email: "sammy@gmail.com",
+  //   phone_number: "+254704078652",
+  //   password: "password",
+  // };
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-
-  const createUserAccount = async() => {
+  const createUserAccount = async () => {
     console.log("registering user");
-    const res = await dispatch(signUpUserAction(userRegisterData))
+    const res = await dispatch(signUpUserAction());
     console.log("res", res);
-  }
+  };
 
   return (
     <main className="">
@@ -84,7 +82,7 @@ export default function Home() {
               </p>
               <button
                 onClick={() => {
-                  createUserAccount()
+                  createUserAccount();
                   // setOpenModal(true);
                   // router.push("/signup");
                 }}
@@ -244,7 +242,7 @@ export default function Home() {
             Discussions
           </span>
           <div className="mt-[20px] bg-white md:mx-[10px] lg:mx-[150px] ">
-            <div className="py-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[760px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
+            <div className="py-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[500px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
               {discussions.map((discussion, indx) => {
                 return (
                   <DiscussionCard
@@ -678,41 +676,51 @@ const Partners = () => {
           <span className="text-[#212121]">Our</span> Partners
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[70px] mt-[31px] mb-[91px]  items-center">
-          <Image
-            src="/partners/wefarm.png"
-            alt=""
-            width={164}
-            height={38}
-            className=""
-          />
-          <Image
-            src="/partners/equity.png"
-            alt=""
-            width={56}
-            height={40}
-            className=""
-          />
-          <Image
-            src="/partners/kcb.png"
-            alt=""
-            width={106}
-            height={38}
-            className=""
-          />
-          <Image
-            src="/partners/tridge.png"
-            alt=""
-            width={140}
-            height={22}
-            className=""
-          />
-          <Image
-            src="/partners/google.png"
-            alt=""
-            width={116}
-            height={40}
-            className=""
-          />
+          <div className=" max-w-[200px] flex items-center justify-center">
+            <Image
+              src="/partners/wefarm.png"
+              alt=""
+              width={164}
+              height={38}
+              className=""
+            />
+          </div>
+          <div className=" max-w-[200px] flex items-center justify-center">
+            <Image
+              src="/partners/equity.png"
+              alt=""
+              width={56}
+              height={40}
+              className=""
+            />
+          </div>
+          <div className=" max-w-[200px] flex items-center justify-center">
+            <Image
+              src="/partners/kcb.png"
+              alt=""
+              width={106}
+              height={38}
+              className=""
+            />
+          </div>
+          <div className=" max-w-[200px] flex items-center justify-center">
+            <Image
+              src="/partners/tridge.png"
+              alt=""
+              width={140}
+              height={22}
+              className=""
+            />
+          </div>
+          <div className=" max-w-[200px] flex items-center justify-center">
+            <Image
+              src="/partners/google.png"
+              alt=""
+              width={116}
+              height={40}
+              className=""
+            />
+          </div>
         </div>
       </div>
     </div>
