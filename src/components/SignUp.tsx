@@ -35,8 +35,6 @@ function SignUpPage(props: Props) {
     console.log("data entered", data);
   };
 
-  console.log("<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>");
-
   return (
     <div className="relative flex flex-col items-center justify-center max-h-[550px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
       <MdClose
