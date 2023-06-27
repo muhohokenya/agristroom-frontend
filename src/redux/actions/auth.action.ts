@@ -7,19 +7,10 @@ import { BaseURL } from "@/src/lib/constants";
 
 export const signUpUserAction = createAsyncThunk(
   "user/signup",
-  async (thunkAPI) => {
+  async (data: UserRegisterData, thunkAPI) => {
     try {
-    //   thunkAPI.dispatch(resetNotifications({}));
-      const response = await axios.post(
-        `http://dev.agristroom.com/api/api/register`,
-        {
-          first_name: "Sammy",
-          last_name: "Kirigha",
-          email: "sammy@gmail.com",
-          phone_number: "+254704078652",
-          password: "password",
-        }
-      );
+      thunkAPI.dispatch(resetNotifications({}));
+      const response = await axios.post(`http://dev.agristroom.com/api/api/register`,data );
       console.log("response^^^^^^^&&&&&&&&&", response);
       return {
         access_token: response.data,

@@ -44,19 +44,17 @@ export default function Home() {
 
   console.log("show", show);
 
-  // const userRegisterData: UserRegisterData = {
-  //   first_name: "Sammy",
-  //   last_name: "Kirigha",
-  //   email: "sammy@gmail.com",
-  //   phone_number: "+254704078652",
-  //   password: "password",
-  // };
-
+  const data: UserRegisterData = {
+    first_name: "Sammy",
+    last_name: "Kirigha",
+    email: "sammy@gmail.com",
+    phone_number: "+254704078652",
+    password: "password",
+  };
   const dispatch = useAppDispatch();
-
   const createUserAccount = async () => {
     console.log("registering user");
-    const res = await dispatch(signUpUserAction());
+    const res = await dispatch(signUpUserAction(data));
     console.log("res", res);
   };
 
