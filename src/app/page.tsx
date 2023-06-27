@@ -165,7 +165,8 @@ export default function Home() {
           >
             <span className="text-[#212121] mr-2">Our</span>Communities
           </h1>
-          <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[20px] max-w-[1440px] mx-auto">
+          {/* <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[20px] max-w-[1440px] mx-auto"> */}
+          <CarouselComponent show={show}>
             {cards.map(({ ...card }, index) => {
               return (
                 <SingleCard
@@ -176,7 +177,9 @@ export default function Home() {
                 />
               );
             })}
-          </div>
+          </CarouselComponent>
+
+          {/* </div> */}
         </div>
       </div>
 
