@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useContext} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { Footer } from "../components/Footer";
 import { MasterClassCard } from "../components/MasterClass";
@@ -12,29 +12,55 @@ import { ManagedUI } from "../hooks/useModalContext";
 import { Card, MasterClass, UserRegisterData } from "../types/types";
 import { jost, satoshi } from "../fonts/Fonts";
 import { cards, discussions, masterClasses } from "../lib/data/data";
-import { CarouselComponent } from "../components/Carousel";
+import { CarouselComponent } from "../components/carousel/Carousel";
 import { useAppDispatch } from "../hooks/react-redux-hooks";
 import { signUpUserAction } from "../redux/actions/auth.action";
 
 export default function Home() {
   const router = useRouter();
   const { openModal, setOpenModal } = useContext(ManagedUI);
-  const dispatch = useAppDispatch()
+  const [show, setShow] = useState(3);
+
+  useEffect(() => {
+    const checkWidthSize = () => {
+      if(typeof window !== "undefined"){
+        if (window.innerWidth > 866) {
+          setShow(3);
+        } else if (window.innerWidth > 600) {
+          setShow(2);
+        } else {
+          setShow(1);
+        }
+      };
+      }
+      
+
+    checkWidthSize();
+
+    window.addEventListener("resize", checkWidthSize);
+    return () => {
+      window.removeEventListener("resize", checkWidthSize);
+    };
+  }, []);
+
+  console.log("show", show);
 
   const userRegisterData:UserRegisterData = {
-    first_name: "Samuel",
+    first_name: "Sammy",
     last_name: "Kirigha",
-    email: "sammy@test.com",
+    email: "sammy@gmail.com",
     phone_number: "+254704078652",
-    password: "Password1234"
+    password: "password"
   }
+
+  const dispatch = useAppDispatch()
+
 
   const createUserAccount = async() => {
     console.log("registering user");
     const res = await dispatch(signUpUserAction(userRegisterData))
     console.log("res", res);
   }
-
 
   return (
     <main className="">
@@ -59,8 +85,8 @@ export default function Home() {
               <button
                 onClick={() => {
                   createUserAccount()
-                  // setOpenModal(true)
-                  // router.push('/signup')
+                  // setOpenModal(true);
+                  // router.push("/signup");
                 }}
                 className={`bg-[#2F9B4E] rounded-md py-[14px] px-[24px] flex items-center justify-center mt-[40px] text-white text-center text-[16px] tracking-[-0.04em] leading-[22px] font-[700]  ${satoshi.className}`}
               >
@@ -257,8 +283,8 @@ export default function Home() {
             to contribute to a more sustainable and equitable future for all.
           </p>
           <div className="">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 items-center justify-between gap-[78px] mt-[50px] lg:mt-[92px] mx-[35px] lg:mx-[70px] ">
-              <div className="flex flex-col items-center justify-center gap-[19px]">
+            <CarouselComponent show={show > 3 ? 5 : 3}>
+              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
                 <Image
                   src="/people-two.png"
                   alt=""
@@ -272,7 +298,7 @@ export default function Home() {
                   No Poverty
                 </p>
               </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]">
+              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
                 <Image
                   src="/coffee.png"
                   alt=""
@@ -286,7 +312,7 @@ export default function Home() {
                   Zero Hunger
                 </p>
               </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]">
+              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
                 <Image
                   src="/health.png"
                   alt=""
@@ -300,7 +326,7 @@ export default function Home() {
                   Good Health and Well-being
                 </p>
               </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]">
+              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
                 <Image
                   src="/together.png"
                   alt=""
@@ -314,7 +340,7 @@ export default function Home() {
                   Partnership for the Goals
                 </p>
               </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]">
+              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
                 <Image
                   src="/education.png"
                   alt=""
@@ -328,7 +354,7 @@ export default function Home() {
                   Partnership for the Goals
                 </p>
               </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]">
+              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
                 <Image
                   src="/climate.png"
                   alt=""
@@ -342,7 +368,7 @@ export default function Home() {
                   Climate Actions
                 </p>
               </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]">
+              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
                 <Image
                   src="/life.png"
                   alt=""
@@ -356,7 +382,7 @@ export default function Home() {
                   Life on Land
                 </p>
               </div>
-            </div>
+            </CarouselComponent>
           </div>
         </div>
       </div>
@@ -368,10 +394,7 @@ export default function Home() {
           >
             <span className="text-[#212121]">Popular</span> Guides & Tutorials
           </h2>
-          <CarouselComponent>
-        
-          </CarouselComponent>
-          <div className="mt-[20px]  lg:mt-[30px] grid gap-[21px] place-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-[15px] lg:mx-[100px] items-center">
+          <CarouselComponent show={show}>
             <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
               <Image
                 src="/guide-images/apples-one.png"
@@ -470,7 +493,105 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
+              <Image
+                src="/guide-images/apples-one.png"
+                alt=""
+                width={399}
+                height={209}
+                className="rounded-t-md"
+              />
+              <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] ">
+                <h3
+                  className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
+                >
+                  Nutritional Program for Wambugu Apples
+                </h3>
+                <p
+                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
+                >
+                  Soil test is important to determine and understand fertilizer
+                  requirements for your apple farm. Both organic and inorganic
+                  fertilizers - foliar and basal are important to supply
+                  nutrient needs for the plant. Read on to understand timing and
+                  split application of fertilizers.
+                </p>
+                <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
+                  <span
+                    className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
+                  >
+                    Read More
+                  </span>
+                  <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
+              <Image
+                src="/guide-images/apples-two.png"
+                alt=""
+                width={399}
+                height={209}
+                className="rounded-t-md"
+              />
+              <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] ">
+                <h3
+                  className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
+                >
+                  Nutritional Program for Wambugu Apples
+                </h3>
+                <p
+                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
+                >
+                  Did you know the propagation story of the now popular Wambugu
+                  apple? Learn how this superb and all weather apple triumphs
+                  over other varieties and why you should choose it because of
+                  its distinctive features.
+                </p>
+                <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
+                  <span
+                    className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
+                  >
+                    Read More
+                  </span>
+                  <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
+              <Image
+                src="/guide-images/apples-three.png"
+                alt=""
+                width={399}
+                height={209}
+                className="rounded-t-md"
+              />
+              <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] ">
+                <h3
+                  className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
+                >
+                  Nutritional Program for Wambugu Apples
+                </h3>
+                <p
+                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
+                >
+                  Chinzinga shares how recent floods in Zambia swept away her 2
+                  acres of apples barely 2 months after planting. Learn more
+                  about how farm insurance helps smallholder farmers and advice
+                  from a farm insurance company on why smallholder farmers need
+                  to consider insurance.
+                </p>
+                <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
+                  <span
+                    className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
+                  >
+                    Read More
+                  </span>
+                  <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
+                </div>
+              </div>
+            </div>
+          </CarouselComponent>
         </div>
       </div>
 
@@ -482,7 +603,7 @@ export default function Home() {
             <span className="text-[#212121]">Current</span> Masterclasses
             Available
           </h2>
-          <div className="mt-[20px]  lg:mt-[30px] grid gap-[21px] grid-cols-1 place-items-center justify-center md:grid-cols-2 xl:grid-cols-3 mx-[15px] lg:mx-[100px] items-center">
+          <CarouselComponent show={show}>
             {masterClasses.map(
               (
                 {
@@ -516,7 +637,7 @@ export default function Home() {
                 );
               }
             )}
-          </div>
+          </CarouselComponent>
         </div>
       </div>
 
