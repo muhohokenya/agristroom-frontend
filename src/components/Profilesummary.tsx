@@ -9,22 +9,37 @@ import {
 import { jost, satoshi } from "@/src/fonts/Fonts";
 import { ManagedUI } from "../hooks/useModalContext";
 import { AiOutlineReload } from "react-icons/ai";
-import { useAppDispatch } from "../hooks/react-redux-hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
 import { signUpUserAction } from "../redux/actions/auth.action";
 import { UserRegisterData } from "../types/types";
+import { InterestType } from "./Interest";
+import { RootState } from "../redux";
+import { FaSpinner } from "react-icons/fa";
+import { toast } from "../hooks/use-toast";
 
 const ProfileSummary = () => {
   const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
+  const dispatch = useAppDispatch();
+  const result = useAppSelector((state: RootState) => state.auth)
+  const error = useAppSelector((state: RootState) => state.notifications)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+
+
   const [userInfo, setUerInfo] = useState<UserRegisterData>({
     first_name: "",
     last_name: "",
     email: "",
     phone_number: "",
     password: "",
+    account_id: "",
+    interests: [],
   });
   const [obj, setObj] = useState({
-    accountType: "",
+    accountType: {
+      id: "",
+      name: "",
+    },
     fullName: "",
     email: "",
     password: "",
@@ -32,7 +47,7 @@ const ProfileSummary = () => {
     phone: "",
     interests: [],
   });
-  const dispatch = useAppDispatch();
+  
 
   useEffect(() => {
     const userData: any = JSON.parse(localStorage.getItem("user_data")!);
@@ -60,23 +75,46 @@ const ProfileSummary = () => {
       email: userData?.email,
       phone_number: "+254704078652",
       password: userData?.password,
+      account_id: selectedAccount?.id,
+      interests: interests,
     };
 
     setUerInfo(userRegisterData);
   }, []);
 
-  const [loading, setLoading] = useState(false);
 
-  console.log("userInfo", userInfo);
 
   const createUserAccount = async () => {
-    setLoading(true);
-    console.log("registering user");
-    const res = await dispatch(signUpUserAction(userInfo));
-    console.log("res", res);
+    const res: any = await dispatch(signUpUserAction(userInfo));
+    setIsSubmitting(true)
+    console.log("response", res.payload);
 
-    setLoading(false);
+    if(res?.payload?.success){
+      setIsSubmitting(false)
+      toast({
+        title: "Account Created successfully",
+        description: "You can now login in with your credentials",
+        variant: "primary"
+      })
+      // setOpenModal(false);
+      router.push("/login");
+    }
+    
+    if(!res?.payload?.success || res.payload === undefined){
+      setIsSubmitting(false)
+      toast({
+        title: "There was a problem",
+        description: error.error,
+        variant: "destructive"
+      })
+      setOpenModal(false);
+      router.push("/");
+    }
   };
+
+  console.log("result", result, error.error);
+  
+
 
   return (
     <div className=" flex flex-col  max-h-[500px] items-start  lg:max-h-[600px] mt-10 py-[20px] lg:py-[40px] bg-white w-full  max-w-[345px] lg:min-w-[574px] mx-auto rounded-md shadow-md">
@@ -126,7 +164,7 @@ const ProfileSummary = () => {
             <span
               className={`flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
             >
-              {obj.accountType}{" "}
+              {obj.accountType.name}{" "}
               <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
             </span>
             <span
@@ -172,38 +210,30 @@ const ProfileSummary = () => {
         </div>
 
         <div className="flex gap-[6px] flex-wrap  items-center w-full  mt-[13px]">
-          {obj?.interests?.map(
-            (interest: any, indx: React.Key | null | undefined) => {
-              return (
-                <span
-                  key={indx}
-                  className={`bg-[#D7FBD7] cursor-pointer py-[5px] px-[8px] rounded-[30px] text-[14px] leading-[19px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
-                >
-                  {interest}
-                </span>
-              );
-            }
-          )}
+          {obj?.interests?.map((interest: InterestType, indx) => {
+            return (
+              <span
+                key={indx}
+                className={`bg-[#D7FBD7] cursor-pointer py-[5px] px-[8px] rounded-[30px] text-[14px] leading-[19px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
+              >
+                {interest.name}
+              </span>
+            );
+          })}
         </div>
 
         <button
           onClick={() => {
             createUserAccount();
-            setOpenModal(false);
-            router.push("/dashboard");
           }}
-          disabled={loading}
+          disabled={isSubmitting}
           className={`my-[40px] ${
-            loading && "cursor-not-allowed"
+            isSubmitting && "cursor-not-allowed"
           } flex items-center justify-center gap-3 mx-[15px] lg:mx-[40px] bg-[#2F9B4E] min-w-[315px] lg:min-w-[474px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${
             satoshi.className
           }`}
         >
-          {loading ? (
-            <AiOutlineReload className="spin h-8 w-9" />
-          ) : (
-            "Create Account"
-          )}
+          {isSubmitting && <FaSpinner className="animate-spin h-8 w-8 text-white" />} Create Account
         </button>
       </div>
     </div>

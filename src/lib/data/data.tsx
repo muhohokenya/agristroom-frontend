@@ -332,30 +332,37 @@ export const masterClasses: MasterClass[] = [
   export const accountTypes = [
    {
     Icon: <FaUsers className="h-8 w-8" />,
-    name: "A Farmer"
+    name: "A Farmer",
+    id: "1"
    },
    {
     Icon: <FaTractor className="h-8 w-8" />,
-    name: "An Agri-expert"
+    name: "An Agri-expert",
+    id: "2"
    },
    {
     Icon: <CiGlobe className="h-8 w-8" />,
-    name: "An Aggregator"
+    name: "An Aggregator",
+    id: "3"
    },
    {
     Icon: <BsShieldCheck className="h-8 w-8" />,
-    name: "Farm Insurance partner"
+    name: "Farm Insurance partner",
+    id: "4"
    },
    {
     Icon: <RiQuestionnaireFill className="h-8 w-8" />,
-    name: "Quality input supplier"
+    name: "Quality input supplier",
+    id: "5"
    },
    {
     Icon: <BsPeopleFill className="h-8 w-8" />,
-    name: "Agribusiness partner"
+    name: "Agribusiness partner",
+    id: "6"
    },
    {
     Icon: <AiFillBulb className="h-[32px] w-[32px]" />,
-    name: "Farm Intelligence"
+    name: "Farm Intelligence",
+    id: "7"
    },
   ]

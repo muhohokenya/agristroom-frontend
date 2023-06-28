@@ -47,13 +47,23 @@ export default function Home() {
   const data: UserRegisterData = {
     first_name: "Sammy",
     last_name: "Kirigha",
-    email: "sammy@gmail.com",
+    email: "samthedev@test.com",
     phone_number: "+254704078652",
     password: "password",
+    account_id: "1",
+    interests: [
+      {
+        id: "1"
+      },
+      {
+        id: "2"
+      },
+    ]
   };
+  
   const dispatch = useAppDispatch();
   const createUserAccount = async () => {
-    console.log("registering user");
+    console.log("registering this user", data);
     const res = await dispatch(signUpUserAction(data));
     console.log("res", res);
   };
