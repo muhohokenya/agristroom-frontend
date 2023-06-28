@@ -1,8 +1,9 @@
 import React, { ReactNode, useState } from "react";
 import DashHeader from "./dash-header";
 import DashSidebar from "./dash-sidebar";
+import { Skeleton } from "../../ui/Skeleton";
 
-const DashLayout = ({ children }: { children: ReactNode }) => {
+export const DashLayout = ({ children }: { children: ReactNode }) => {
   const [showSideNav, setShowSideNav] = useState(false);
 
   const toggleSideNav = () => {
@@ -26,4 +27,13 @@ const DashLayout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default DashLayout;
+DashLayout.Skeleton = function DashboardSkeleton() {
+  return (
+    <div className="p-4">
+      <div className="space-y-3">
+        <Skeleton className="h-5 w-2/5" />
+        <Skeleton className="h-4 w-4/5" />
+      </div>
+    </div>
+  );
+};

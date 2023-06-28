@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import Link from "next/link";
@@ -10,11 +10,12 @@ import Button from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
 import { RootState } from "../redux";
-import { loginUserAction } from "../redux/actions/auth.action";
+import { getCurrentUser, loginUserAction } from "../redux/actions/auth.action";
 import { useForm } from "react-hook-form";
 import { satoshi } from "../fonts/Fonts";
 import { toast } from "../hooks/use-toast";
 import { ManagedUI } from "../hooks/useModalContext";
+import { resetNotifications } from "../redux/features/error.reducer";
 
 type LoginInput = {
   email: string;
@@ -23,19 +24,21 @@ type LoginInput = {
 
 const Login = () => {
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
-  const { setOpenModal } = useContext(ManagedUI);
   const dispatch = useAppDispatch();
+  const { setOpenModal } = useContext(ManagedUI);
+  const { formState, handleSubmit, register } = useForm<LoginInput>();
+
+  // state
+  const [showPassword, setShowPassword] = useState(false);
   const result = useAppSelector((state: RootState) => state.auth);
   const error = useAppSelector((state: RootState) => state.notifications);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const { formState, handleSubmit, register } = useForm<LoginInput>();
+  
 
   const submitLogin = async (data: LoginInput) => {
     setIsSubmitting(true)
     const res: any = await dispatch(loginUserAction(data));
     localStorage.setItem("access_token", JSON.stringify(res.payload.login_token))
-    console.log("resonse", res);
     
     if(res.payload.success){
       setIsSubmitting(false)
@@ -44,8 +47,8 @@ const Login = () => {
         description: "You have successfully login in",
         variant: "primary"
       })
+      setOpenModal(false)
       router.push("/dashboard")
-      setOpenModal(false);
     }
 
     if(!res.payload.success){
@@ -57,15 +60,27 @@ const Login = () => {
       })
       router.refresh()
     }
-    // setIsSubmitting(true);
   };
+
+  useEffect(() => {
+  
+  },[])
+
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetNotifications({}));
+    };
+  }, [dispatch]);
+ 
 
   return (
     <div className="relative flex flex-col items-center justify-center max-h-[550px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
       <MdClose
         className="absolute top-3 right-3 text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
         onClick={() => {
-          router.back();
+          router.push("/");
+          setOpenModal(false)
         }}
       />
       <div className="flex mt-[30px]">

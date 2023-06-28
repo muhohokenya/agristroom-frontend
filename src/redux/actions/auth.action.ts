@@ -7,6 +7,7 @@ import { UserLoginData, UserRegisterData } from "@/src/types/types";
 import axios from "axios";
 import { BaseURL } from "@/src/lib/constants";
 import parseError from "../../lib/parseError";
+import { getLoggedInUserToken } from "@/src/lib/utils";
 
 export const signUpUserAction = createAsyncThunk(
   "user/signup",
@@ -49,3 +50,29 @@ export const loginUserAction = createAsyncThunk(
     }
   }
 );
+
+export const getCurrentUser = createAsyncThunk(
+  "user/me", 
+  async (_, thunkAPI) => {
+     try {
+      const accessToken = getLoggedInUserToken()
+      console.log("accessToken", accessToken);
+      
+      const response = await axios.get(`http://dev.agristroom.com/api/api/user`,{
+        headers: {
+          Authorization: `${accessToken.token_type} ${accessToken.access_token}`
+        }
+      } )
+      return {
+        user: response.data,
+        success: true
+      }
+     } catch (error) {
+      const err = parseError(error);
+      thunkAPI.dispatch(setErrorNotification(err));
+      return thunkAPI.rejectWithValue({
+        success: false,
+      });
+     }
+  }
+)
