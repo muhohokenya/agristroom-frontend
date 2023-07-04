@@ -2,24 +2,37 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
+import { MdArrowForwardIos } from "react-icons/md";
+import { jost, satoshi } from "../fonts/Fonts";
 import { Footer } from "../components/Footer";
 import { MasterClassCard } from "../components/MasterClass";
 import { DiscussionCard } from "../components/DiscussionCard";
-import { MdArrowForwardIos } from "react-icons/md";
 import Navbar from "../components/Navbar";
-import { useRouter } from "next/navigation";
-import { ManagedUI } from "../hooks/useModalContext";
-import { Card, MasterClass, UserRegisterData } from "../types/types";
-import { jost, satoshi } from "../fonts/Fonts";
-import { cards, discussions, masterClasses } from "../lib/data/data";
+import { Card, Guide, MasterClass } from "../types/types";
+import {
+  cards,
+  discussions,
+  guides,
+  masterClassesData,
+} from "../lib/data/data";
 import { CarouselComponent } from "../components/carousel/Carousel";
-import { useAppDispatch } from "../hooks/react-redux-hooks";
-import { signUpUserAction } from "../redux/actions/auth.action";
+
+import ResponsiveDemo from "../components/carousel/CarouselDemo";
+import { ManagedUI } from "../hooks/useModalContext";
+import { useRouter } from "next/navigation";
+import SampleCarousel, {
+  SampleCarouselItem,
+} from "../components/carousel/SampleCarousel";
+import { LikesViews } from "../components/LikesViews";
+import { SlotsLeft } from "../components/SlotsLeft";
 
 export default function Home() {
-  const router = useRouter();
-  const { openModal, setOpenModal } = useContext(ManagedUI);
   const [show, setShow] = useState(3);
+  const [communityCards, setCommunityCards] = useState<Card[]>([]);
+  const [popularguides, setGuides] = useState<Card[]>([]);
+  const [masterClasses, SetMasterClasses] = useState<MasterClass[]>([]);
+  const { setOpenModal } = useContext(ManagedUI);
+  const router = useRouter();
 
   useEffect(() => {
     const checkWidthSize = () => {
@@ -43,30 +56,11 @@ export default function Home() {
   }, []);
 
   console.log("show", show);
-
-  const data: UserRegisterData = {
-    first_name: "Sammy",
-    last_name: "Kirigha",
-    email: "samthedev@test.com",
-    phone_number: "+254704078652",
-    password: "password",
-    account_id: "1",
-    interests: [
-      {
-        id: "1"
-      },
-      {
-        id: "2"
-      },
-    ]
-  };
-  
-  const dispatch = useAppDispatch();
-  const createUserAccount = async () => {
-    console.log("registering this user", data);
-    const res = await dispatch(signUpUserAction(data));
-    console.log("res", res);
-  };
+  useEffect(() => {
+    setCommunityCards(cards);
+    setGuides(guides);
+    SetMasterClasses(masterClassesData);
+  }, []);
 
   return (
     <main className="">
@@ -90,9 +84,8 @@ export default function Home() {
               </p>
               <button
                 onClick={() => {
-                  createUserAccount();
-                  // setOpenModal(true);
-                  // router.push("/signup");
+                  setOpenModal(true);
+                  router.push("/signup");
                 }}
                 className={`bg-[#2F9B4E] rounded-md py-[14px] px-[24px] flex items-center justify-center mt-[40px] text-white text-center text-[16px] tracking-[-0.04em] leading-[22px] font-[700]  ${satoshi.className}`}
               >
@@ -173,21 +166,10 @@ export default function Home() {
           >
             <span className="text-[#212121] mr-2">Our</span>Communities
           </h1>
-          {/* <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[20px] max-w-[1440px] mx-auto"> */}
-          <CarouselComponent show={show}>
-            {cards.map(({ ...card }, index) => {
-              return (
-                <SingleCard
-                  heading={card.heading}
-                  text={card.text}
-                  image={card.image}
-                  key={index}
-                />
-              );
-            })}
-          </CarouselComponent>
-
-          {/* </div> */}
+          <ResponsiveDemo
+            values={communityCards}
+            template={SingleCardTemplate}
+          />
         </div>
       </div>
 
@@ -291,107 +273,106 @@ export default function Home() {
             United Nations 2030 Sustainable Development Goals, we will be able
             to contribute to a more sustainable and equitable future for all.
           </p>
-          <div className="">
-            <CarouselComponent show={show > 3 ? 5 : 3}>
-              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
-                <Image
-                  src="/people-two.png"
-                  alt=""
-                  width={142}
-                  height={61}
-                  className="w-[142px] h-[61px]"
-                />
-                <p
-                  className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-                >
-                  No Poverty
-                </p>
-              </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
-                <Image
-                  src="/coffee.png"
-                  alt=""
-                  width={70}
-                  height={60}
-                  className=""
-                />
-                <p
-                  className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-                >
-                  Zero Hunger
-                </p>
-              </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
-                <Image
-                  src="/health.png"
-                  alt=""
-                  width={86}
-                  height={60}
-                  className=""
-                />
-                <p
-                  className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-                >
-                  Good Health and Well-being
-                </p>
-              </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
-                <Image
-                  src="/together.png"
-                  alt=""
-                  width={61}
-                  height={60}
-                  className=""
-                />
-                <p
-                  className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-                >
-                  Partnership for the Goals
-                </p>
-              </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
-                <Image
-                  src="/education.png"
-                  alt=""
-                  width={74}
-                  height={60}
-                  className=""
-                />
-                <p
-                  className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-                >
-                  Partnership for the Goals
-                </p>
-              </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
-                <Image
-                  src="/climate.png"
-                  alt=""
-                  width={117}
-                  height={60}
-                  className=""
-                />
-                <p
-                  className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-                >
-                  Climate Actions
-                </p>
-              </div>
-              <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
-                <Image
-                  src="/life.png"
-                  alt=""
-                  width={61}
-                  height={60}
-                  className=""
-                />
-                <p
-                  className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-                >
-                  Life on Land
-                </p>
-              </div>
-            </CarouselComponent>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 mt-[30px]">
+            <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
+              <Image
+                src="/people-two.png"
+                alt=""
+                width={142}
+                height={61}
+                className="w-[142px] h-[61px]"
+              />
+              <p
+                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
+              >
+                No Poverty
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
+              <Image
+                src="/coffee.png"
+                alt=""
+                width={70}
+                height={60}
+                className=""
+              />
+              <p
+                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
+              >
+                Zero Hunger
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
+              <Image
+                src="/health.png"
+                alt=""
+                width={86}
+                height={60}
+                className=""
+              />
+              <p
+                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
+              >
+                Good Health and Well-being
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
+              <Image
+                src="/together.png"
+                alt=""
+                width={61}
+                height={60}
+                className=""
+              />
+              <p
+                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
+              >
+                Partnership for the Goals
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
+              <Image
+                src="/education.png"
+                alt=""
+                width={74}
+                height={60}
+                className=""
+              />
+              <p
+                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
+              >
+                Partnership for the Goals
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
+              <Image
+                src="/climate.png"
+                alt=""
+                width={117}
+                height={60}
+                className=""
+              />
+              <p
+                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
+              >
+                Climate Actions
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
+              <Image
+                src="/life.png"
+                alt=""
+                width={61}
+                height={60}
+                className=""
+              />
+              <p
+                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
+              >
+                Life on Land
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -403,208 +384,14 @@ export default function Home() {
           >
             <span className="text-[#212121]">Popular</span> Guides & Tutorials
           </h2>
-          <CarouselComponent show={show}>
-            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
-              <Image
-                src="/guide-images/apples-one.png"
-                alt=""
-                width={399}
-                height={209}
-                className="rounded-t-md"
-              />
-              <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] ">
-                <h3
-                  className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
-                >
-                  Nutritional Program for Wambugu Apples
-                </h3>
-                <p
-                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
-                >
-                  Soil test is important to determine and understand fertilizer
-                  requirements for your apple farm. Both organic and inorganic
-                  fertilizers - foliar and basal are important to supply
-                  nutrient needs for the plant. Read on to understand timing and
-                  split application of fertilizers.
-                </p>
-                <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
-                  <span
-                    className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
-                  >
-                    Read More
-                  </span>
-                  <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
-              <Image
-                src="/guide-images/apples-two.png"
-                alt=""
-                width={399}
-                height={209}
-                className="rounded-t-md"
-              />
-              <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] ">
-                <h3
-                  className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
-                >
-                  Nutritional Program for Wambugu Apples
-                </h3>
-                <p
-                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
-                >
-                  Did you know the propagation story of the now popular Wambugu
-                  apple? Learn how this superb and all weather apple triumphs
-                  over other varieties and why you should choose it because of
-                  its distinctive features.
-                </p>
-                <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
-                  <span
-                    className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
-                  >
-                    Read More
-                  </span>
-                  <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
-              <Image
-                src="/guide-images/apples-three.png"
-                alt=""
-                width={399}
-                height={209}
-                className="rounded-t-md"
-              />
-              <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] ">
-                <h3
-                  className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
-                >
-                  Nutritional Program for Wambugu Apples
-                </h3>
-                <p
-                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
-                >
-                  Chinzinga shares how recent floods in Zambia swept away her 2
-                  acres of apples barely 2 months after planting. Learn more
-                  about how farm insurance helps smallholder farmers and advice
-                  from a farm insurance company on why smallholder farmers need
-                  to consider insurance.
-                </p>
-                <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
-                  <span
-                    className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
-                  >
-                    Read More
-                  </span>
-                  <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
-              <Image
-                src="/guide-images/apples-one.png"
-                alt=""
-                width={399}
-                height={209}
-                className="rounded-t-md"
-              />
-              <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] ">
-                <h3
-                  className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
-                >
-                  Nutritional Program for Wambugu Apples
-                </h3>
-                <p
-                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
-                >
-                  Soil test is important to determine and understand fertilizer
-                  requirements for your apple farm. Both organic and inorganic
-                  fertilizers - foliar and basal are important to supply
-                  nutrient needs for the plant. Read on to understand timing and
-                  split application of fertilizers.
-                </p>
-                <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
-                  <span
-                    className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
-                  >
-                    Read More
-                  </span>
-                  <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
-              <Image
-                src="/guide-images/apples-two.png"
-                alt=""
-                width={399}
-                height={209}
-                className="rounded-t-md"
-              />
-              <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] ">
-                <h3
-                  className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
-                >
-                  Nutritional Program for Wambugu Apples
-                </h3>
-                <p
-                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
-                >
-                  Did you know the propagation story of the now popular Wambugu
-                  apple? Learn how this superb and all weather apple triumphs
-                  over other varieties and why you should choose it because of
-                  its distinctive features.
-                </p>
-                <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
-                  <span
-                    className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
-                  >
-                    Read More
-                  </span>
-                  <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
-              <Image
-                src="/guide-images/apples-three.png"
-                alt=""
-                width={399}
-                height={209}
-                className="rounded-t-md"
-              />
-              <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] ">
-                <h3
-                  className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
-                >
-                  Nutritional Program for Wambugu Apples
-                </h3>
-                <p
-                  className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
-                >
-                  Chinzinga shares how recent floods in Zambia swept away her 2
-                  acres of apples barely 2 months after planting. Learn more
-                  about how farm insurance helps smallholder farmers and advice
-                  from a farm insurance company on why smallholder farmers need
-                  to consider insurance.
-                </p>
-                <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
-                  <span
-                    className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
-                  >
-                    Read More
-                  </span>
-                  <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
-                </div>
-              </div>
-            </div>
-          </CarouselComponent>
+          <ResponsiveDemo
+            values={popularguides}
+            template={popularGuideTemplate}
+          />
         </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center py-[35px] lg:pt-[80px] lg:pb-[70px] bg-white   w-full">
+      <div className="flex flex-col justify-center items-center py-[35px] lg:pt-[80px] lg:pb-[70px] bg-white w-full">
         <div className="max-w-[1440px]  mx-auto w-full ">
           <h2
             className={`text-center  font-[800] text-[23px] lg:text-[34px] leading-[34px] lg:leading-[43px] tracking-[-0.04em] text-[#2F9b4E] ${jost.className}`}
@@ -612,7 +399,7 @@ export default function Home() {
             <span className="text-[#212121]">Current</span> Masterclasses
             Available
           </h2>
-          <CarouselComponent show={show}>
+          <div className="hidden md:flex flex-wrap gap-[21px] items-center justify-center mt-[30px]">
             {masterClasses.map(
               (
                 {
@@ -646,7 +433,126 @@ export default function Home() {
                 );
               }
             )}
-          </CarouselComponent>
+          </div>
+          <div className="block md:hidden bg-purple-600">
+            <SampleCarousel>
+              <SampleCarouselItem>
+                <div className="flex flex-col w-[100%] max-w-[600px] box-content ">
+                <div className="w-full h-[210px] bg-red-500">
+                  <Image
+                    src="/guide-images/apples-one.png"
+                    alt=""
+                    width={345}
+                    height={225}
+                    className="rounded-t-md min-w-[100%] w-[400px] h-[210px] object-cover"
+                  />
+                </div>
+
+                <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] w-full ">
+                  <h3
+                    className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
+                  >
+                    Nutritional Program for Wambugu Apples
+                  </h3>
+                  <p
+                    className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] whitespace-normal leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em]  ${satoshi.className}`}
+                  >
+                    Soil test is important to determine and understand
+                    fertilizer requirements for your apple farm. Both organic
+                    and inorganic fertilizers - foliar and basal are important
+                    to supply nutrient needs for the plant. Read on to
+                    understand timing and split application of fertilizers.
+                  </p>
+                  <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
+                    <span
+                      className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
+                    >
+                      Read More
+                    </span>
+                    <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
+                  </div>
+                </div>
+                </div>
+              </SampleCarouselItem>
+              <SampleCarouselItem>
+                <div className="flex flex-col max-w-[400px] box-content ">
+                <div className="max-w-full h-[210px]">
+                  <Image
+                    src="/guide-images/apples-one.png"
+                    alt=""
+                    width={399}
+                    height={209}
+                    className="rounded-t-md  object-cover"
+                  />
+                </div>
+
+                <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] w-full ">
+                  <h3
+                    className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
+                  >
+                    Nutritional Program for Wambugu Apples
+                  </h3>
+                  <p
+                    className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] whitespace-normal leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em]  ${satoshi.className}`}
+                  >
+                    Soil test is important to determine and understand
+                    fertilizer requirements for your apple farm. Both organic
+                    and inorganic fertilizers - foliar and basal are important
+                    to supply nutrient needs for the plant. Read on to
+                    understand timing and split application of fertilizers.
+                  </p>
+                  <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
+                    <span
+                      className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
+                    >
+                      Read More
+                    </span>
+                    <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
+                  </div>
+                </div>
+                </div>
+              </SampleCarouselItem>
+              <SampleCarouselItem>
+                <div className="flex flex-col max-w-[400px] box-content ">
+                <div className="max-w-full h-[210px]">
+                  <Image
+                    src="/guide-images/apples-one.png"
+                    alt=""
+                    width={399}
+                    height={209}
+                    className="rounded-t-md  object-cover"
+                  />
+                </div>
+
+                <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] w-full ">
+                  <h3
+                    className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
+                  >
+                    Nutritional Program for Wambugu Apples
+                  </h3>
+                  <p
+                    className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] whitespace-normal leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em]  ${satoshi.className}`}
+                  >
+                    Soil test is important to determine and understand
+                    fertilizer requirements for your apple farm. Both organic
+                    and inorganic fertilizers - foliar and basal are important
+                    to supply nutrient needs for the plant. Read on to
+                    understand timing and split application of fertilizers.
+                  </p>
+                  <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
+                    <span
+                      className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
+                    >
+                      Read More
+                    </span>
+                    <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
+                  </div>
+                </div>
+                </div>
+              </SampleCarouselItem>
+              
+            </SampleCarousel>
+          </div>
         </div>
       </div>
 
@@ -657,21 +563,120 @@ export default function Home() {
   );
 }
 
-const SingleCard: React.FC<Card> = ({ ...card }: Card) => {
+const SingleCardTemplate = (card: Card) => {
   return (
-    <div className="bg-[#FAFAFA] rounded-md pt-[22px] px-[20px]">
-      <Image src={card.image!} alt="" width={24} height={24} />
-      <h3
-        className={`text-[16px] leading-[20px] tracking-tighter text-[#2F9B4E] font-[700] mt-[7px] ${jost.className}`}
-      >
-        {card.heading}
-      </h3>
-      <div className="mt-[5px]">
-        <p
-          className={`font-[400] text-[14px] leading-[28px] tracking-tighter text-[#212121]/70 ${satoshi.className}`}
+    <div className="bg-[#FAFAFA] rounded-md mx-2 ">
+      <div className="min-w-[345px] h-[200px] lg:min-w-[295px] lg:max-h-[234px] rounded-md w-full p-3">
+        <Image src={card.image!} alt="" width={24} height={24} />
+        <h3
+          className={`text-[16px] leading-[20px] tracking-tighter text-[#2F9B4E] font-[700] mt-[7px] ${jost.className}`}
         >
-          {card.text}
+          {card.heading}
+        </h3>
+        <div className="mt-[5px]">
+          <p
+            className={`font-[400] text-[14px] leading-[28px] tracking-tighter text-[#212121]/70 line-clamp-4 ${satoshi.className}`}
+          >
+            {card.text}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const popularGuideTemplate = (guide: Guide) => {
+  return (
+    <div className="flex flex-col bg-white max-w-[347px] lg:min-w-[400px] h-[500] lg:h-[450px] box-content">
+      <Image
+        src={guide.image!}
+        alt=""
+        width={399}
+        height={209}
+        className="rounded-t-md"
+      />
+      <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] ">
+        <h3
+          className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
+        >
+          {guide.title}
+        </h3>
+        <p
+          className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em] max-w-[360px] ${satoshi.className}`}
+        >
+          {guide.description}
         </p>
+        <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
+          <span
+            className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
+          >
+            Read More
+          </span>
+          <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const masterTemplate = (masterclass: MasterClass) => {
+  return (
+    <div className="flex flex-col bg-[#FAFAFA] rounded-md max-w-[350px] lg:min-w-[400px] h-[485px] lg:h-[485px] box-content">
+      <div className=" rounded-t-md relative ">
+        <Image
+          src={masterclass.image!}
+          alt=""
+          width={399}
+          height={221}
+          className="rounded-t-md relative object-contain "
+        />
+        <div className="absolute bottom-0 left-0 right-0 h-24  text-left bg-gradient-to-t from-black/40 flex items-end  ">
+          <p className="pb-[15px] pl-[15px] text-white">{masterclass.title}</p>
+        </div>
+      </div>
+      <div className=" flex items-center justify-between px-[15px] pt-[16px]">
+        <div className="flex items-center">
+          <Image
+            src={masterclass.userProfile!}
+            alt=""
+            width={22}
+            height={22}
+            className="rounded-full w-[22px] h-[22px] "
+          />
+          <span
+            className={`text-[#212121]/70 text-[14px] ml-[8px] font-[400] leading-[18px] tracking-[-0.03em] ${satoshi.className}`}
+          >
+            by{" "}
+            <span className="text-[#2F9B4E]">
+              {masterclass.author} - {masterclass.username}
+            </span>
+          </span>
+        </div>
+        <div className="flex items-center gap-2 bg-[#DBF3D9] w-fit h-[24px] rounded-[30px] py-[5px] px-[10px] ">
+          <span className="h-2 w-2 bg-[#2F9B4E] rounded-full"></span>
+          <span
+            className={`text-[14px]  leading-[14px] font-[500] tracking-[-0.04em] text-[#2F9B4E] ${satoshi.className}`}
+          >
+            {masterclass.classStatus}
+          </span>
+        </div>
+      </div>
+      <p
+        className={`text-[14px] overflow-hidden line-clamp-3  mb-[20px] px-[15px] pt-[18px]  lg:text-[16px] font-[400] leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em]  ${satoshi.className}`}
+      >
+        {masterclass.description}
+      </p>
+
+      <hr></hr>
+
+      <div className="mx-[15px] my-[15px] flex items-center gap-[17px]">
+        <button
+          className={`rounded-md whitespace-nowrap flex bg-[#2F9B4E] text-white py-[10px] lg:py-[13px] px-[18px] lg:px-[24px] font-[700] text-[14px] lg:text-[16px] leading-[19px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className}`}
+        >
+          Join $20/
+          <span className="tex-[14px] text-white/70">person</span>
+        </button>
+        {masterclass.date === "" ? <LikesViews /> : <SlotsLeft />}
       </div>
     </div>
   );
@@ -679,7 +684,7 @@ const SingleCard: React.FC<Card> = ({ ...card }: Card) => {
 
 const Partners = () => {
   return (
-    <div className=" bg-[#F5F5F5] w-full">
+    <div className=" bg-[#F5F5F5] w-full px-[20px] lg:px-0">
       <div className="max-w-[1440px]  mx-auto flex flex-col items-start px-[15px] lg:px-[100px] ">
         <h2
           className={`text-start mt-[30px] lg:mt-[90px]  font-[800] text-[23px] lg:text-[34px] leading-[34px] lg:leading-[43px] tracking-[-0.04em] text-[#2F9b4E] ${jost.className}`}

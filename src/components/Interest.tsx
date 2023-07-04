@@ -3,69 +3,32 @@
 import { MdArrowBackIos } from "react-icons/md";
 import { BiSearch } from "react-icons/bi";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import { jost, satoshi } from "@/src/fonts/Fonts";
+import { useAppDispatch } from "../hooks/react-redux-hooks";
+import { getInterests } from "../redux/actions/interest.action";
+import { FaSpinner } from "react-icons/fa";
 
 interface Props {}
 
 export type InterestType = {
- id: string,
- name: string
-}
-
-const interestList:InterestType[] = [
-  {
-    id: "1",
-    name: "🍎  Apples",
-  },
-  {
-    id: "2",
-    name: "🍐  Pears",
-  },
-  {
-    id: "2",
-    name: "🍏  Green Apples",
-  },
-  {
-    id: "3",
-    name: "🥕  Carrots",
-  },
-  {
-    id: "1",
-    name: "🍋  Lemons",
-  },
-  {
-    id: "4",
-    name: "🍓 Strawberries",
-  },
-  {
-    id: "5",
-    name: "🍉 Watermelons",
-  },
-  {
-    id: "6",
-    name: "🍇 Grapes",
-  },
-  {
-    id: "7",
-    name: "🍅  Tomatoes",
-  },
-  {
-    id: "8",
-    name: "🍊  Oranges",
-  },
-];
+  id: string;
+  name: string;
+};
 
 function InterestPage(props: Props) {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const [interests, setInterest] = useState<InterestType[]>([]);
+  const [interestList, setInterestList] = useState<InterestType[]>([]);
   const { setOpenModal } = useContext(ManagedUI);
   const [topic, setTopic] = useState("");
+  const [loading, setLoading] = useState(true);
   const [topicFound, setTopicFound] = useState("");
   const [selectedInterests, setSelectedInterests] = useState<
-  InterestType[] | undefined
+    InterestType[] | undefined
   >([]);
 
   const removeitem = (topic: InterestType) => {
@@ -83,7 +46,8 @@ function InterestPage(props: Props) {
       setInterest(interestList);
     }
     const filtered = interestList.filter((item) => {
-      if (item.name.toLowerCase().includes(topicFound.toLowerCase())) return item;
+      if (item.name.toLowerCase().includes(topicFound.toLowerCase()))
+        return item;
     });
 
     setInterest(filtered);
@@ -92,7 +56,16 @@ function InterestPage(props: Props) {
   console.log("interest:", selectedInterests);
   console.log("topic:", topic);
 
-  const {} = props;
+  useEffect(() => {
+    const getInterest = async () => {
+      setLoading(true);
+      let res: any = await dispatch(getInterests());
+      console.log("interests", res.payload.interests);
+      setInterestList(res.payload.interests);
+      setLoading(false);
+    };
+    getInterest();
+  }, []);
 
   return (
     <div className=" flex flex-col  max-h-[500px] items-start  lg:max-h-[500px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
@@ -128,45 +101,57 @@ function InterestPage(props: Props) {
             className="w-full bg-transparent  h-[48px] mx-[5px] pl-10 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px] bg-[#FFFFFF] focus:outline focus:outline-[#BFBFBF]/60 "
           />
         </div>
-
-        <div className="flex flex-wrap gap-[20px]">
-          {topicFound === "" ? (
-            interestList.map((topic: {id: string, name: string}, indx) => {
-              return (
-                <div
-                  key={indx}
-                  onClick={() => removeitem(topic)}
-                  className={` cursor-pointer ${
-                    selectedInterests?.includes(topic)
-                      ? "text-[#2F9B4E] bg-[#D7FBD7]"
-                      : "bg-[#F5F5F5] text-[#212121]/70"
-                  }  rounded-[30px] text-[14px] leading-[19px] font-[500]  tracking-[-0.04em] px-[10px] py-[5px] ${
-                    satoshi.className
-                  }`}
-                >
-                  {topic.name}
-                </div>
-              );
-            })
-          ) : (
-            <div className=" w-full flex gap-[7px]  items-center justify-center">
-              <HiOutlineExclamationCircle className="h-[20px] w-[20px] text-[#2F9B4E]" />
-              <span
-                className={`text-[16px] font-[500] leading-[22px] tracking-[-0.04em] text-[#2F9B4E]`}
-              >
-                {topicFound}
-              </span>
+        {loading ? (
+          <div className=" w-full flex items-center justify-center my-3 ">
+            <div className="w-full mx-auto flex flex-col items-center justify-center ">
+              <FaSpinner className="animate-spin h-8 w-8 text-[#2F9B4E] text-center" />
+              <h2 className="text-center text-[16px] font-[600] mt-4">
+                Loading Availlable Interests....
+              </h2>
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-[20px]">
+            {topicFound === "" ? (
+              interestList.map((topic: { id: string; name: string }, indx) => {
+                return (
+                  <div
+                    key={indx}
+                    onClick={() => removeitem(topic)}
+                    className={` cursor-pointer ${
+                      selectedInterests?.includes(topic)
+                        ? "text-[#2F9B4E] bg-[#D7FBD7]"
+                        : "bg-[#F5F5F5] text-[#212121]/70"
+                    }  rounded-[30px] text-[14px] leading-[19px] font-[500]  tracking-[-0.04em] px-[10px] py-[5px] ${
+                      satoshi.className
+                    }`}
+                  >
+                    {topic.name}
+                  </div>
+                );
+              })
+            ) : (
+              <div className=" w-full flex gap-[7px]  items-center justify-center">
+                <HiOutlineExclamationCircle className="h-[20px] w-[20px] text-[#2F9B4E]" />
+                <span
+                  className={`text-[16px] font-[500] leading-[22px] tracking-[-0.04em] text-[#2F9B4E]`}
+                >
+                  {topicFound}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
-      {topicFound === "" && (
-        <div className="flex items-center  py-2 ml-auto  justify-end max-w-[315px] lg:min-w-[494px] mx-[15px] lg:mx-[40px]">
-          <p className="w-full text-end text-[12px]  text-[#212121]/70">
-            You have selected {selectedInterests?.length} item/s
-          </p>
-        </div>
-      )}
+      {selectedInterests?.length! > 0 && (
+        topicFound === "" && (
+          <div className="flex items-center  py-2 ml-auto  justify-end max-w-[315px] lg:min-w-[494px] mx-[15px] lg:mx-[40px]">
+            <p className="w-full text-end text-[12px]  text-[#212121]/70">
+              You have selected {selectedInterests?.length} item/s
+            </p>
+          </div>
+        )
+      ) }
 
       <button
         onClick={() => {

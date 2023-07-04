@@ -58,6 +58,9 @@
     --secondary: 222.2 47.4% 11.2%;
     --secondary-foreground: 210 40% 98%;
 
+    --success: #2F9B4E;
+    --error: #FF3131;
+
     --accent: 216 34% 17%;
     --accent-foreground: 210 40% 98%;
 
@@ -160,4 +163,13 @@
   opacity: 0;
   }
   100% {opacity: 1;}
+}
+
+.ql-editor.ql-blank{
+  border: none !important;
+  outline: none !important;
+}
+.ql-editor:focus.ql-blank:focus{
+  border: none !important;
+  outline: none !important;
 }

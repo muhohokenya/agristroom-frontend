@@ -12,7 +12,7 @@ import { jost, satoshi } from "../fonts/Fonts";
 
 export const Footer = () => {
     return (
-      <div className=" bg-white w-full   ">
+      <div className=" bg-white w-full px-[20px] lg:px-0">
         <div className="max-w-[1440px] w-full py-[35px] lg:py-[77px] px-[15px] lg:px-[100px] mx-auto">
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 items-center mb-[50px]  ">

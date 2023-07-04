@@ -36,14 +36,14 @@ function AccountInformation(props: Props) {
   
 
   return (
-    <div className=" flex flex-col  max-h-[600px] items-center  lg:max-h-[594px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
+    <div className=" flex flex-col  max-h-[610px] items-center  lg:max-h-[620px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
       <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
         <MdArrowBackIos
           className=" cursor-pointer"
           onClick={() => router.push("/signup/createaccounts")}
         />
         <h2
-          className={`font-[600] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
+          className={`font-[400] text-[18px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
         >
           Kindly fill in the following information
         </h2>
@@ -58,7 +58,7 @@ function AccountInformation(props: Props) {
             <Input
             {...register("firstName", {required: true})}
               type="text"
-              className="w-full h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px] bg-[#FFFFFF] focus:outline focus:outline-[#BFBFBF]/60 "
+              className="w-full focus-visible:ring-[#2F9B4E]  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px] bg-[#FFFFFF] focus:outline focus:outline-[#BFBFBF]/60 "
             />
           </div>
           <div className="flex flex-col gap-[8px] w-full">
@@ -67,7 +67,7 @@ function AccountInformation(props: Props) {
               <Input
                {...register("lastName", {required: true})}
                 type="text"
-                className="  w-full  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px]  focus:outline focus:outline-[#BFBFBF]/60 "
+                className=" focus-visible:ring-[#2F9B4E]  w-full  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px]  focus:outline focus:outline-[#BFBFBF]/60 "
               />
             </div>
           </div>
@@ -77,7 +77,7 @@ function AccountInformation(props: Props) {
               <Input 
                 {...register("userName", {required: true})}
                 type="text"
-                className="  w-full  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px]  focus:outline focus:outline-[#BFBFBF]/60 "
+                className="focus-visible:ring-[#2F9B4E]   w-full  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px]  focus:outline focus:outline-[#BFBFBF]/60 "
               />
             </div>
           </div>

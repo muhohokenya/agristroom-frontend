@@ -58,9 +58,8 @@ const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
 
   return (
     
-    <div className="carousel-container bg-[#FAFAFA]max-w-[1440px]  mx-auto w-full mt-[40px]">
-      <div className="carousel-wrapper">
-        
+    <div className="carousel-container  mt-[40px] max-w-[1440px] mx-auto w-full flex items-center justify-center">
+      <div className="carousel-wrapper ">
       {currentIndex > 0 && (
           <button onClick={prev} className="left-arrow flex items-center justify-center !bg-gray-400">
             <FaArrowLeft className="text-white" />

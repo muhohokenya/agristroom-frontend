@@ -1,8 +1,15 @@
 "use client";
 
 import { jost } from "@/src/fonts/Fonts";
+import { useAppDispatch } from "@/src/hooks/react-redux-hooks";
+import { toast } from "@/src/hooks/use-toast";
+import { logoutUserAction } from "@/src/redux/actions/auth.action";
+import { useRouter } from "next/navigation";
+import { Tooltip } from "primereact/tooltip";
 import { Dispatch, SetStateAction, useRef } from "react";
+import { BiSolidUserCircle } from "react-icons/bi";
 import { FaAppleAlt, FaHome, FaPlayCircle } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 interface IProps {
@@ -17,6 +24,17 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
     if (sidebarRef?.current && !sidebarRef?.current?.contains(e.target)) {
       setShowSideNav(false);
     }
+  };
+
+  const dispatch = useAppDispatch();
+  const router = useRouter()
+
+  const logOut = async () => {
+    await dispatch(logoutUserAction());
+    router.push("/");
+    toast({
+      description: "You have successfully logged out!",
+    });
   };
 
   return (
@@ -91,12 +109,15 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
           <span className="flex gap-[16px] items-center cursor-pointer text-[16px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em]">
             Events
           </span>
-          <span className="flex gap-[16px] items-center cursor-pointer text-[16px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em]">
-            Contact us
-          </span>
-          <span className="flex gap-[16px] items-center cursor-pointer text-[16px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em]">
+          <li className="text-[16px] flex items-center justify-start w-fit pl-1 py-1 pr-3 rounded-md bg-[#DBF3D9] leading-[18.9px] font-[500] text-[#2F9B4E] cursor-pointer tracking-[-0.04em]">
+            Profile
+          </li>
+          <li
+            onClick={logOut}
+            className="text-[16px] bg-[#DBF3D9] w-fit py-1 pl-1 pr-3 rounded-md text-[#2F9B4E] flex items-center justify-start gap-[10px] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]"
+          >
             Log out
-          </span>
+          </li>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import axios from "axios";
 import { BaseURL } from "@/src/lib/constants";
 import parseError from "../../lib/parseError";
 import { getLoggedInUserToken } from "@/src/lib/utils";
+import {logoutUserSuccess} from '../features/authSlice'
 
 export const signUpUserAction = createAsyncThunk(
   "user/signup",
@@ -15,7 +16,7 @@ export const signUpUserAction = createAsyncThunk(
     try {
       thunkAPI.dispatch(resetNotifications({}));
       const response = await axios.post(
-        `http://dev.agristroom.com/api/api/register`,
+        `${BaseURL}/register`,
         data
       );
       return {
@@ -36,7 +37,7 @@ export const loginUserAction = createAsyncThunk(
   "user/login",
   async (data: UserLoginData, thunkAPI) => {
     try {
-      const response = await axios.post(`http://dev.agristroom.com/api/api/login`, data)
+      const response = await axios.post(`${BaseURL}/login`, data)
       return {
         login_token: response.data,
         success: true
@@ -58,7 +59,7 @@ export const getCurrentUser = createAsyncThunk(
       const accessToken = getLoggedInUserToken()
       console.log("accessToken", accessToken);
       
-      const response = await axios.get(`http://dev.agristroom.com/api/api/user`,{
+      const response = await axios.get(`${BaseURL}/user`,{
         headers: {
           Authorization: `${accessToken.token_type} ${accessToken.access_token}`
         }
@@ -76,3 +77,15 @@ export const getCurrentUser = createAsyncThunk(
      }
   }
 )
+
+export const logoutUserAction = () => async (dispatch: any) => {
+  try {
+      localStorage.clear();
+      return dispatch(logoutUserSuccess({}));
+  } catch (e:any) {
+      return console.error(e.message);
+
+  }
+
+}
+

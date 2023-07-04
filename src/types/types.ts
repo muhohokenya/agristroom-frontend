@@ -7,6 +7,12 @@ export type Card = {
   text?: string;
 };
 
+export type Guide = {
+  title?: string;
+  image?: string;
+  description?: string;
+};
+
 export type MasterClass = {
   image?: string;
   title?: string;

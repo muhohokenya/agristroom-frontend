@@ -1,39 +1,89 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineRadioButtonUnchecked } from "react-icons/md";
-import { FaCheckCircle } from "react-icons/fa";
-import { useRouter } from "next/navigation";
-import { accountTypes } from "@/src/lib/data/data";
+import { FaCheckCircle, FaSpinner } from "react-icons/fa";
+import { useRouter, usePathname } from "next/navigation";
 import { satoshi } from "@/src/fonts/Fonts";
 import { Account } from "../types/types";
+import { useAppDispatch } from "../hooks/react-redux-hooks";
+import { getAccounts } from "../redux/actions/account.action";
+import { accountIcons } from "../lib/data/data";
 
 interface Props {}
 
 function CreateAccountAs(props: Props) {
+  const dispatch = useAppDispatch();
   const router = useRouter();
+  const [accounts, setAccounts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [accountTypes, setAccountTypes] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState<Account>({
     name: "",
     id: "",
   });
 
-  console.log("<selected account", JSON.stringify({id: selectedAccount.id, name: selectedAccount.name}));
-  
+  useEffect(() => {
+    const fetchAccounts = async () => {
+      setLoading(true);
+      let res: any = await dispatch(getAccounts());
+      setAccounts(res.payload.accounts);
+      setLoading(false);
+    };
+    fetchAccounts();
+  }, []);
+
+  useEffect(() => {
+    const mergerAccountsAndIcons = () => {
+      let obj: any = [];
+      if (accounts?.length > 0) {
+        for (let i = 0; i < accounts?.length; i++) {
+          obj.push(Object.assign(accounts[i], accountIcons[i]));
+        }
+        setAccountTypes(obj);
+      }
+    };
+    mergerAccountsAndIcons();
+  }, [accounts, accountIcons]);
+
+  console.log("path name", usePathname());
+  const saveToLocalStorage = async () => {
+    setSaving(true);
+    router.push("/signup/accountinformations");
+
+    localStorage.setItem(
+      "selectedAcount",
+      JSON.stringify({ id: selectedAccount.id, name: selectedAccount.name })
+    );
+    setSaving(false);
+  };
+
+  console.log("selected account", selectedAccount);
 
   return (
-      <div className=" relative flex flex-col items-center justify-center max-h-[638px] lg:max-h-[565px] mt-10 py-[40px] bg-white w-full max-w-[400px] lg:max-w-[638px] mx-auto rounded-md shadow-md">
-        <h2
-          className={`font-[600] text-[20px] leading-[24px]  tracking-[0.04em] text-[#212121]`}
-        >
-          Create Account As
-        </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-3 mt-[24px] gap-[8px]">
+    <div className=" relative flex flex-col items-center justify-center h-auto lg:max-h-[565px] mt-10 py-[40px] bg-white w-full max-w-[400px] lg:max-w-[638px] mx-auto rounded-md shadow-md">
+      <h2
+        className={`font-[600] text-[20px] leading-[24px]  tracking-[0.04em] text-[#212121]`}
+      >
+        Create Account As
+      </h2>
+      {loading ? (
+        <div className=" w-full flex items-center justify-center my-3 ">
+          <div className="w-full mx-auto flex flex-col items-center justify-center ">
+            <FaSpinner className="animate-spin h-8 w-8 text-[#2F9B4E] text-center" />
+            <h2 className="text-center text-[16px] font-[600] mt-4">
+              Loading Accounts....
+            </h2>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 lg:grid-cols-3 mt-[24px] gap-[8px] place-items-center ju">
           {accountTypes.map((accnt: any, indx) => {
-            
             return (
               <div
                 onClick={() =>
-                    setSelectedAccount(selectedAccount === accnt ? {} : accnt)
+                  setSelectedAccount(selectedAccount === accnt ? {} : accnt)
                 }
                 key={indx}
                 className={`relative flex flex-col items-center cursor-pointer ${
@@ -70,18 +120,23 @@ function CreateAccountAs(props: Props) {
             );
           })}
         </div>
-        <button
-          type="button"
-          onClick={() => {
-            router.push("/signup/accountinformations")
-           localStorage.setItem("selectedAcount",JSON.stringify({id: selectedAccount.id, name: selectedAccount.name}));
-          }
-          }
-          className={`mt-[35px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[560px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
-        >
-          Continue
-        </button>
-      </div>
+      )}
+
+      <button
+        type="button"
+        onClick={saveToLocalStorage}
+        disabled={loading}
+        className={`mt-[35px]  ${
+          loading
+            ? "bg-[#DBF3D9] cursor-not-allowed text-[#2F9B4E]"
+            : "bg-[#2F9B4E] text-white"
+        } max-w-[315px] lg:max-w-[560px] py-[14px] px-[24px] h-[50px] rounded-[5px]  w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${
+          satoshi.className
+        }`}
+      >
+        Continue
+      </button>
+    </div>
   );
 }
 

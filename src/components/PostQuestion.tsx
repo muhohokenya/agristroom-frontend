@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SetStateAction, useState } from "react";
 import { jost, satoshi } from "../fonts/Fonts";
 import Image from "next/image";
 import { BiMessage } from "react-icons/bi";
@@ -7,16 +7,43 @@ import { discussions } from "../lib/data/data";
 import TextEditor from "./ui/TextEditor";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./ui/Skeleton";
+import { useAppDispatch } from "../hooks/react-redux-hooks";
+import { postQuestion } from "../redux/actions/postQuestion.action";
+import { toast } from "../hooks/use-toast";
 
 export const PostQuestion = () => {
   const router = useRouter();
+  const [state, setState] = useState<SetStateAction<{}>>({
+    name: ""
+  });
+  const dispatch = useAppDispatch();
+
+  const callback = (payload: React.SetStateAction<undefined>) => {
+    setState({
+      name: payload
+    });
+  };
+
+  const postAQuestion = async() => {
+    const res:any = await dispatch(postQuestion(state))
+    if(res.payload.success){
+      console.log("new state", res);
+      toast({
+        description: "You Successfully posted a question",
+        variant: "secondary"
+      })
+      router.refresh()
+    }
+  };
+
   return (
     <div className="">
-      <div className="flex flex-col lg:flex-row items-end gap-[20px]">
+      <div className="flex flex-col lg:flex-row items-end gap-[20px] mr-[20px]">
         <div className=" flex   items-end ">
-          <TextEditor />
+          <TextEditor callback={callback} />
         </div>
         <button
+          onClick={postAQuestion}
           type="button"
           className={`mt-[35px] bg-[#2F9B4E]  w-[144px] h-[50px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
         >
@@ -24,20 +51,20 @@ export const PostQuestion = () => {
         </button>
       </div>
 
-      <div className="flex bg-white flex-col justify-between lg:flex-row x border-t border-t-[#BFBFBF]/60 mt-[30px] ">
+      <div className="flex bg-white flex-col justify-between lg:flex-row border-t border-t-[#BFBFBF]/60 mt-[30px] pl-[10px] ">
         <div className="flex flex-col ">
           <h2
             className={`font-[600]  text-[26px] leading-[42px] tracking-[-0.04em] tex-[#212121] ${jost.className}`}
           >
             Recent Community Discussions
           </h2>
-          <div className="grid grid-cols-1 mt-[15px] gap-[15px] h-screen pb-[15px] no-scrollbar overflow-auto w-full  ">
+          <div className="grid grid-cols-1 mt-[15px] gap-[15px] h-screen pb-[15px]  no-scrollbar overflow-auto w-full pl-[10px]  ">
             {discussions.map((discussion, indx) => {
               return (
                 <div
                   key={indx}
                   onClick={() => router.push("/dashboard/answers")}
-                  className="flex min-w-[350px] md:max-w-full lg:max-w-[713px] min-h-[167px] lg:min-h-[220px] xl:min-h-[167px] cursor-pointer lg:px-0 "
+                  className="flex min-w-[350px] md:max-w-full lg:max-w-[713px] min-h-[167px] lg:min-h-[220px] xl:min-h-[167px] cursor-pointer "
                 >
                   <div className="flex flex-col pt-[20px] px-[8px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
                     <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />

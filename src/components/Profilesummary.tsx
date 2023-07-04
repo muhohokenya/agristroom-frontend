@@ -8,7 +8,6 @@ import {
 } from "react-icons/md";
 import { jost, satoshi } from "@/src/fonts/Fonts";
 import { ManagedUI } from "../hooks/useModalContext";
-import { AiOutlineReload } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
 import { signUpUserAction } from "../redux/actions/auth.action";
 import { UserRegisterData } from "../types/types";
@@ -87,21 +86,22 @@ const ProfileSummary = () => {
   const createUserAccount = async () => {
     const res: any = await dispatch(signUpUserAction(userInfo));
     setIsSubmitting(true)
-    console.log("response", res.payload);
-
+    console.log("response", res.payload, isSubmitting);
+    
     if(res?.payload?.success){
-      setIsSubmitting(false)
+      console.log("after response", res.payload, isSubmitting);
       toast({
         title: "Account Created successfully",
         description: "You can now login in with your credentials",
         variant: "primary"
       })
-      // setOpenModal(false);
+      setIsSubmitting(false)
       router.push("/login");
     }
     
-    if(!res?.payload?.success || res.payload === undefined){
+    if(!res?.payload?.success){
       setIsSubmitting(false)
+      console.log("after failer", res.payload, isSubmitting);
       toast({
         title: "There was a problem",
         description: error.error,

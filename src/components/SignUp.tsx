@@ -2,7 +2,7 @@
 
 import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { FaFacebook, FaEyeSlash } from "react-icons/fa";
+import { FaFacebook, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ManagedUI } from "@/src/hooks/useModalContext";
@@ -22,6 +22,8 @@ type Inputs = {
 function SignUpPage(props: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const { setOpenModal } = useContext(ManagedUI);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const router = useRouter();
   const {
     register,
@@ -31,7 +33,11 @@ function SignUpPage(props: Props) {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    localStorage.setItem("user_data", JSON.stringify(data));
+    setIsSubmitting(true);
+    setTimeout(() => {
+      localStorage.setItem("user_data", JSON.stringify(data));
+      setIsSubmitting(false);
+    }, 1000);
     console.log("data entered", data);
   };
 
@@ -85,18 +91,20 @@ function SignUpPage(props: Props) {
           </div>
           <div className="flex flex-col gap-[8px] w-full">
             <label>Password</label>
-            <div className="relative flex items-center">
+            <div className="relative flex items-center justify-between">
               <Input
                 type={showPassword ? "text" : "password"}
                 className="focus-visible:ring-[#2F9B4E]"
                 {...register("password", { required: true })}
               />
-              <FaEyeSlash
-                onClick={() => {
-                  setShowPassword(!showPassword);
-                }}
-                className="absolute cursor-pointer right-3  h-6 w-6 text-[#282828]/70"
-              />
+              <span className="flex items-start justify-end absolute cursor-pointer right-3">
+                <FaEyeSlash
+                  onClick={() => {
+                    setShowPassword(!showPassword);
+                  }}
+                  className="  h-8 w-8 text-[#2F9B4E] "
+                />
+              </span>
             </div>
             {errors.password && (
               <span className="text-red-500">Password is required</span>
@@ -113,8 +121,16 @@ function SignUpPage(props: Props) {
               setOpenModal(true);
               router.push("/signup/createaccounts");
             }}
-            className={` bg-[#2F9B4E]  max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.04em] ${satoshi.className}`}
+            disabled={isSubmitting}
+            className={` bg-[#2F9B4E] ${
+              isSubmitting ? "cursor-not-allowed" : "cursor-pointer"
+            } flex items-center justify-center gap-3 max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${
+              satoshi.className
+            }`}
           >
+            {isSubmitting && (
+              <FaSpinner className="animate-spin h-8 w-8 text-white" />
+            )}{" "}
             Continue
           </button>
         </div>

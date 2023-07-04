@@ -1,4 +1,7 @@
 import { Metadata } from "next";
+import 'primereact/resources/themes/mdc-light-indigo/theme.css'
+import "primereact/resources/primereact.min.css";
+import 'primeflex/primeflex.css'
 import "../styles/globals.css";
 import { Inter } from "next/font/google";
 import { ManagedUIProvider } from "../hooks/useModalContext";

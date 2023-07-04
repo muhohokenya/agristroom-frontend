@@ -13,7 +13,7 @@ function Modal(props) {
 
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      router.back();
+      router.push("/");
       setOpenModal(false);
     }
   };

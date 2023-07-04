@@ -122,18 +122,20 @@ const Login = () => {
           </div>
           <div className="flex flex-col gap-[8px] w-full">
             <label>Password</label>
-            <div className="relative flex items-center">
+            <div className="relative flex items-center justify-between">
               <Input
                 type={showPassword ? "text" : "password"}
-                className="focus-visible:ring-[#2F9B4E] w-full"
+                className="focus-visible:ring-[#2F9B4E]"
                 {...register("password", { required: true })}
               />
-              <FaEyeSlash
-                onClick={() => {
-                  setShowPassword(!showPassword);
-                }}
-                className="absolute cursor-pointer right-3  h-6 w-6 text-[#282828]/70"
-              />
+              <span className="flex items-start justify-end absolute cursor-pointer right-3">
+                <FaEyeSlash
+                  onClick={() => {
+                    setShowPassword(!showPassword);
+                  }}
+                  className="  h-8 w-8 text-[#2F9B4E] "
+                />
+              </span>
             </div>
           </div>
         </div>
@@ -144,7 +146,7 @@ const Login = () => {
           <button
             type="submit"
             disabled= {isSubmitting}
-            className={` bg-[#2F9B4E] ${isSubmitting ? "cursor-not-allowed" : "cursor-pointer"} flex items-center justify-center gap-3 max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
+            className={` bg-[#2F9B4E] ${isSubmitting ? "cursor-not-allowed" : "cursor-pointer"} flex items-center justify-center gap-1 max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
           >
            {isSubmitting && <FaSpinner className="animate-spin h-8 w-8 text-white" />} Log In
           </button>
