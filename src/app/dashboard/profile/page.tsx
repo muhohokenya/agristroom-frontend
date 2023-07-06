@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
 
-export const page = () => {
-  const [showImageUploadButton, setShowImageUploadButton] = useState(false);
+export const Profile = () => {
+  // const [showImageUploadButton, setShowImageUploadButton] = useState(false);
 
   return (
     <div className="flex items-center h-[cal(100%_-_100px)] w-full justify-center">
@@ -38,13 +38,13 @@ export const page = () => {
                 </div>
                 <span className="text-[22px] relative bg-[#DBF3D9] text-[#2F9B4E] !py-[2px] rounded-md px-2 mt-1 ">
                   <BsThreeDots
-                    onClick={() =>
-                      setShowImageUploadButton(!showImageUploadButton)
-                    }
+                    // onClick={() =>
+                    //   setShowImageUploadButton(!showImageUploadButton)
+                    // }
                     className="cursor-pointer"
                   />
-                  {showImageUploadButton && (
-                    <>
+                  {/* {showImageUploadButton && ( */}
+                    {/* <> */}
                       <span className="bg-gray-50 absolute top-0 h-6 w-6 left-10 rotate-45"></span>
                       <div className="flex flex-col gap-2 absolute -top-1 left-12 bg-gray-50 py-1 rounded-md px-2">
                         <button className="text-[12px] bg-[#DBF3D9] text-[#2F9B4E] px-2 py-[2px] rounded-full">
@@ -54,8 +54,8 @@ export const page = () => {
                           Delete
                         </button>
                       </div>
-                    </>
-                  )}
+                    {/* </> */}
+                  {/* )} */}
                 </span>
               </div>
             </div>
@@ -155,4 +155,4 @@ export const page = () => {
   );
 };
 
-export default page;
+export default Profile;

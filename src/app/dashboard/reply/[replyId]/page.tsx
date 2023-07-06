@@ -104,7 +104,7 @@ function Page(props: Props) {
       console.log("trying to get one post", res.payload.post[0]);
     };
     fetchOnePost();
-  }, [dispatch]);
+  }, [dispatch, params.replyId]);
 
   console.log("one post", post);
   if (loading) {
