@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 const Default: FC = () => {
   return null;
-  // comment comment2 ,,,,,
+  // comment
 };
 
 export default Default;
