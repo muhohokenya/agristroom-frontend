@@ -1,4 +1,4 @@
-export const BaseURL = 'http://dev.agristroom.com/api/api';
+export const BaseURL = 'https://dev.agristroom.com/api/api';
 
 export const formatDate = (dateString:string) => {
     const dt = new Date(dateString).getDate()
