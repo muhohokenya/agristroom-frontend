@@ -5,7 +5,7 @@ import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
 
-export const Profile = () => {
+function Page() {
   // const [showImageUploadButton, setShowImageUploadButton] = useState(false);
 
   return (
@@ -155,4 +155,4 @@ export const Profile = () => {
   );
 };
 
-export default Profile;
+export default Page;
