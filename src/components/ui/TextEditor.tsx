@@ -12,7 +12,7 @@ const Editor = dynamic(
 );
 
 interface Props {
-  callback: (text: string) => string
+  callback: (text: string) => void
 }
 
 function TextEditor(props: Props) {

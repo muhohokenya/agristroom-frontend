@@ -65,7 +65,7 @@ function Page(props: Props) {
   });
   const [showSideNav, setShowSideNav] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [state, setState] = useState<SetStateAction<Answer>>({
+  const [state, setState] = useState<Answer>({
     text: "",
     post_id: 0,
   });
@@ -76,7 +76,7 @@ function Page(props: Props) {
 
   console.log("logging from replies", params.replyId);
 
-  const callback = (payload: any) => {
+  const callback = (payload: string) => {
     setState({
       text: payload,
       post_id: params.replyId,

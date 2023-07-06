@@ -26,7 +26,7 @@ export const PostQuestion = () => {
   });
   const dispatch = useAppDispatch();
 
-  const callback = (payload: React.SetStateAction<undefined>) => {
+  const callback = (payload: string) => {
     setState({
       name: payload,
     });
@@ -66,14 +66,14 @@ export const PostQuestion = () => {
     <div className="">
       <div className="flex flex-col xl:flex-row items-end gap-[20px] mr-[20px]">
         <div className=" flex   items-end ">
-          {/* <TextEditor callback={callback} /> */}
-          <CKeditor 
+          <TextEditor callback={callback} />
+          {/* <CKeditor 
           name="name" 
           onChange={(data: string) => {
             setData(data)
           }}
           editorLoaded={setEditorLoaded}
-           />
+           /> */}
         </div>
         <button
           onClick={postAQuestion}
