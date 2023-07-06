@@ -52,7 +52,7 @@ export const PostQuestion = () => {
       setLoading(false);
     };
     fetchPost();
-  }, [post]);
+  }, [post, dispatch]);
 
   console.log("all posts questions", posts);
   const [editorLoaded, setEditorLoaded] = useState(false);

@@ -1,14 +1,13 @@
 "use client";
 
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
-import DialogInput from "@/src/components/ui/Dialog";
 
 export const page = () => {
   const [showImageUploadButton, setShowImageUploadButton] = useState(false);
-  const [visible, setVisible] = useState(false);
+
   return (
     <div className="flex items-center h-[cal(100%_-_100px)] w-full justify-center">
       <div className="bg-white max-w-[1200px] mx-[20px] lg:mx-auto w-full h-auto pt-16 mt-5  ">
@@ -66,7 +65,9 @@ export const page = () => {
                   Personal Information
                 </h2>
                 <div className="absolute top-0 right-5 cursor-pointer">
-                  <BiEditAlt className="h-7 w-7 text-slate-600" onClick={() => setVisible(true)} />
+                  <BiEditAlt
+                    className="h-7 w-7 text-slate-600"
+                  />
                 </div>
                 <div className="flex flex-col mt-3 gap-[10px]">
                   <div className="flex flex-col lg:flex-row items-start justify-start gap-10 ">
@@ -149,13 +150,9 @@ export const page = () => {
             </div>
           </div>
         </div>
-        <DialogInput setVisible={() => setVisible(false)} visible={visible}>
-          <button>open</button>
-        </DialogInput>
       </div>
     </div>
   );
 };
 
 export default page;
-

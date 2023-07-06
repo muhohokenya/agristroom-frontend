@@ -17,7 +17,7 @@ function Page(props: Props) {
       console.log("interests", res);
     };
     getInterest()
-  },[])
+  },[dispatch])
   
   return (
     <div className="min-h-[100vh] bg-zinc-200 flex items-center justify-center">

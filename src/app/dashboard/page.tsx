@@ -51,7 +51,7 @@ function Dashboard(props: Props) {
       console.log("interests", res.payload.interests);
     };
     getInterest()
-  },[])
+  },[dispatch])
 
   useEffect(() => {
     const fetchAccounts = async()=> {
@@ -59,7 +59,7 @@ function Dashboard(props: Props) {
       console.log("accnts", res.payload.accounts);
     };
     fetchAccounts();
-  },[])
+  },[dispatch])
 
   return (
     <div className="px-[15px] py-[30px]  max-w-[1200px] mx-auto bg-white ">

@@ -32,7 +32,7 @@ function CreateAccountAs(props: Props) {
       setLoading(false);
     };
     fetchAccounts();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const mergerAccountsAndIcons = () => {
@@ -45,7 +45,7 @@ function CreateAccountAs(props: Props) {
       }
     };
     mergerAccountsAndIcons();
-  }, [accounts, accountIcons]);
+  }, [accounts]);
 
   console.log("path name", usePathname());
   const saveToLocalStorage = async () => {

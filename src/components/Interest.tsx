@@ -65,7 +65,7 @@ function InterestPage(props: Props) {
       setLoading(false);
     };
     getInterest();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className=" flex flex-col  max-h-[500px] items-start  lg:max-h-[500px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
