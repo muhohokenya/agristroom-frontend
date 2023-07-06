@@ -7,7 +7,7 @@ interface IPost {
 }
 
 const initialState = {
-    interests: {} as IPost[] | null,
+    post: {} as IPost | null,
     loading: false
 }
 
@@ -17,15 +17,15 @@ export const postQuestionSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder.addCase(postQuestion.pending, (state, action) => {
-            state.interests = null;
+            state.post = null;
             state.loading = true;
         })
         builder.addCase(postQuestion.fulfilled, (state, action) => {
-            state.interests = action.payload.result;
+            state.post = action.payload.result;
             state.loading = false;
         })
         builder.addCase(postQuestion.rejected, (state, action) => {
-            state.interests = null;
+            state.post = null;
             state.loading = false;
         })
     },

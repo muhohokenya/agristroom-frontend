@@ -10,7 +10,7 @@ export const DashboardLoading = () => {
   return (
     <DashboardShell>
       <DashHeader />
-      <DashSidebar showSideNav={false} setShowSideNav={setShowSideNav} />
+      {/* <DashSidebar showSideNav={false} setShowSideNav={setShowSideNav} /> */}
       <div className="divide-border-200 divide-y rounded-md border">
          <PostQuestion.Skeleton />
          <PostQuestion.Skeleton />

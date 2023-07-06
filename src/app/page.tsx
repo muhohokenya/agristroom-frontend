@@ -15,7 +15,6 @@ import {
   guides,
   masterClassesData,
 } from "../lib/data/data";
-import { CarouselComponent } from "../components/carousel/Carousel";
 
 import ResponsiveDemo from "../components/carousel/CarouselDemo";
 import { ManagedUI } from "../hooks/useModalContext";

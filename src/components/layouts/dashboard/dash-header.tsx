@@ -72,12 +72,31 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
           <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121] cursor-pointer tracking-[-0.04em]">
             Events
           </li>
-          <li className="text-[14px] flex items-center justify-center rounded-full bg-[#DBF3D9] leading-[18.9px] font-[500] text-[#212121] cursor-pointer tracking-[-0.04em]">
-            <Tooltip target=".profile" mouseTrack mouseTrackLeft={10} className="!bg-[#DBF3D9]" style={{backgroundColor: "#DBF3D9", color: "#2F9B4E"}} />
-            <BiSolidUserCircle
-              className="profile text-[#2F9B4E] w-10 h-10 "
-              data-pr-tooltip="Your Profile"
-            />
+          <li className="text-[14px] cursor-pointer group relative flex items-center justify-center rounded-full bg-[#DBF3D9] leading-[18.9px] font-[500] text-[#212121]  tracking-[-0.04em]">
+            <BiSolidUserCircle className="profile text-[#2F9B4E] w-10 h-10 " />
+            <span className="bg-[#DBF3D9] hidden absolute top-10 h-6 w-6 left-[15px] rotate-45"></span>
+            <div className="bg-[#DBF3D9] hidden px-3 lg:hidden flex-col items-center justify-center absolute top-12 -left-[3px] rounded-sm py-1 text-[#2F9B4E] whitespace-nowrap text-[14px]">
+              <div className="div bg-white h-[70px] w-[70px] flex items-center rounded-full justify-center mt-2">
+                <Image
+                  src="/user-2.png"
+                  alt=""
+                  width={66}
+                  height={66}
+                  className="bg-[#DBF3D9] rounded-full"
+                />
+              </div>
+              <div className="flex flex-col items-start justify-center my-2 gap-2 ">
+                <span className="pl-2 py-[2px] pr-3 text-white whitespace-nowrap text-[13px] cursor-pointer bg-[#2F9B4E] rounded-full">
+                  Account
+                </span>
+                <span
+                  onClick={() => router.push("/dashboard/profile")}
+                  className="pl-2 py-[2px] pr-3 text-white whitespace-nowrap text-[13px] cursor-pointer bg-[#2F9B4E] rounded-full"
+                >
+                  Profile Settings
+                </span>
+              </div>
+            </div>
           </li>
           <li
             onClick={logOut}

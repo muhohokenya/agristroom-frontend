@@ -27,7 +27,6 @@ function Dashboard(props: Props) {
     const getUser = async () => {
       setLoading(true);
       const { payload }: any = await dispatch(getCurrentUser());
-      console.log("current User", payload);
       if (payload?.success) {
         setCurrentUser(payload.user);
         setLoading(false);

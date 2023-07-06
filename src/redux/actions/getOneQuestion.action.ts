@@ -5,20 +5,19 @@ import axios from "axios";
 import { setErrorNotification } from "../features/error.reducer";
 import { getLoggedInUserToken } from "@/src/lib/utils";
 
-export const postQuestion = createAsyncThunk(
-  "post/question",
-  async (data: any, thunkAPI) => {
+export const getOneQuestion = createAsyncThunk(
+  "get/question",
+  async (id:number, thunkAPI) => {
     try {
       const accessToken = getLoggedInUserToken();
-      console.log("accessToken from pos question", accessToken);
-      const response = await axios.post(`${BaseURL}/post/create`, data, {
-        headers: {
-          Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
-        },
-      });
-      console.log("response from pos question", response);
+      const response = await axios.get(`${BaseURL}/post/${id}`, {
+          headers: {
+              Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
+            },
+        });
+        console.log("accessToken from geting one question", accessToken, "response", response);
       return {
-        result: response.data,
+        post: response.data,
         success: true,
       };
     } catch (error) {

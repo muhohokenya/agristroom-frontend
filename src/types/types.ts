@@ -74,3 +74,20 @@ export interface UserLoginData {
   email: string;
   password: string;
 }
+
+export interface Post{
+  id: number;
+  name: string;
+  user_id: number;
+  created_at: string;
+  updated_at: string;
+  user: {
+    first_name: string;
+    last_name: string;
+    phone_number: string;
+    image: string;
+    email: string;
+    county: string;
+    country: string
+  }
+}

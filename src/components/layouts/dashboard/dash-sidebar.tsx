@@ -62,12 +62,12 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
           </h4>
           <div className="flex flex-col mt-[16px] gap-[24px]">
             <span
-              className={`flex gap-[16px] items-center text-[16px] leading-[22px] font-[400] tracking-[-0.02em] text-[#2F9B4E] cursor-pointer ${jost.className}`}
+              className={`flex gap-[14px] items-center text-[16px] leading-[22px] font-[400] tracking-[-0.02em] text-[#2F9B4E] cursor-pointer ${jost.className}`}
             >
               <FaHome />
               <span>Home</span>
             </span>
-            <span className="flex gap-[16px] items-center text-[16px] leading-[22px] font-[400] tracking-[-0.02em] text-[#212121]/70 cursor-pointer">
+            <span className="flex gap-[16px] items-center text-[14px] leading-[22px] font-[400] tracking-[-0.02em] text-[#212121]/70 cursor-pointer">
               <FaPlayCircle className=" rotate-45" /> <span>Popular</span>
             </span>
           </div>
@@ -79,16 +79,16 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
           <div className="flex items-start ju gap-[16px] mt-[15px]">
             <FaAppleAlt />
             <ul className="flex flex-col gap-[16px]">
-              <li className="text-[16px] leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.02em] cursor-pointer ">
+              <li className="text-[14px] leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.02em] cursor-pointer ">
                 Apple Farms
               </li>
-              <li className="text-[16px] leading-[22px] font-[400] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
+              <li className="text-[14px] leading-[22px] font-[400] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
                 Honey Crisp
               </li>
-              <li className="text-[16px] leading-[22px] font-[400] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
+              <li className="text-[14px] leading-[22px] font-[400] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
                 EverCrisp
               </li>
-              <li className="text-[16px] leading-[22px] font-[400] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
+              <li className="text-[14px] leading-[22px] font-[400] cursor-pointer text-[#212121]/70 tracking-[-0.02em]">
                 Lady Alice
               </li>
             </ul>
@@ -96,25 +96,25 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
             {/* <MdOutlineKeyboardArrowUp className="ml-auto h-[26px] w-[20px]" /> */}
           </div>
         </div>
-        <div className="flex flex-col gap-[16px] mt-[37px] border-t border-slate-400 lg:hidden">
-          <span className="flex gap-[16px] items-center mt-[10px] cursor-pointer text-[16px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em]">
+        <div className="flex flex-col gap-[14px] mt-[37px] border-t border-slate-400 lg:hidden">
+          <span className="flex items-center mt-[10px] cursor-pointer text-[14px] leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.02em]">
             About Us
           </span>
-          <span className="flex gap-[16px] items-center cursor-pointer text-[16px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em]">
+          <span className="flex items-center cursor-pointer text-[14px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em]">
             Blog
           </span>
-          <span className="flex gap-[16px] items-center cursor-pointer text-[16px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em]">
+          <span className="flex items-center cursor-pointer text-[14px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em]">
             Products
           </span>
-          <span className="flex gap-[16px] items-center cursor-pointer text-[16px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em]">
+          <span className="flex items-center cursor-pointer text-[14px] leading-[22px] font-[500] text-[#212121]/70 tracking-[-0.02em]">
             Events
           </span>
-          <li className="text-[16px] flex items-center justify-start w-fit pl-1 py-1 pr-3 rounded-md bg-[#DBF3D9] leading-[18.9px] font-[500] text-[#2F9B4E] cursor-pointer tracking-[-0.04em]">
+          <li className="text-[14px] flex items-center justify-start w-fit pl-1 py-1 pr-3 rounded-md bg-[#DBF3D9] leading-[18.9px] font-[500] text-[#2F9B4E] cursor-pointer tracking-[-0.04em]">
             Profile
           </li>
           <li
             onClick={logOut}
-            className="text-[16px] bg-[#DBF3D9] w-fit py-1 pl-1 pr-3 rounded-md text-[#2F9B4E] flex items-center justify-start gap-[10px] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]"
+            className="text-[14px] bg-[#DBF3D9] w-fit py-1 pl-1 pr-3 rounded-md text-[#2F9B4E] flex items-center justify-start gap-[10px] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]"
           >
             Log out
           </li>
