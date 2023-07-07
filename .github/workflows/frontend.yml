@@ -22,3 +22,4 @@ jobs:
           script: |
             cd /var/www/frontend/
             git pull origin main
+            npm install
