@@ -11,7 +11,7 @@ jobs:
     #      name: Build
     #      needs: ['larave-test']
     runs-on: ubuntu-latest
-    container: node-18
+    container: node:18
     steps:
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.10
