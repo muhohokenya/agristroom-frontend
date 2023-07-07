@@ -1,0 +1,24 @@
+name: Frontend
+
+on:
+  push:
+    branches: [ "dev-ops" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    #      name: Build
+    #      needs: ['larave-test']
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{ secrets.USER_NAME }}
+          port: 22
+          script: |
+            cd /var/www/frontend/
+            git pull origin main
