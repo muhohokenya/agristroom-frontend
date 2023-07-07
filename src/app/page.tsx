@@ -171,7 +171,7 @@ export default function Home() {
 
       <div className="w-full bg-[#2F9B4E]">
         <div className="max-w-[1440px] mx-auto w-full">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-[50px] min-h-[223px] py-[40px] lg:py-0">
+          <div className="flex flex-wrap md:flex-nowrap items-center justify-center gap-[50px] min-h-[223px] py-[40px] lg:py-0">
             <div className="flex flex-col items-center justify-center w-full">
               <span
                 className={`text-[34px]  leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
@@ -272,7 +272,7 @@ export default function Home() {
             to contribute to a more sustainable and equitable future for all.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 place-items-center gap-4 mt-[30px]">
+          <div className="flex flex-wrap w-full items-center justify-center gap-[50px] mt-[30px]">
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
                 src="/people-two.png"
