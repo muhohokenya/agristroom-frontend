@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} min-h-screen flex flex-col  bg-[#FAFAFA] w-full`}
+        className={`${inter.className} min-h-screen flex flex-col bg-[#FAFAFA] w-full`}
       >
         <Providers>
           <ManagedUIProvider>

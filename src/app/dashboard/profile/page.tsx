@@ -15,7 +15,6 @@ function Page() {
           <h2 className="ml-3">My Profile</h2>
           <div className="flex flex-col mt-2 mx-4 ">
             <div className="flex flex-col ">
-              {/* <p className="text-slate-700 text-[17px] leading-[18px]">Photo</p> */}
               <div className="image-container flex gap-3 items-center">
                 <div className="flex flex-col">
                   <div className="div bg-white h-[70px] w-[70px] flex items-center rounded-full justify-center mt-2">

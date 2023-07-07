@@ -78,7 +78,7 @@ function CreateAccountAs(props: Props) {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-2 lg:grid-cols-3 mt-[30px] gap-[8px] place-items-center ju">
+        <div className="flex flex-wrap items-center justify-center mx-auto mt-[30px] gap-[8px] place-items-center">
           {accountTypes.map((accnt: any, indx) => {
             return (
               <div

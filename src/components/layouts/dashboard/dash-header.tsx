@@ -3,7 +3,6 @@
 import { useAppDispatch } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
 import { logoutUserAction } from "@/src/redux/actions/auth.action";
-import { Tooltip } from "primereact/tooltip";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { BiSolidUserCircle } from "react-icons/bi";

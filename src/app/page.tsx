@@ -19,9 +19,6 @@ import {
 import ResponsiveDemo from "../components/carousel/CarouselDemo";
 import { ManagedUI } from "../hooks/useModalContext";
 import { useRouter } from "next/navigation";
-import SampleCarousel, {
-  SampleCarouselItem,
-} from "../components/carousel/SampleCarousel";
 import { LikesViews } from "../components/LikesViews";
 import { SlotsLeft } from "../components/SlotsLeft";
 
@@ -174,7 +171,7 @@ export default function Home() {
 
       <div className="w-full bg-[#2F9B4E]">
         <div className="max-w-[1440px] mx-auto w-full">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[50px] min-h-[223px] py-[40px] lg:py-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-[50px] min-h-[223px] py-[40px] lg:py-0">
             <div className="flex flex-col items-center justify-center w-full">
               <span
                 className={`text-[34px]  leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
@@ -275,7 +272,7 @@ export default function Home() {
             to contribute to a more sustainable and equitable future for all.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 mt-[30px]">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 place-items-center gap-4 mt-[30px]">
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
                 src="/people-two.png"
@@ -404,159 +401,6 @@ export default function Home() {
             values={masterClasses}
             template={masterTemplate}
           />
-          {/* <div className="hidden md:flex flex-wrap gap-[21px] items-center justify-center mt-[30px]">
-            {masterClasses.map(
-              (
-                {
-                  image,
-                  author,
-                  username,
-                  userProfile,
-                  title,
-                  description,
-                  likes,
-                  views,
-                  classStatus,
-                  date,
-                }: MasterClass,
-                index
-              ) => {
-                return (
-                  <MasterClassCard
-                    image={image}
-                    username={username}
-                    userProfile={userProfile}
-                    title={title}
-                    description={description}
-                    likes={likes}
-                    views={views}
-                    classStatus={classStatus}
-                    date={date}
-                    author={author}
-                    key={index}
-                  />
-                );
-              }
-            )}
-          </div> */}
-          {/* <div className="block md:hidden bg-purple-600">
-            <SampleCarousel>
-              <SampleCarouselItem>
-                <div className="flex flex-col w-[100%] max-w-[600px] box-content ">
-                  <div className="w-full h-[210px] bg-red-500">
-                    <Image
-                      src="/guide-images/apples-one.png"
-                      alt=""
-                      width={345}
-                      height={225}
-                      className="rounded-t-md min-w-[100%] w-[400px] h-[210px] object-cover"
-                    />
-                  </div>
-
-                  <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] w-full ">
-                    <h3
-                      className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
-                    >
-                      Nutritional Program for Wambugu Apples
-                    </h3>
-                    <p
-                      className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] whitespace-normal leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em]  ${satoshi.className}`}
-                    >
-                      Soil test is important to determine and understand
-                      fertilizer requirements for your apple farm. Both organic
-                      and inorganic fertilizers - foliar and basal are important
-                      to supply nutrient needs for the plant. Read on to
-                      understand timing and split application of fertilizers.
-                    </p>
-                    <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
-                      <span
-                        className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
-                      >
-                        Read More
-                      </span>
-                      <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
-                    </div>
-                  </div>
-                </div>
-              </SampleCarouselItem>
-              <SampleCarouselItem>
-                <div className="flex flex-col max-w-[400px] box-content ">
-                  <div className="max-w-full h-[210px]">
-                    <Image
-                      src="/guide-images/apples-one.png"
-                      alt=""
-                      width={399}
-                      height={209}
-                      className="rounded-t-md  object-cover"
-                    />
-                  </div>
-
-                  <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] w-full ">
-                    <h3
-                      className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
-                    >
-                      Nutritional Program for Wambugu Apples
-                    </h3>
-                    <p
-                      className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] whitespace-normal leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em]  ${satoshi.className}`}
-                    >
-                      Soil test is important to determine and understand
-                      fertilizer requirements for your apple farm. Both organic
-                      and inorganic fertilizers - foliar and basal are important
-                      to supply nutrient needs for the plant. Read on to
-                      understand timing and split application of fertilizers.
-                    </p>
-                    <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
-                      <span
-                        className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
-                      >
-                        Read More
-                      </span>
-                      <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
-                    </div>
-                  </div>
-                </div>
-              </SampleCarouselItem>
-              <SampleCarouselItem>
-                <div className="flex flex-col max-w-[400px] box-content ">
-                  <div className="max-w-full h-[210px]">
-                    <Image
-                      src="/guide-images/apples-one.png"
-                      alt=""
-                      width={399}
-                      height={209}
-                      className="rounded-t-md  object-cover"
-                    />
-                  </div>
-
-                  <div className="py-[15px] lg:py-[20px] px-[16px] lg:px-[20px] w-full ">
-                    <h3
-                      className={`font-[600] text-[16px] lg:text-[20px] leading-[24px] tracking-[-0.04em] ${jost.className}`}
-                    >
-                      Nutritional Program for Wambugu Apples
-                    </h3>
-                    <p
-                      className={`text-[14px] lg:text-[16px] line-clamp-4 font-[400] whitespace-normal leading-[28px] tracking-[-0.03em] lg:tracking-[-0.04em]  ${satoshi.className}`}
-                    >
-                      Soil test is important to determine and understand
-                      fertilizer requirements for your apple farm. Both organic
-                      and inorganic fertilizers - foliar and basal are important
-                      to supply nutrient needs for the plant. Read on to
-                      understand timing and split application of fertilizers.
-                    </p>
-                    <div className="flex mt-[25px] lg:my-[20px] items-center gap-[9.17px]">
-                      <span
-                        className={`text-[16px] leading-[22px] tracking-[-0.03em] font-[700] text-[#2F9B4E] cursor-pointer ${satoshi.className}`}
-                      >
-                        Read More
-                      </span>
-                      <MdArrowForwardIos className="text-[#2F9B4E] w-4 h-4" />
-                    </div>
-                  </div>
-                </div>
-              </SampleCarouselItem>
-            </SampleCarousel>
-          </div> */}
         </div>
       </div>
 
