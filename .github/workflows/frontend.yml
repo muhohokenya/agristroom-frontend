@@ -8,13 +8,12 @@ on:
 
 jobs:
   build:
-    #      name: Build
-    #      needs: ['larave-test']
     runs-on: ubuntu-latest
     container: node:18
     steps:
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.10
+      - uses: actions/checkout@v3
         with:
           host: ${{ secrets.HOST }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -22,5 +21,4 @@ jobs:
           port: 22
           script: |
             cd /var/www/frontend/
-            git pull origin main
             node -v
