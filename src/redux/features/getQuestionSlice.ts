@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getInterests } from "../actions/interest.action";
-import { postQuestion } from "../actions/postQuestion.action";
 import { getQuestion } from "../actions/getQuestions.action";
 
 interface IPost {
