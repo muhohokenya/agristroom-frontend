@@ -1,0 +1,25 @@
+name: Frontend
+on:
+  push:
+    branches: [ "dev-ops" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{ secrets.USER_NAME }}
+          port: 22
+          script: |
+            cd /var/www/frontend/
+            git pull origin main
+            npm install
+            npm run build
+            export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
+            pm2 restart frontend
