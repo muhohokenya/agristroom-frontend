@@ -22,4 +22,6 @@ jobs:
           port: 22
           script: |
             cd /var/www/frontend/
+            git pull origin dev-ops
             npm install
+            npm restart frontend
