@@ -24,4 +24,4 @@ jobs:
             cd /var/www/frontend
             git pull origin dev-ops
             npm install
-            npm restart frontend
+            pm2 restart frontend
