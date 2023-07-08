@@ -1,6 +1,4 @@
 name: Frontend
-#sudo npm install -g n
-#            sudo n stable
 on:
   push:
     branches: [ "dev-ops" ]
