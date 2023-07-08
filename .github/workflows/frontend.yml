@@ -1,5 +1,6 @@
 name: Frontend
-
+#sudo npm install -g n
+#            sudo n stable
 on:
   push:
     branches: [ "dev-ops" ]
@@ -20,7 +21,5 @@ jobs:
           node-version: 18
           port: 22
           script: |
-            sudo npm install -g n
-            sudo n stable
             cd /var/www/frontend/
-            node -v
+            node --version
