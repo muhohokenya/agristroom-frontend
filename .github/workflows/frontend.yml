@@ -23,5 +23,5 @@ jobs:
             git pull origin main
             npm install
             npm run build
-            export PATH-$PATH: /root/.nvm/versions/node/v18.16.0
+            export PATH-$PATH: /usr/local/bin/pm2 /root/.nvm/versions/node/v18.16.0/bin/pm2
             pm2 list
