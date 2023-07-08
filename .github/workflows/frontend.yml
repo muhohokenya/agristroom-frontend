@@ -21,7 +21,7 @@ jobs:
           node-version: 18
           port: 22
           script: |
-            cd /var/www/frontend/
+            cd /var/www/frontend
             git pull origin dev-ops
             npm install
             npm restart frontend
