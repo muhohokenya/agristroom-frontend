@@ -22,4 +22,4 @@ jobs:
             npm install
             npm run build
             export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
-            pm2 list
+            pm2 restart frontend
