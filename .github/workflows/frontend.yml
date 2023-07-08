@@ -20,5 +20,7 @@ jobs:
           node-version: 18
           port: 22
           script: |
+            sudo npm install -g n
+            sudo n stable
             cd /var/www/frontend/
             node -v
