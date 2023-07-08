@@ -22,4 +22,4 @@ jobs:
           port: 22
           script: |
             cd /var/www/frontend/
-            node --version
+            npm install
