@@ -70,7 +70,7 @@ export default function Home() {
               <p
                 className={`text-[23px] md:text-[34px] text-[#212121] tracking-[-0.04em] leading-[30px] md:leading-[48px] text-start font-[800] ${jost.className}`}
               >
-                Make important connections to improve your{" "}
+                Hello Test CI/CD Make important connections to improve your{" "}
                 <span className="text-[#2F9B4E]">Apple farming</span> experience
               </p>
               <p
