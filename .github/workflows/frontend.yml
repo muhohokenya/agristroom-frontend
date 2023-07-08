@@ -9,8 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: node:18
     steps:
+      - name: Set up Node.js 14
+        uses: actions/setup-node@v2
+        with:
+            node-version: 18
       - uses: actions/checkout@v3
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.10
