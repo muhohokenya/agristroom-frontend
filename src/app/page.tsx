@@ -539,7 +539,7 @@ const Partners = () => {
         >
           <span className="text-[#212121]">Our</span> Partners
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[70px] mt-[31px] mb-[91px]  items-center">
+        <div className="flex flex-wrap md:flex-nowrap gap-[70px] mt-[31px] mb-[91px]  items-center">
           <div className=" max-w-[200px] flex items-center justify-center">
             <Image
               src="/partners/wefarm.png"

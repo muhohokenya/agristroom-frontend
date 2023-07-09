@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import { jost, satoshi } from "@/src/fonts/Fonts";
-import {SubmitHandler, useForm} from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "./ui/Input";
 import { PhoneInput } from "./ui/PhoneInput";
 
@@ -15,25 +15,26 @@ type Inputs = {
   firstName: string;
   lastName: string;
   userName: string;
-  phone: string
-}
+  phone: string;
+};
 
 function AccountInformation(props: Props) {
   const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
 
   const {
-    register, handleSubmit, watch, formState: {errors}
-  } = useForm<Inputs>()
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    localStorage.setItem("user_info", JSON.stringify(data))
+    localStorage.setItem("user_info", JSON.stringify(data));
     console.log("user ata", data);
-    
-  }
+  };
 
   console.log("user data");
-  
 
   return (
     <div className=" flex flex-col  max-h-[610px] items-center  lg:max-h-[620px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
@@ -56,7 +57,7 @@ function AccountInformation(props: Props) {
           <div className="flex flex-col gap-[8px] w-full ">
             <label>First Name</label>
             <Input
-            {...register("firstName", {required: true})}
+              {...register("firstName", { required: true })}
               type="text"
               className="w-full focus-visible:ring-[#2F9B4E]  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px] bg-[#FFFFFF] focus:outline focus:outline-[#BFBFBF]/60 "
             />
@@ -65,39 +66,29 @@ function AccountInformation(props: Props) {
             <label>Last Name</label>
             <div className=" flex items-center">
               <Input
-               {...register("lastName", {required: true})}
+                {...register("lastName", { required: true })}
                 type="text"
                 className=" focus-visible:ring-[#2F9B4E]  w-full  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px]  focus:outline focus:outline-[#BFBFBF]/60 "
               />
             </div>
           </div>
           <div className="flex flex-col gap-[8px] w-full">
-            <label>User Name</label>
-            <div className=" flex items-center">
-              <Input 
-                {...register("userName", {required: true})}
-                type="text"
-                className="focus-visible:ring-[#2F9B4E]   w-full  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px]  focus:outline focus:outline-[#BFBFBF]/60 "
-              />
-            </div>
-          </div>
-          <div className="flex flex-col gap-[8px] w-full">
             <label>Phone Number</label>
             <div className=" flex items-center gap-[8px]">
-              <PhoneInput {...register("phone")}   />
+              <PhoneInput {...register("phone")} />
             </div>
           </div>
 
           <button
-          type="submit"
-          onClick={() => {
-            setOpenModal(true);
-            router.push("/signup/interest");
-          }}
-          className={`my-[20px] bg-[#2F9B4E] w-full py-[14px]  h-[50px] rounded-[5px] text-white  text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
-        >
-          Continue
-        </button>
+            type="submit"
+            onClick={() => {
+              setOpenModal(true);
+              router.push("/signup/interest");
+            }}
+            className={`my-[20px] bg-[#2F9B4E] w-full py-[14px]  h-[50px] rounded-[5px] text-white  text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
+          >
+            Continue
+          </button>
         </div>
       </form>
     </div>

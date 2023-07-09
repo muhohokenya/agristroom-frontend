@@ -95,13 +95,13 @@ const Login = () => {
         <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]   ">
           <FcGoogle className="h-[24px] w-[23.85px]" />
           <p className="text-[16px] text-[#2F9B4E] font-[700] leading-[22px] tracking-[0.04em]">
-            Continue with Google
+            Log in with Google
           </p>
         </div>
         <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]">
           <FaFacebook className="text-[#1877F2] w-[24px] h-[23.85px]" />
           <p className="text-[16px] text-[#2F9B4E] font-[700] leading-[22px] tracking-[0.04em]">
-            Continue with Google
+            Log in with Facebook
           </p>
         </div>
       </div>

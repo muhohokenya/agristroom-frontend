@@ -278,7 +278,7 @@ function Page(props: Props) {
                               <p
                                 className={`flex flex-col  items-start text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
                               >
-                                <span>Answered by</span>
+                                <span className="text-[12px]">Answered by</span>
                                 <span className="text-[12px] text-[#2F9B4E]">
                                   {" "}
                                   {reply?.user?.first_name} -{" "}
