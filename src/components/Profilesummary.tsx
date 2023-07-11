@@ -15,12 +15,14 @@ import { InterestType } from "./Interest";
 import { RootState } from "../redux";
 import { FaSpinner } from "react-icons/fa";
 import { toast } from "../hooks/use-toast";
+import { useFormContext } from "../context/formstate";
 
 const ProfileSummary = () => {
   const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
   const dispatch = useAppDispatch();
-  const result = useAppSelector((state: RootState) => state.auth)
+  const {state, setState} = useFormContext();
+
   const error = useAppSelector((state: RootState) => state.notifications)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
@@ -34,54 +36,20 @@ const ProfileSummary = () => {
     account_id: "",
     interests: [],
   });
-  const [obj, setObj] = useState({
-    accountType: {
-      id: "",
-      name: "",
-    },
-    fullName: "",
-    email: "",
-    password: "",
-    userName: "",
-    phone: "",
-    interests: [],
-  });
-  
 
   useEffect(() => {
-    const userData: any = JSON.parse(localStorage.getItem("user_data")!);
-    const selectedAccount: any = JSON.parse(
-      localStorage.getItem("selectedAcount")!
-    );
-    const userInfo: any = JSON.parse(localStorage.getItem("user_info")!);
-    const interests: any = JSON.parse(localStorage.getItem("interest")!);
-
-    const obj = {
-      accountType: selectedAccount,
-      fullName: `${userInfo?.firstName} ${userInfo?.lastName}`,
-      email: userData?.email,
-      password: userData?.password,
-      userName: userInfo?.userName,
-      phone: "+254704078652",
-      interests: interests,
-    };
-
-    setObj(obj);
-
     const userRegisterData: UserRegisterData = {
-      first_name: userInfo?.firstName,
-      last_name: userInfo?.lastName,
-      email: userData?.email,
-      phone_number: "+254704078652",
-      password: userData?.password,
-      account_id: selectedAccount?.id,
-      interests: interests,
+      first_name: state?.first_name,
+      last_name: state?.last_name,
+      email: state?.email,
+      phone_number: state?.phone_number,
+      password: state?.password,
+      account_id: state.account.id,
+      interests: state?.interests,
     };
 
     setUerInfo(userRegisterData);
-  }, []);
-
-
+  }, [state]);
 
   const createUserAccount = async () => {
     const res: any = await dispatch(signUpUserAction(userInfo));
@@ -89,7 +57,6 @@ const ProfileSummary = () => {
     console.log("response", res.payload, isSubmitting);
     
     if(res?.payload?.success){
-      console.log("after response", res.payload, isSubmitting);
       toast({
         title: "Account Created successfully",
         description: "You can now login in with your credentials",
@@ -101,7 +68,6 @@ const ProfileSummary = () => {
     
     if(!res?.payload?.success){
       setIsSubmitting(false)
-      console.log("after failer", res.payload, isSubmitting);
       toast({
         title: "There was a problem",
         description: error.error,
@@ -112,7 +78,7 @@ const ProfileSummary = () => {
     }
   };
 
-  console.log("result", result, error.error);
+  console.log("summary state", state);
   
 
 
@@ -164,32 +130,32 @@ const ProfileSummary = () => {
             <span
               className={`flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
             >
-              {obj.accountType.name}{" "}
-              <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
+              {state?.account.name}{" "}
+              <MdOutlineEdit onClick={() => router.push("/signup/createaccounts")} className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]" />
             </span>
             <span
               className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
             >
-              {obj.fullName}{" "}
-              <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
+              {`${state?.first_name} ${state?.last_name}`}{" "}
+              <MdOutlineEdit onClick={() => router.push("/signup/accountinformations")} className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]" />
             </span>
             <span
               className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
             >
-              {obj.email}{" "}
-              <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
+              {state?.email}{" "}
+              <MdOutlineEdit onClick={() => router.push("/signup")} className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]" />
             </span>
             <span
               className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
             >
-              {obj.userName}{" "}
-              <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
+              {state?.user_name}{" "}
+              <MdOutlineEdit onClick={() => router.push("/signup")} className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]" />
             </span>
             <span
               className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
             >
-              {obj.phone}{" "}
-              <MdOutlineEdit className="h-[16px w-[16px] !cursor-pointer" />
+              {state?.phone_number}{" "}
+              <MdOutlineEdit onClick={() => router.push("/signup/accountinformations")} className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]" />
             </span>
           </div>
         </div>
@@ -210,7 +176,7 @@ const ProfileSummary = () => {
         </div>
 
         <div className="flex gap-[6px] flex-wrap  items-center w-full  mt-[13px]">
-          {obj?.interests?.map((interest: InterestType, indx) => {
+          {state?.interests?.map((interest: InterestType, indx) => {
             return (
               <span
                 key={indx}

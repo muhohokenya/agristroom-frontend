@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { forwardRef, useContext, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { MdClose } from "react-icons/md";
 import { satoshi } from "@/src/fonts/Fonts";
 import { Input } from "@/src/components/ui/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useFormContext } from "../context/formstate";
 
 interface Props {}
 type Inputs = {
@@ -18,29 +19,45 @@ type Inputs = {
   password: string;
 };
 
-function SignUpPage(props: Props) {
-  const [showPassword, setShowPassword] = useState(false);
+const SignUpPage = forwardRef((props: Props, ref: any) => {
+  const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
+  const {state, setState} = useFormContext();
+
+  const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const router = useRouter();
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isLoading },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    defaultValues: state,
+    mode: "onSubmit"
+  });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setIsSubmitting(true);
-    setTimeout(() => {
-      localStorage.setItem("user_data", JSON.stringify(data));
-      setIsSubmitting(false);
-    }, 1000);
-    console.log("data entered", data);
+    setState((prevState) => ({
+      ...prevState,
+      user_name: data.username,
+      email: data.email,
+      password: data.password
+    }))
+    setIsSubmitting(false);
     setOpenModal(true);
     router.push("/signup/createaccounts");
   };
+
+  useEffect(() => {
+    reset({
+      username: state.user_name,
+      email: state.email,
+      password: state.password
+    })
+  },[reset])
 
   return (
     <div className="relative flex flex-col items-center justify-center h-auto mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
@@ -96,9 +113,6 @@ function SignUpPage(props: Props) {
               {errors.username && errors.username.type === "required" && (
                 <span className="text-red-400 text-[12px] mt-1 w-full">Username is required</span>
               )}
-              {errors.username && errors.username.type === "maxLength" && (
-                <span className="text-red-400">Max length exceeded</span>
-              )}
             </div>
           </div>
           <div className="flex flex-col gap-[8px] w-full ">
@@ -139,6 +153,7 @@ function SignUpPage(props: Props) {
         </p>
         <div className="flex w-full mt-[35px] items-center justify-center">
           <button
+           ref={ref}
             type="submit"
             disabled={isSubmitting}
             className={` bg-[#2F9B4E] ${
@@ -163,6 +178,6 @@ function SignUpPage(props: Props) {
       </div>
     </div>
   );
-}
+})
 
 export default SignUpPage;

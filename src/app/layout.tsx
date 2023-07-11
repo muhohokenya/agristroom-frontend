@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 import { ManagedUIProvider } from "../hooks/useModalContext";
 import { Providers } from "../redux/provider";
 import { Toaster } from "../components/ui/Toaster";
+import FormProvider from "../context/formstate";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,8 +38,10 @@ export default function RootLayout({
       >
         <Providers>
           <ManagedUIProvider>
+            <FormProvider>
             {children}
             {modal}
+            </FormProvider>
           </ManagedUIProvider>
         </Providers>
         <Toaster />

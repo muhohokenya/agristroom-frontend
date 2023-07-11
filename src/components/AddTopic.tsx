@@ -13,13 +13,11 @@ type Input = {
 
 const AddTopic = () => {
   const router = useRouter();
-  const [topic, setTopic] = useState("")
 
   const {register, handleSubmit, watch, formState: {errors}} = useForm<Input>()
 
   const onSubmit:SubmitHandler<Input> = (data) => {
-    localStorage.setItem("topic", JSON.stringify(data))
-   console.log("topic", data);
+   router.push("/signup/interest")
    
   }
   console.log("my topic");
@@ -57,9 +55,6 @@ const AddTopic = () => {
         </div>
         <button
         type="submit"
-          onClick={() => {
-            router.push("/signup/interest");
-          }}
           className={`mt-[35px] focus-visible:ring-[#2F9B4E] mx-[15px] lg:mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
         >
           Add

@@ -20,25 +20,38 @@ const DEFAULT_COUNTRY = {
   dial_code: "+254",
   code: "KE",
 };
-interface IPhoneInputState extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  setValue: (code: string, number: string) => void
+}
+
+interface IPhoneInputState{
   selectedCountry?: ICountry;
   number?: string;
 }
 
 
-const PhoneInput = React.forwardRef<HTMLInputElement, IPhoneInputState>(
-  ({ className, type = "text", ...props }, ref) => {
+const PhoneInput = React.forwardRef<HTMLInputElement, Props>(
+  ({ className, type = "text", setValue, ...props }, ref) => {
     const [state, setState] = useState<IPhoneInputState>({
       selectedCountry: DEFAULT_COUNTRY,
       number: "",
     });
 
     const selectCountry = (country: ICountry) => {
-      setState((prev) => ({ ...prev, selectedCountry: country }));
+      setState((prev) => ({ 
+        ...prev, 
+        selectedCountry: country ,
+        number: ""
+      }));
+      setValue(country.dial_code, "")
     };
 
     const setNumber = (e: ChangeEvent<HTMLInputElement>) => {
-      setState((prev) => ({ ...prev, number: e.target.value }));
+      setState((prev) => ({ 
+        ...prev, 
+        number: e.target.value
+       }));
+       setValue(state.selectedCountry?.dial_code + "", e.target.value)
     };
 
     return (

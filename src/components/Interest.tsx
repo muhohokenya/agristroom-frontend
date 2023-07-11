@@ -10,8 +10,9 @@ import { jost, satoshi } from "@/src/fonts/Fonts";
 import { useAppDispatch } from "../hooks/react-redux-hooks";
 import { getInterests } from "../redux/actions/interest.action";
 import { FaSpinner } from "react-icons/fa";
+import { useFormContext } from "../context/formstate";
 
-interface Props {}
+interface Props { }
 
 export type InterestType = {
   id: string;
@@ -21,10 +22,11 @@ export type InterestType = {
 function InterestPage(props: Props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { state, setState } = useFormContext();
+  const { setOpenModal } = useContext(ManagedUI);
+
   const [interests, setInterest] = useState<InterestType[]>([]);
   const [interestList, setInterestList] = useState<InterestType[]>([]);
-  const { setOpenModal } = useContext(ManagedUI);
-  const [topic, setTopic] = useState("");
   const [loading, setLoading] = useState(true);
   const [topicFound, setTopicFound] = useState("");
   const [selectedInterests, setSelectedInterests] = useState<
@@ -32,8 +34,8 @@ function InterestPage(props: Props) {
   >([]);
 
   const removeitem = (topic: InterestType) => {
-    if (selectedInterests?.includes(topic)) {
-      const updatedArray = selectedInterests.filter((item) => item !== topic);
+    if (selectedInterests?.some((interest) => interest.id === topic.id)) {
+      const updatedArray = selectedInterests.filter((item) => item.id !== topic.id);
       setSelectedInterests(updatedArray);
     } else {
       const updatedArray = [...(selectedInterests ?? []), topic];
@@ -53,19 +55,36 @@ function InterestPage(props: Props) {
     setInterest(filtered);
   };
 
-  console.log("interest:", selectedInterests);
-  console.log("topic:", topic);
-
   useEffect(() => {
     const getInterest = async () => {
       setLoading(true);
       let res: any = await dispatch(getInterests());
-      console.log("interests", res.payload.interests);
       setInterestList(res.payload.interests);
       setLoading(false);
     };
     getInterest();
   }, [dispatch]);
+
+
+  const onSubmit = () => {
+    setOpenModal(true);
+    topicFound === ""
+      ? router.push("/signup/profilesummary")
+      : router.push("/signup/addtopic");
+    setState((prevState) => ({
+      ...prevState,
+      interests: [...selectedInterests!]
+    }))
+  }
+
+  useEffect(()=> {
+   if(state.interests.length > 0){
+    setSelectedInterests(state.interests)
+    console.log("selected interest", selectedInterests);
+    console.log("state", state);
+   }
+  },[state.interests])
+  
 
   return (
     <div className=" flex flex-col  max-h-[500px] items-start  lg:max-h-[500px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
@@ -118,13 +137,11 @@ function InterestPage(props: Props) {
                   <div
                     key={indx}
                     onClick={() => removeitem(topic)}
-                    className={` cursor-pointer ${
-                      selectedInterests?.includes(topic)
+                    className={`cursor-pointer ${selectedInterests?.some((interest) => interest.id === topic.id)
                         ? "text-[#2F9B4E] bg-[#D7FBD7]"
                         : "bg-[#F5F5F5] text-[#212121]/70"
-                    }  rounded-[30px] text-[14px] leading-[19px] font-[500]  tracking-[-0.04em] px-[10px] py-[5px] ${
-                      satoshi.className
-                    }`}
+                      }  rounded-[30px] text-[14px] leading-[19px] font-[500]  tracking-[-0.04em] px-[10px] py-[5px] ${satoshi.className
+                      }`}
                   >
                     {topic.name}
                   </div>
@@ -151,16 +168,10 @@ function InterestPage(props: Props) {
             </p>
           </div>
         )
-      ) }
+      )}
 
       <button
-        onClick={() => {
-          setOpenModal(true);
-          topicFound === ""
-            ? router.push("/signup/profilesummary")
-            : router.push("/signup/addtopic");
-          localStorage.setItem("interest", JSON.stringify(selectedInterests));
-        }}
+        onClick={onSubmit}
         className={`mt-[35px] mx-[15px] lg:mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[494px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
       >
         {topicFound === "" ? "Continue" : "Add Topic"}
