@@ -29,9 +29,12 @@ function InterestPage(props: Props) {
   const [interestList, setInterestList] = useState<InterestType[]>([]);
   const [loading, setLoading] = useState(true);
   const [topicFound, setTopicFound] = useState("");
+  const [searchField, setSearchField] = useState("");
   const [selectedInterests, setSelectedInterests] = useState<
     InterestType[] | undefined
   >([]);
+
+
 
   const removeitem = (topic: InterestType) => {
     if (selectedInterests?.some((interest) => interest.id === topic.id)) {
@@ -68,23 +71,31 @@ function InterestPage(props: Props) {
 
   const onSubmit = () => {
     setOpenModal(true);
-    topicFound === ""
-      ? router.push("/signup/profilesummary")
-      : router.push("/signup/addtopic");
+    filteredInterests?.length! === 0
+      ? router.push("/signup/addtopic")
+      : router.push("/signup/profilesummary")
     setState((prevState) => ({
       ...prevState,
       interests: [...selectedInterests!]
     }))
   }
 
-  useEffect(()=> {
-   if(state.interests.length > 0){
-    setSelectedInterests(state.interests)
-    console.log("selected interest", selectedInterests);
-    console.log("state", state);
-   }
-  },[state.interests])
-  
+  useEffect(() => {
+    if (state.interests.length > 0) {
+      setSelectedInterests(state.interests)
+    }
+  }, [state.interests])
+
+  const filteredInterests = interestList?.filter((interest) => {
+    return (
+      interest.name.toLowerCase().includes(searchField.toLowerCase())
+    )
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchField(e.target.value)
+  }
+
 
   return (
     <div className=" flex flex-col  max-h-[500px] items-start  lg:max-h-[500px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
@@ -112,10 +123,7 @@ function InterestPage(props: Props) {
           <BiSearch className="-mr-10 text-2xl text-[#BFBFBF]/60 h-[25px] w-[27px] cursor-pointer" />
           <input
             placeholder="Search Topic"
-            onChange={(e) => {
-              setTopicFound(e.target.value);
-              interestChange();
-            }}
+            onChange={handleChange}
             type="text"
             className="w-full bg-transparent  h-[48px] mx-[5px] pl-10 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px] bg-[#FFFFFF] focus:outline focus:outline-[#BFBFBF]/60 "
           />
@@ -131,35 +139,36 @@ function InterestPage(props: Props) {
           </div>
         ) : (
           <div className="flex flex-wrap gap-[20px]">
-            {topicFound === "" ? (
-              interestList.map((topic: { id: string; name: string }, indx) => {
-                return (
-                  <div
-                    key={indx}
-                    onClick={() => removeitem(topic)}
-                    className={`cursor-pointer ${selectedInterests?.some((interest) => interest.id === topic.id)
-                        ? "text-[#2F9B4E] bg-[#D7FBD7]"
-                        : "bg-[#F5F5F5] text-[#212121]/70"
-                      }  rounded-[30px] text-[14px] leading-[19px] font-[500]  tracking-[-0.04em] px-[10px] py-[5px] ${satoshi.className
-                      }`}
-                  >
-                    {topic.name}
-                  </div>
-                );
-              })
-            ) : (
-              <div className=" w-full flex gap-[7px]  items-center justify-center">
-                <HiOutlineExclamationCircle className="h-[20px] w-[20px] text-[#2F9B4E]" />
-                <span
-                  className={`text-[16px] font-[500] leading-[22px] tracking-[-0.04em] text-[#2F9B4E]`}
+            {filteredInterests.length > 0 && filteredInterests.map((topic, indx) => {
+              return (
+                <div
+                  key={indx}
+                  onClick={() => removeitem(topic)}
+                  className={`cursor-pointer ${selectedInterests?.some((interest) => interest.id === topic.id)
+                    ? "text-[#2F9B4E] bg-[#D7FBD7]"
+                    : "bg-[#F5F5F5] text-[#212121]/70"
+                    }  rounded-[30px] text-[14px] leading-[19px] font-[500]  tracking-[-0.04em] px-[10px] py-[5px] ${satoshi.className
+                    }`}
                 >
-                  {topicFound}
-                </span>
-              </div>
+                  {topic.name}
+                </div>
+              )
+            }
             )}
           </div>
         )}
       </div>
+
+      {
+        filteredInterests.length === 0 && (
+          <div className="flex w-full items-center justify-center gap-2">
+            <HiOutlineExclamationCircle className="max-w-9 max-h-9 text-[#2F9B4E]" />
+            <span className="text-[12px] text-[#2F9B4E]">
+              {searchField} not found
+            </span>
+          </div>
+        )
+      }
       {selectedInterests?.length! > 0 && (
         topicFound === "" && (
           <div className="flex items-center  py-2 ml-auto  justify-end max-w-[315px] lg:min-w-[494px] mx-[15px] lg:mx-[40px]">
@@ -174,7 +183,7 @@ function InterestPage(props: Props) {
         onClick={onSubmit}
         className={`mt-[35px] mx-[15px] lg:mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[494px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
       >
-        {topicFound === "" ? "Continue" : "Add Topic"}
+        {filteredInterests?.length! === 0 ? "Add Topic" : "Continue"}
       </button>
     </div>
   );

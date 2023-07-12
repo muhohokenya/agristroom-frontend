@@ -10,7 +10,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 import { FaChevronDown } from "react-icons/fa";
 import { cn } from "@/src/lib/utils";
@@ -28,6 +28,8 @@ interface IPhoneInputState{
   selectedCountry?: ICountry;
   number?: string;
 }
+
+
 
 
 const PhoneInput = React.forwardRef<HTMLInputElement, Props>(
@@ -53,6 +55,10 @@ const PhoneInput = React.forwardRef<HTMLInputElement, Props>(
        }));
        setValue(state.selectedCountry?.dial_code + "", e.target.value)
     };
+
+    useEffect(() => {
+  
+    },[])
 
     return (
       <div className="flex my-2 items-center gap-2 w-full">

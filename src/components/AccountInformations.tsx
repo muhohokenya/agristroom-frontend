@@ -9,6 +9,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "./ui/Input";
 import { PhoneInput } from "./ui/PhoneInput";
 import { useFormContext } from "../context/formstate";
+import { Phone } from "lucide-react";
 
 interface Props { }
 
@@ -19,7 +20,7 @@ type Inputs = {
 };
 
 function AccountInformation(props: Props) {
-  const {state, setState} = useFormContext();
+  const { state, setState } = useFormContext();
   const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
 
@@ -31,7 +32,13 @@ function AccountInformation(props: Props) {
     reset,
     setError,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    defaultValues: {
+      phone: state.phone_number,
+      firstName: state.first_name,
+      lastName: state.last_name
+    }
+  });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setOpenModal(true);
@@ -52,9 +59,10 @@ function AccountInformation(props: Props) {
       lastName: state.last_name,
       phone: state.phone_number
     })
+    setValue("phone", state.phone_number)
   }, [reset])
-  
-  
+
+
   return (
     <div className=" flex flex-col  max-h-[610px] items-center  lg:max-h-[620px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
       <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
@@ -103,7 +111,7 @@ function AccountInformation(props: Props) {
             <label>Phone Number</label>
             <div className=" flex items-center gap-[8px]">
               <PhoneInput
-              {...register("phone")}
+                {...register("phone")}
                 setValue={(code: string, number: string) => {
                   setValue("phone", `${code}${number}`)
                   if (number) setError("phone", { message: "" })
