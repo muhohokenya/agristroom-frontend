@@ -4,17 +4,18 @@ on:
     branches: [ "dev-ops" ]
   pull_request:
     branches: [ "main" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    needs: ["test"]
     steps:
       - uses: actions/checkout@v3
-      - run : npm install
-      - run : npm run build
+      - run: npm install
+      - run: npm run build
+
   deploy:
     runs-on: ubuntu-latest
-    needs: ["build"]
+    needs: [ "build" ]
     steps:
       - uses: actions/checkout@v3
       - name: executing remote ssh commands using password
