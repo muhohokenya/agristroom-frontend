@@ -1,7 +1,7 @@
 name: Frontend
 on:
   push:
-    branches: [ "dev-ops" ]
+#    branches: [ "dev-ops" ]
   pull_request:
     branches: [ "main" ]
 
