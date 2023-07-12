@@ -11,6 +11,8 @@ import { satoshi } from "@/src/fonts/Fonts";
 import { Input } from "@/src/components/ui/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useFormContext } from "../context/formstate";
+import {signIn} from "next-auth/react"
+import { toast } from "../hooks/use-toast";
 
 interface Props {}
 type Inputs = {
@@ -26,6 +28,7 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false)
 
   const {
     register,
@@ -59,6 +62,21 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
     })
   },[reset])
 
+  const loginWithGoogle = async () => {
+    setLoading(true);
+    try {
+      await signIn('google')
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'There was an error logging in with Google',
+        variant: 'destructive',
+      })
+    }finally{
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="relative flex flex-col items-center justify-center h-auto mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
       <MdClose
@@ -78,7 +96,7 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
       <div className="mt-[15px] flex flex-col gap-[10px] lg:mt-[35px] w-full max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
         <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]   ">
           <FcGoogle className="h-[24px] w-[23.85px]" />
-          <p className="text-[16px] text-[#2F9B4E] font-[700] leading-[22px] tracking-[0.04em]">
+          <p onClick={loginWithGoogle} className="text-[16px] text-[#2F9B4E] font-[700] leading-[22px] tracking-[0.04em]">
             Sign up with Google
           </p>
         </div>

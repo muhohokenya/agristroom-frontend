@@ -6,6 +6,7 @@ interface CurrentAccountCreationState {
     last_name: string;
     user_name: string,
     email: string;
+    topic: string;
     phone_number: string;
     password: string;
     account: {
@@ -26,6 +27,7 @@ const formContextDefaultValue: FormContextValue = {
         last_name: "",
         user_name: "",
         email: "",
+        topic: "",
         phone_number: "",
         password: "",
         account: {
