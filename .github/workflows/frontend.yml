@@ -28,4 +28,3 @@ jobs:
             git pull origin main
             export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
             pm2 restart frontend
-#git pull origin main
