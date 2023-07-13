@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession, signIn, signOut } from 'next-auth/react'
 import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { MdArrowForwardIos } from "react-icons/md";

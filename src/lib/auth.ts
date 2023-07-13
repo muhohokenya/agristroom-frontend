@@ -1,50 +1,67 @@
-import { NextAuthOptions, getServerSession } from "next-auth";
-import GoogleProvider from "next-auth/providers/google"
+import {
+  Account,
+  NextAuthOptions,
+  Profile,
+  User,
+  getServerSession,
+} from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
+import GoogleProvider from "next-auth/providers/google";
+import SignToken from "./utils";
 
+type params = {
+  user: User | AdapterUser;
+  account: Account | null;
+  profile?: Profile | undefined;
+  email?:
+    | {
+        verificationRequest?: boolean | undefined;
+      }
+    | undefined;
+};
 
 export const authOptions: NextAuthOptions = {
-    session: {
-        strategy: "jwt"
+  providers: [
+    GoogleProvider({
+      clientId:
+        "216228956322-1cnuuapp6a2hv8nnjqom0se6ol40fck9.apps.googleusercontent.com",
+      clientSecret: "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",
+    }),
+  ],
+  pages: {
+    signIn: "/dashboard",
+    signOut: "/",
+    error: "/error",
+  },
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      const userToSaveToDb = {
+        name: user.name,
+        email: profile?.email,
+      };
+
+      console.log("userToSaveToDb", userToSaveToDb);
     },
-    pages: {
-        signIn: '/login'
+
+    async jwt({ token, user, account }) {
+      if (account) {
+        console.log(user, token, account);
+        // call the signToken function which returns a JWT token
+        const token = await SignToken(user?.email as string);
+        token.userToken = token;
+      }
+      // the token object is passed done to the session call back for persistence
+      return token;
     },
-    providers: [
-        GoogleProvider({
-            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-            clientSecret: process.env.NEXT_PUBLIC_AUTH_SECRET!
-        })
-    ],
-    callbacks: {
-        async session({token, session}){
-            if(token){
-              session.user.email = token.email
-              session.user.name = token.name
-              session.user.image = token.picture
-            }
-            return session
-        },
+    async session({ session, token, user }) {
+      session.user = token.loggedUser;
+      return session;
+    },
 
-        async jwt({token, user})
-        {
-            // get user by email
+    redirect() {
+      return "/dashboard";
+    },
+  },
+};
 
-            // if no user return token
-
-            // if no usename update user where email is given or update
-
-            return {
-                id: "dbUser.id",
-                name: "dbUser.name",
-                email: "dbUser.email",
-                picture: "dbUser.image",
-                username: "dbUser.username",
-              }
-        },
-        redirect(){
-            return '/dashboard'
-        }
-    }
-}
-
-export const getAuthSession = () => getServerSession(authOptions)
+export const getAuthSession = () => getServerSession(authOptions);
