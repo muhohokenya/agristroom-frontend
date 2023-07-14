@@ -4,8 +4,6 @@ import { PostQuestion } from "@/src/components/PostQuestion";
 import { DashboardShell } from "@/src/components/shell";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
-import { getLoggedInUserToken } from "@/src/lib/utils";
-import { useSession} from 'next-auth/react'
 import { RootState } from "@/src/redux";
 import { getAccounts } from "@/src/redux/actions/account.action";
 import { getCurrentUser } from "@/src/redux/actions/auth.action";
@@ -37,49 +35,36 @@ function Dashboard(props: Props) {
         router.push("/login");
         toast({
           description: "Please login in",
-          variant: "destructive"
-        })
+          variant: "destructive",
+        });
       }
     };
     getUser();
-  }, [router,dispatch]);
+  }, [router, dispatch]);
 
   console.log("my current usre%%%^^^^", currentUser[0]);
 
   useEffect(() => {
-    const getInterest = async() => {
-      let res:any = await dispatch(getInterests())
+    const getInterest = async () => {
+      let res: any = await dispatch(getInterests());
       console.log("interests", res.payload.interests);
     };
-    getInterest()
-  },[dispatch])
+    getInterest();
+  }, [dispatch]);
 
   useEffect(() => {
-    const fetchAccounts = async()=> {
-      let res:any = await dispatch(getAccounts())
+    const fetchAccounts = async () => {
+      let res: any = await dispatch(getAccounts());
       console.log("accnts", res.payload.accounts);
     };
     fetchAccounts();
-  },[dispatch])
-
-  const {data} = useSession()
-
-  console.log("session user data", data);
-  
-
-  if(data?.user){
-    return (
-      <div className="px-[15px] py-[30px]  max-w-[1200px] mx-auto bg-white ">
-        <DashboardShell>
-          <PostQuestion />
-        </DashboardShell>
-      </div>
-    );
-  }
+  }, [dispatch]);
 
   return (
     <div className="px-[15px] py-[30px]  max-w-[1200px] mx-auto bg-white ">
-     <p>Please login to access</p>
+      <DashboardShell>
+        <PostQuestion />
+      </DashboardShell>
     </div>
   );
 }
