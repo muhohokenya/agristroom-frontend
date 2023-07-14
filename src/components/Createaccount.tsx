@@ -1,23 +1,23 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { MdOutlineRadioButtonUnchecked } from "react-icons/md";
+import { MdArrowBackIos, MdOutlineRadioButtonUnchecked } from "react-icons/md";
 import { FaCheckCircle, FaSpinner } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import { satoshi } from "@/src/fonts/Fonts";
+import { jost, satoshi } from "@/src/fonts/Fonts";
 import { Account } from "../types/types";
 import { useAppDispatch } from "../hooks/react-redux-hooks";
 import { getAccounts } from "../redux/actions/account.action";
 import { accountIcons } from "../lib/data/data";
 import { useFormContext } from "../context/formstate";
 
-interface Props { }
+interface Props {}
 
 function CreateAccountAs(props: Props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { state, setState } = useFormContext();
-  const buttonRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   const [accounts, setAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -55,35 +55,38 @@ function CreateAccountAs(props: Props) {
       ...prevState,
       account: {
         id: selectedAccount?.id!,
-        name: selectedAccount?.name!
-      }
-    }))
-    router.push("/signup/accountinformations");
+        name: selectedAccount?.name!,
+      },
+    }));
+    router.push("/signup/interest");
   };
 
   const onClick = (accnt: any) => {
     setSelectedAccount(selectedAccount === accnt ? {} : accnt);
-  }
+  };
 
   useEffect(() => {
     if (state.account.id) {
       setSelectedAccount({
         id: state.account.id,
-        name: state.account.name
-      })
+        name: state.account.name,
+      });
     }
-
-  }, [state.account])
-
-
+  }, [state.account]);
 
   return (
     <div className=" relative flex flex-col items-center justify-center h-auto lg:max-h-[565px] mt-10 py-[40px] bg-white w-full max-w-[400px] lg:max-w-[638px] mx-auto rounded-md shadow-md">
-      <h2
-        className={`font-[600] text-[20px] leading-[24px]  tracking-[0.04em] text-[#212121]`}
-      >
-        Create Account As
-      </h2>
+      <div className="relative flex mx-[15px] lg:mx-[40px] gap-[14px] items-center justify-center  w-full ">
+        <MdArrowBackIos
+          className="absolute top-1 left-10 cursor-pointer  "
+          onClick={() => router.push("/signup/accountinformations")}
+        />
+        <h2
+          className={`font-[600] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
+        >
+          Create Account As
+        </h2>
+      </div>
       {loading ? (
         <div className=" w-full flex items-center justify-center my-3 ">
           <div className="w-full mx-auto flex flex-col items-center justify-center ">
@@ -100,15 +103,19 @@ function CreateAccountAs(props: Props) {
               <div
                 onClick={() => onClick(accnt)}
                 key={indx}
-                className={`relative flex flex-col items-center cursor-pointer ${selectedAccount.id === accnt.id ? " bg-[#F7FFF8]" : " bg-[#FFFFFF]"
-                  }  border border-[#EEEEEE] w-[152px] lg:w-[182.5px] min-h-[113px] rounded-md  `}
+                className={`relative flex flex-col items-center cursor-pointer ${
+                  selectedAccount.id === accnt.id
+                    ? " bg-[#F7FFF8]"
+                    : " bg-[#FFFFFF]"
+                }  border border-[#EEEEEE] w-[152px] lg:w-[182.5px] min-h-[113px] rounded-md  `}
               >
                 <div className=" flex items-center justify-center ">
                   <span
-                    className={`" cursor-pointer mt-[23px] ${selectedAccount.id === accnt.id
-                      ? "text-[#2F9B4E]"
-                      : "text-[#858585]"
-                      }  `}
+                    className={`" cursor-pointer mt-[23px] ${
+                      selectedAccount.id === accnt.id
+                        ? "text-[#2F9B4E]"
+                        : "text-[#858585]"
+                    }  `}
                   >
                     {accnt.Icon}
                   </span>
@@ -120,10 +127,11 @@ function CreateAccountAs(props: Props) {
                   <MdOutlineRadioButtonUnchecked className="absolute top-3 right-2 text-2xl text-[#BFBFBF]/70 " />
                 )}
                 <p
-                  className={`my-[10px] max-w-[132px] w-full text-center ${selectedAccount.id === accnt.id
-                    ? "text-[#2F9B4E]"
-                    : "text-[#212121]/50"
-                    }  font-[700] text-[16px] leading-[22px] tracking-[-0.04em]`}
+                  className={`my-[10px] max-w-[132px] w-full text-center ${
+                    selectedAccount.id === accnt.id
+                      ? "text-[#2F9B4E]"
+                      : "text-[#212121]/50"
+                  }  font-[700] text-[16px] leading-[22px] tracking-[-0.04em]`}
                 >
                   {accnt.name}
                 </p>
@@ -137,11 +145,13 @@ function CreateAccountAs(props: Props) {
         type="button"
         onClick={saveToLocalStorage}
         disabled={loading}
-        className={`mt-[35px]  ${loading
-          ? "bg-[#DBF3D9] cursor-not-allowed text-[#2F9B4E]"
-          : "bg-[#2F9B4E] text-white"
-          } max-w-[315px] lg:max-w-[560px] py-[14px] px-[24px] h-[50px] rounded-[5px]  w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className
-          }`}
+        className={`mt-[35px]  ${
+          loading
+            ? "bg-[#DBF3D9] cursor-not-allowed text-[#2F9B4E]"
+            : "bg-[#2F9B4E] text-white"
+        } max-w-[315px] lg:max-w-[560px] py-[14px] px-[24px] h-[50px] rounded-[5px]  w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${
+          satoshi.className
+        }`}
       >
         Continue
       </button>

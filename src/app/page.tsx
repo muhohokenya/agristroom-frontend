@@ -1,12 +1,10 @@
 "use client";
 
-import { useSession, signIn, signOut } from 'next-auth/react'
 import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { MdArrowForwardIos } from "react-icons/md";
 import { jost, satoshi } from "../fonts/Fonts";
 import { Footer } from "../components/Footer";
-import { MasterClassCard } from "../components/MasterClass";
 import { DiscussionCard } from "../components/DiscussionCard";
 import Navbar from "../components/Navbar";
 import { Card, Guide, MasterClass } from "../types/types";
@@ -52,7 +50,6 @@ export default function Home() {
     };
   }, []);
 
-  console.log("show", show);
   useEffect(() => {
     setCommunityCards(cards);
     setGuides(guides);

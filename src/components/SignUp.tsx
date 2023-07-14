@@ -11,7 +11,7 @@ import { satoshi } from "@/src/fonts/Fonts";
 import { Input } from "@/src/components/ui/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useFormContext } from "../context/formstate";
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession, signIn } from "next-auth/react";
 import { toast } from "../hooks/use-toast";
 
 interface Props {}
@@ -25,7 +25,7 @@ const SignUpPage = (props: Props) => {
   const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
   const { state, setState } = useFormContext();
-  const {data} = useSession()
+  const { data } = useSession();
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -52,7 +52,7 @@ const SignUpPage = (props: Props) => {
     }));
     setIsSubmitting(false);
     setOpenModal(true);
-    router.push("/signup/createaccounts");
+    router.push("/signup/accountinformations");
   };
 
   useEffect(() => {
@@ -66,19 +66,20 @@ const SignUpPage = (props: Props) => {
   const loginWithGoogle = async () => {
     setLoading(true);
     try {
-       await signIn('google')
+      await signIn("google", {
+        callbackUrl: "/api/auth/callback/google",
+      });
       console.log("the session data", data);
-      
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'There was an error logging in with Google',
-        variant: 'destructive',
-      })
-    }finally{
-      setLoading(false)
+        title: "Error",
+        description: "There was an error logging in with Google",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="relative flex flex-col items-center justify-center h-auto mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
@@ -124,7 +125,7 @@ const SignUpPage = (props: Props) => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full flex flex-col gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
-          <div className="flex flex-col gap-[8px] w-full">
+          {/* <div className="flex flex-col gap-[8px] w-full">
             <label className="text-[13px]">User Name</label>
             <div className=" flex flex-col justify-start items-center">
               <Input
@@ -140,7 +141,7 @@ const SignUpPage = (props: Props) => {
                 </span>
               )}
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-col gap-[8px] w-full ">
             <label className="text-[13px]">Email Address</label>
             <Input

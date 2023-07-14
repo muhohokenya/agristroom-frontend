@@ -1,67 +1,61 @@
-import {
-  Account,
-  NextAuthOptions,
-  Profile,
-  User,
-  getServerSession,
-} from "next-auth";
-import { AdapterUser } from "next-auth/adapters";
+import {NextAuthOptions,getServerSession} from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import SignToken from "./utils";
-
-type params = {
-  user: User | AdapterUser;
-  account: Account | null;
-  profile?: Profile | undefined;
-  email?:
-    | {
-        verificationRequest?: boolean | undefined;
-      }
-    | undefined;
-};
 
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId:
-        "216228956322-1cnuuapp6a2hv8nnjqom0se6ol40fck9.apps.googleusercontent.com",
-      clientSecret: "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",
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.NEXT_PUBLIC_AUTH_SECRET!,
     }),
   ],
+
   pages: {
     signIn: "/dashboard",
     signOut: "/",
     error: "/error",
   },
+
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ account, profile }) {
       const userToSaveToDb = {
-        name: user.name,
+        name: profile?.name,
         email: profile?.email,
+        isVerified: account?.access_token,
+        id: account?.providerAccountId,
       };
 
       console.log("userToSaveToDb", userToSaveToDb);
+
+      return true;
     },
 
     async jwt({ token, user, account }) {
       if (account) {
-        console.log(user, token, account);
-        // call the signToken function which returns a JWT token
-        const token = await SignToken(user?.email as string);
-        token.userToken = token;
+        const token_ = await SignToken(user?.email as string);
+        token.userToken = token_;
       }
-      // the token object is passed done to the session call back for persistence
       return token;
     },
+
     async session({ session, token, user }) {
-      session.user = token.loggedUser;
+      session.user = token;
+      console.log("user session", session);
       return session;
     },
 
     redirect() {
-      return "/dashboard";
+      return "/signup/createaccounts";
     },
+
   },
+
+  secret: process.env.NEXT_PUBLIC_JWT_SECRET_KEY!,
+
+  session: {
+    strategy: "jwt",
+  },
+
 };
 
 export const getAuthSession = () => getServerSession(authOptions);
