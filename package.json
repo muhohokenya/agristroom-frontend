@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "agristroom",
   "version": "0.1.0",
@@ -58,3 +59,65 @@
   },
   "proxy": "http://dev.agristroom.com/api/api"
 }
+=======
+{
+  "name": "agristroom",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/next-js": "^2.1.4",
+    "@chakra-ui/react": "^2.7.1",
+    "@ckeditor/ckeditor5-build-classic": "^38.1.0",
+    "@ckeditor/ckeditor5-react": "^6.1.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@radix-ui/react-toast": "^1.1.4",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@types/axios": "^0.14.0",
+    "@types/node": "20.2.5",
+    "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
+    "class-variance-authority": "^0.6.1",
+    "clsx": "^1.2.1",
+    "draft-js": "^0.11.7",
+    "eslint": "8.42.0",
+    "eslint-config-next": "13.4.4",
+    "framer-motion": "^10.12.16",
+    "http-proxy-middleware": "^2.0.6",
+    "jsonwebtoken": "^9.0.1",
+    "lucide-react": "^0.255.0",
+    "nanoid": "^4.0.2",
+    "next": "13.4.4",
+    "next-auth": "^4.22.1",
+    "postcss": "8.4.24",
+    "primeflex": "^3.3.1",
+    "primereact": "^9.6.0",
+    "quill": "^1.3.7",
+    "react": "18.2.0",
+    "react-country-flag": "^3.1.0",
+    "react-dom": "18.2.0",
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-hook-form": "^7.45.0",
+    "react-icons": "^4.9.0",
+    "react-redux": "^8.1.1",
+    "react-responsive-carousel": "^3.2.23",
+    "tailwind-merge": "^1.13.2",
+    "tailwind-scrollbar": "^3.0.4",
+    "tailwindcss": "3.3.2",
+    "typescript": "5.1.3"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@types/react-draft-wysiwyg": "^1.13.4"
+  },
+  "proxy": "http://dev.agristroom.com/api/api"
+}
+>>>>>>> main
