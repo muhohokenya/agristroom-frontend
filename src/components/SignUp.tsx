@@ -63,7 +63,7 @@ const SignUpPage = (props: Props) => {
     });
   }, [reset]);
 
-  // const loginWithGoogle = async () => {
+  
   //   setLoading(true);
   //   try {
   //     await signIn("google", {
@@ -101,7 +101,6 @@ const SignUpPage = (props: Props) => {
         <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]   ">
           <FcGoogle className="h-[24px] w-[23.85px]" />
           <button
-            // onClick={loginWithGoogle}
             className="text-[16px] text-[#2F9B4E] font-[700] leading-[22px] tracking-[0.04em]"
           >
             Sign up with Google
@@ -125,23 +124,7 @@ const SignUpPage = (props: Props) => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full flex flex-col gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
-          {/* <div className="flex flex-col gap-[8px] w-full">
-            <label className="text-[13px]">User Name</label>
-            <div className=" flex flex-col justify-start items-center">
-              <Input
-                id="username"
-                {...register("username", { required: true, maxLength: 25 })}
-                type="text"
-                className="focus-visible:ring-[#2F9B4E]   w-full  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px]  focus:outline focus:outline-[#BFBFBF]/60 "
-              />
-
-              {errors.username && errors.username.type === "required" && (
-                <span className="text-red-400 text-[12px] mt-1 w-full">
-                  Username is required
-                </span>
-              )}
-            </div>
-          </div> */}
+          
           <div className="flex flex-col gap-[8px] w-full ">
             <label className="text-[13px]">Email Address</label>
             <Input
