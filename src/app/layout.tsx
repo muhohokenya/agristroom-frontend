@@ -10,7 +10,7 @@ import { ManagedUIProvider } from "../hooks/useModalContext";
 import { Providers } from "../redux/provider";
 import { Toaster } from "../components/ui/Toaster";
 import FormProvider from "../context/formstate";
-import { SessionProvider } from "next-auth/react";
+// import { SessionProvider } from "next-auth/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -36,7 +36,7 @@ export default function RootLayout({children, modal,pageProps,}: {
       <body
         className={`${inter.className} min-h-screen flex flex-col bg-[#FAFAFA] w-full`}
       >
-        <SessionProvider session={pageProps?.session}>
+        {/* <SessionProvider session={pageProps?.session}> */}
           <Providers>
             <ManagedUIProvider>
               <FormProvider>
@@ -46,7 +46,7 @@ export default function RootLayout({children, modal,pageProps,}: {
             </ManagedUIProvider>
           </Providers>
           <Toaster />
-        </SessionProvider>
+        {/* </SessionProvider> */}
       </body>
     </html>
   );

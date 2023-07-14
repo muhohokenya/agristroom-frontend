@@ -11,7 +11,7 @@ import { satoshi } from "@/src/fonts/Fonts";
 import { Input } from "@/src/components/ui/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useFormContext } from "../context/formstate";
-import { useSession, signIn } from "next-auth/react";
+// import { useSession, signIn } from "next-auth/react";
 import { toast } from "../hooks/use-toast";
 
 interface Props {}
@@ -25,7 +25,7 @@ const SignUpPage = (props: Props) => {
   const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
   const { state, setState } = useFormContext();
-  const { data } = useSession();
+  // const { data } = useSession();
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -63,23 +63,23 @@ const SignUpPage = (props: Props) => {
     });
   }, [reset]);
 
-  const loginWithGoogle = async () => {
-    setLoading(true);
-    try {
-      await signIn("google", {
-        callbackUrl: "/api/auth/callback/google",
-      });
-      console.log("the session data", data);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "There was an error logging in with Google",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const loginWithGoogle = async () => {
+  //   setLoading(true);
+  //   try {
+  //     await signIn("google", {
+  //       callbackUrl: "/api/auth/callback/google",
+  //     });
+  //     console.log("the session data", data);
+  //   } catch (error) {
+  //     toast({
+  //       title: "Error",
+  //       description: "There was an error logging in with Google",
+  //       variant: "destructive",
+  //     });
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="relative flex flex-col items-center justify-center h-auto mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
@@ -101,7 +101,7 @@ const SignUpPage = (props: Props) => {
         <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]   ">
           <FcGoogle className="h-[24px] w-[23.85px]" />
           <button
-            onClick={loginWithGoogle}
+            // onClick={loginWithGoogle}
             className="text-[16px] text-[#2F9B4E] font-[700] leading-[22px] tracking-[0.04em]"
           >
             Sign up with Google

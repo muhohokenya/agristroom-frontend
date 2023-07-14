@@ -144,7 +144,7 @@ const ProfileSummary = () => {
             <span
               className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
             >
-              {data?.user.name || fullName}{" "}
+              {fullName}{" "}
               <MdOutlineEdit
                 onClick={() => router.push("/signup/accountinformations")}
                 className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
