@@ -11,7 +11,6 @@ import { satoshi } from "@/src/fonts/Fonts";
 import { Input } from "@/src/components/ui/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useFormContext } from "../context/formstate";
-// import { useSession, signIn } from "next-auth/react";
 import { toast } from "../hooks/use-toast";
 
 interface Props {}
