@@ -102,7 +102,7 @@ function InterestPage(props: Props) {
       <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
         <MdArrowBackIos
           className=" cursor-pointer "
-          onClick={() => router.push("/signup/accountinformations")}
+          onClick={() => router.push("/signup/createaccounts")}
         />
         <h2
           className={`font-[600] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}

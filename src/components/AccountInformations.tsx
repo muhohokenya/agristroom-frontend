@@ -42,7 +42,7 @@ function AccountInformation(props: Props) {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setOpenModal(true);
-    router.push("/signup/interest");
+    router.push("/signup/createaccounts");
     setState((prevState) => ({
       ...prevState,
       first_name: data.firstName,
@@ -68,7 +68,7 @@ function AccountInformation(props: Props) {
       <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
         <MdArrowBackIos
           className=" cursor-pointer"
-          onClick={() => router.push("/signup/createaccounts")}
+          onClick={() => router.push("/signup")}
         />
         <h2
           className={`font-[400] text-[18px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}

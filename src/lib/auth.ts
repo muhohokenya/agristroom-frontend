@@ -1,50 +1,61 @@
-import { NextAuthOptions, getServerSession } from "next-auth";
-import GoogleProvider from "next-auth/providers/google"
-
+import {NextAuthOptions,getServerSession} from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import SignToken from "./utils";
 
 export const authOptions: NextAuthOptions = {
-    session: {
-        strategy: "jwt"
+  providers: [
+    GoogleProvider({
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.NEXT_PUBLIC_AUTH_SECRET!,
+    }),
+  ],
+
+  pages: {
+    signIn: "/dashboard",
+    signOut: "/",
+    error: "/error",
+  },
+
+  callbacks: {
+    async signIn({ account, profile }) {
+      const userToSaveToDb = {
+        name: profile?.name,
+        email: profile?.email,
+        isVerified: account?.access_token,
+        id: account?.providerAccountId,
+      };
+
+      console.log("userToSaveToDb", userToSaveToDb);
+
+      return true;
     },
-    pages: {
-        signIn: '/login'
+
+    async jwt({ token, user, account }) {
+      if (account) {
+        const token_ = await SignToken(user?.email as string);
+        token.userToken = token_;
+      }
+      return token;
     },
-    providers: [
-        GoogleProvider({
-            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-            clientSecret: process.env.NEXT_PUBLIC_AUTH_SECRET!
-        })
-    ],
-    callbacks: {
-        async session({token, session}){
-            if(token){
-              session.user.email = token.email
-              session.user.name = token.name
-              session.user.image = token.picture
-            }
-            return session
-        },
 
-        async jwt({token, user})
-        {
-            // get user by email
+    async session({ session, token, user }) {
+      session.user = token;
+      console.log("user session", session);
+      return session;
+    },
 
-            // if no user return token
+    redirect() {
+      return "/signup/createaccounts";
+    },
 
-            // if no usename update user where email is given or update
+  },
 
-            return {
-                id: "dbUser.id",
-                name: "dbUser.name",
-                email: "dbUser.email",
-                picture: "dbUser.image",
-                username: "dbUser.username",
-              }
-        },
-        redirect(){
-            return '/dashboard'
-        }
-    }
-}
+  secret: process.env.NEXT_PUBLIC_JWT_SECRET_KEY!,
 
-export const getAuthSession = () => getServerSession(authOptions)
+  session: {
+    strategy: "jwt",
+  },
+
+};
+
+export const getAuthSession = () => getServerSession(authOptions);

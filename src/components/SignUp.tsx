@@ -11,7 +11,7 @@ import { satoshi } from "@/src/fonts/Fonts";
 import { Input } from "@/src/components/ui/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useFormContext } from "../context/formstate";
-import {signIn} from "next-auth/react"
+import { useSession, signIn } from "next-auth/react";
 import { toast } from "../hooks/use-toast";
 
 interface Props {}
@@ -21,14 +21,15 @@ type Inputs = {
   password: string;
 };
 
-const SignUpPage = forwardRef((props: Props, ref: any) => {
+const SignUpPage = (props: Props) => {
   const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
-  const {state, setState} = useFormContext();
+  const { state, setState } = useFormContext();
+  const { data } = useSession();
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   const {
     register,
@@ -38,7 +39,7 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
     formState: { errors, isLoading },
   } = useForm<Inputs>({
     defaultValues: state,
-    mode: "onSubmit"
+    mode: "onSubmit",
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -47,35 +48,38 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
       ...prevState,
       user_name: data.username,
       email: data.email,
-      password: data.password
-    }))
+      password: data.password,
+    }));
     setIsSubmitting(false);
     setOpenModal(true);
-    router.push("/signup/createaccounts");
+    router.push("/signup/accountinformations");
   };
 
   useEffect(() => {
     reset({
       username: state.user_name,
       email: state.email,
-      password: state.password
-    })
-  },[reset])
+      password: state.password,
+    });
+  }, [reset]);
 
   const loginWithGoogle = async () => {
     setLoading(true);
     try {
-      await signIn('google')
+      await signIn("google", {
+        callbackUrl: "/api/auth/callback/google",
+      });
+      console.log("the session data", data);
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'There was an error logging in with Google',
-        variant: 'destructive',
-      })
-    }finally{
-      setLoading(false)
+        title: "Error",
+        description: "There was an error logging in with Google",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="relative flex flex-col items-center justify-center h-auto mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
@@ -96,9 +100,12 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
       <div className="mt-[15px] flex flex-col gap-[10px] lg:mt-[35px] w-full max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
         <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]   ">
           <FcGoogle className="h-[24px] w-[23.85px]" />
-          <p onClick={loginWithGoogle} className="text-[16px] text-[#2F9B4E] font-[700] leading-[22px] tracking-[0.04em]">
+          <button
+            onClick={loginWithGoogle}
+            className="text-[16px] text-[#2F9B4E] font-[700] leading-[22px] tracking-[0.04em]"
+          >
             Sign up with Google
-          </p>
+          </button>
         </div>
         <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]">
           <FaFacebook className="text-[#1877F2] w-[24px] h-[23.85px]" />
@@ -118,7 +125,7 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full flex flex-col gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
-          <div className="flex flex-col gap-[8px] w-full">
+          {/* <div className="flex flex-col gap-[8px] w-full">
             <label className="text-[13px]">User Name</label>
             <div className=" flex flex-col justify-start items-center">
               <Input
@@ -129,10 +136,12 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
               />
 
               {errors.username && errors.username.type === "required" && (
-                <span className="text-red-400 text-[12px] mt-1 w-full">Username is required</span>
+                <span className="text-red-400 text-[12px] mt-1 w-full">
+                  Username is required
+                </span>
               )}
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-col gap-[8px] w-full ">
             <label className="text-[13px]">Email Address</label>
             <Input
@@ -140,8 +149,10 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
               {...register("email", { required: true })}
             />
             {errors.email && errors.email.type === "required" && (
-                <span className="text-red-400 text-[12px] mt-1 w-full">Email is required</span>
-              )}
+              <span className="text-red-400 text-[12px] mt-1 w-full">
+                Email is required
+              </span>
+            )}
           </div>
           <div className="flex flex-col gap-[8px] w-full">
             <label className="text-[13px]">Password</label>
@@ -160,10 +171,11 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
                 />
               </span>
               {errors.password && (
-              <span className="text-red-500 text-[12px] w-full">Password is required</span>
-            )}
+                <span className="text-red-500 text-[12px] w-full">
+                  Password is required
+                </span>
+              )}
             </div>
-            
           </div>
         </div>
         <p className="mt-[10px] text-[#2F9B4E] mx-[15px] lg:mx-[40px] text-[12px] leading-[16px] tracking-[-0.04em] font-[500] w-full max-w-[315px] lg:min-w-[394px]  text-end">
@@ -171,7 +183,6 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
         </p>
         <div className="flex w-full mt-[35px] items-center justify-center">
           <button
-           ref={ref}
             type="submit"
             disabled={isSubmitting}
             className={` bg-[#2F9B4E] ${
@@ -196,6 +207,6 @@ const SignUpPage = forwardRef((props: Props, ref: any) => {
       </div>
     </div>
   );
-})
+};
 
 export default SignUpPage;
