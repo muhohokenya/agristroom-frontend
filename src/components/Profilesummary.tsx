@@ -63,7 +63,7 @@ const ProfileSummary = () => {
       toast({
         title: "Account Created successfully",
         description: "You can now login in with your credentials",
-        variant: "primary",
+        variant: "secondary",
       });
       setIsSubmitting(false);
       router.push("/dashboard");

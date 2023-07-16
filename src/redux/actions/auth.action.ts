@@ -81,7 +81,9 @@ export const getCurrentUser = createAsyncThunk(
 export const logoutUserAction = () => async (dispatch: any) => {
   try {
       localStorage.clear();
-      return dispatch(logoutUserSuccess({}));
+      console.log("logout");
+      return {success: true}
+        
   } catch (e:any) {
       return console.error(e.message);
 

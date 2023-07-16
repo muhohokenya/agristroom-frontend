@@ -1,4 +1,3 @@
-
 import { Metadata } from "next";
 import "primereact/resources/themes/mdc-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -9,6 +8,10 @@ import { ManagedUIProvider } from "../hooks/useModalContext";
 import { Providers } from "../redux/provider";
 import { Toaster } from "../components/ui/Toaster";
 import FormProvider from "../context/formstate";
+import {
+  UseEditorModal,
+  UseEditorModalProvider,
+} from "../hooks/useEditorModalContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,7 +27,11 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({children, modal,pageProps,}: {
+export default function RootLayout({
+  children,
+  modal,
+  pageProps,
+}: {
   children: React.ReactNode;
   modal: React.ReactNode;
   pageProps: any;
@@ -34,15 +41,17 @@ export default function RootLayout({children, modal,pageProps,}: {
       <body
         className={`${inter.className} min-h-screen flex flex-col bg-[#FAFAFA] w-full`}
       >
-          <Providers>
-            <ManagedUIProvider>
+        <Providers>
+          <ManagedUIProvider>
+            <UseEditorModalProvider>
               <FormProvider>
                 {children}
                 {modal}
               </FormProvider>
-            </ManagedUIProvider>
-          </Providers>
-          <Toaster />
+            </UseEditorModalProvider>
+          </ManagedUIProvider>
+        </Providers>
+        <Toaster />
       </body>
     </html>
   );

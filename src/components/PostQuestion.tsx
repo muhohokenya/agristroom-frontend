@@ -12,13 +12,13 @@ import { FaRegUser, FaSpinner } from "react-icons/fa";
 import { formatDate, formatDateToTime } from "../lib/constants";
 import CKeditor from "./ui/CkEditor";
 import { BsSearch } from "react-icons/bs";
-import { ManagedUI } from "../hooks/useModalContext";
 import EditorModal from "./EditorModal";
+import { UseEditorModal } from "../hooks/useEditorModalContext";
 
 export const PostQuestion = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { setOpenModal } = useContext(ManagedUI);
+  const { openEditorModal, setOpenEditorModal} = useContext(UseEditorModal);
   const post = useAppSelector((state) => state.post);
 
   const [posts, setPosts] = useState<Post[]>([]);
@@ -39,14 +39,17 @@ export const PostQuestion = () => {
     setSearchValue(e.target.value);
   };
 
-  const filteredPosts = posts.filter((post) => post.name.includes(searchValue));
+  const filteredPosts = posts?.filter((post) => post.name.includes(searchValue));
+
+  console.log('====================================');
+  console.log("<<<<<<<<<<<<<<<<<<<<<i need to refresh>>>>>>>>>>>>>>>>>>>>>>>>>");
+  console.log('====================================');
+
+  useEffect(() => {router.refresh()},[])
 
   return (
     <div className="">
       <div className="flex flex-col xl:flex-row items-end gap-[20px] mr-[20px] ">
-        {/* <div className=" flex   items-end ">
-          <TextEditor callback={callback} />
-        </div> */}
         <div className="flex relative items-center justify-center rounded-md">
           <input
             type="text"
@@ -60,7 +63,8 @@ export const PostQuestion = () => {
         </div>
         <button
           onClick={() => {
-            setOpenModal(true)
+            
+            setOpenEditorModal(true);
           }}
           type="button"
           className={`mt-[15px] bg-[#2F9B4E]  w-[144px] h-[44px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}

@@ -43,9 +43,8 @@ const Login = () => {
     if(res.payload.success){
       setIsSubmitting(false)
       toast({
-        title: "Login",
         description: "You have successfully login in",
-        variant: "primary"
+        variant: "secondary"
       })
       setOpenModal(false)
       router.push("/dashboard")
@@ -79,7 +78,7 @@ const Login = () => {
       <MdClose
         className="absolute top-3 right-3 text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
         onClick={() => {
-          router.push("/");
+          router.back();
           setOpenModal(false)
         }}
       />
