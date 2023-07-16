@@ -91,7 +91,7 @@ const Login = () => {
         </h2>
       </div>
 
-      <div className="mt-[15px] flex flex-col gap-[10px] lg:mt-[35px] w-full max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
+      {/* <div className="mt-[15px] flex flex-col gap-[10px] lg:mt-[35px] w-full max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
         <div className="flex items-center cursor-pointer border border-[#2F9B4E] px-[10px] h-[48px] rounded-[4px] gap-[22px]   ">
           <FcGoogle className="h-[24px] w-[23.85px]" />
           <p className="text-[16px] text-[#2F9B4E] font-[700] leading-[22px] tracking-[0.04em]">
@@ -109,8 +109,8 @@ const Login = () => {
         <p className=" flex items-center gap-[21px] justify-center before:content-[''] before:h-[1px] before:min-w-[75px] lg:before:min-w-[114px] before:bg-[#BFBFBF]/40 before:block after:content-[''] after:h-[1px] after:min-w-[75px] lg:after:min-w-[114px] after:bg-[#BFBFBF]/40 after:block w-full min-w-[96px] min-h-[16px] font-[500] text-[12px] leading-[16px] tracking-[0.04em] whitespace-nowrap">
           Or log in with email
         </p>
-      </div>
-      <form action="" className="w-full" onSubmit={handleSubmit(submitLogin)}>
+      </div> */}
+      <form action="" className="w-full mt-[15px]" onSubmit={handleSubmit(submitLogin)}>
         <div className="w-full flex flex-col gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
           <div className="flex flex-col gap-[8px] w-full ">
             <label>Email Address</label>

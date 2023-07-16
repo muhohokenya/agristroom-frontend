@@ -11,6 +11,7 @@ import { useAppDispatch } from "../hooks/react-redux-hooks";
 import { getInterests } from "../redux/actions/interest.action";
 import { FaSpinner } from "react-icons/fa";
 import { useFormContext } from "../context/formstate";
+import Stepper from "./Stepper";
 
 interface Props { }
 
@@ -98,7 +99,9 @@ function InterestPage(props: Props) {
 
 
   return (
-    <div className=" flex flex-col  max-h-[500px] items-start  lg:max-h-[500px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
+    <div className="flex flex-col bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto">
+    <Stepper />
+    <div className=" border-t border-t-slate-300 flex flex-col  max-h-[500px] items-start  lg:max-h-[500px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
       <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
         <MdArrowBackIos
           className=" cursor-pointer "
@@ -185,6 +188,7 @@ function InterestPage(props: Props) {
       >
         {filteredInterests?.length! === 0 ? "Add Topic" : "Continue"}
       </button>
+    </div>
     </div>
   );
 }

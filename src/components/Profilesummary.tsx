@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid";
 import {
   MdArrowBackIos,
   MdKeyboardArrowRight,
@@ -17,6 +17,7 @@ import { RootState } from "../redux";
 import { FaSpinner } from "react-icons/fa";
 import { toast } from "../hooks/use-toast";
 import { useFormContext } from "../context/formstate";
+import Stepper from "./Stepper";
 
 const ProfileSummary = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const ProfileSummary = () => {
 
   const error = useAppSelector((state: RootState) => state.notifications);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const fullName = `${state?.first_name} ${state?.last_name}`
+  const fullName = `${state?.first_name} ${state?.last_name}`;
 
   const [userInfo, setUerInfo] = useState<UserRegisterData>({
     first_name: "",
@@ -54,6 +55,7 @@ const ProfileSummary = () => {
 
   const createUserAccount = async () => {
     const res: any = await dispatch(signUpUserAction(userInfo));
+    localStorage.setItem("access_token", JSON.stringify(res.payload.access_token))
     setIsSubmitting(true);
     console.log("response", res.payload, isSubmitting);
 
@@ -64,7 +66,8 @@ const ProfileSummary = () => {
         variant: "primary",
       });
       setIsSubmitting(false);
-      router.push("/login");
+      router.push("/dashboard");
+      setOpenModal(false)
     }
 
     if (!res?.payload?.success) {
@@ -79,138 +82,138 @@ const ProfileSummary = () => {
     }
   };
 
-  console.log("session data", userInfo);
 
   return (
-    <div className=" flex flex-col  max-h-[500px] items-start  lg:max-h-[600px] mt-10 py-[20px] lg:py-[40px] bg-white w-full  max-w-[345px] lg:min-w-[574px] mx-auto rounded-md shadow-md">
-      <div className="flex  mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
-        <span className="text-[#212121]  cursor-pointer">
-          <MdArrowBackIos onClick={() => router.push("/signup/interest")} />
-        </span>
-        <h2
-          className={`font-[600] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
-        >
-          Profile Details Summary
-        </h2>
-      </div>
+    <div className="flex flex-col bg-white w-full  max-w-[345px] lg:min-w-[574px] mx-auto">
+      <Stepper />
+      <div className=" border-t border-t-slate-300 flex flex-col  max-h-[500px] items-start  lg:max-h-[600px] mt-10 py-[20px] lg:py-[40px] bg-white w-full  max-w-[345px] lg:min-w-[574px] mx-auto rounded-md shadow-md">
+        <div className="flex  mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
+          <span className="text-[#212121]  cursor-pointer">
+            <MdArrowBackIos onClick={() => router.push("/signup/interest")} />
+          </span>
+          <h2
+            className={`font-[600] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
+          >
+            Profile Details Summary
+          </h2>
+        </div>
 
-      <hr className="min-w-[315px] lg:min-w-[474px] mx-[15px] lg:mx-[40px] my-[10px] lg:my-[20px] bg-[#BFBFBF]/60 h-[1px] "></hr>
+        <hr className="min-w-[315px] lg:min-w-[474px] mx-[15px] lg:mx-[40px] my-[10px] lg:my-[20px] bg-[#BFBFBF]/60 h-[1px] "></hr>
 
-      <div className="w-full  flex flex-col items-center justify-center gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[474px] mx-[15px] lg:mx-[40px]">
-        <div className="flex w-full justify-between">
-          <div className="flex flex-col">
+        <div className="w-full  flex flex-col items-center justify-center gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[474px] mx-[15px] lg:mx-[40px]">
+          <div className="flex w-full justify-between">
+            <div className="flex flex-col">
+              <span
+                className={`font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
+              >
+                Account Type
+              </span>
+              <span
+                className={`mt-[20px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
+              >
+                Full Name
+              </span>
+              <span
+                className={`mt-[20px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
+              >
+                Email Address
+              </span>
+
+              {state?.phone_number !== "" ? (
+                <span
+                  className={`mt-[20px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
+                >
+                  Phone Number
+                </span>
+              ) : null}
+            </div>
+            <div className="flex flex-col items-end ">
+              <span
+                className={`flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
+              >
+                {state?.account.name}{" "}
+                <MdOutlineEdit
+                  onClick={() => router.push("/signup/createaccounts")}
+                  className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
+                />
+              </span>
+              <span
+                className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
+              >
+                {fullName}{" "}
+                <MdOutlineEdit
+                  onClick={() => router.push("/signup/accountinformations")}
+                  className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
+                />
+              </span>
+              <span
+                className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
+              >
+                {state?.email}{" "}
+                <MdOutlineEdit
+                  onClick={() => router.push("/signup")}
+                  className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
+                />
+              </span>
+              {state?.phone_number !== "" ? (
+                <span
+                  className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
+                >
+                  {state?.phone_number}{" "}
+                  <MdOutlineEdit
+                    onClick={() => router.push("/signup/accountinformations")}
+                    className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
+                  />
+                </span>
+              ) : null}
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center w-full  mt-[40px]">
             <span
               className={`font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
             >
-              Account Type
+              Selected Interests
             </span>
             <span
-              className={`mt-[20px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
+              onClick={() => router.push("/signup/interest")}
+              className={` font-[500] whitespace-nowrap flex items-center text-[14px] leading-[19px] tracking-[-0.04em] text-[#2F9B4E] justify-center cursor-pointer ${satoshi.className}`}
             >
-              Full Name
+              Add Interests{" "}
+              <MdKeyboardArrowRight className="w-[20px] h-[20px] pt-1" />{" "}
             </span>
-            <span
-              className={`mt-[20px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
-            >
-              Email Address
-            </span>
-
-            {state?.phone_number !== "" ? (
-              <span
-              className={`mt-[20px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
-            >
-              Phone Number
-            </span>
-            ) : null}
-            
           </div>
-          <div className="flex flex-col items-end ">
-            <span
-              className={`flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
-            >
-              {state?.account.name}{" "}
-              <MdOutlineEdit
-                onClick={() => router.push("/signup/createaccounts")}
-                className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
-              />
-            </span>
-            <span
-              className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
-            >
-              {fullName}{" "}
-              <MdOutlineEdit
-                onClick={() => router.push("/signup/accountinformations")}
-                className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
-              />
-            </span>
-            <span
-              className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
-            >
-              {state?.email}{" "}
-              <MdOutlineEdit
-                onClick={() => router.push("/signup")}
-                className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
-              />
-            </span>
-            {state?.phone_number !== "" ? (
-              <span
-              className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
-            >
-              {state?.phone_number}{" "}
-              <MdOutlineEdit
-                onClick={() => router.push("/signup/accountinformations")}
-                className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
-              />
-            </span>
-            ) : null }
-            
+
+          <div className="flex gap-[6px] flex-wrap  items-center w-full  mt-[13px]">
+            {state?.interests?.map((interest: InterestType, indx) => {
+              return (
+                <span
+                  key={indx}
+                  className={`bg-[#D7FBD7] cursor-pointer py-[5px] px-[8px] rounded-[30px] text-[14px] leading-[19px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
+                >
+                  {interest.name}
+                </span>
+              );
+            })}
           </div>
-        </div>
 
-        <div className="flex justify-between items-center w-full  mt-[40px]">
-          <span
-            className={`font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
+          <button
+            onClick={() => {
+              createUserAccount();
+            }}
+            disabled={isSubmitting}
+            className={`my-[40px] ${
+              isSubmitting && "cursor-not-allowed"
+            } flex items-center justify-center gap-3 mx-[15px] lg:mx-[40px] bg-[#2F9B4E] min-w-[315px] lg:min-w-[474px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${
+              satoshi.className
+            }`}
           >
-            Selected Interests
-          </span>
-          <span
-            onClick={() => router.push("/signup/interest")}
-            className={` font-[500] whitespace-nowrap flex items-center text-[14px] leading-[19px] tracking-[-0.04em] text-[#2F9B4E] justify-center cursor-pointer ${satoshi.className}`}
-          >
-            Add Interests{" "}
-            <MdKeyboardArrowRight className="w-[20px] h-[20px] pt-1" />{" "}
-          </span>
+            {isSubmitting && (
+              <FaSpinner className="animate-spin h-8 w-8 text-white" />
+            )}{" "}
+            Create Account
+          </button>
         </div>
-
-        <div className="flex gap-[6px] flex-wrap  items-center w-full  mt-[13px]">
-          {state?.interests?.map((interest: InterestType, indx) => {
-            return (
-              <span
-                key={indx}
-                className={`bg-[#D7FBD7] cursor-pointer py-[5px] px-[8px] rounded-[30px] text-[14px] leading-[19px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
-              >
-                {interest.name}
-              </span>
-            );
-          })}
-        </div>
-
-        <button
-          onClick={() => {
-            createUserAccount();
-          }}
-          disabled={isSubmitting}
-          className={`my-[40px] ${
-            isSubmitting && "cursor-not-allowed"
-          } flex items-center justify-center gap-3 mx-[15px] lg:mx-[40px] bg-[#2F9B4E] min-w-[315px] lg:min-w-[474px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${
-            satoshi.className
-          }`}
-        >
-          {isSubmitting && (
-            <FaSpinner className="animate-spin h-8 w-8 text-white" />
-          )}{" "}
-          Create Account
-        </button>
       </div>
     </div>
   );

@@ -1,10 +1,8 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { jost, satoshi } from "../fonts/Fonts";
 import Image from "next/image";
 import { BiMessage } from "react-icons/bi";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
-import { discussions } from "../lib/data/data";
-import TextEditor from "./ui/TextEditor";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./ui/Skeleton";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
@@ -15,16 +13,19 @@ import { Post } from "../types/types";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
 import { formatDate, formatDateToTime } from "../lib/constants";
 import CKeditor from "./ui/CkEditor";
+import { BsSearch } from "react-icons/bs";
 
 export const PostQuestion = () => {
   const router = useRouter();
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
   const post = useAppSelector((state) => state.post);
+
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [loading, setLoading] = useState<boolean>(true);
   const [state, setState] = useState<SetStateAction<{}>>({
     name: "",
   });
-  const dispatch = useAppDispatch();
 
   const callback = (payload: string) => {
     setState({
@@ -54,31 +55,34 @@ export const PostQuestion = () => {
     fetchPost();
   }, [post, dispatch]);
 
-  console.log("all posts questions", posts);
-  const [editorLoaded, setEditorLoaded] = useState(false);
-  const [data, setData] = useState<string>("");
 
-  useEffect(() => {
-    setEditorLoaded(true);
-  }, []);
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+   setSearchValue(e.target.value)
+  }
+
+  const filteredPosts = posts.filter((post) => post.name.includes(searchValue))
 
   return (
     <div className="">
-      <div className="flex flex-col xl:flex-row items-end gap-[20px] mr-[20px]">
-        <div className=" flex   items-end ">
+      <div className="flex flex-col xl:flex-row items-end gap-[20px] mr-[20px] ">
+        {/* <div className=" flex   items-end ">
           <TextEditor callback={callback} />
-          {/* <CKeditor 
-          name="name" 
-          onChange={(data: string) => {
-            setData(data)
-          }}
-          editorLoaded={setEditorLoaded}
-           /> */}
+        </div> */}
+        <div className="flex relative items-center justify-center rounded-md">
+          <input
+            type="text"
+            onChange={(e) => onInputChange(e)}
+            placeholder="search..."
+            className="w-[800px] h-[44px] px-2 border border-[#2F9B4E] focus:border focus:border-[#2F9B4E] focus:outline-0 rounded-md ring-0 focus:ring-0"
+          />
+          <span className="absolute cursor-pointer flex top-[1px] items-center justify-center right-0 px-3 bg-[#DBF3D9] h-[95%] rounded-md max-w-10">
+            <BsSearch className=" max-h-8 max-w-8" />
+          </span>
         </div>
         <button
           onClick={postAQuestion}
           type="button"
-          className={`mt-[15px] bg-[#2F9B4E]  w-[144px] h-[50px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
+          className={`mt-[15px] bg-[#2F9B4E]  w-[144px] h-[44px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
         >
           Post Question
         </button>
@@ -103,7 +107,7 @@ export const PostQuestion = () => {
               </div>
             ) : (
               <div className="flex flex-col mt-[15px] gap-[15px] w-full h-[600px] pb-[15px]  no-scrollbar overflow-auto">
-                {posts?.map((post, indx) => {
+                {filteredPosts?.map((post, indx) => {
                   return (
                     <div
                       key={indx}
