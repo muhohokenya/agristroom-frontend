@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { jost, satoshi } from "../fonts/Fonts";
 import Image from "next/image";
 import { BiMessage } from "react-icons/bi";
@@ -6,44 +6,24 @@ import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./ui/Skeleton";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
-import { postQuestion } from "../redux/actions/postQuestion.action";
-import { toast } from "../hooks/use-toast";
 import { getQuestion } from "../redux/actions/getQuestions.action";
 import { Post } from "../types/types";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
 import { formatDate, formatDateToTime } from "../lib/constants";
 import CKeditor from "./ui/CkEditor";
 import { BsSearch } from "react-icons/bs";
+import { ManagedUI } from "../hooks/useModalContext";
+import EditorModal from "./EditorModal";
 
 export const PostQuestion = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { setOpenModal } = useContext(ManagedUI);
   const post = useAppSelector((state) => state.post);
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [state, setState] = useState<SetStateAction<{}>>({
-    name: "",
-  });
-
-  const callback = (payload: string) => {
-    setState({
-      name: payload,
-    });
-  };
-
-  const postAQuestion = async () => {
-    const res: any = await dispatch(postQuestion(state));
-    if (res.payload.success) {
-      console.log("new state", res);
-      toast({
-        description: "You Successfully posted a question",
-        variant: "secondary",
-      });
-      router.refresh();
-    }
-  };
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -55,12 +35,11 @@ export const PostQuestion = () => {
     fetchPost();
   }, [post, dispatch]);
 
-
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-   setSearchValue(e.target.value)
-  }
+    setSearchValue(e.target.value);
+  };
 
-  const filteredPosts = posts.filter((post) => post.name.includes(searchValue))
+  const filteredPosts = posts.filter((post) => post.name.includes(searchValue));
 
   return (
     <div className="">
@@ -80,7 +59,9 @@ export const PostQuestion = () => {
           </span>
         </div>
         <button
-          onClick={postAQuestion}
+          onClick={() => {
+            setOpenModal(true)
+          }}
           type="button"
           className={`mt-[15px] bg-[#2F9B4E]  w-[144px] h-[44px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
         >
@@ -257,6 +238,8 @@ export const PostQuestion = () => {
           </div>
         </div>
       </div>
+
+      <EditorModal />
     </div>
   );
 };
