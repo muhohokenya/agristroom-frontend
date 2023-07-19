@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import "primereact/resources/themes/mdc-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeflex/primeflex.css";
@@ -28,6 +29,8 @@ export const metadata: Metadata = {
   ],
 };
 
+{/* <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/super-build/ckeditor.js"></script> */}
+
 export default function RootLayout({
   children,
   modal,
@@ -39,6 +42,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      
       <body
         className={`${inter.className} min-h-screen flex flex-col bg-[#FAFAFA] w-full`}
       >

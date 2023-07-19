@@ -80,14 +80,14 @@ function CreateAccountAs(props: Props) {
       <Stepper />
       <div className=" border-t border-t-slate-300 relative flex flex-col items-center justify-center h-auto lg:max-h-[565px] mt-10 py-[40px] bg-white w-full max-w-[400px] lg:max-w-[638px] mx-auto rounded-md shadow-md">
         <div className="relative flex mx-[15px] lg:mx-[40px] gap-[14px] items-center justify-center  w-full ">
-          <MdArrowBackIos
+          {/* <MdArrowBackIos
             className="absolute top-1 left-10 cursor-pointer  "
             onClick={() => router.push("/signup/accountinformations")}
-          />
+          /> */}
           <h2
             className={`font-[600] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
           >
-            Create Account As
+            Select what describes you best.
           </h2>
         </div>
         {loading ? (

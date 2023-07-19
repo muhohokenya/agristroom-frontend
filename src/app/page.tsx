@@ -22,12 +22,15 @@ import { LikesViews } from "../components/LikesViews";
 import { SlotsLeft } from "../components/SlotsLeft";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
 import { getPosts } from "../redux/actions/getPosts.action";
+import { SearchContext } from "../context/SearchState";
 
 export default function Home() {
   const [show, setShow] = useState(3);
   const [communityCards, setCommunityCards] = useState<Card[]>([]);
   const [popularguides, setGuides] = useState<Card[]>([]);
   const [masterClasses, SetMasterClasses] = useState<MasterClass[]>([]);
+  const { searchedValue, setSearchedValue } = useContext(SearchContext);
+
   const { setOpenModal } = useContext(ManagedUI);
   const router = useRouter();
   const dispatch = useAppDispatch()
@@ -60,8 +63,6 @@ export default function Home() {
   }, []);
 
   const post = useAppSelector((state) => state.post);
-
-  const [searchValue, setSearchValue] = useState("");
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -73,7 +74,15 @@ export default function Home() {
       setLoading(false);
     };
     fetchPost();
-  }, [post,dispatch]);
+  }, [post, dispatch]);
+
+  
+
+  const onInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchedValue({
+      searchedValue: e.target.value
+    })
+  }
 
   return (
     <main className="">
@@ -249,6 +258,14 @@ export default function Home() {
             <span className="text-[#212121]">Popular</span> Community
             Discussions
           </span>
+          <div className="flex items-center w-full lg:w-[500px] max-w-[800px] mx-auto justify-center py-2 px-3">
+            <input onChange={onInputchange} className="w-full lg:w-[500px] px-2 h-[40px] outline-0 ring-0 border border-[#2F9B4E] focus:outline-0 focus:ring-0 rounded-l-[3px]" />
+            <button onClick={() => {
+              router.push("/dashboard")
+            }} className="flex items-center text-white justify-center py-[10px] px-[20px] gap-[10px] w-[78px] md:w-[88px] h-[40px] bg-[#2F9B4E] rounded-r-[3px] text-[14px] whitespace-nowrap">
+              Search
+            </button>
+          </div>
           <div className="mt-[20px] bg-white md:mx-[10px] lg:mx-[150px] ">
             <div className="py-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[500px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
               {posts.map((post, indx) => {
@@ -423,12 +440,15 @@ const SingleCardTemplate = (card: Card) => {
   return (
     <div className="bg-[#FAFAFA] rounded-md mx-2 ">
       <div className="min-w-[345px] h-[200px] lg:min-w-[295px] lg:max-h-[234px] rounded-md w-full p-3">
-        <Image src={card.image!} alt="" width={24} height={24} />
-        <h3
-          className={`text-[16px] leading-[20px] tracking-tighter text-[#2F9B4E] font-[700] mt-[7px] ${jost.className}`}
-        >
-          {card.heading}
-        </h3>
+        <div className="flex flex-col items-center justify-center ">
+
+          <Image src={card.image!} alt="" width={24} height={24} />
+          <h3
+            className={`text-[16px] leading-[20px] tracking-tighter text-[#2F9B4E] font-[700] mt-[7px] ${jost.className}`}
+          >
+            {card.heading}
+          </h3>
+        </div>
         <div className="mt-[5px]">
           <p
             className={`font-[400] text-[14px] leading-[28px] tracking-tighter text-[#212121]/70 line-clamp-4 ${satoshi.className}`}

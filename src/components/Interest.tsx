@@ -113,10 +113,10 @@ function InterestPage(props: Props) {
       <Stepper />
       <div className=" border-t border-t-slate-300 flex flex-col  h-auto items-start mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
         <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
-          <MdArrowBackIos
+          {/* <MdArrowBackIos
             className=" cursor-pointer "
             onClick={() => router.push("/signup/createaccounts")}
-          />
+          /> */}
           <h2
             className={`font-[600] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
           >

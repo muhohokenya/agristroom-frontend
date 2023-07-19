@@ -50,8 +50,8 @@ const Stepper = () => {
                 setOpenModal(false);
               }}
             />
-            <h1 className="w-full text-center mt-2 ">Registration steps</h1>
-            <div className="flex gap-2 lg:gap-[50px] my-2 items-center px-2 lg:px-[20px] mx-3 lg:mx-[50px]">
+            <h1 className="w-full text-center mt-4 text-[#2F9B4E] ">Registration steps</h1>
+            <div className="flex gap-2 lg:gap-4 my-2 items-center">
               <div
                 onClick={() => router.push("/signup")}
                 className={`cursor-pointer flex gap-[1px] items-center justify-center ${
@@ -59,7 +59,7 @@ const Stepper = () => {
                 }`}
               >
                 {showAddressCheck && (
-                  <BsCheck className="text-[#2F9B4E] h-12 text-2xl" />
+                  <BsCheck className="text-[#2F9B4E] h-12 text-sm md:text-2xl" />
                 )}
                 <span className="text-[12px] md:text-[14px]">Address</span>
               </div>
@@ -72,7 +72,7 @@ const Stepper = () => {
                 }`}
               >
                 {showDetailsCheck && (
-                  <BsCheck className="text-[#2F9B4E] h-12 text-2xl" />
+                  <BsCheck className="text-[#2F9B4E] h-12 text-sm md:text-2xl" />
                 )}
                 <span className="text-[12px] md:text-[14px]">Details</span>
               </div>
@@ -85,7 +85,7 @@ const Stepper = () => {
                 }`}
               >
                 {showAccountCheck && (
-                  <BsCheck className="text-[#2F9B4E] h-12 text-2xl" />
+                  <BsCheck className="text-[#2F9B4E] h-12 text-sm md:text-2xl" />
                 )}
                 <span className="text-[12px] md:text-[14px] whitespace-nowrap">
                   Account Type
@@ -100,7 +100,7 @@ const Stepper = () => {
                 }`}
               >
                 {showInterestCheck && (
-                  <BsCheck className="text-[#2F9B4E] h-12 text-2xl" />
+                  <BsCheck className="text-[#2F9B4E] h-12 text-sm md:text-2xl" />
                 )}
                 <span className="text-[12px] md:text-[14px]">Interests</span>
               </div>

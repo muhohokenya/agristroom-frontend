@@ -6,7 +6,6 @@ import { FaFacebook, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ManagedUI } from "@/src/hooks/useModalContext";
-import { MdClose } from "react-icons/md";
 import { satoshi } from "@/src/fonts/Fonts";
 import { Input } from "@/src/components/ui/Input";
 import { SubmitHandler, useForm } from "react-hook-form";

@@ -15,6 +15,7 @@ import { BsSearch } from "react-icons/bs";
 import EditorModal from "./EditorModal";
 import { UseEditorModal } from "../hooks/useEditorModalContext";
 import { SearchContext } from "../context/SearchState";
+import { AiOutlineReload } from "react-icons/ai";
 
 export const PostQuestion = () => {
   const router = useRouter();
@@ -75,7 +76,17 @@ export const PostQuestion = () => {
       {
         searchedValue.searchedValue !== "" && (
           <div className="flex flex-col gap-2 mt-3">
-            <h3 className={`font-[600]  text-[26px] leading-[42px] tracking-[-0.04em] tex-[#212121] ${jost.className}`}>Search Results</h3>
+            <div className="flex justify-start items-center gap-5">
+              <h3 className={`font-[600]  text-[26px] leading-[42px] tracking-[-0.04em] tex-[#212121] ${jost.className}`}>Search Results</h3>
+              <span onClick={() => {
+                setSearchedValue({
+                  searchedValue: ""
+                })
+              }} className="flex gap-1 cursor-pointer items-center bg-[#DBF3D9] px-2 py-1 rounded-sm text-[#2F9B4E] w-fit ">
+              <AiOutlineReload />
+               Refresh Search
+              </span>
+            </div>
             <p className="text-[16px]">
               <span className="text-[#2F9B4E] w-fit px-2 py-1 rounded-sm bg-[#DBF3D9]">{`${filteredPosts.length}`}</span> {filteredPosts.length === 1 ? "result" : "results"}  found.
             </p>

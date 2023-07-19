@@ -110,6 +110,9 @@ function Page(props: Props) {
     const fetchOnePost = async () => {
       setLoading(true);
       let res: any = await dispatch(getOneQuestion(params.replyId));
+      console.log('====================================');
+      console.log("one post",res?.payload);
+      console.log('====================================');
       setPost(res?.payload?.post[0]);
       setLoading(false);
     };
@@ -334,7 +337,7 @@ function Page(props: Props) {
                 <h1
                   className={`leading-[38px] py-[15px] font-[600] text-[26px] tracking-[-0.04em] text-[#212121] ${jost.className}`}
                 >
-                  Your Answer
+                  Submit Your Answer
                 </h1>
                 <div className=" flex  items-end ">
                   <TextEditor callback={callback} />

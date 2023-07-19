@@ -14,24 +14,12 @@ function Navbar(props: Props) {
   const { } = props;
   const router = useRouter();
   const [showSideNav, setShowSideNav] = useState(false);
-  const [openSearch, setOpenSearch] = useState(false);
-  const { searchedValue, setSearchedValue } = useContext(SearchContext);
   const { openModal, setOpenModal } = useContext(ManagedUI);
-  
+
 
   const toggleSideNav = () => {
     setShowSideNav(!showSideNav);
   };
-
-  const toggleSearch = () => {
-    setOpenSearch(!openSearch);
-  };
-
-  useEffect(() => {
-    setSearchedValue({
-      searchedValue: ""
-    })
-  },[])
 
   return (
     <div className="border-b-2 fixed top-0 inset-x-0 z-40  border-slate-600/20 bg-[#FAFAFA] h-[100px]">
@@ -90,12 +78,12 @@ function Navbar(props: Props) {
               </li>
             </ul>
             <div className="flex items-center gap-3">
-              <div
+              {/* <div
                 onClick={toggleSearch}
                 className="flex py-1 cursor-pointer bg-[#2F9B4E] items-center justify-center rounded-lg px-2 w-12 h-[39px]"
               >
                 <BsSearch className=" text-white h-9 w-9" />
-              </div>
+              </div> */}
               <Link
                 onClick={() => setOpenModal(true)}
                 href="/signup"
@@ -117,8 +105,8 @@ function Navbar(props: Props) {
         {/* side nav bar */}
         <div
           className={`${showSideNav
-              ? "-translate-x-2 transform transition-all duration-700"
-              : " -translate-x-[170px] transform transition-all duration-500"
+            ? "-translate-x-2 transform transition-all duration-700"
+            : " -translate-x-[170px] transform transition-all duration-500"
             } w-fit shadow-md lg:hidden  top-[100px]  bg-[#FAFAFA] px-[12px] py-[17px]`}
         >
           <ul className="w-full px-3 py-1 flex flex-col gap-5 h-auto">
@@ -160,7 +148,6 @@ function Navbar(props: Props) {
             </li>
           </ul>
         </div>
-        <SearchComponent openSearch={openSearch} setOpenSearch={setOpenSearch} router={router} />
       </div>
     </div>
   );
