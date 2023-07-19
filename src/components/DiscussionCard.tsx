@@ -4,12 +4,17 @@ import {
   MdArrowDropDown,
 } from "react-icons/md";
 import { BiMessage } from "react-icons/bi";
-import { Discussion } from "../types/types";
+import { Post } from "../types/types";
 import { jost, satoshi } from "../fonts/Fonts";
+import { formatDate, formatDateToTime } from "../lib/constants";
+import { FaUserCircle } from "react-icons/fa";
+import Link from "next/link";
 
-export const DiscussionCard: React.FC<Discussion> = ({
-  ...discussion
-}: Discussion) => {
+type Props = {
+  post: Post
+}
+
+export const DiscussionCard= ({post}: Props) => {
   return (
     <div className="flex">
       <div className="flex flex-col pt-[20px] px-[8px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
@@ -18,44 +23,33 @@ export const DiscussionCard: React.FC<Discussion> = ({
         <span
           className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
         >
-          {discussion.likesCount}k
+          19.3k
         </span>
         <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
       </div>
-      <div className="flex flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px] bg-[#FAFAFA] w-full rounded-r-md ">
+      <Link href={`/dashboard/reply/${post?.id}`}  className="flex cursor-pointer flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px] bg-[#FAFAFA] w-full rounded-r-md ">
         <div className="flex gap-[5px]">
           
-          <Image
-            src={discussion.authorsImage!}
-            alt="prof"
-            width={18}
-            height={18}
-            className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px]"
+          <FaUserCircle
+            className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px] text-[#DBF3D9]"
           />
           <div className="flex gap-[5px] items-center">
             <p
               className={`text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
             >
-              {discussion.author} - {discussion.county} County,{" "}
-              {discussion.country}
+              {post?.user?.first_name} - {post?.user?.county} county,{" "}
+              {post?.user?.country}
             </p>
-            <Image
-              src={discussion.countryFlagImage!}
-              alt="flag"
-              width={21}
-              height={15}
-              className="w-[19px] lg:w-[21px] h-[14px] lg:h-[15px]"
-            />
           </div>
         </div>
         <p
           className={`text-[14px] lg:text-[20px] mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
         >
-          {discussion.question}
+          {post?.name}
         </p>
-        {discussion.image !== "" && (
+        {post.image === null ? null : (
           <Image
-            src={discussion.image!}
+            src={post?.image!}
             alt="photo"
             width={724}
             height={277}
@@ -69,16 +63,16 @@ export const DiscussionCard: React.FC<Discussion> = ({
             <p
               className={`text-[#212121]/70 text-[12px] lg:text-[14px] leading-[16px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className} font-[500]`}
             >
-              {discussion.resplies?.length} replies
+              {post?.resplies?.length}4 replies
             </p>
           </div>
           <p
             className={`text-[#212121]/70 text-[12px] lg:text-[14px] leading-[16px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className} font-[500]`}
           >
-            {discussion.date} | {discussion.time}
+            { formatDate(post?.created_at!)} | {formatDateToTime(post?.created_at!)}
           </p>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

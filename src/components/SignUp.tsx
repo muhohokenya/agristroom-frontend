@@ -121,7 +121,7 @@ const SignUpPage = (props: Props) => {
               <Input
                 type={showPassword ? "text" : "password"}
                 className="focus-visible:ring-[#2F9B4E]"
-                {...register("password", { required: true })}
+                {...register("password", { required: true, minLength: 8 })}
               />
               <span className="flex items-start justify-end absolute cursor-pointer right-3">
                 <FaEyeSlash
@@ -131,10 +131,15 @@ const SignUpPage = (props: Props) => {
                   className="  h-8 w-8 text-[#2F9B4E] "
                 />
               </span>
-              {errors.password && (
-                <span className="text-red-500 text-[12px] w-full">
+              {errors.password && errors.password?.type === "required" && (
+                <span className="text-red-500 text-[12px] w-full mt-1">
                   Password is required
                 </span>
+              )}
+              {errors.password && errors.password?.type === "minLength" && (
+                <span className="text-red-500 text-[12px] w-full mt-1">
+                  Password cannot be less than 8 characters
+              </span>
               )}
             </div>
           </div>

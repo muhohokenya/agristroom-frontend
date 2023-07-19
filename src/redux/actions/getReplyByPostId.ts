@@ -15,7 +15,6 @@ export const getRepliesByPostId = createAsyncThunk(
               Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
             },
         });
-        console.log("accessToken from geting one question", accessToken, "response", response);
       return {
         replies: response.data,
         success: true,

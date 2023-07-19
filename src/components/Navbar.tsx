@@ -1,30 +1,37 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ManagedUI } from "../hooks/useModalContext";
 import { useRouter } from "next/navigation";
 import { BsSearch } from "react-icons/bs";
-interface Props {}
+import SearchComponent from "./SearchComponent";
+import { SearchContext } from "../context/SearchState";
+interface Props { }
 
 function Navbar(props: Props) {
-  const {} = props;
+  const { } = props;
   const router = useRouter();
   const [showSideNav, setShowSideNav] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
+  const { searchedValue, setSearchedValue } = useContext(SearchContext);
   const { openModal, setOpenModal } = useContext(ManagedUI);
+  
 
   const toggleSideNav = () => {
     setShowSideNav(!showSideNav);
   };
 
   const toggleSearch = () => {
-    console.log('====================================');
-    console.log("clicking the change button");
-    console.log('====================================');
     setOpenSearch(!openSearch);
   };
+
+  useEffect(() => {
+    setSearchedValue({
+      searchedValue: ""
+    })
+  },[])
 
   return (
     <div className="border-b-2 fixed top-0 inset-x-0 z-40  border-slate-600/20 bg-[#FAFAFA] h-[100px]">
@@ -109,11 +116,10 @@ function Navbar(props: Props) {
 
         {/* side nav bar */}
         <div
-          className={`${
-            showSideNav
+          className={`${showSideNav
               ? "-translate-x-2 transform transition-all duration-700"
               : " -translate-x-[170px] transform transition-all duration-500"
-          } w-fit shadow-md lg:hidden  top-[100px]  bg-[#FAFAFA] px-[12px] py-[17px]`}
+            } w-fit shadow-md lg:hidden  top-[100px]  bg-[#FAFAFA] px-[12px] py-[17px]`}
         >
           <ul className="w-full px-3 py-1 flex flex-col gap-5 h-auto">
             <li
@@ -154,16 +160,12 @@ function Navbar(props: Props) {
             </li>
           </ul>
         </div>
-
-        <div className={`bg-[#DBF3D9] rounded-md  py-2 w-full mt-[200px] ${openSearch ? " -translate-y-[180px] transform transition-all duration-700" : "-translate-y-[400px] transform transition-all duration-700"}`}>
-          <div className="flex w-full items-center justify-center my-2">
-          <input className="w-[800px] px-2 h-[40px] outline-0 ring-0 border border-[#2F9B4E] focus:outline-0 focus:ring-0 rounded-l-[3px]" />
-          <button className="flex items-center text-white justify-center py-[10px] px-[20px] gap-[10px] w-[78px] md:w-[88px] h-[40px] bg-[#2F9B4E] rounded-r-[3px] text-[14px] whitespace-nowrap">Search</button>
-          </div>
-        </div>
+        <SearchComponent openSearch={openSearch} setOpenSearch={setOpenSearch} router={router} />
       </div>
     </div>
   );
 }
 
 export default Navbar;
+
+

@@ -197,16 +197,29 @@ const ProfileSummary = () => {
             })}
           </div>
 
+          {
+            state.other_interests.length > 0 && (
+              <div className="flex w-full flex-col items-start justify-start">
+                <h3 className="text-[14px]">Other Interests:</h3>
+                <div className="flex gap-[6px] flex-wrap  items-center w-full  mt-[8px]">
+                  {state.other_interests.length > 0 && state.other_interests.map((interest, index) => {
+                    return (
+                      <span key={index} className={`bg-[#D7FBD7] cursor-pointer py-[3px] px-[8px] rounded-[30px] text-[14px] leading-[19px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}>{interest}</span>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          }
+
           <button
             onClick={() => {
               createUserAccount();
             }}
             disabled={isSubmitting}
-            className={`my-[40px] ${
-              isSubmitting && "cursor-not-allowed"
-            } flex items-center justify-center gap-3 mx-[15px] lg:mx-[40px] bg-[#2F9B4E] min-w-[315px] lg:min-w-[474px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${
-              satoshi.className
-            }`}
+            className={`my-[40px] ${isSubmitting && "cursor-not-allowed"
+              } flex items-center justify-center gap-3 mx-[15px] lg:mx-[40px] bg-[#2F9B4E] min-w-[315px] lg:min-w-[474px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className
+              }`}
           >
             {isSubmitting && (
               <FaSpinner className="animate-spin h-8 w-8 text-white" />

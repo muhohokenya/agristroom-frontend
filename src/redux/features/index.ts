@@ -3,10 +3,10 @@ import errorReducer from "./error.reducer";
 import reducer from "./authSlice";
 import CurrentUserSlice from "./currentUserSlice";
 import getInterestsSlice from "./interestsSlice";
-import getQuestion from "./getQuestionSlice";
+import getPosts from "./getPostsSlice";
 import postQuestion  from "./postQuestion.Slice";
 import  getOneQuestionSlice  from "./getOneQuestionSlice";
-import  postAnswerSlice  from "./postReplySlice";
+import  postAnswerSlice  from "./postAnswerSlice";
 import getRepliesByPostId from "./getReplyBtPostIdSlice";
 
 
@@ -17,7 +17,7 @@ export const rootReducer = combineReducers({
     interests: getInterestsSlice,
     post: postQuestion,
     onePost: getOneQuestionSlice,
-    anserCreated: postAnswerSlice,
-    posts: getQuestion,
+    answerCreated: postAnswerSlice,
+    posts: getPosts,
     replies: getRepliesByPostId
 })

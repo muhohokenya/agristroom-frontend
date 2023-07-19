@@ -6,7 +6,7 @@ import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./ui/Skeleton";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
-import { getQuestion } from "../redux/actions/getQuestions.action";
+import { getPosts } from "../redux/actions/getPosts.action";
 import { Post } from "../types/types";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
 import { formatDate, formatDateToTime } from "../lib/constants";
@@ -14,21 +14,22 @@ import CKeditor from "./ui/CkEditor";
 import { BsSearch } from "react-icons/bs";
 import EditorModal from "./EditorModal";
 import { UseEditorModal } from "../hooks/useEditorModalContext";
+import { SearchContext } from "../context/SearchState";
 
 export const PostQuestion = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { openEditorModal, setOpenEditorModal} = useContext(UseEditorModal);
+  const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
   const post = useAppSelector((state) => state.post);
 
+  const { searchedValue, setSearchedValue } = useContext(SearchContext);
   const [posts, setPosts] = useState<Post[]>([]);
-  const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchPost = async () => {
       setLoading(true);
-      let res: any = await dispatch(getQuestion());
+      let res: any = await dispatch(getPosts());
       setPosts(res.payload.posts);
       setLoading(false);
     };
@@ -36,16 +37,14 @@ export const PostQuestion = () => {
   }, [post, dispatch]);
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+    setSearchedValue({
+      searchedValue: e.target.value
+    });
   };
 
-  const filteredPosts = posts?.filter((post) => post.name.includes(searchValue));
+  const filteredPosts = posts?.filter((post) => post.name.includes(searchedValue.searchedValue));
 
-  console.log('====================================');
-  console.log("<<<<<<<<<<<<<<<<<<<<<i need to refresh>>>>>>>>>>>>>>>>>>>>>>>>>");
-  console.log('====================================');
-
-  useEffect(() => {router.refresh()},[])
+  useEffect(() => { router.refresh() }, [router])
 
   return (
     <div className="">
@@ -63,7 +62,7 @@ export const PostQuestion = () => {
         </div>
         <button
           onClick={() => {
-            
+
             setOpenEditorModal(true);
           }}
           type="button"
@@ -72,6 +71,17 @@ export const PostQuestion = () => {
           Post Question
         </button>
       </div>
+
+      {
+        searchedValue.searchedValue !== "" && (
+          <div className="flex flex-col gap-2 mt-3">
+            <h3 className={`font-[600]  text-[26px] leading-[42px] tracking-[-0.04em] tex-[#212121] ${jost.className}`}>Search Results</h3>
+            <p className="text-[16px]">
+              <span className="text-[#2F9B4E] w-fit px-2 py-1 rounded-sm bg-[#DBF3D9]">{`${filteredPosts.length}`}</span> {filteredPosts.length === 1 ? "result" : "results"}  found.
+            </p>
+          </div>
+        )
+      }
 
       <div className="flex bg-white flex-col justify-between lg:flex-row border-t border-t-[#BFBFBF]/60 mt-[30px] ">
         <div className="bg-white w-full mx-1">
@@ -96,7 +106,7 @@ export const PostQuestion = () => {
                   return (
                     <div
                       key={indx}
-                      className="flex min-w-[350px] md:max-w-full lg:max-w-sull  min-h-[167px] lg:min-h-[220px]  xl:min-h-[167px] cursor-pointer "
+                      className="flex min-w-[350px] md:max-w-full lg:max-w-full  min-h-[167px] lg:min-h-[220px]  xl:min-h-[167px] cursor-pointer "
                     >
                       <div className="flex flex-col pt-[20px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
                         <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />

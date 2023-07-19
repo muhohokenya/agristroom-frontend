@@ -12,6 +12,7 @@ import {
   UseEditorModal,
   UseEditorModalProvider,
 } from "../hooks/useEditorModalContext";
+import SearchProvider from "../context/SearchState";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -45,8 +46,10 @@ export default function RootLayout({
           <ManagedUIProvider>
             <UseEditorModalProvider>
               <FormProvider>
-                {children}
-                {modal}
+                <SearchProvider>
+                  {children}
+                  {modal}
+                </SearchProvider>
               </FormProvider>
             </UseEditorModalProvider>
           </ManagedUIProvider>

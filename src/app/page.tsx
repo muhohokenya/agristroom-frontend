@@ -7,7 +7,7 @@ import { jost, satoshi } from "../fonts/Fonts";
 import { Footer } from "../components/Footer";
 import { DiscussionCard } from "../components/DiscussionCard";
 import Navbar from "../components/Navbar";
-import { Card, Guide, MasterClass } from "../types/types";
+import { Card, Guide, MasterClass, Post } from "../types/types";
 import {
   cards,
   discussions,
@@ -20,6 +20,8 @@ import { ManagedUI } from "../hooks/useModalContext";
 import { useRouter } from "next/navigation";
 import { LikesViews } from "../components/LikesViews";
 import { SlotsLeft } from "../components/SlotsLeft";
+import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
+import { getPosts } from "../redux/actions/getPosts.action";
 
 export default function Home() {
   const [show, setShow] = useState(3);
@@ -28,6 +30,7 @@ export default function Home() {
   const [masterClasses, SetMasterClasses] = useState<MasterClass[]>([]);
   const { setOpenModal } = useContext(ManagedUI);
   const router = useRouter();
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const checkWidthSize = () => {
@@ -55,6 +58,22 @@ export default function Home() {
     setGuides(guides);
     SetMasterClasses(masterClassesData);
   }, []);
+
+  const post = useAppSelector((state) => state.post);
+
+  const [searchValue, setSearchValue] = useState("");
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      setLoading(true);
+      let res: any = await dispatch(getPosts());
+      setPosts(res.payload.posts);
+      setLoading(false);
+    };
+    fetchPost();
+  }, [post,dispatch]);
 
   return (
     <main className="">
@@ -232,20 +251,11 @@ export default function Home() {
           </span>
           <div className="mt-[20px] bg-white md:mx-[10px] lg:mx-[150px] ">
             <div className="py-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[500px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
-              {discussions.map((discussion, indx) => {
+              {posts.map((post, indx) => {
                 return (
                   <DiscussionCard
                     key={indx}
-                    date={discussion.date}
-                    likesCount={discussion.likesCount}
-                    resplies={discussion.resplies}
-                    image={discussion.image}
-                    country={discussion.country}
-                    county={discussion.county}
-                    countryFlagImage={discussion.countryFlagImage}
-                    time={discussion.time}
-                    question={discussion.question}
-                    authorsImage={discussion.authorsImage}
+                    post={post}
                   />
                 );
               })}

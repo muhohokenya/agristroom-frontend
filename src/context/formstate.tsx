@@ -13,6 +13,7 @@ interface CurrentAccountCreationState {
         id: string,
         name: string
     };
+    other_interests: string[]
     interests: { id: string, name: string }[];
 }
 
@@ -34,7 +35,8 @@ const formContextDefaultValue: FormContextValue = {
             id: "",
             name: ""
         },
-        interests: []
+        interests: [],
+        other_interests: []
     },
     setState: () => {}
 }
