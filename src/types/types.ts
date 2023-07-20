@@ -56,9 +56,6 @@ export interface ICountry {
   name: string;
   code: string;
   dial_code: string;
-  // "emoji": string,
-  // "unicode": string,
-  // "image": string
 }
 
 export interface UserRegisterData {
@@ -81,6 +78,8 @@ export interface Post{
   user_id: number;
   created_at: string;
   updated_at: string;
+  image: string;
+  resplies?: Reply[];
   user: {
     first_name: string;
     last_name: string;

@@ -35,8 +35,8 @@ function TextEditor(props: Props) {
     <div className="max-w-[802px] sticky top-[200px] min-h-[230px] ">
       <Editor
         onChange={onChange}
-        // editorState={editorState}
-        // onEditorStateChange={onEditorStateChange}
+        editorState={editorState}
+        onEditorStateChange={onEditorStateChange}
         toolbarClassName="flex  z-50 !justify-start mx-auto min-w-[345px] lg:min-w-[802px]"
         editorClassName="mt-1 shadow-xl  px-2 min-h-[200px] shadow-lg min-w-[345px] lg:min-w-[802px] mx-auto"
         

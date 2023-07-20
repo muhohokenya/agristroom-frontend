@@ -1,12 +1,20 @@
 "use client";
 
-import { useAppDispatch } from "@/src/hooks/react-redux-hooks";
+import React, { useContext, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
-import { logoutUserAction } from "@/src/redux/actions/auth.action";
+import {
+  getCurrentUser,
+  logoutUserAction,
+} from "@/src/redux/actions/auth.action";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
+import Link from "next/link";
+import { ManagedUI } from "@/src/hooks/useModalContext";
+import { RootState } from "@/src/redux";
 
 interface IProps {
   toggleSideNav?: () => void;
@@ -14,15 +22,41 @@ interface IProps {
 
 const DashHeader = ({ toggleSideNav }: IProps) => {
   const router = useRouter();
+  const { setOpenModal } = useContext(ManagedUI);
+  const [LoggedOut, setLoggedOut] = useState(false);
   const dispatch = useAppDispatch();
+  const state = useAppSelector((state:RootState) => state.currentUser);
 
   const logOut = async () => {
-    await dispatch(logoutUserAction());
-    router.push("/");
+    const res: any = await dispatch(logoutUserAction());
+    if (res.payload) {
+      setLoggedOut(true);
+    } else {
+      setLoggedOut(false);
+    }
+    router.refresh();
     toast({
       description: "You have successfully logged out!",
+      variant: "secondary",
     });
   };
+
+  useEffect(() => {
+    const getUser = async () => {
+      let res: any = await dispatch(getCurrentUser());
+      if(res?.payload?.success){
+        setLoggedOut(false);
+      }else{
+        setLoggedOut(true);
+      }
+    };
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    router.refresh()
+  },[])
+
 
   return (
     <div className="fixed top-0 w-full bg-white z-[999] h-[77px] flex justify-between items-center border-b-2 border-slate-600/20 pt-[17px] px-[15px] lg:px-[30px] ">
@@ -73,37 +107,27 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
           </li>
           <li className="text-[14px] cursor-pointer group relative flex items-center justify-center rounded-full bg-[#DBF3D9] leading-[18.9px] font-[500] text-[#212121]  tracking-[-0.04em]">
             <BiSolidUserCircle className="profile text-[#2F9B4E] w-10 h-10 " />
-            <span className="bg-[#DBF3D9] hidden absolute top-10 h-6 w-6 left-[15px] rotate-45"></span>
-            <div className="bg-[#DBF3D9] hidden px-3 lg:hidden flex-col items-center justify-center absolute top-12 -left-[3px] rounded-sm py-1 text-[#2F9B4E] whitespace-nowrap text-[14px]">
-              <div className="div bg-white h-[70px] w-[70px] flex items-center rounded-full justify-center mt-2">
-                <Image
-                  src="/user-2.png"
-                  alt=""
-                  width={66}
-                  height={66}
-                  className="bg-[#DBF3D9] rounded-full"
-                />
-              </div>
-              <div className="flex flex-col items-start justify-center my-2 gap-2 ">
-                <span className="pl-2 py-[2px] pr-3 text-white whitespace-nowrap text-[13px] cursor-pointer bg-[#2F9B4E] rounded-full">
-                  Account
-                </span>
-                <span
-                  onClick={() => router.push("/dashboard/profile")}
-                  className="pl-2 py-[2px] pr-3 text-white whitespace-nowrap text-[13px] cursor-pointer bg-[#2F9B4E] rounded-full"
-                >
-                  Profile Settings
-                </span>
-              </div>
-            </div>
           </li>
-          <li
-            onClick={logOut}
-            className="text-[16px] bg-[#DBF3D9] py-2 px-[10px] rounded-md text-[#2F9B4E] flex items-center justify-center gap-[10px] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]"
-          >
-            Log out
-            <FiLogOut />
-          </li>
+
+          {LoggedOut ? (
+            <li
+              onClick={() => {
+                setOpenModal(true);
+                router.push("/login");
+              }}
+              className="text-[16px] bg-[#DBF3D9] py-2 px-[10px] rounded-md text-[#2F9B4E] flex items-center justify-center gap-[10px] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]"
+            >
+              Log In
+            </li>
+          ) : (
+            <li
+              onClick={logOut}
+              className="text-[16px] bg-[#DBF3D9] py-2 px-[10px] rounded-md text-[#2F9B4E] flex items-center justify-center gap-[10px] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]"
+            >
+              Log out
+              <FiLogOut />
+            </li>
+          )}
         </ul>
       </div>
     </div>

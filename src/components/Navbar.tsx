@@ -1,17 +1,21 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ManagedUI } from "../hooks/useModalContext";
 import { useRouter } from "next/navigation";
-interface Props {}
+import { BsSearch } from "react-icons/bs";
+import SearchComponent from "./SearchComponent";
+import { SearchContext } from "../context/SearchState";
+interface Props { }
 
 function Navbar(props: Props) {
-  const {} = props;
+  const { } = props;
   const router = useRouter();
   const [showSideNav, setShowSideNav] = useState(false);
   const { openModal, setOpenModal } = useContext(ManagedUI);
+
 
   const toggleSideNav = () => {
     setShowSideNav(!showSideNav);
@@ -74,6 +78,12 @@ function Navbar(props: Props) {
               </li>
             </ul>
             <div className="flex items-center gap-3">
+              {/* <div
+                onClick={toggleSearch}
+                className="flex py-1 cursor-pointer bg-[#2F9B4E] items-center justify-center rounded-lg px-2 w-12 h-[39px]"
+              >
+                <BsSearch className=" text-white h-9 w-9" />
+              </div> */}
               <Link
                 onClick={() => setOpenModal(true)}
                 href="/signup"
@@ -94,54 +104,55 @@ function Navbar(props: Props) {
 
         {/* side nav bar */}
         <div
-        className={`${
-          showSideNav
+          className={`${showSideNav
             ? "-translate-x-2 transform transition-all duration-700"
             : " -translate-x-[170px] transform transition-all duration-500"
-        } w-fit shadow-md lg:hidden  top-[100px]  bg-[#FAFAFA] px-[12px] py-[17px]` }
-      >
-        <ul className="w-full px-3 py-1 flex flex-col gap-5 h-auto">
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
-          >
-            About Us
-          </li>
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
-          >
-            Blog
-          </li>
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
-          >
-            Products
-          </li>
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
-          >
-            Events
-          </li>
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
-          >
-            Contact us
-          </li>
-          <li
-            onClick={() => setShowSideNav(false)}
-            className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#2F9B4E] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
-          >
-            Partner with us
-          </li>
-        </ul>
-      </div>
+            } w-fit shadow-md lg:hidden  top-[100px]  bg-[#FAFAFA] px-[12px] py-[17px]`}
+        >
+          <ul className="w-full px-3 py-1 flex flex-col gap-5 h-auto">
+            <li
+              onClick={() => setShowSideNav(false)}
+              className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
+            >
+              About Us
+            </li>
+            <li
+              onClick={() => setShowSideNav(false)}
+              className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
+            >
+              Blog
+            </li>
+            <li
+              onClick={() => setShowSideNav(false)}
+              className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
+            >
+              Products
+            </li>
+            <li
+              onClick={() => setShowSideNav(false)}
+              className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
+            >
+              Events
+            </li>
+            <li
+              onClick={() => setShowSideNav(false)}
+              className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
+            >
+              Contact us
+            </li>
+            <li
+              onClick={() => setShowSideNav(false)}
+              className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#2F9B4E] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
+            >
+              Partner with us
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
 }
 
 export default Navbar;
+
+

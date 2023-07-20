@@ -1,5 +1,5 @@
-
 import { Metadata } from "next";
+
 import "primereact/resources/themes/mdc-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeflex/primeflex.css";
@@ -9,6 +9,11 @@ import { ManagedUIProvider } from "../hooks/useModalContext";
 import { Providers } from "../redux/provider";
 import { Toaster } from "../components/ui/Toaster";
 import FormProvider from "../context/formstate";
+import {
+  UseEditorModal,
+  UseEditorModalProvider,
+} from "../hooks/useEditorModalContext";
+import SearchProvider from "../context/SearchState";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,25 +29,36 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({children, modal,pageProps,}: {
+{/* <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/super-build/ckeditor.js"></script> */}
+
+export default function RootLayout({
+  children,
+  modal,
+  pageProps,
+}: {
   children: React.ReactNode;
   modal: React.ReactNode;
   pageProps: any;
 }) {
   return (
     <html lang="en">
+      
       <body
         className={`${inter.className} min-h-screen flex flex-col bg-[#FAFAFA] w-full`}
       >
-          <Providers>
-            <ManagedUIProvider>
+        <Providers>
+          <ManagedUIProvider>
+            <UseEditorModalProvider>
               <FormProvider>
-                {children}
-                {modal}
+                <SearchProvider>
+                  {children}
+                  {modal}
+                </SearchProvider>
               </FormProvider>
-            </ManagedUIProvider>
-          </Providers>
-          <Toaster />
+            </UseEditorModalProvider>
+          </ManagedUIProvider>
+        </Providers>
+        <Toaster />
       </body>
     </html>
   );

@@ -3,7 +3,8 @@
 import React, { useContext, useRef } from "react";
 import { ManagedUI } from "../hooks/useModalContext";
 import { createPortal } from "react-dom";
-import { useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
+import Stepper from "./Stepper";
 
 function Modal(props) {
   const { children } = props;
@@ -31,7 +32,7 @@ function Modal(props) {
     );
   }
 
-  return <></>
+  return <></>;
 }
 
 export default Modal;

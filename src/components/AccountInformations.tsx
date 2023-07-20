@@ -10,6 +10,7 @@ import { Input } from "./ui/Input";
 import { PhoneInput } from "./ui/PhoneInput";
 import { useFormContext } from "../context/formstate";
 import { Phone } from "lucide-react";
+import Stepper from "./Stepper";
 
 interface Props { }
 
@@ -64,12 +65,14 @@ function AccountInformation(props: Props) {
 
 
   return (
-    <div className=" flex flex-col  max-h-[610px] items-center  lg:max-h-[620px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
+    <div className="flex flex-col bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto">
+    <Stepper />
+    <div className=" border-t border-t-slate flex flex-col  max-h-[610px] items-center  lg:max-h-[620px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
       <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
-        <MdArrowBackIos
+        {/* <MdArrowBackIos
           className=" cursor-pointer"
           onClick={() => router.push("/signup")}
-        />
+        /> */}
         <h2
           className={`font-[400] text-[18px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
         >
@@ -128,6 +131,7 @@ function AccountInformation(props: Props) {
           />
         </div>
       </form>
+    </div>
     </div>
   );
 }

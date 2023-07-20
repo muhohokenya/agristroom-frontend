@@ -15,6 +15,7 @@ type Input = {
 const AddTopic = () => {
   const router = useRouter();
   const { state, setState } = useFormContext();
+  const [searchTopic, setSearchTopic] = useState("");
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<Input>()
 
@@ -25,7 +26,25 @@ const AddTopic = () => {
     }))
     router.push("/signup/interest")
   }
-  console.log("my topic");
+
+  const topicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTopic(e.target.value)
+  }
+
+  
+  const otherInterestsArray = searchTopic.split(",")
+  let otherInterests = state.other_interests.length > 0 ? state.other_interests.concat(otherInterestsArray) : otherInterestsArray
+  const addTopic = () => {
+    setState((prevState) => ({
+      ...prevState,
+      other_interests: [...otherInterests!]
+    }))
+  }
+
+  console.log('====================================');
+  console.log(state.other_interests);
+  console.log(otherInterests);
+  console.log('====================================');
 
   return (
     <div className=" flex flex-col  max-h-[262px] items-start  lg:max-h-[309px] mt-10 py-[20px] lg:py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
@@ -49,16 +68,17 @@ const AddTopic = () => {
           <p
             className={` w-full text-[14px] leading-[19px] font-[500] text-[#212121]/50 tracking-[-0.04em]  ${satoshi.className}`}
           >
-            Topic Name
+            Topic Name or a List
           </p>
           <div className="flex items-center  w-full ">
-            <Input
-              {...register("topic", { required: true })}
+            <input
+              onChange={topicChange}
               placeholder="Add Topic"
               className="w-full bg-transparent  h-[48px] px-2 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px] bg-[#FFFFFF] focus:outline focus:outline-[#BFBFBF]/60 "
             />
           </div>
           <button
+            onClick={addTopic}
             type="submit"
             className={`mt-[35px] focus-visible:ring-[#2F9B4E] mx-[15px] lg:mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
           >

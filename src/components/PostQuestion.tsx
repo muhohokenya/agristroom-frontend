@@ -1,88 +1,98 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { jost, satoshi } from "../fonts/Fonts";
 import Image from "next/image";
 import { BiMessage } from "react-icons/bi";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
-import { discussions } from "../lib/data/data";
-import TextEditor from "./ui/TextEditor";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./ui/Skeleton";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
-import { postQuestion } from "../redux/actions/postQuestion.action";
-import { toast } from "../hooks/use-toast";
-import { getQuestion } from "../redux/actions/getQuestions.action";
+import { getPosts } from "../redux/actions/getPosts.action";
 import { Post } from "../types/types";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
 import { formatDate, formatDateToTime } from "../lib/constants";
 import CKeditor from "./ui/CkEditor";
+import { BsSearch } from "react-icons/bs";
+import EditorModal from "./EditorModal";
+import { UseEditorModal } from "../hooks/useEditorModalContext";
+import { SearchContext } from "../context/SearchState";
+import { AiOutlineReload } from "react-icons/ai";
 
 export const PostQuestion = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
+  const post = useAppSelector((state) => state.post);
+
+  const { searchedValue, setSearchedValue } = useContext(SearchContext);
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const post = useAppSelector((state) => state.post);
-  const [state, setState] = useState<SetStateAction<{}>>({
-    name: "",
-  });
-  const dispatch = useAppDispatch();
-
-  const callback = (payload: string) => {
-    setState({
-      name: payload,
-    });
-  };
-
-  const postAQuestion = async () => {
-    const res: any = await dispatch(postQuestion(state));
-    if (res.payload.success) {
-      console.log("new state", res);
-      toast({
-        description: "You Successfully posted a question",
-        variant: "secondary",
-      });
-      router.refresh();
-    }
-  };
 
   useEffect(() => {
     const fetchPost = async () => {
       setLoading(true);
-      let res: any = await dispatch(getQuestion());
+      let res: any = await dispatch(getPosts());
       setPosts(res.payload.posts);
       setLoading(false);
     };
     fetchPost();
   }, [post, dispatch]);
 
-  console.log("all posts questions", posts);
-  const [editorLoaded, setEditorLoaded] = useState(false);
-  const [data, setData] = useState<string>("");
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchedValue({
+      searchedValue: e.target.value
+    });
+  };
 
-  useEffect(() => {
-    setEditorLoaded(true);
-  }, []);
+  const filteredPosts = posts?.filter((post) => post.name.includes(searchedValue.searchedValue));
+
+  useEffect(() => { router.refresh() }, [router])
 
   return (
     <div className="">
-      <div className="flex flex-col xl:flex-row items-end gap-[20px] mr-[20px]">
-        <div className=" flex   items-end ">
-          <TextEditor callback={callback} />
-          {/* <CKeditor 
-          name="name" 
-          onChange={(data: string) => {
-            setData(data)
-          }}
-          editorLoaded={setEditorLoaded}
-           /> */}
+      <div className="flex flex-col xl:flex-row items-end gap-[20px] mr-[20px] ">
+        <div className="flex relative items-center justify-center rounded-md">
+          <input
+            type="text"
+            onChange={(e) => onInputChange(e)}
+            placeholder="search..."
+            className="w-[800px] h-[44px] px-2 border border-[#2F9B4E] focus:border focus:border-[#2F9B4E] focus:outline-0 rounded-md ring-0 focus:ring-0"
+          />
+          <span className="absolute cursor-pointer flex top-[1px] items-center justify-center right-0 px-3 bg-[#DBF3D9] h-[95%] rounded-md max-w-10">
+            <BsSearch className=" max-h-8 max-w-8" />
+          </span>
         </div>
         <button
-          onClick={postAQuestion}
+          onClick={() => {
+
+            setOpenEditorModal(true);
+          }}
           type="button"
-          className={`mt-[15px] bg-[#2F9B4E]  w-[144px] h-[50px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
+          className={`mt-[15px] bg-[#2F9B4E]  w-[144px] h-[44px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
         >
           Post Question
         </button>
       </div>
+
+      {
+        searchedValue.searchedValue !== "" && (
+          <div className="flex flex-col gap-2 mt-3">
+            <div className="flex justify-start items-center gap-5">
+              <h3 className={`font-[600]  text-[26px] leading-[42px] tracking-[-0.04em] tex-[#212121] ${jost.className}`}>Search Results</h3>
+              <span onClick={() => {
+                setSearchedValue({
+                  searchedValue: ""
+                })
+              }} className="flex gap-1 cursor-pointer items-center bg-[#DBF3D9] px-2 py-1 rounded-sm text-[#2F9B4E] w-fit ">
+              <AiOutlineReload />
+               Refresh Search
+              </span>
+            </div>
+            <p className="text-[16px]">
+              <span className="text-[#2F9B4E] w-fit px-2 py-1 rounded-sm bg-[#DBF3D9]">{`${filteredPosts.length}`}</span> {filteredPosts.length === 1 ? "result" : "results"}  found.
+            </p>
+          </div>
+        )
+      }
 
       <div className="flex bg-white flex-col justify-between lg:flex-row border-t border-t-[#BFBFBF]/60 mt-[30px] ">
         <div className="bg-white w-full mx-1">
@@ -103,11 +113,11 @@ export const PostQuestion = () => {
               </div>
             ) : (
               <div className="flex flex-col mt-[15px] gap-[15px] w-full h-[600px] pb-[15px]  no-scrollbar overflow-auto">
-                {posts?.map((post, indx) => {
+                {filteredPosts?.map((post, indx) => {
                   return (
                     <div
                       key={indx}
-                      className="flex min-w-[350px] md:max-w-full lg:max-w-sull  min-h-[167px] lg:min-h-[220px]  xl:min-h-[167px] cursor-pointer "
+                      className="flex min-w-[350px] md:max-w-full lg:max-w-full  min-h-[167px] lg:min-h-[220px]  xl:min-h-[167px] cursor-pointer "
                     >
                       <div className="flex flex-col pt-[20px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
                         <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />
@@ -253,6 +263,8 @@ export const PostQuestion = () => {
           </div>
         </div>
       </div>
+
+      <EditorModal />
     </div>
   );
 };
