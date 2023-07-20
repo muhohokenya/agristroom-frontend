@@ -14,7 +14,7 @@ type Props = {
   post: Post
 }
 
-export const DiscussionCard= ({post}: Props) => {
+export const DiscussionCard = ({ post }: Props) => {
   return (
     <div className="flex">
       <div className="flex flex-col pt-[20px] px-[8px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
@@ -27,9 +27,9 @@ export const DiscussionCard= ({post}: Props) => {
         </span>
         <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
       </div>
-      <Link href={`/dashboard/reply/${post?.id}`}  className="flex cursor-pointer flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px] bg-[#FAFAFA] w-full rounded-r-md ">
+      <Link href={`/dashboard/reply/${post?.id}`} className="flex cursor-pointer flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px] bg-[#FAFAFA] w-full rounded-r-md ">
         <div className="flex gap-[5px]">
-          
+
           <FaUserCircle
             className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px] text-[#DBF3D9]"
           />
@@ -69,7 +69,7 @@ export const DiscussionCard= ({post}: Props) => {
           <p
             className={`text-[#212121]/70 text-[12px] lg:text-[14px] leading-[16px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className} font-[500]`}
           >
-            { formatDate(post?.created_at!)} | {formatDateToTime(post?.created_at!)}
+            {formatDate(post?.created_at!)} | {formatDateToTime(post?.created_at!)}
           </p>
         </div>
       </Link>
