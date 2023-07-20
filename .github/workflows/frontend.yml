@@ -1,7 +1,5 @@
 name: Frontend
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 jobs:
@@ -9,14 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: npm install
+      - run: npm ci
       - run: npm run build
   deploy:
     runs-on: ubuntu-latest
     needs: [ "build" ]
     steps:
       - uses: actions/checkout@v3
-      - name: executing remote ssh commands using password
+      - name: Ssh into server and Deploy
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.HOST }}
