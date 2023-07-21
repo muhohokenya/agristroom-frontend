@@ -46,9 +46,6 @@ jobs:
           # For posting a simple plain text message
           slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-<<<<<<< HEAD
-=======
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
 
->>>>>>> f83e919 (Test Node Js 16)
 
