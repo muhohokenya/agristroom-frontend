@@ -26,7 +26,6 @@ jobs:
             git pull origin main
             export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
             pm2 restart frontend
-#${{ secrets.SLACK_WEBHOOK }}
   slackNotification:
     needs: [ "deploy" ]
     name: Slack Notification
@@ -36,4 +35,4 @@ jobs:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
