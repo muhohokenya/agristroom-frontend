@@ -35,10 +35,10 @@ jobs:
         os: [ ubuntu-latest ]
         node-version: [ 16.x ]
     steps:
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-            node-version: ${{ matrix.node-version }}
+            node-version: 16
       - uses: actions/checkout@v2
       - name: Slack Notification
         uses: slackapi/slack-github-action@v1.24.0
@@ -50,5 +50,5 @@ jobs:
           # For posting a simple plain text message
           slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
