@@ -26,3 +26,13 @@ jobs:
             git pull origin main
             export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
             pm2 restart frontend
+  slackNotification:
+    needs: [ "deploy" ]
+    name: Slack Notification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
