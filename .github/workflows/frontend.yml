@@ -31,10 +31,8 @@ jobs:
     name: Slack Notification
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-            node-version: 16
+      - name: My first step
+        uses: docker://alpine:3.8
       - uses: actions/checkout@v2
       - name: Slack Notification
         uses: slackapi/slack-github-action@v1.24.0
@@ -47,5 +45,4 @@ jobs:
           slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-
 
