@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0a2b8bd-42d6-4a85-892f-c98ea085dd59" name="Changes" comment="" />
+    <list default="true" id="b0a2b8bd-42d6-4a85-892f-c98ea085dd59" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/frontend.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/frontend.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
