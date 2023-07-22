@@ -2,9 +2,7 @@ import React, { useContext, useState } from 'react'
 import { SearchContext } from '../context/SearchState';
 
 const SearchComponent = ({ router }: any) => {
-
   const { searchedValue, setSearchedValue } = useContext(SearchContext);
-
   const onInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchedValue({
       searchedValue: e.target.value

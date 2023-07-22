@@ -62,7 +62,7 @@ const ProfileSummary = () => {
     if (res?.payload?.success) {
       toast({
         title: "Account Created successfully",
-        description: "You can now login in with your credentials",
+        description: "You being directed to dashboard",
         variant: "secondary",
       });
       setIsSubmitting(false);
