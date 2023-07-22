@@ -77,7 +77,7 @@ export const PostQuestion = () => {
             setOpenEditorModal(true);
           }}
           type="button"
-          className={`mt-[15px] bg-[#2F9B4E] ml-0 lg:ml-[70px]  w-[144px] h-[44px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
+          className={`mt-[15px] bg-[#2F9B4E] lg:ml-[50px]  w-[144px] h-[44px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
         >
           Post Question
         </button>
