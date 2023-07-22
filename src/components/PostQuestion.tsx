@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { jost, satoshi } from "../fonts/Fonts";
 import Image from "next/image";
 import { BiMessage } from "react-icons/bi";
@@ -10,7 +10,6 @@ import { getPosts } from "../redux/actions/getPosts.action";
 import { Post } from "../types/types";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
 import { formatDate, formatDateToTime } from "../lib/constants";
-import CKeditor from "./ui/CkEditor";
 import { BsSearch } from "react-icons/bs";
 import EditorModal from "./EditorModal";
 import { UseEditorModal } from "../hooks/useEditorModalContext";
@@ -19,6 +18,7 @@ import { AiOutlineReload } from "react-icons/ai";
 
 export const PostQuestion = () => {
   const router = useRouter();
+  const buttonRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch();
   const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
   const post = useAppSelector((state) => state.post);
@@ -37,37 +37,47 @@ export const PostQuestion = () => {
     fetchPost();
   }, [post, dispatch]);
 
+  
+  const onFocus = () => {
+    if (buttonRef.current) {
+      buttonRef.current.focus()
+    }
+  }
+
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchedValue({
       searchedValue: e.target.value
     });
   };
 
+
+
   const filteredPosts = posts?.filter((post) => post.name.includes(searchedValue.searchedValue));
 
   useEffect(() => { router.refresh() }, [router])
 
+
   return (
     <div className="">
       <div className="flex flex-col xl:flex-row items-end gap-[20px] mr-[20px] ">
-        <div className="flex relative items-center justify-center rounded-md">
+        <div className="flex bg-red-400 w-full max-w-[800px] relative items-center justify-center rounded-md">
           <input
+            ref={buttonRef}
             type="text"
             onChange={(e) => onInputChange(e)}
             placeholder="search..."
-            className="w-[800px] h-[44px] px-2 border border-[#2F9B4E] focus:border focus:border-[#2F9B4E] focus:outline-0 rounded-md ring-0 focus:ring-0"
+            className="w-full lg:w-[800px] h-[44px] px-2 border border-[#2F9B4E] focus:border focus:border-[#2F9B4E] focus:outline-0 rounded-md ring-0 focus:ring-0"
           />
-          <span className="absolute cursor-pointer flex top-[1px] items-center justify-center right-0 px-3 bg-[#DBF3D9] h-[95%] rounded-md max-w-10">
-            <BsSearch className=" max-h-8 max-w-8" />
+          <span className={`absolute flex-1 cursor-pointer flex top-[1px] items-center justify-center right-0 px-3 bg-[#2F9B4E] text-white  h-[95%] rounded-md max-w-10`}>
+            <BsSearch onClick={onFocus} className=" max-h-8 max-w-8" />
           </span>
         </div>
         <button
           onClick={() => {
-
             setOpenEditorModal(true);
           }}
           type="button"
-          className={`mt-[15px] bg-[#2F9B4E]  w-[144px] h-[44px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
+          className={`mt-[15px] bg-[#2F9B4E] ml-0 lg:ml-[70px]  w-[144px] h-[44px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
         >
           Post Question
         </button>
@@ -83,8 +93,8 @@ export const PostQuestion = () => {
                   searchedValue: ""
                 })
               }} className="flex gap-1 cursor-pointer items-center bg-[#DBF3D9] px-2 py-1 rounded-sm text-[#2F9B4E] w-fit ">
-              <AiOutlineReload />
-               Refresh Search
+                <AiOutlineReload />
+                Refresh Search
               </span>
             </div>
             <p className="text-[16px]">

@@ -8,13 +8,7 @@ import { Footer } from "../components/Footer";
 import { DiscussionCard } from "../components/DiscussionCard";
 import Navbar from "../components/Navbar";
 import { Card, Guide, MasterClass, Post } from "../types/types";
-import {
-  cards,
-  discussions,
-  guides,
-  masterClassesData,
-} from "../lib/data/data";
-
+import { cards, guides, masterClassesData } from "../lib/data/data";
 import ResponsiveDemo from "../components/carousel/CarouselDemo";
 import { ManagedUI } from "../hooks/useModalContext";
 import { useRouter } from "next/navigation";
@@ -23,17 +17,22 @@ import { SlotsLeft } from "../components/SlotsLeft";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
 import { getPosts } from "../redux/actions/getPosts.action";
 import { SearchContext } from "../context/SearchState";
+import { FaSpinner } from "react-icons/fa";
 
 export default function Home() {
-  const [show, setShow] = useState(3);
-  const [communityCards, setCommunityCards] = useState<Card[]>([]);
-  const [popularguides, setGuides] = useState<Card[]>([]);
-  const [masterClasses, SetMasterClasses] = useState<MasterClass[]>([]);
   const { searchedValue, setSearchedValue } = useContext(SearchContext);
-
   const { setOpenModal } = useContext(ManagedUI);
   const router = useRouter();
   const dispatch = useAppDispatch()
+  const post = useAppSelector((state) => state.post);
+
+  //state
+  const [show, setShow] = useState(3);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [communityCards, setCommunityCards] = useState<Card[]>([]);
+  const [popularGuides, setGuides] = useState<Card[]>([]);
+  const [masterClasses, SetMasterClasses] = useState<MasterClass[]>([]);
 
   useEffect(() => {
     const checkWidthSize = () => {
@@ -62,10 +61,6 @@ export default function Home() {
     SetMasterClasses(masterClassesData);
   }, []);
 
-  const post = useAppSelector((state) => state.post);
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
   useEffect(() => {
     const fetchPost = async () => {
       setLoading(true);
@@ -76,9 +71,9 @@ export default function Home() {
     fetchPost();
   }, [post, dispatch]);
 
-  
 
-  const onInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchedValue({
       searchedValue: e.target.value
     })
@@ -117,21 +112,45 @@ export default function Home() {
             <div className="w-full  lg:w-[50%] flex items-center justify-center">
               <div className="relative  border-1 flex flex-col md:flex-row  mt-[50px] lg:mt-[50px] mb-[75px] lg:mb-[130px] h-[330px]  lg:h-[476px]  sm:w-[330px] lg:w-[476px] border border-[#DBF3D9] rounded-full">
                 <p
-                  className={` absolute bottom-4 z-20 lg:bottom-3 max-h-[56px] lg:max-h-[60px]   max-w-[152px] lg:max-w-[222px] right-0 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px]  leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
+                  className={` absolute bottom-4 z-20 lg:bottom-3 max-h-[56px] lg:max-h-[60px]   max-w-[152px] lg:max-w-[222px] right-0 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px]  leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em]`}
                 >
                   Monitor and help smallholder farmers increase their resilience
                   and cope with devastating challenges in their crop and animal
                   farms.
                 </p>
                 <p
-                  className={` absolute  top-[220px] lg:top-[325px] max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/70 tracking-[-0.04em] lg:tracking-[-0.02em] ${satoshi.className}`}
+                  className={` absolute  top-[220px] z-20 lg:top-[310px] max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                >
+                  Monitor and help smallholder farmers increase their resilience
+                  and cope with devastating challenges in their crop and animal
+                  farms.
+                </p>
+                <p
+                  className={` absolute z-20  top-44 lg:top-52 max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] -right-8 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                >
+                  Monitor and help smallholder farmers increase their resilience
+                  and cope with devastating challenges in their crop and animal
+                  farms.
+                </p>
+                <p
+                  className={` absolute z-20 top-10 lg:top-20 max-h-[56px] lg:max-[60px] max-w-[135px]  lg:max-w-[215px] left-28  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
                 >
                   Monitor and help smallholder farmers increase their resilience
                   and cope with devastating challenges in their crop and animal
                   farms.
                 </p>
                 <div className="m-[42px] lg:m-[61px] relative border border-[#DBF3D9] rounded-full h-[245px] lg:h-[354px] w-[245px] lg:w-[354px] ">
-                  <div className="absolute fade-in-image top-32 lg:top-48 -left-3 lg:-left-10 bg-[#DBF3D9] rounded-full w-[48px] lg:w-[70px] h-[48px] lg:h-[70px] flex items-center justify-center">
+                  <div className="absolute fade-in-image -top-12 left-24 bg-[#DBF3D9] rounded-full w-[48px] lg:w-[70px] h-[48px] lg:h-[70px] flex items-center justify-center">
+                    <Image
+                      src="/user-4.png"
+                      alt="Logo"
+                      priority
+                      width={37}
+                      height={44}
+                      className="object-contain w-[37px] h-[44px]"
+                    />
+                  </div>
+                  <div className="absolute fade-in-image top-32 lg:top-44 -left-3 lg:-left-10 bg-[#DBF3D9] rounded-full w-[48px] lg:w-[70px] h-[48px] lg:h-[70px] flex items-center justify-center">
                     <Image
                       src="/Vector.png"
                       alt="Logo"
@@ -151,8 +170,7 @@ export default function Home() {
                       className="object-contain w-[45px] lg:w-[66px] h-[45px] lg:h-[66px] bg-[#F8F29F] rounded-full"
                     />
                   </div>
-
-                  <div className="absolute fade-in-image3 right-0 top-0 w-[48px] lg:w-[70px] h-[48px] lg:h-[70px]">
+                  <div className="absolute fade-in-image3 -right-4 top-20 w-[48px] lg:w-[70px] h-[48px] lg:h-[70px]">
                     <Image
                       src="/user-2.png"
                       alt="Logo"
@@ -259,24 +277,35 @@ export default function Home() {
             Discussions
           </span>
           <div className="flex items-center w-full lg:w-[500px] max-w-[800px] mx-auto justify-center py-2 px-3">
-            <input onChange={onInputchange} className="w-full lg:w-[500px] px-2 h-[40px] outline-0 ring-0 border border-[#2F9B4E] focus:outline-0 focus:ring-0 rounded-l-[3px]" />
+            <input onChange={onInputChange} className="w-full lg:w-[500px] px-2 h-[40px] outline-0 ring-0 border border-[#2F9B4E] focus:outline-0 focus:ring-0 rounded-l-[3px]" />
             <button onClick={() => {
               router.push("/dashboard")
             }} className="flex items-center text-white justify-center py-[10px] px-[20px] gap-[10px] w-[78px] md:w-[88px] h-[40px] bg-[#2F9B4E] rounded-r-[3px] text-[14px] whitespace-nowrap">
               Search
             </button>
           </div>
-          <div className="mt-[20px] bg-white md:mx-[10px] lg:mx-[150px] ">
-            <div className="py-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[500px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
-              {posts.map((post, indx) => {
-                return (
-                  <DiscussionCard
-                    key={indx}
-                    post={post}
-                  />
-                );
-              })}
-            </div>
+          <div className="mt-[20px] bg-white md:mx-[10px] lg:mx-[150px] w-full h-full ">
+            {loading ? (
+              <div className=" w-full flex items-center justify-center mt-20  ">
+                <div className="w-full mx-auto flex flex-col items-center justify-center my-36 ">
+                  <FaSpinner className="animate-spin h-8 w-8 text-[#2F9B4E] text-center" />
+                  <h2 className="text-center text-[18px] font-[600] mt-4">
+                    Loading Posts....
+                  </h2>
+                </div>
+              </div>
+            ) : (
+              <div className="py-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[500px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
+                {posts?.map((post, indx) => {
+                  return (
+                    <DiscussionCard
+                      key={indx}
+                      post={post}
+                    />
+                  );
+                }).slice(0, 6)}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -408,7 +437,7 @@ export default function Home() {
             <span className="text-[#212121]">Popular</span> Guides & Tutorials
           </h2>
           <ResponsiveDemo
-            values={popularguides}
+            values={popularGuides}
             template={popularGuideTemplate}
           />
         </div>

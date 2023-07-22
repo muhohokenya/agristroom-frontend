@@ -8,11 +8,12 @@ import { formatDate, formatDateToTime } from "@/src/lib/constants";
 import { getOneQuestion } from "@/src/redux/actions/getOneQuestion.action";
 import { getRepliesByPostId } from "@/src/redux/actions/getReplyByPostId";
 import { postAnswer } from "@/src/redux/actions/postAnswer.action";
+import { upVotePost } from "@/src/redux/actions/upvote";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { SetStateAction, useEffect, useState } from "react";
 import { BsDot, BsFillExclamationCircleFill } from "react-icons/bs";
-import {  FaRegUser, FaSpinner } from "react-icons/fa";
+import { FaRegUser, FaSpinner } from "react-icons/fa";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 
 interface Props {
@@ -92,12 +93,12 @@ function Page(props: Props) {
     setPosting(true)
     try {
       let res: any = await dispatch(postAnswer(state));
-      if(res?.payload?.success){
+      if (res?.payload?.success) {
         setPosting(false)
         dispatch(getRepliesByPostId(params.replyId));
         toast({
           description: "You successfully posted your Answer",
-          variant: "secondary"
+          variant: "primary"
         })
       }
     } catch (error) {
@@ -110,9 +111,6 @@ function Page(props: Props) {
     const fetchOnePost = async () => {
       setLoading(true);
       let res: any = await dispatch(getOneQuestion(params.replyId));
-      console.log('====================================');
-      console.log("one post",res?.payload);
-      console.log('====================================');
       setPost(res?.payload?.post[0]);
       setLoading(false);
     };
@@ -131,7 +129,20 @@ function Page(props: Props) {
 
   useEffect(() => {
     dispatch(getRepliesByPostId(params.replyId));
-  },[answer, dispatch, params.replyId])
+  }, [answer, dispatch, params.replyId])
+
+  const upVoteReply = async (reply_id: number) => {
+    let res: any = await dispatch(upVotePost({ reply_id, vote: 1 }))
+    if (res?.payload.success) {
+      toast({
+        description: `Your up vote was successfully ${res?.payload.response.response}`
+      })
+    }
+    setLoadingReplies(true);
+    let resp: any = await dispatch(getRepliesByPostId(params.replyId));
+    setReplies(resp?.payload?.replies);
+    setLoadingReplies(false);
+  }
 
   console.log("the answers from state", answers);
   if (loading) {
@@ -202,45 +213,6 @@ function Page(props: Props) {
 
       <div className="flex flex-col lg:flex-row ">
         <div className="flex flex-col">
-          {/* <div className="flex px-[10px] lg:px-[30px]">
-            <div className="flex flex-col pt-[10px] pr-[8px] items-center justify-start bg-white w-[42px] lg:w-[64px] rounded-l-md">
-              <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />
-
-              <span
-                className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
-              >
-                19.3k
-              </span>
-              <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
-            </div>
-            <div className="flex flex-col pb-[21px] mx-[12px] lg:pr-[30px] w-full lg:max-w-[660px] bg-white rounded-r-md ">
-              <p
-                className={`text-[14px] lg:text-[16px] mt-[10px] leading-[28px] lg:leading-[31px] max-w[660px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
-              >
-                Lorem ipsum dolor sit amet consectetur. Laoreet commodo ac elit
-                eros risus. Pellentesque commodo ultricies sagittis dolor
-                tincidunt. Leo viverra a est viverra blandit eget nunc ipsum.
-                Sed mi tempus orci congue. Condimentum pretium ut diam a
-                eleifend ullamcorper in tincidunt. Adipiscing.
-              </p>
-              <Image
-                src="/fruit.png"
-                alt="photo"
-                width={700}
-                height={250}
-                className=" rounded-sm mt-[21px] min-w-[314px] md:w-full lg:w-[724px] h-[200px] lg:h-[277px] object-cover"
-              />
-              <p
-                className={`text-[14px] lg:text-[16px] mt-[10px] leading-[28px] lg:leading-[31px] max-w[660px] font-[500] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
-              >
-                Lorem ipsum dolor sit amet consectetur. Laoreet commodo ac elit
-                eros risus. Pellentesque commodo ultricies sagittis dolor
-                tincidunt. Leo viverra a est viverra blandit eget nunc ipsum.
-                Sed mi tempus orci congue. Condimentum pretium ut diam a
-                eleifend ullamcorper in tincidunt. Adipiscing.
-              </p>
-            </div>
-          </div> */}
           <div className=" w-full">
             <h1
               className={`leading-[38px] mt-3 px-[30px] font-[600] text-[26px] tracking-[-0.04em] text-[#212121] ${jost.className}`}
@@ -268,65 +240,66 @@ function Page(props: Props) {
                       </div>
                     </div>
                   ) : (
-                       answers?.replies?.map((reply: any, indx) => (
-                        <div key={indx} className="  w-full ">
-                          <div className="flex px-[30px]">
-                            <div className="flex flex-col pt-[10px] pr-[8px] items-center justify-start bg-white w-[42px] lg:w-[64px]">
-                              <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />
-    
-                              <span
-                                className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
-                              >
-                                19.3k
-                              </span>
-                              <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
-                            </div>
-                            <div className="flex w-full flex-col pb-[21px] px-[12px] lg:pr-[30px] bg-white ">
-                              <p
-                                className={`text-[14px] lg:text-[16px] mt-[10px] leading-[28px] lg:leading-[31px] max-w-[660px] font-[500] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
-                              >
-                                {reply?.text}
-                              </p>
-    
-                              <div className="flex gap-[5px] mt-[10px]">
-                                {reply.user.image === undefined ? (
-                                  <span className="max-h-8 p-2 rounded-full max-w-8 bg-[#DBF3D9]">
-                                    <FaRegUser className="text-slate-400 " />
+                    answers?.replies?.map((reply: any, indx) => (
+                      <div key={indx} className="  w-full ">
+                        <div className="flex px-[30px]">
+                          <div className="flex flex-col pt-[10px] pr-[8px] items-center justify-start bg-white w-[42px] lg:w-[64px]">
+                            <MdArrowDropUp onClick={() => upVoteReply(reply?.id)} className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
+
+                            <span
+                              className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
+                            >
+                              {reply?.up_votes?.length}
+                            </span>
+                            <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
+                          </div>
+                          <div className="flex w-full flex-col pb-[21px] px-[12px] lg:pr-[30px] bg-white ">
+                            <p
+                              className={`text-[14px] lg:text-[16px] mt-[10px] leading-[28px] lg:leading-[31px] max-w-[660px] font-[500] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
+                            >
+                              {reply?.text}
+                            </p>
+
+                            <div className="flex gap-[5px] mt-[10px]">
+                              {reply.user.image === undefined ? (
+                                <span className="max-h-8 p-2 rounded-full max-w-8 bg-[#DBF3D9]">
+                                  <FaRegUser className="text-slate-400 " />
+                                </span>
+                              ) : (
+                                <Image
+                                  src="/user.png"
+                                  alt="prof"
+                                  width={18}
+                                  height={18}
+                                  className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px]"
+                                />
+                              )}
+                              <div className="flex flex-col md:flex-row items-start gap-[5px] lg:items-center justify-between w-full">
+                                <p
+                                  className={`flex flex-col  items-start text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
+                                >
+                                  <span className="text-[12px]">Answered by</span>
+                                  <span className="text-[12px] text-[#2F9B4E]">
+                                    {" "}
+                                    {reply?.user?.first_name} -{" "}
+                                    {reply?.user?.last_name},{" "}
+                                    {reply?.user?.country === null
+                                      ? "Kenya"
+                                      : reply?.user?.country}{" "}
                                   </span>
-                                ) : (
-                                  <Image
-                                    src="/user.png"
-                                    alt="prof"
-                                    width={18}
-                                    height={18}
-                                    className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px]"
-                                  />
-                                )}
-                                <div className="flex flex-col md:flex-row items-start gap-[5px] lg:items-center justify-between w-full">
-                                  <p
-                                    className={`flex flex-col  items-start text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
-                                  >
-                                    <span className="text-[12px]">Answered by</span>
-                                    <span className="text-[12px] text-[#2F9B4E]">
-                                      {" "}
-                                      {reply?.user?.first_name} -{" "}
-                                      {reply?.user?.last_name},{" "}
-                                      {reply?.user?.country === null
-                                        ? "Kenya"
-                                        : reply?.user?.country}{" "}
-                                    </span>
-                                  </p>
-                                  <span className="text-[12px] leading-[22px] text-[#212121]/70">
-                                    {formatDate(reply?.created_at)} |{" "}
-                                    {formatDateToTime(reply?.created_at)}
-                                  </span>
-                                </div>
+                                </p>
+                                <span className="text-[12px] leading-[22px] text-[#212121]/70">
+                                  {formatDate(reply?.created_at)} |{" "}
+                                  {formatDateToTime(reply?.created_at)}
+                                </span>
                               </div>
                             </div>
                           </div>
                           <hr className="bg-slate-200 h-[1px] w-[90%] mx-auto"></hr>
                         </div>
-                      ))
+                        <hr className="bg-slate-200 h-[1px] w-[90%] mx-auto"></hr>
+                      </div>
+                    ))
                   )}
                 </div>
               )}
@@ -348,7 +321,7 @@ function Page(props: Props) {
                   onClick={submitAnswer}
                   className={`mt-[35px]  ${posting ? "bg-[#2F9B4E]/70 cursor-not-allowed" : "bg-[#2F9B4E] cursor-pointer"} ml-auto w-[144px] h-[50px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
                 >
-                 {posting ? <FaSpinner className="animate-spin h-8 w-8 text-white" /> : "Post Answer"} 
+                  {posting ? <FaSpinner className="animate-spin h-8 w-8 text-white" /> : "Post Answer"}
                 </button>
               </div>
             </div>

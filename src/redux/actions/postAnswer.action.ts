@@ -20,11 +20,6 @@ export const postAnswer = createAsyncThunk(
               Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
             },
         });
-        console.log('====================================');
-        console.log(accessToken);
-        console.log('====================================');
-        console.log(response?.data);
-        console.log('====================================');
       return {
         text: response?.data,
         success: true,
