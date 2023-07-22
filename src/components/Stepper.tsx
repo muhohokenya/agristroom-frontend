@@ -29,7 +29,7 @@ const Stepper = () => {
     }
 
     for (let key of Object.keys(state.account)) {
-      let keyString: string = state.account[key as keyof { id: string; name: string; }];
+      let keyString: string = state?.account[key as keyof { id: string; name: string; }];
       if (keyString !== "") {
         setShowAccountCheck(true);
       }

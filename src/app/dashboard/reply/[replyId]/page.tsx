@@ -133,9 +133,6 @@ function Page(props: Props) {
 
   const upVoteReply = async (reply_id: number) => {
     let res: any = await dispatch(upVotePost({ reply_id, vote: 1 }))
-    console.log('====================================');
-    console.log("upvoting a reply", res);
-    console.log('====================================');
     if (res?.payload.success) {
       toast({
         description: `Your up vote was successfully ${res?.payload.response.response}`
@@ -143,9 +140,6 @@ function Page(props: Props) {
     }
     setLoadingReplies(true);
     let resp: any = await dispatch(getRepliesByPostId(params.replyId));
-    console.log('====================================');
-    console.log("fetching replies", res);
-    console.log('====================================');
     setReplies(resp?.payload?.replies);
     setLoadingReplies(false);
   }
@@ -301,6 +295,7 @@ function Page(props: Props) {
                               </div>
                             </div>
                           </div>
+                          <hr className="bg-slate-200 h-[1px] w-[90%] mx-auto"></hr>
                         </div>
                         <hr className="bg-slate-200 h-[1px] w-[90%] mx-auto"></hr>
                       </div>
