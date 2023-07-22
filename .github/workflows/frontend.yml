@@ -49,8 +49,5 @@ jobs:
             text=$cancelledText
           fi
           
-          echo "{attachments: [{text: \"$text\", color: \"$color\"}]}" | curl \
-            "${{ secrets.SLACK_WEBHOOK_URL }}" \
-            -X "POST" \
-            --header "Content-Type: application/json" \
-            --data-binary @-
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, CI/CD Pipelines!"}' \ 
+          "${{ secrets.SLACK_WEBHOOK_URL }}" \
