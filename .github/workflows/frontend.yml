@@ -49,4 +49,4 @@ jobs:
             text=$cancelledText
           fi
           
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"AgriStroom Has successfully Deployed, CI/CD Pipelines!"}' "${{ secrets.SLACK_WEBHOOK }}"
+          echo curl -X POST -H 'Content-type: application/json' --data '{"text":"AgriStroom Has successfully Deployed, CI/CD Pipelines!"}' "${{ secrets.SLACK_WEBHOOK }}"
