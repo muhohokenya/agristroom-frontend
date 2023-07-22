@@ -26,27 +26,12 @@ jobs:
             git pull origin main
             export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
             pm2 restart frontend
-  send_notification_to_slack:
-    name: Send notification to Slack
-    runs-on: ubuntu-22.04
-    if: always()
-    needs: [deploy]
+  slackNotification:
+    name: Slack Notification
+    runs-on: ubuntu-latest
     steps:
-      - run: |
-          successText=":octocat: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build #${{ github.run_number }}> of *${{ github.repository }}@${{ github.ref_name }}* by *${{ github.actor }}* completed successfully."
-          failureText=":octocat: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build #${{ github.run_number }}> of *${{ github.repository }}@${{ github.ref_name }}* by *${{ github.actor }}* failed."
-          cancelledText=":octocat: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build #${{ github.run_number }}> of *${{ github.repository }}@${{ github.ref_name }}* by *${{ github.actor }}* was cancelled.😥"
-          status="${{ (contains(needs.*.result, 'cancelled') && 'cancelled') || (contains(needs.*.result, 'failure') && 'failure') || 'success' }}"
-          
-          if [ "$status" = 'success' ]; then
-           color='good'
-           text=$successText
-          elif [ "$status" = 'failure' ]; then
-           color='danger'
-           text=$failureText
-          elif [ "$status" = "cancelled" ]; then
-            color='warning'
-            text=$cancelledText
-          fi
-          
-          echo curl -X POST -H 'Content-type: application/json' --data '{"text":"AgriStroom Has successfully Deployed, CI/CD Pipelines!"}' "${{ secrets.SLACK_WEBHOOK }}"
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
