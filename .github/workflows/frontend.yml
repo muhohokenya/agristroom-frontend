@@ -30,7 +30,7 @@ jobs:
     name: Send notification to Slack
     runs-on: ubuntu-22.04
     if: always()
-    needs: [job_a, job_b]
+    needs: [deploy]
     steps:
       - run: |
           successText=":octocat: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build #${{ github.run_number }}> of *${{ github.repository }}@${{ github.ref_name }}* by *${{ github.actor }}* completed successfully."
