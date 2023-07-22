@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
-import Link from "next/link";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import { RootState } from "@/src/redux";
 
