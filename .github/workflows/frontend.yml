@@ -49,5 +49,4 @@ jobs:
             text=$cancelledText
           fi
           
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, CI/CD Pipelines!"}' \ 
-          "${{ secrets.SLACK_WEBHOOK_URL }}" \
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, CI/CD Pipelines!"}' "${{ secrets.SLACK_WEBHOOK }}"
