@@ -6,17 +6,9 @@ on:
     branches:
       - main
 jobs:
-  build:
+  build-frontend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: npm ci
-      - run: npm run build
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [ "build" ]
-    steps:
-      - uses: actions/checkout@v3
       - name: Ssh into server and Deploy
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -27,8 +19,48 @@ jobs:
           script: |
             cd /var/www/frontend/
             git pull origin main
+            npm run build
             export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
             pm2 restart frontend
+
+
+
+
+
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - run: npm ci
+#      - run: npm run build
+#
+#
+#
+#
+#
+#  deploy:
+#    runs-on: ubuntu-latest
+#    needs: [ "build" ]
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Ssh into server and Deploy
+#        uses: appleboy/ssh-action@v0.1.10
+#        with:
+#          host: ${{ secrets.HOST }}
+#          key: ${{ secrets.SSH_PRIVATE_KEY }}
+#          username: ${{ secrets.USER_NAME }}
+#          port: 22
+#          script: |
+#            cd /var/www/frontend/
+#            git pull origin main
+#            export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
+#            pm2 restart frontend
+            
+            
+            
+            
+            
+
   slackNotification:
     name: Slack Notification
     runs-on: ubuntu-latest
