@@ -22,7 +22,7 @@ function ModalEditor(props) {
       <div
         ref={modalRef}
         onClick={(e) => closeModal(e)}
-        className="fixed w-[100vw] min-h-screen z-[999] top-0 left-0 flex justify-center items-center bg-black/70 "
+        className="fixed px-2 w-[100vw] min-h-screen z-[999] top-0 left-0 flex justify-center items-center bg-black/70 "
       >
         {children}
       </div>,

@@ -10,11 +10,12 @@ import { getPosts } from "../redux/actions/getPosts.action";
 import { Post } from "../types/types";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
 import { formatDate, formatDateToTime } from "../lib/constants";
-import { BsSearch } from "react-icons/bs";
+import { BsFillExclamationCircleFill, BsSearch } from "react-icons/bs";
 import EditorModal from "./EditorModal";
 import { UseEditorModal } from "../hooks/useEditorModalContext";
 import { SearchContext } from "../context/SearchState";
 import { AiOutlineReload } from "react-icons/ai";
+import { getCurrentUser } from "../redux/actions/auth.action";
 
 export const PostQuestion = () => {
   const router = useRouter();
@@ -37,7 +38,23 @@ export const PostQuestion = () => {
     fetchPost();
   }, [post, dispatch]);
 
-  
+  useEffect(() => {
+    const getUser = async () => {
+      let res: any = await dispatch(getCurrentUser());
+      console.log('====================================');
+      console.log("current user", res);
+      console.log('====================================');
+
+      if (res?.payload?.success) {
+        // setLoggedOut(false);
+      } else {
+        // setLoggedOut(true);
+      }
+    };
+    getUser();
+  }, []);
+
+
   const onFocus = () => {
     if (buttonRef.current) {
       buttonRef.current.focus()
@@ -52,7 +69,7 @@ export const PostQuestion = () => {
 
 
 
-  const filteredPosts = posts?.filter((post) => post.name.includes(searchedValue.searchedValue));
+  const filteredPosts = posts?.filter((post) => post?.title?.includes(searchedValue.searchedValue));
 
   useEffect(() => { router.refresh() }, [router])
 
@@ -112,7 +129,7 @@ export const PostQuestion = () => {
             >
               Recent Community Discussions
             </h2>
-            {loading ? (
+            {loading && (
               <div className=" w-full flex items-center justify-center mt-20 ">
                 <div className="w-full mx-auto flex flex-col items-center justify-center ">
                   <FaSpinner className="animate-spin h-8 w-8 text-[#2F9B4E] text-center" />
@@ -121,91 +138,100 @@ export const PostQuestion = () => {
                   </h2>
                 </div>
               </div>
-            ) : (
-              <div className="flex flex-col mt-[15px] gap-[15px] w-full h-[600px] pb-[15px]  no-scrollbar overflow-auto">
-                {filteredPosts?.map((post, indx) => {
-                  return (
-                    <div
-                      key={indx}
-                      className="flex min-w-[350px] md:max-w-full lg:max-w-full  min-h-[167px] lg:min-h-[220px]  xl:min-h-[167px] cursor-pointer "
-                    >
-                      <div className="flex flex-col pt-[20px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
-                        <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />
+            )}
+            <div className="flex flex-col mt-[15px] gap-[15px] w-full h-[600px] pb-[15px]  no-scrollbar overflow-auto">
+              {filteredPosts?.map((post, indx) => {
+                return (
+                  <div
+                    key={indx}
+                    className="flex min-w-[350px] md:max-w-full lg:max-w-full  min-h-[167px] lg:min-h-[220px]  xl:min-h-[167px] cursor-pointer "
+                  >
+                    <div className="flex flex-col pt-[20px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
+                      <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />
 
-                        <span
-                          className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
-                        >
-                          19.3k
-                        </span>
-                        <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
-                      </div>
-                      <div
-                        onClick={() =>
-                          router.push(`/dashboard/reply/${post.id}`)
-                        }
-                        className="flex w-full flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px]  bg-[#FAFAFA] rounded-r-md "
+                      <span
+                        className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
                       >
-                        <div className="flex items-center justify-start gap-[5px]">
-                          {post.user.image === undefined ? (
-                            <span className="max-h-8 p-2 rounded-full max-w-8 bg-[#DBF3D9]">
-                              <FaRegUser className="text-slate-400 " />
-                            </span>
-                          ) : (
-                            <div className="">
-                              <Image
-                                src="/user.png"
-                                alt="prof"
-                                width={18}
-                                height={18}
-                                className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px]"
-                              />
-                            </div>
-                          )}
-
-                          <div className="flex gap-[5px] items-center ">
-                            <p
-                              className={`text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
-                            >
-                              {post.user.first_name} - {post.user.county}{" "}
-                              county, {post.user.country}
-                            </p>
-                            {/* <Image
-                          src={discussion.countryFlagImage!}
-                          alt="flag"
-                          width={21}
-                          height={15}
-                          className="w-[19px] lg:w-[21px] h-[14px] lg:h-[15px]"
-                        /> */}
+                        19.3k
+                      </span>
+                      <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
+                    </div>
+                    <div
+                      onClick={() =>
+                        router.push(`/dashboard/reply/${post.id}`)
+                      }
+                      className="flex w-full flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px]  bg-[#FAFAFA] rounded-r-md "
+                    >
+                      <div className="flex items-center justify-start gap-[5px]">
+                        {post.user.image === undefined ? (
+                          <span className="max-h-8 p-2 rounded-full max-w-8 bg-[#DBF3D9]">
+                            <FaRegUser className="text-slate-400 " />
+                          </span>
+                        ) : (
+                          <div className="">
+                            <Image
+                              src="/user.png"
+                              alt="prof"
+                              width={18}
+                              height={18}
+                              className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px]"
+                            />
                           </div>
+                        )}
+
+                        <div className="flex gap-[5px] items-center ">
+                          <p
+                            className={`text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
+                          >
+                            {post.user.first_name} - {post.user.county}{" "}
+                            county, {post.user.country}
+                          </p>
+                          {/* <Image
+                              src={discussion.countryFlagImage!}
+                              alt="flag"
+                              width={21}
+                              height={15}
+                              className="w-[19px] lg:w-[21px] h-[14px] lg:h-[15px]"
+                            /> */}
                         </div>
-                        <p
-                          className={`text-[14px] lg:text-[18px] mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
-                        >
-                          {post.name}
-                        </p>
-                        <div className="flex flex-row items-center justify-between my-[21px] mr-[10px] ">
-                          <div className="flex items-center gap-3">
-                            <BiMessage className="w-[12.8px] lg:w-[20px] h-[12px] lg:h-[18px] text-[#212121]/70" />
+                      </div>
+                      <p
+                        className={`text-[14px] lg:text-[18px] mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
+                      >
+                        {post.title}
+                      </p>
+                      <div className="flex flex-row items-center justify-between my-[21px] mr-[10px] ">
+                        <div className="flex items-center gap-3">
+                          <BiMessage className="w-[12.8px] lg:w-[20px] h-[12px] lg:h-[18px] text-[#212121]/70" />
 
-                            <p
-                              className={`text-[#212121]/70 text-[12px] lg:text-[14px] leading-[16px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className} font-[500]`}
-                            >
-                              6 replies
-                            </p>
-                          </div>
                           <p
                             className={`text-[#212121]/70 text-[12px] lg:text-[14px] leading-[16px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className} font-[500]`}
                           >
-                            {formatDate(post.created_at)} |{" "}
-                            {formatDateToTime(post.created_at)}
+                            6 replies
                           </p>
                         </div>
+                        <p
+                          className={`text-[#212121]/70 text-[12px] lg:text-[14px] leading-[16px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className} font-[500]`}
+                        >
+                          {formatDate(post.created_at)} |{" "}
+                          {formatDateToTime(post.created_at)}
+                        </p>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-            )}
+                  </div>
+                );
+              })}
+            </div>
+            {filteredPosts?.length === 0 && (
+              <div className="flex w-full items-start justify-center my-5 h-full bg-white ">
+                <div className="flex py-2 px-4 flex-col items-center justify-center gap-3 shadow-md border border-[#2F9B4E] rounded-md">
+                  <BsFillExclamationCircleFill className="text-[#2F9B4E] w-10 h-10" />
+                  <h1>Discussions Were Not Found!!!!</h1>
+                  <p className="font-[400]  text-[16px] leading-[42px] tracking-[-0.04em] tex-[#212121]">Be the first one to create a discussion by clicking the post question above</p>
+                  <button onClick={() => router.refresh()} className="text-[14px] bg-[#DBF3D9] py-2 px-[10px] rounded-md text-[#2F9B4E] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]">Refresh</button>
+                </div>
+              </div>)
+            }
           </div>
         </div>
 

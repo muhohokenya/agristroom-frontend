@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
 import { getPosts } from "../redux/actions/getPosts.action";
 import { SearchContext } from "../context/SearchState";
 import { FaSpinner } from "react-icons/fa";
+import { BsFillExclamationCircleFill } from "react-icons/bs";
 
 export default function Home() {
   const { searchedValue, setSearchedValue } = useContext(SearchContext);
@@ -307,6 +308,17 @@ export default function Home() {
               </div>
             )}
           </div>
+          {
+            posts?.length === 0 && (
+              <div className="flex w-full items-center justify-center pb-10 h-full bg-white ">
+                <div className="flex py-2 px-4 flex-col items-center justify-center gap-3 shadow-md border border-[#2F9B4E] rounded-md">
+                  <BsFillExclamationCircleFill className="text-[#2F9B4E] w-10 h-10" />
+                  <h1>Questions Were Not Found!!!!</h1>
+                  <button onClick={() => router.refresh()} className="text-[16px] bg-[#DBF3D9] py-2 px-[10px] rounded-md text-[#2F9B4E] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]">Refresh</button>
+                </div>
+              </div>
+            )
+          }
         </div>
       </div>
 
