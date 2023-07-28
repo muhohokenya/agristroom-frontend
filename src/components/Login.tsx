@@ -43,7 +43,8 @@ const Login = () => {
     if(res.payload.success){
       setIsSubmitting(false)
       toast({
-        description: "You have successfully login in",
+        title: "successfully logged in",
+        description: "Being directed to dashboard",
         variant: "secondary"
       })
       setOpenModal(false)

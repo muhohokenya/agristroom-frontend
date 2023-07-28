@@ -4,6 +4,7 @@ import { AiFillBulb } from "react-icons/ai";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { BsShieldCheck, BsPeopleFill } from "react-icons/bs";
 import { Card, Discussion, Guide, MasterClass } from "@/src/types/types";
+import {  PostNavLink, Question, User, UserNavLink } from "@/src/context/types";
 
 export const masterClassesData: MasterClass[] = [
   {
@@ -415,3 +416,407 @@ export const accountIcons = [
     Icon: <AiFillBulb className="h-[32px] w-[32px]" />,
   },
 ];
+
+export const usersLinks: UserNavLink[] = [
+  {
+      id: 1,
+      name: 'View All Users',
+      path: 'users'
+  },
+  {
+      id: 2,
+      name: 'View Active User ',
+      path: 'active-users'
+  },
+]
+export const postsLinks: PostNavLink[] = [
+  {
+      id: 1,
+      name: 'View All Posts',
+      path: 'posts'
+  },
+  {
+      id: 2,
+      name: 'View Active Posts ',
+      path: 'active-posts'
+  },
+]
+
+
+export const users: User[] = [
+  {
+    id: 1,
+    email: "sammy@gmail.com",
+    name: "Samuel, Kirigha",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 2,
+    email: "joe@gmail.com",
+    name: "Joe, Smith",
+    accountType: "Agri Expert",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "smith@gmail.com",
+    name: "Black, Smith",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+  {
+    id: 3,
+    email: "peter@gmail.com",
+    name: "Peter, Dang",
+    accountType: "Farmer",
+    interests: ["beans", "apples"],
+    questionsCount: 20,
+    answersCount: 10,
+    dateRegistered: "10-12-2020"
+  },
+]
+
+export const questions: Question[] = [
+  {
+    id: 1,
+    title: "Why apples have high demand",
+    postedBy: "Sammy Kirigha",
+    answersCount: 20,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 2,
+    title: "Why apples have high demand",
+    postedBy: "Martin Mwangi",
+    answersCount: 20,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 3,
+    title: "Why apples have high demand",
+    postedBy: "Terry Njeri",
+    answersCount: 20,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 4,
+    title: "Why apples have high demand",
+    postedBy: "Simon Kamau",
+    answersCount: 20,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 5,
+    title: "Why apples have high demand",
+    postedBy: "Dorcis Wanjiku",
+    answersCount: 20,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 6,
+    title: "Why apples have high demand",
+    postedBy: "Ian Peter",
+    answersCount: 20,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 7,
+    title: "Why apples have high demand",
+    postedBy: "Jeremy Kim",
+    answersCount: 20,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 8,
+    title: "Why apples have high demand",
+    postedBy: "Jane Doe",
+    answersCount: 20,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 9,
+    title: "Why apples have high demand",
+    postedBy: "Joe Smith",
+    answersCount: 20,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 10,
+    title: "Why apples have high demand",
+    postedBy: "User Two",
+    answersCount: 32,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 11,
+    title: "Why apples have high demand",
+    postedBy: "Mill Omosh",
+    answersCount: 23,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 12,
+    title: "Why apples have high demand",
+    postedBy: "Samantha Kerry",
+    answersCount: 23,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 13,
+    title: "Why apples have high demand",
+    postedBy: "Mary Shi",
+    answersCount: 22,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 14,
+    title: "Why apples have high demand",
+    postedBy: "Peter Kirigha",
+    answersCount: 45,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 15,
+    title: "i need some seedlings?",
+    postedBy: "Sylvia Njeri",
+    answersCount: 34,
+    datePosted: "12-10-2023"
+  },
+  {
+    id: 16,
+    title: "How can i deal with pests",
+    postedBy: "Jame Kamau",
+    answersCount: 27,
+    datePosted: "12-10-2023"
+  }
+]

@@ -45,7 +45,7 @@ export const DiscussionCard = ({ post }: Props) => {
         <p
           className={`text-[14px] line-clamp-3 md:line-clamp-none lg:text-[20px] mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
         >
-          {post?.name}
+          {post?.title}
         </p>
         {post.image === null ? null : (
           <Image

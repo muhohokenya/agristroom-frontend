@@ -57,18 +57,17 @@ export const getCurrentUser = createAsyncThunk(
   async (_, thunkAPI) => {
      try {
       const accessToken = getLoggedInUserToken()
-      console.log("accessToken", accessToken);
-      
       const response = await axios.get(`${BaseURL}/user`,{
         headers: {
           Authorization: `${accessToken.token_type} ${accessToken.access_token}`
         }
       } )
       return {
-        user: response.data,
+        user: response.data[0],
         success: true
       }
      } catch (error) {
+      console.log("error", error);
       const err = parseError(error);
       thunkAPI.dispatch(setErrorNotification(err));
       return thunkAPI.rejectWithValue({

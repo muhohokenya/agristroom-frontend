@@ -26,7 +26,8 @@ interface Props {
 interface SinglePost {
   id: number;
   image?: string;
-  name: string;
+  title: string;
+  description: string,
   created_at: string;
   user: {
     country: string;
@@ -55,7 +56,8 @@ function Page(props: Props) {
   const [post, setPost] = useState<SinglePost>({
     id: 0,
     image: "",
-    name: "",
+    title: "",
+    description: "",
     created_at: "",
     user: {
       country: "",
@@ -121,6 +123,9 @@ function Page(props: Props) {
     const fetchRepliesByPostId = async () => {
       setLoadingReplies(true);
       let res: any = await dispatch(getRepliesByPostId(params.replyId));
+      console.log('====================================');
+      console.log("replies fetched", res?.payload?.replies);
+      console.log('====================================');
       setReplies(res?.payload?.replies);
       setLoadingReplies(false);
     };
@@ -198,7 +203,7 @@ function Page(props: Props) {
           <p
             className={`text-[14px] md:text-[18px] lg:text-[26px] mt-[10px] leading-[24px] lg:leading-[42px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
           >
-            {post.name}
+            {post.title}
           </p>
         </div>
         <button
@@ -213,7 +218,26 @@ function Page(props: Props) {
 
       <div className="flex flex-col lg:flex-row ">
         <div className="flex flex-col">
-          <div className=" w-full">
+          <div className="flex mx-[30px] my-3 border border-slate-100">
+            <div className="flex flex-col pt-[10px] pr-[8px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px]">
+              <MdArrowDropUp className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
+
+              <span
+                className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
+              >
+                19k
+              </span>
+              <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
+            </div>
+            <div className="flex bg-white flex-col pb-[21px] px-[12px] ">
+              <p
+                className={`text-[14px] w-full max-w-[730px]  lg:text-[16px] mt-[10px] leading-[28px] lg:leading-[31px] font-[500] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
+              >
+                {post?.description}
+              </p>
+            </div>
+          </div>
+          <div className=" w-full border-t border-slate-200">
             <h1
               className={`leading-[38px] mt-3 px-[30px] font-[600] text-[26px] tracking-[-0.04em] text-[#212121] ${jost.className}`}
             >
@@ -241,8 +265,8 @@ function Page(props: Props) {
                     </div>
                   ) : (
                     answers?.replies?.map((reply: any, indx) => (
-                      <div key={indx} className="  w-full ">
-                        <div className="flex px-[30px]">
+                      <div key={indx} className=" w-full ">
+                        <div className="flex px-[30px] w-full">
                           <div className="flex flex-col pt-[10px] pr-[8px] items-center justify-start bg-white w-[42px] lg:w-[64px]">
                             <MdArrowDropUp onClick={() => upVoteReply(reply?.id)} className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
 
@@ -295,7 +319,6 @@ function Page(props: Props) {
                               </div>
                             </div>
                           </div>
-                          <hr className="bg-slate-200 h-[1px] w-[90%] mx-auto"></hr>
                         </div>
                         <hr className="bg-slate-200 h-[1px] w-[90%] mx-auto"></hr>
                       </div>

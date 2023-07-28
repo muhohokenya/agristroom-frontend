@@ -10,9 +10,9 @@ function Dashboard(props: Props) {
 
   return (
     <div className="px-[15px] py-[30px]  max-w-[1200px] mx-auto bg-white ">
-      <DashboardShell>
+      {/* <DashboardShell> */}
         <PostQuestion />
-      </DashboardShell>
+      {/* </DashboardShell> */}
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { Icon } from "next/dist/lib/metadata/types/metadata-types";
 import React, { ReactNode } from "react";
 
 export type Card = {
@@ -74,7 +73,8 @@ export interface UserLoginData {
 
 export interface Post{
   id: number;
-  name: string;
+  title: string;
+  description: string,
   user_id: number;
   created_at: string;
   updated_at: string;
