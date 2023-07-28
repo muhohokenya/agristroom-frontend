@@ -26,9 +26,6 @@ jobs:
             pm2 restart frontend 
 
 
-
-
-
 #  build:
 #    runs-on: ubuntu-latest
 #    steps:
