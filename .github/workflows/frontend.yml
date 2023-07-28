@@ -7,6 +7,8 @@ on:
       - main
 jobs:
   build-frontend:
+   runs-on: ubuntu-latest
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Ssh into server and Deploy
@@ -21,7 +23,7 @@ jobs:
             git pull origin main
             npm run build
             export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
-            pm2 restart frontend
+            pm2 restart frontend 
 
 
 
@@ -61,12 +63,12 @@ jobs:
             
             
 
-  slackNotification:
-    name: Slack Notification
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+#  slackNotification:
+#    name: Slack Notification
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Slack Notification
+#        uses: rtCamp/action-slack-notify@v2
+#        env:
+#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
