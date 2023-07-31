@@ -61,6 +61,7 @@ export interface UserRegisterData {
   first_name: string;
   last_name: string;
   email: string;
+  user_name: string;
   phone_number: string;
   password: string;
   account_id: string;
