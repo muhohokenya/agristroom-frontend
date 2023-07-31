@@ -45,7 +45,7 @@ const ProfileSummary = () => {
       first_name: state?.first_name,
       last_name: state?.last_name,
       email: state?.email,
-      username: state?.user_name,
+      username: state?.username,
       phone_number: state?.phone_number,
       password: state?.password,
       account_id: state.account.id,
@@ -156,7 +156,7 @@ const ProfileSummary = () => {
               <span
                 className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
               >
-                {state.user_name}{" "}
+                {state?.username}{" "}
                 <MdOutlineEdit
                   onClick={() => router.push("/signup")}
                   className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"

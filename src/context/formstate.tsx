@@ -4,7 +4,7 @@ import React, { Dispatch, ReactNode, SetStateAction, createContext, useContext, 
 interface CurrentAccountCreationState {
     first_name: string;
     last_name: string;
-    user_name: string,
+    username: string,
     email: string;
     topic: string;
     phone_number: string;
@@ -26,7 +26,7 @@ const formContextDefaultValue: FormContextValue = {
     state: {
         first_name: "",
         last_name: "",
-        user_name: "",
+        username: "",
         email: "",
         topic: "",
         phone_number: "",
