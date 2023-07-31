@@ -101,7 +101,18 @@ const SignUpPage = (props: Props) => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full flex flex-col gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[394px] mx-[15px] lg:mx-[40px]">
-          
+        <div className="flex flex-col gap-[8px] w-full ">
+            <label className="text-[13px]">Username</label>
+            <Input
+              className="focus-visible:ring-[#2F9B4E]"
+              {...register("username", { required: true })}
+            />
+            {errors.username && errors.username.type === "required" && (
+              <span className="text-red-400 text-[12px] mt-1 w-full">
+                Email is required
+              </span>
+            )}
+          </div>
           <div className="flex flex-col gap-[8px] w-full ">
             <label className="text-[13px]">Email Address</label>
             <Input

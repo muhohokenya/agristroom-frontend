@@ -116,6 +116,11 @@ const ProfileSummary = () => {
               <span
                 className={`mt-[20px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
               >
+                UserName
+              </span>
+              <span
+                className={`mt-[20px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121]/50 ${satoshi.className}`}
+              >
                 Email Address
               </span>
 
@@ -143,6 +148,15 @@ const ProfileSummary = () => {
                 {fullName}{" "}
                 <MdOutlineEdit
                   onClick={() => router.push("/signup/accountinformations")}
+                  className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
+                />
+              </span>
+              <span
+                className={`mt-[20px] flex items-center gap-[10px] font-[500] text-[14px] leading-[19px] tracking-[-0.04em] text-[#212121] ${satoshi.className}`}
+              >
+                {state.user_name}{" "}
+                <MdOutlineEdit
+                  onClick={() => router.push("/signup")}
                   className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
                 />
               </span>
