@@ -22,9 +22,8 @@ jobs:
             npm run build
             export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
             pm2 restart frontend
-
   slackNotification:
-    needs: "publish_artifact"
+    needs: "build-frontend"
     name: Slack Notification
     runs-on: ubuntu-latest
     steps:
