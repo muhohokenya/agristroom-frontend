@@ -2,9 +2,6 @@ name: Frontend
 on:
   pull_request:
     branches: [ "main" ]
-  push:
-    branches:
-      - main
 jobs:
   build-frontend:
     runs-on: ubuntu-latest
