@@ -45,7 +45,7 @@ const SignUpPage = (props: Props) => {
     setIsSubmitting(true);
     setState((prevState) => ({
       ...prevState,
-      user_name: data.username,
+      username: data.username,
       email: data.email,
       password: data.password,
     }));
