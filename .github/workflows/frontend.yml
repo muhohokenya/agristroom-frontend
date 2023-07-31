@@ -16,8 +16,8 @@ jobs:
           script: |
             cd /var/www/frontend/
             git pull origin main
-            export NODE_OPTIONS=--max_old_space_size=4096
             npm ci
+            export NODE_OPTIONS=--max_old_space_size=20480
             npm run build
             export PATH=$PATH:/root/.nvm/versions/node/v18.16.0/bin
             pm2 restart frontend
