@@ -1,7 +1,6 @@
 "use client";
 
-import React, { forwardRef, useContext, useEffect, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
+import React, { useContext, useEffect, useState } from "react";
 import { FaFacebook, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,7 +9,6 @@ import { satoshi } from "@/src/fonts/Fonts";
 import { Input } from "@/src/components/ui/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useFormContext } from "../context/formstate";
-import { toast } from "../hooks/use-toast";
 import Stepper from "./Stepper";
 
 interface Props {}
@@ -45,7 +43,7 @@ const SignUpPage = (props: Props) => {
     setIsSubmitting(true);
     setState((prevState) => ({
       ...prevState,
-      user_name: data.username,
+      username: data.username,
       email: data.email,
       password: data.password,
     }));
@@ -56,7 +54,7 @@ const SignUpPage = (props: Props) => {
 
   useEffect(() => {
     reset({
-      username: state.user_name,
+      username: state.username,
       email: state.email,
       password: state.password,
     });
