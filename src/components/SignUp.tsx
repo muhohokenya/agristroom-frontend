@@ -56,7 +56,7 @@ const SignUpPage = (props: Props) => {
 
   useEffect(() => {
     reset({
-      username: state.user_name,
+      username: state.username,
       email: state.email,
       password: state.password,
     });
