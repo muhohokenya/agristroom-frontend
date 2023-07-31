@@ -59,7 +59,7 @@ function Navbar(props: Props) {
           <div className="flex gap-5 items-center">
             <ul className="hidden lg:flex justify-between gap-3">
               <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
-                About Us
+                About Us ...
               </li>
               <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
                 Blog
