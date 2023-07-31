@@ -1,0 +1,10 @@
+services:
+  front:
+    container_name: "front-container"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: agri_stroom/front
+    restart: unless-stopped
+    ports:
+      - 80:3000
