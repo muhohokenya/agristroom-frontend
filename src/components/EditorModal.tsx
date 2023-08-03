@@ -9,7 +9,11 @@ import { UseEditorModal } from "../hooks/useEditorModalContext";
 import { getCurrentUser } from "../redux/actions/auth.action";
 import { ManagedUI } from "../hooks/useModalContext";
 
-const EditorModal = () => {
+type Props = {
+  route?: string;
+}
+
+const EditorModal = ({route = ""}: Props) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
@@ -60,6 +64,7 @@ const EditorModal = () => {
             description: "You Successfully posted a question",
             variant: "secondary",
           });
+          router.push(route)
         }
         setOpenEditorModal(false);
         setProceed(false);

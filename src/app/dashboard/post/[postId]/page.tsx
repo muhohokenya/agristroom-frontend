@@ -479,7 +479,7 @@ function Page(props: Props) {
         </div>
       </div>
 
-      <EditorModal />
+      <EditorModal route="/dashboard" />
     </div>
   );
 }

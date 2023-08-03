@@ -222,11 +222,11 @@ export const PostQuestion = () => {
                         </div>
                       </div>
                       <p
-                        className={`text-[14px] lg:text-[18px] line-clamp-3 mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
+                        className={`text-[14px] lg:text-[18px] py-0 line-clamp-3 mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
                       >
                         {post?.title}
                       </p>
-                      <div className="flex flex-row items-center justify-between my-[21px] mr-[10px] ">
+                      <div className="flex flex-row items-center justify-between my-[14px] mr-[10px] ">
                         <div className="flex items-center gap-3">
                           <BiMessage className="w-[12.8px] lg:w-[20px] h-[12px] lg:h-[18px] text-[#212121]/70" />
 
