@@ -39,10 +39,6 @@ const EditorModal = () => {
     getUser();
   }, []);
 
-  console.log('====================================');
-  console.log("user", user.user);
-  console.log('====================================');
-
   const postAQuestion = async () => {
     try {
       if (user.user === null) {
@@ -80,15 +76,17 @@ const EditorModal = () => {
           <p className="text-[12px] text-black mt-2">Be specific and imagine you are asking a question to another person.</p>
           <textarea 
            onChange={(e) => {
-            setTitle(e.target.value)
+            setTitle(e.target.value);
+            if(title.length > 30){
+              setProceed(true)
+            }
            }}
            className=" w-[65%] mt-2 outline-0 rounded-md px-2 py-2 border border-[#2F9B4E] h-[40px] text-[13px]" />
-          <button onClick={() => setProceed(true)} className="bg-[#2F9B4E] text-white px-[10px] py-[1px] mt-3 w-fit h-[40px] rounded-md ">Next</button>
         </div>
         <div className={`flex flex-col mt-3 rounded-md py-2 px-2 p border border-slate-400 ${!proceed ? " bg-white opacity-40" : ""}`}>
           <div className="mb-3">
             <h2 className="text-[16px] text-black mt-3 leading-4">What are the details of your Question?</h2>
-            <p className="text-[13px] text-black mt-2">Introduce your problem and expand on what you put in the title. A range of 20 to 100 characters maximum.</p>
+            <p className="text-[13px] text-black mt-2">Introduce your problem and expand on what you put in the title. A minimum of 20 characters .</p>
           </div>
           <TextEditor callback={callback} />
         </div>
@@ -97,7 +95,7 @@ const EditorModal = () => {
             onClick={() => {
               setOpenEditorModal(false);
             }}
-            className="bg-[#2F9B4E] z-[2000] text-white px-[8px] py-[4px] w-fit h-[40px] rounded-md "
+            className="border border-[#2F9B4E] text-[#2F9B4E] z-[2000] px-[8px] py-[4px] w-fit h-[40px] rounded-md "
           >
             Cancel
           </button>

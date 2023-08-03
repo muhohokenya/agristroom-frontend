@@ -10,7 +10,6 @@ import { Providers } from "../redux/provider";
 import { Toaster } from "../components/ui/Toaster";
 import FormProvider from "../context/formstate";
 import {
-  UseEditorModal,
   UseEditorModalProvider,
 } from "../hooks/useEditorModalContext";
 import SearchProvider from "../context/SearchState";
@@ -29,36 +28,33 @@ export const metadata: Metadata = {
   ],
 };
 
-{/* <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/super-build/ckeditor.js"></script> */}
 
-export default function RootLayout({
-  children,
-  modal,
-  pageProps,
-}: {
+interface Props {
   children: React.ReactNode;
   modal: React.ReactNode;
-  pageProps: any;
-}) {
+}
+
+
+export default function RootLayout({ children, modal }: Props) {
   return (
     <html lang="en">
-      
+
       <body
         className={`${inter.className} min-h-screen flex flex-col bg-[#FAFAFA] w-full`}
       >
-        <Providers>
-          <ManagedUIProvider>
-            <UseEditorModalProvider>
-              <FormProvider>
-                <SearchProvider>
-                  {children}
-                  {modal}
-                </SearchProvider>
-              </FormProvider>
-            </UseEditorModalProvider>
-          </ManagedUIProvider>
-        </Providers>
-        <Toaster />
+          <Providers>
+            <ManagedUIProvider>
+              <UseEditorModalProvider>
+                <FormProvider>
+                  <SearchProvider>
+                    {children}
+                    {modal}
+                  </SearchProvider>
+                </FormProvider>
+              </UseEditorModalProvider>
+            </ManagedUIProvider>
+          </Providers>
+          <Toaster />
       </body>
     </html>
   );

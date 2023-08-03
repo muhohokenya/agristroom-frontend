@@ -19,6 +19,7 @@ import { getPosts } from "../redux/actions/getPosts.action";
 import { SearchContext } from "../context/SearchState";
 import { FaSpinner } from "react-icons/fa";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
+import Link from "next/link";
 
 export default function Home() {
   const { searchedValue, setSearchedValue } = useContext(SearchContext);
@@ -63,13 +64,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const fetchPost = async () => {
+    const fetchPosts = async () => {
       setLoading(true);
       let res: any = await dispatch(getPosts());
       setPosts(res.payload.posts);
       setLoading(false);
     };
-    fetchPost();
+    fetchPosts();
   }, [post, dispatch]);
 
 
@@ -86,9 +87,9 @@ export default function Home() {
       <div className="bg-[#FAFAFA] w-full">
         <div className="max-w-[1440px] mx-auto w-full">
           <div
-            className={`w-full mt-[100px]  pt-[50px] flex flex-col justify-between  lg:flex-row lg:items-center px-[15px] lg:px-[100px] gap-[50px] lg:gap-[100px]`}
+            className={`w-full mt-[100px] -z-50 pt-[50px] flex flex-col justify-between  lg:flex-row lg:items-center px-[15px] lg:px-[100px] gap-[50px] lg:gap-[100px]`}
           >
-            <div className=" w-full  lg:w-[50%] lg:min-w-[607px] mt-[10px] lg:mt-[58px] min-h-[220px] lg:mb-[75px] ">
+            <div className=" w-full   lg:w-[50%] lg:min-w-[607px] mt-[10px] lg:mt-[58px] min-h-[220px] lg:mb-[75px] ">
               <p
                 className={`text-[23px] md:text-[34px] text-[#212121] tracking-[-0.04em] leading-[30px] md:leading-[48px] text-start font-[800] ${jost.className}`}
               >
@@ -100,41 +101,42 @@ export default function Home() {
               >
                 Every farmer needs a community for a successful farming venture
               </p>
-              <button
+              <Link
+                href="/signup"
                 onClick={() => {
                   setOpenModal(true);
                   router.push("/signup");
                 }}
-                className={`bg-[#2F9B4E] rounded-md py-[14px] px-[24px] flex items-center justify-center mt-[40px] text-white text-center text-[16px] tracking-[-0.04em] leading-[22px] font-[700]  ${satoshi.className}`}
+                className={`bg-[#2F9B4E] w-fit cursor-pointer rounded-md py-[14px] px-[24px] flex items-center justify-center mt-[40px] text-white text-center text-[16px] tracking-[-0.04em] leading-[22px] font-[700]  ${satoshi.className}`}
               >
                 Join Community
-              </button>
+              </Link>
             </div>
             <div className="w-full  lg:w-[50%] flex items-center justify-center">
               <div className="relative  border-1 flex flex-col md:flex-row  mt-[50px] lg:mt-[50px] mb-[75px] lg:mb-[130px] h-[330px]  lg:h-[476px]  sm:w-[330px] lg:w-[476px] border border-[#DBF3D9] rounded-full">
                 <p
-                  className={` absolute bottom-4 z-20 lg:bottom-3 max-h-[56px] lg:max-h-[60px]   max-w-[152px] lg:max-w-[222px] right-0 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px]  leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em]`}
+                  className={` absolute fade-in-image bottom-4 lg:bottom-3 max-h-[56px] lg:max-h-[60px]   max-w-[152px] lg:max-w-[222px] right-0 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px]  leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em]`}
                 >
                   Monitor and help smallholder farmers increase their resilience
                   and cope with devastating challenges in their crop and animal
                   farms.
                 </p>
                 <p
-                  className={` absolute  top-[220px] z-20 lg:top-[310px] max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                  className={` absolute fade-in-image  top-[220px]  lg:top-[310px] max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
                 >
                   Monitor and help smallholder farmers increase their resilience
                   and cope with devastating challenges in their crop and animal
                   farms.
                 </p>
                 <p
-                  className={` absolute z-20  top-44 lg:top-52 max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] -right-8 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                  className={` absolute fade-in-image2   top-44 lg:top-52 max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] -right-8 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
                 >
                   Monitor and help smallholder farmers increase their resilience
                   and cope with devastating challenges in their crop and animal
                   farms.
                 </p>
                 <p
-                  className={` absolute z-20 top-10 lg:top-20 max-h-[56px] lg:max-[60px] max-w-[135px]  lg:max-w-[215px] left-28  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                  className={` absolute fade-in-image2  top-10 lg:top-20 max-h-[56px] lg:max-[60px] max-w-[135px]  lg:max-w-[215px] left-28  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
                 >
                   Monitor and help smallholder farmers increase their resilience
                   and cope with devastating challenges in their crop and animal
@@ -200,7 +202,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-white w-full   px-[15px] lg:px-[100px] pb-[90px]">
+      <div className="bg-white w-full px-[15px] lg:px-[100px] pb-[90px]">
         <div className="max-w-[1440px] mx-auto w-full flex flex-col items-center justify-center lg:px-[70px]">
           <h1
             className={`mt-[90px] mb-[30px] text-[23px] lg:text-[34px] leading-[33px] lg:leading-[43px] tracking-[-0.04em] font-[800] text-[#2F9B4E] ${jost.className}`}
@@ -216,7 +218,7 @@ export default function Home() {
 
       <div className="w-full bg-[#2F9B4E]">
         <div className="max-w-[1440px] mx-auto w-full">
-          <div className="flex flex-wrap md:flex-nowrap items-center justify-center gap-[50px] min-h-[223px] py-[40px] lg:py-0">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center justify-center gap-[50px] min-h-[223px] py-[40px] lg:py-0">
             <div className="flex flex-col items-center justify-center w-full">
               <span
                 className={`text-[34px]  leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
@@ -224,7 +226,7 @@ export default function Home() {
                 20+
               </span>
               <p
-                className={`font-[400] text-[18px] w-[100%] text-center leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] text-[14px] lg:text-[18px] w-[100%] text-center leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
               >
                 Active Farmers
               </p>
@@ -236,7 +238,7 @@ export default function Home() {
                 1,000+
               </span>
               <p
-                className={`font-[400] w-[100%] text-center text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] w-[100%] text-center text-[14px] lg:text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
               >
                 Vibrant Communities
               </p>
@@ -248,7 +250,7 @@ export default function Home() {
                 2,100+
               </span>
               <p
-                className={`font-[400] w-[100%] text-center text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] w-[100%] text-center text-[14px] lg:text-[18px] leading-[20px] lg:leading-[28px] text-white whitespace-normal lg:whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
               >
                 Cumulative years of experience
               </p>
@@ -260,7 +262,7 @@ export default function Home() {
                 5,000+
               </span>
               <p
-                className={`font-[400] w-[100%] text-center text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+                className={`font-[400] w-[100%] text-center text-[14px] lg:text-[18px] leading-[28px] text-white whitespace-normal lg:whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
               >
                 Discussions to learn from
               </p>
@@ -286,7 +288,7 @@ export default function Home() {
             </button>
           </div>
           <div className="mt-[20px] bg-white md:mx-[10px] lg:mx-[150px] w-full h-full ">
-            {loading ? (
+            {loading && (
               <div className=" w-full flex items-center justify-center mt-20  ">
                 <div className="w-full mx-auto flex flex-col items-center justify-center my-36 ">
                   <FaSpinner className="animate-spin h-8 w-8 text-[#2F9B4E] text-center" />
@@ -295,30 +297,30 @@ export default function Home() {
                   </h2>
                 </div>
               </div>
-            ) : (
-              <div className="py-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[500px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
-                {posts?.map((post, indx) => {
-                  return (
-                    <DiscussionCard
-                      key={indx}
-                      post={post}
-                    />
-                  );
-                }).slice(0, 6)}
-              </div>
             )}
-          </div>
-          {
-            posts?.length === 0 && (
-              <div className="flex w-full items-center justify-center pb-10 h-full bg-white ">
-                <div className="flex py-2 px-4 flex-col items-center justify-center gap-3 shadow-md border border-[#2F9B4E] rounded-md">
-                  <BsFillExclamationCircleFill className="text-[#2F9B4E] w-10 h-10" />
-                  <h1>Questions Were Not Found!!!!</h1>
-                  <button onClick={() => router.refresh()} className="text-[16px] bg-[#DBF3D9] py-2 px-[10px] rounded-md text-[#2F9B4E] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]">Refresh</button>
+
+            {
+              posts?.length === 0 && loading === false ? (
+                <div className="flex w-full items-center mt-5 justify-center pb-10 h-full bg-white ">
+                  <div className="flex py-2 px-4 flex-col items-center justify-center gap-3 shadow-md border border-[#2F9B4E] rounded-md">
+                    <BsFillExclamationCircleFill className="text-[#2F9B4E] w-10 h-10" />
+                    <h1>Questions Were Not Found!!!!</h1>
+                  </div>
                 </div>
-              </div>
-            )
-          }
+              ) : (
+                <div className="py-[10px] lg:pt-[30px] px-[12px] md:px-[50px] xl:px-[142px]  max-h-[500px] rounded-md no-scrollbar overflow-auto lg:scrollbar lg:scrollbar-thumb-slate-300 lg:scrollbar-w-3 lg:scrollbar-track-white lg:scrollbar-thumb-rounded-lg flex flex-col gap-[15px] ">
+                  {posts?.map((post, indx) => {
+                    return (
+                      <DiscussionCard
+                        key={indx}
+                        post={post}
+                      />
+                    );
+                  }).slice(0, 6)}
+                </div>
+              )
+            }
+          </div>
         </div>
       </div>
 
@@ -482,8 +484,9 @@ const SingleCardTemplate = (card: Card) => {
     <div className="bg-[#FAFAFA] rounded-md mx-2 ">
       <div className="min-w-[345px] h-[200px] lg:min-w-[295px] lg:max-h-[234px] rounded-md w-full p-3">
         <div className="flex flex-col items-center justify-center ">
-
-          <Image src={card.image!} alt="" width={24} height={24} />
+          <div className="flex w-">
+            <Image src={card.image!} alt="" width={20} height={20} className="w-[32px] h-[30px]" />
+          </div>
           <h3
             className={`text-[16px] leading-[20px] tracking-tighter text-[#2F9B4E] font-[700] mt-[7px] ${jost.className}`}
           >

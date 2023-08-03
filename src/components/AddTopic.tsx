@@ -41,11 +41,6 @@ const AddTopic = () => {
     }))
   }
 
-  console.log('====================================');
-  console.log(state.other_interests);
-  console.log(otherInterests);
-  console.log('====================================');
-
   return (
     <div className=" flex flex-col  max-h-[262px] items-start  lg:max-h-[309px] mt-10 py-[20px] lg:py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
       <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">

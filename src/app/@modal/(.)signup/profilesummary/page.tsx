@@ -6,9 +6,7 @@ import Stepper from "@/src/components/Stepper";
 const Page = () => {
   return (
     <div className=" absolute w-full max-w-[1440px] mx-auto flex">
-      {/* <Modal> */}
-        <ProfileSummary />
-      {/* </Modal> */}
+      <ProfileSummary />
     </div>
   );
 };

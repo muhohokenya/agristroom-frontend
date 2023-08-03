@@ -67,22 +67,16 @@ function AccountInformation(props: Props) {
   return (
     <div className="flex flex-col bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto">
     <Stepper />
-    <div className=" border-t border-t-slate flex flex-col  max-h-[610px] items-center  lg:max-h-[620px] mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
-      <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
-        {/* <MdArrowBackIos
-          className=" cursor-pointer"
-          onClick={() => router.push("/signup")}
-        /> */}
+    <div className=" border-t border-t-slate flex flex-col  max-h-[610px] items-center  lg:max-h-[620px] py-[20px] bg-white  max-w-[345px] lg:max-w-[594px] mx-auto">
+      <div className="flex w-full items-center">
         <h2
-          className={`font-[400] text-[18px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
+          className={`font-[400] mx-[15px] lg:mx-[40px] text-[18px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
         >
           Kindly fill in the following information
         </h2>
       </div>
 
-      <hr className="my-[15px] lg:my-[20px] min-w-[315px] lg:min-w-[494px] bg-[#BFBFBF]/60 h-[1px] "></hr>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full mt-5">
         <div className="w-full flex flex-col gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[494px] mx-[15px] lg:mx-[40px]">
           <div className="flex flex-col  gap-[8px] w-full ">
             <label>First Name</label>

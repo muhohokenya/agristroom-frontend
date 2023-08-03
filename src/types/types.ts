@@ -76,11 +76,12 @@ export interface Post{
   id: number;
   title: string;
   description: string,
+  votes: number,
   user_id: number;
   created_at: string;
   updated_at: string;
   image: string;
-  resplies?: Reply[];
+  replies?: Reply[];
   user: {
     first_name: string;
     last_name: string;

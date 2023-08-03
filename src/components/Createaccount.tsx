@@ -78,14 +78,10 @@ function CreateAccountAs(props: Props) {
   return (
     <div className="flex-col items-center justify-center bg-white w-full max-w-[400px] lg:max-w-[638px] mx-auto">
       <Stepper />
-      <div className=" border-t border-t-slate-300 relative flex flex-col items-center justify-center h-auto lg:max-h-[565px] mt-10 py-[40px] bg-white w-full max-w-[400px] lg:max-w-[638px] mx-auto rounded-md shadow-md">
-        <div className="relative flex mx-[15px] lg:mx-[40px] gap-[14px] items-center justify-center  w-full ">
-          {/* <MdArrowBackIos
-            className="absolute top-1 left-10 cursor-pointer  "
-            onClick={() => router.push("/signup/accountinformations")}
-          /> */}
+      <div className=" border-t border-t-slate-300 relative flex flex-col items-center justify-center h-auto lg:max-h-[565px] py-[20px] bg-white w-full max-w-[400px] lg:max-w-[638px] mx-auto">
+        <div className="relative flex  gap-[14px]  w-full ">
           <h2
-            className={`font-[600] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
+            className={`font-[600] text-start mx-[15px] lg:mx-[40px] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
           >
             Select what describes you best.
           </h2>

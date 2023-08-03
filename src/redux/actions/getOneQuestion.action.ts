@@ -9,15 +9,9 @@ export const getOneQuestion = createAsyncThunk(
   "get/question",
   async (id:number, thunkAPI) => {
     try {
-      const accessToken = getLoggedInUserToken();
-      const response = await axios.get(`${BaseURL}/post/${id}`, {
-          headers: {
-              Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
-            },
-        });
-        console.log("accessToken from geting one question", accessToken, "response", response);
+      const response = await axios.get(`${BaseURL}/post/${id}`);
       return {
-        post: response.data,
+        post: response.data.data,
         success: true,
       };
     } catch (error) {
