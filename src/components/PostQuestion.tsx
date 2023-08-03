@@ -233,7 +233,7 @@ export const PostQuestion = () => {
                           <p
                             className={`text-[#212121]/70 text-[12px] lg:text-[14px] leading-[16px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className} font-[500]`}
                           >
-                            {post?.replies?.length} replies
+                            {post?.replies?.length} {post?.replies?.length === 1 ? "reply" : "replies"} 
                           </p>
                         </div>
                         <p
@@ -283,6 +283,7 @@ export const PostQuestion = () => {
               {posts.map((post) => {
                 return (
                   <p
+                  onClick={() => router.push(`/dashboard/post/${post?.id}`)}
                   key={post.id}
                   className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
                 >

@@ -102,7 +102,7 @@ export const DiscussionCard = ({ post }: Props) => {
             <p
               className={`text-[#212121]/70 text-[12px] lg:text-[14px] leading-[16px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className} font-[500]`}
             >
-              {post?.replies?.length} replies
+              {post?.replies?.length} {post?.replies?.length === 1 ? "reply" : "replies"}
             </p>
           </div>
           <p
