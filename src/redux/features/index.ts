@@ -8,7 +8,8 @@ import postQuestion  from "./postQuestion.Slice";
 import  getOneQuestionSlice  from "./getOneQuestionSlice";
 import  postAnswerSlice  from "./postAnswerSlice";
 import getRepliesByPostId from "./getReplyBtPostIdSlice";
-import upvoteReply from "./upVoteSlice";
+import upvoteReply from "./upVoteForReplySlice";
+import upvotePost from "./upVoteForPostSlice";
 
 
 export const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ export const rootReducer = combineReducers({
     onePost: getOneQuestionSlice,
     answerCreated: postAnswerSlice,
     posts: getPosts,
-    upvote: upvoteReply,
+    upvoteForReply: upvoteReply,
+    upvoteForPost: upvotePost,
     replies: getRepliesByPostId
 })

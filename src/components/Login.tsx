@@ -148,7 +148,7 @@ const Login = () => {
             disabled= {isSubmitting}
             className={` bg-[#2F9B4E] ${isSubmitting ? "cursor-not-allowed" : "cursor-pointer"} flex items-center justify-center gap-1 max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
           >
-           {isSubmitting && <FaSpinner className="animate-spin h-8 w-8 text-white" />} Log In
+           {isSubmitting && <FaSpinner className="animate-spin max-h-8 max-w-8 mr-2 text-white" />} Log In
           </button>
         </div>
       </form>

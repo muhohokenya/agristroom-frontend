@@ -9,12 +9,7 @@ export const getRepliesByPostId = createAsyncThunk(
   "get/replies",
   async (id:number, thunkAPI) => {
     try {
-      const accessToken = getLoggedInUserToken();
-      const response = await axios.get(`${BaseURL}/reply/post/${id}`, {
-          headers: {
-              Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
-            },
-        });
+      const response = await axios.get(`${BaseURL}/reply/post/${id}`);
       return {
         replies: response.data,
         success: true,

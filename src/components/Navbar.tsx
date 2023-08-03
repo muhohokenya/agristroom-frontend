@@ -22,9 +22,9 @@ function Navbar(props: Props) {
   };
 
   return (
-    <div className="border-b-2 fixed top-0 inset-x-0 z-40  border-slate-600/20 bg-[#FAFAFA] h-[100px]">
-      <div className=" w-full max-w-[1440px] mx-auto ">
-        <div className=" w-full max-w-[1440px] mx-auto  z-50  h-[100px] flex justify-between items-center  pt-[17px] px-[15px] lg:px-[100px] ">
+    <div className="bg-red-700 z-50 fixed top-0 w-full">
+      <div className=" w-full bg-[#FAFAFA] fixed top-0 inset-x-0 h-[100px] border-b-2 border-slate-600/20">
+        <div className=" w-full max-w-[1440px] mx-auto z-50 border-b-2  h-[100px] border-slate-600/20 bg-[#FAFAFA]  flex justify-between items-center  pt-[17px] px-[15px] lg:px-[100px] ">
           <div className="flex gap-2 items-center ">
             <Image
               src="/menu.png"
@@ -78,12 +78,7 @@ function Navbar(props: Props) {
               </li>
             </ul>
             <div className="flex items-center gap-3">
-              {/* <div
-                onClick={toggleSearch}
-                className="flex py-1 cursor-pointer bg-[#2F9B4E] items-center justify-center rounded-lg px-2 w-12 h-[39px]"
-              >
-                <BsSearch className=" text-white h-9 w-9" />
-              </div> */}
+            
               <Link
                 onClick={() => setOpenModal(true)}
                 href="/signup"
@@ -101,15 +96,16 @@ function Navbar(props: Props) {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* side nav bar */}
-        <div
+      {/* side nav bar */}
+      <div
           className={`${showSideNav
-            ? "-translate-x-2 transform transition-all duration-700"
-            : " -translate-x-[170px] transform transition-all duration-500"
-            } w-fit shadow-md lg:hidden  top-[100px]  bg-[#FAFAFA] px-[12px] py-[17px]`}
+            ? "-translate-x-1 transform transition-all duration-700 z-30"
+            : " -translate-x-[170px] transform transition-all duration-500 "
+            } fixed top-0 inset-x-0 w-fit shadow-md lg:hidden  mt-[100px]  bg-[#FAFAFA] px-[12px] py-[17px]`}
         >
-          <ul className="w-full px-3 py-1 flex flex-col gap-5 h-auto">
+          <ul className="w-full px-3 py-1 flex flex-col gap-5 h-auto z-30">
             <li
               onClick={() => setShowSideNav(false)}
               className="cursor-pointer text-[14px] leading-[18.9px] font-[500] text-[#212121] hover:bg-[#2F9B4E] hover:text-white px-[8px] py-[5px] rounded-md"
@@ -148,7 +144,6 @@ function Navbar(props: Props) {
             </li>
           </ul>
         </div>
-      </div>
     </div>
   );
 }

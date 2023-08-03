@@ -16,6 +16,8 @@ import { UseEditorModal } from "../hooks/useEditorModalContext";
 import { SearchContext } from "../context/SearchState";
 import { AiOutlineReload } from "react-icons/ai";
 import { getCurrentUser } from "../redux/actions/auth.action";
+import { upVoteForQuestion } from "../redux/actions/upvote";
+import { toast } from "../hooks/use-toast";
 
 export const PostQuestion = () => {
   const router = useRouter();
@@ -41,9 +43,6 @@ export const PostQuestion = () => {
   useEffect(() => {
     const getUser = async () => {
       let res: any = await dispatch(getCurrentUser());
-      console.log('====================================');
-      console.log("current user", res);
-      console.log('====================================');
 
       if (res?.payload?.success) {
         // setLoggedOut(false);
@@ -67,9 +66,37 @@ export const PostQuestion = () => {
     });
   };
 
+  const upVotePost = async (post_id: number) => {
+    const data = {
+      post_id: post_id,
+      vote: 1
+    }
+    let resp: any = await dispatch(upVoteForQuestion(data))
+    if (resp?.payload.success) {
+      toast({
+        description: `Your up vote was successfully ${resp?.payload.response.response}`
+      })
+      let res: any = await dispatch(getPosts());
+      setPosts(res.payload.posts);
+    }
+  }
 
+  const downVotePost = async (post_id: number) => {
+    const data = {
+      post_id: post_id,
+      vote: -1
+    }
+    let resp: any = await dispatch(upVoteForQuestion(data))
+    if (resp?.payload.success) {
+      toast({
+        description: `Your down vote was successfully ${resp?.payload.response.response}`
+      })
+      let res: any = await dispatch(getPosts());
+      setPosts(res.payload.posts);
+    }
+  }
 
-  const filteredPosts = posts?.filter((post) => post?.title?.includes(searchedValue.searchedValue));
+  const filteredPosts = posts?.filter((post) => post?.title?.toLowerCase().includes(searchedValue.searchedValue.toLowerCase()));
 
   useEffect(() => { router.refresh() }, [router])
 
@@ -123,7 +150,7 @@ export const PostQuestion = () => {
 
       <div className="flex bg-white flex-col justify-between lg:flex-row border-t border-t-[#BFBFBF]/60 mt-[30px] ">
         <div className="bg-white w-full mx-1">
-          <div className="flex flex-col  w-full ">
+          <div className="flex flex-col relative  w-full ">
             <h2
               className={`font-[600]  text-[26px] leading-[42px] tracking-[-0.04em] tex-[#212121] ${jost.className}`}
             >
@@ -147,18 +174,18 @@ export const PostQuestion = () => {
                     className="flex min-w-[350px] md:max-w-full lg:max-w-full  min-h-[167px] lg:min-h-[220px]  xl:min-h-[167px] cursor-pointer "
                   >
                     <div className="flex flex-col pt-[20px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
-                      <MdArrowDropUp className="w-[35px] h-[25px] text-[#2F9B4E]" />
+                      <MdArrowDropUp onClick={() => upVotePost(post?.id)} className="w-[35px] h-[25px] text-[#2F9B4E]" />
 
                       <span
                         className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
                       >
-                        19.3k
+                        {post?.votes}
                       </span>
-                      <MdArrowDropDown className="w-[35px] h-[25px] text-[#2F9B4E]" />
+                      <MdArrowDropDown onClick={() => downVotePost(post?.id)} className="w-[35px] h-[25px] text-[#2F9B4E]" />
                     </div>
                     <div
                       onClick={() =>
-                        router.push(`/dashboard/reply/${post.id}`)
+                        router.push(`/dashboard/post/${post.id}`)
                       }
                       className="flex w-full flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px]  bg-[#FAFAFA] rounded-r-md "
                     >
@@ -183,8 +210,7 @@ export const PostQuestion = () => {
                           <p
                             className={`text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
                           >
-                            {post.user.first_name} - {post.user.county}{" "}
-                            county, {post.user.country}
+                            {post.user.first_name} - Kenya
                           </p>
                           {/* <Image
                               src={discussion.countryFlagImage!}
@@ -196,18 +222,18 @@ export const PostQuestion = () => {
                         </div>
                       </div>
                       <p
-                        className={`text-[14px] lg:text-[18px] mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
+                        className={`text-[14px] lg:text-[18px] py-0 line-clamp-3 mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
                       >
-                        {post.title}
+                        {post?.title}
                       </p>
-                      <div className="flex flex-row items-center justify-between my-[21px] mr-[10px] ">
+                      <div className="flex flex-row items-center justify-between my-[14px] mr-[10px] ">
                         <div className="flex items-center gap-3">
                           <BiMessage className="w-[12.8px] lg:w-[20px] h-[12px] lg:h-[18px] text-[#212121]/70" />
 
                           <p
                             className={`text-[#212121]/70 text-[12px] lg:text-[14px] leading-[16px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className} font-[500]`}
                           >
-                            6 replies
+                            {post?.replies?.length} {post?.replies?.length === 1 ? "reply" : "replies"} 
                           </p>
                         </div>
                         <p
@@ -222,13 +248,13 @@ export const PostQuestion = () => {
                 );
               })}
             </div>
-            {filteredPosts?.length === 0 && (
-              <div className="flex w-full items-start justify-center my-5 h-full bg-white ">
+            {filteredPosts?.length === 0 && loading === false && (
+              <div className="absolute top-10 flex w-full items-start justify-center my-5 ">
                 <div className="flex py-2 px-4 flex-col items-center justify-center gap-3 shadow-md border border-[#2F9B4E] rounded-md">
                   <BsFillExclamationCircleFill className="text-[#2F9B4E] w-10 h-10" />
                   <h1>Discussions Were Not Found!!!!</h1>
                   <p className="font-[400]  text-[16px] leading-[42px] tracking-[-0.04em] tex-[#212121]">Be the first one to create a discussion by clicking the post question above</p>
-                  <button onClick={() => router.refresh()} className="text-[14px] bg-[#DBF3D9] py-2 px-[10px] rounded-md text-[#2F9B4E] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]">Refresh</button>
+                  <button onClick={() => setOpenEditorModal(true)} className="text-[14px] bg-[#DBF3D9] py-2 px-[10px] rounded-md text-[#2F9B4E] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]">Post Question</button>
                 </div>
               </div>)
             }
@@ -254,47 +280,18 @@ export const PostQuestion = () => {
               Hot Topics
             </h2>
             <div className="flex flex-col gap-[20px] mt-[15px] py-[10px] min-w-[300px] h-[300px]  no-scrollbar overflow-auto">
-              <p
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                <span>🍎</span>
-                Can any agronomist please share with me a nutritional program
-                for apples suitable for Kilifi-south sub-county?
-              </p>
-              <p
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                <span>🙋🏼‍♂️</span>A nutritional program for apples suitable
-              </p>
-              <p
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                <span>🍎</span>
-                Can any agronomist please share with me a nutritional program
-                for apples suitable for Kilifi-south sub-county?
-              </p>
-              <p
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                <span>🙋🏼‍♂️</span>A nutritional program for apples suitable
-              </p>
-              <p
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                <span>🍎</span>
-                Can any agronomist please share with me a nutritional program
-                for apples suitable for Kilifi-south sub-county?
-              </p>
-              <p
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                <span>🍎</span>A nutritional program for apples suitable
-              </p>
-              <p
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                <span>🍎</span>A nutritional program for apples suitable
-              </p>
+              {posts.map((post) => {
+                return (
+                  <p
+                  onClick={() => router.push(`/dashboard/post/${post?.id}`)}
+                  key={post.id}
+                  className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
+                >
+                  <span>🍎</span>
+                  {post.title}
+                </p>
+                )
+              }).slice(0,6)}
             </div>
           </div>
         </div>

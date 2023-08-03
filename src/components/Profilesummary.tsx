@@ -86,23 +86,18 @@ const ProfileSummary = () => {
 
 
   return (
-    <div className="flex flex-col bg-white w-full  max-w-[345px] lg:min-w-[574px] mx-auto">
+    <div className="flex flex-col bg-white w-full max-w-[345px] lg:min-w-[574px] mx-auto">
       <Stepper />
-      <div className=" border-t border-t-slate-300 flex flex-col  max-h-[500px] items-start  lg:max-h-[600px] mt-10 py-[20px] lg:py-[40px] bg-white w-full  max-w-[345px] lg:min-w-[574px] mx-auto rounded-md shadow-md">
-        <div className="flex  mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
-          <span className="text-[#212121]  cursor-pointer">
-            <MdArrowBackIos onClick={() => router.push("/signup/interest")} />
-          </span>
+      <div className=" border-t border-t-slate-300 flex flex-col  max-h-[500px] items-start  lg:max-h-[600px] py-[20px] bg-white w-full  max-w-[345px] lg:min-w-[574px] mx-auto">
+        <div className="flex w-full gap-[14px] items-center ">
           <h2
-            className={`font-[600] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
+            className={`font-[600] mx-[15px] lg:mx-[40px] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
           >
             Profile Details Summary
           </h2>
         </div>
-
-        <hr className="min-w-[315px] lg:min-w-[474px] mx-[15px] lg:mx-[40px] my-[10px] lg:my-[20px] bg-[#BFBFBF]/60 h-[1px] "></hr>
-
-        <div className="w-full  flex flex-col items-center justify-center gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[474px] mx-[15px] lg:mx-[40px]">
+      
+        <div className="w-full mt-[15px] flex flex-col items-center justify-center gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[474px] mx-[15px] lg:mx-[40px]">
           <div className="flex w-full justify-between">
             <div className="flex flex-col">
               <span
@@ -233,7 +228,7 @@ const ProfileSummary = () => {
               createUserAccount();
             }}
             disabled={isSubmitting}
-            className={`my-[40px] ${isSubmitting && "cursor-not-allowed"
+            className={`mt-[20px] ${isSubmitting && "cursor-not-allowed"
               } flex items-center justify-center gap-3 mx-[15px] lg:mx-[40px] bg-[#2F9B4E] min-w-[315px] lg:min-w-[474px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className
               }`}
           >

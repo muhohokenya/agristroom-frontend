@@ -1,14 +1,19 @@
+import { jost } from '@/src/fonts/Fonts';
 import React from 'react'
 import { FaSpinner } from 'react-icons/fa';
 
 export const loading = () => {
   return (
-    <div className="flex w-[300px] items-start justify-center my-5 h-full bg-white ">
-      <div className="flex py-5 px-4 flex-col items-center justify-center gap-3 shadow-md border border-[#2F9B4E] rounded-md">
-        <FaSpinner className="animate-spin h-12 w-12 text-white" />
-        <h1>Loading the page!!!!</h1>
+    <div className="flex w-full items-center justify-center">
+    <div className="flex items-center justify-center w-[300px] h-[200px] bg-white rounded-lg">
+      <div className="flex flex-col gap-3 mx-10 items-center justify-center  ">
+        <span className="">
+          <FaSpinner className="animate-spin h-20 max-h-20 w-20 max-w-20 text-[#2F9B4E]" />
+        </span>
+        <h2 className={`font-[600] text-[20px] leading-[18px] mt-2  tracking-[0.04em] text-[#2F9B4E] ${jost.className}`}>Loading next page.</h2>
       </div>
     </div>
+  </div>
   )
 }
 export default loading;

@@ -14,7 +14,7 @@ export default function ResponsiveDemo({ values, template }: any) {
       numScroll: 1,
     },
     {
-      breakpoint: "767px",
+      breakpoint: "360px",
       numVisible: 1,
       numScroll: 1,
     },
@@ -24,6 +24,7 @@ export default function ResponsiveDemo({ values, template }: any) {
     <div className="card max-w-[1440px] mx-auto w-full mt-[30px] ">
       <Carousel
         value={values}
+        className=" -z-10"
         numScroll={1}
         numVisible={3}
         indicatorsContentClassName=" hidden"

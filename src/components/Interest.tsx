@@ -26,17 +26,15 @@ function InterestPage(props: Props) {
   const { state, setState } = useFormContext();
   const { setOpenModal } = useContext(ManagedUI);
 
-  const [interests, setInterest] = useState<InterestType[]>([]);
   const [interestList, setInterestList] = useState<InterestType[]>([]);
   const [loading, setLoading] = useState(true);
   const [topicFound, setTopicFound] = useState("");
   const [searchField, setSearchField] = useState("");
+  const [searchTopic, setSearchTopic] = useState("");
 
   const [selectedInterests, setSelectedInterests] = useState<
     InterestType[] | undefined
   >([]);
-
-
 
   const removeitem = (topic: InterestType) => {
     if (selectedInterests?.some((interest) => interest.id === topic.id)) {
@@ -46,18 +44,6 @@ function InterestPage(props: Props) {
       const updatedArray = [...(selectedInterests ?? []), topic];
       setSelectedInterests(updatedArray);
     }
-  };
-
-  const interestChange = () => {
-    if (topicFound === "") {
-      setInterest(interestList);
-    }
-    const filtered = interestList.filter((item) => {
-      if (item.name.toLowerCase().includes(topicFound.toLowerCase()))
-        return item;
-    });
-
-    setInterest(filtered);
   };
 
   useEffect(() => {
@@ -95,7 +81,8 @@ function InterestPage(props: Props) {
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchField(e.target.value)
+    setSearchField(e.target.value);
+    setSearchTopic(e.target.value);
   }
 
   const removeOtherInterest = (item: string) => {
@@ -106,25 +93,28 @@ function InterestPage(props: Props) {
     }))
   }
 
-
+  const otherInterestsArray = searchTopic.split(",")
+  let otherInterests = state.other_interests.length > 0 ? state.other_interests.concat(otherInterestsArray) : otherInterestsArray
+  const addTopic = () => {
+    setState((prevState) => ({
+      ...prevState,
+      other_interests: [...otherInterests!]
+    }))
+    setSearchTopic("");
+    setSearchField("");
+  }
 
   return (
     <div className="flex flex-col bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto">
       <Stepper />
-      <div className=" border-t border-t-slate-300 flex flex-col  h-auto items-start mt-10 py-[40px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto rounded-md shadow-md">
-        <div className="flex mx-[15px] lg:mx-[40px] gap-[14px] items-center ">
-          {/* <MdArrowBackIos
-            className=" cursor-pointer "
-            onClick={() => router.push("/signup/createaccounts")}
-          /> */}
+      <div className=" border-t border-t-slate-300 flex flex-col  h-auto items-start py-[20px] bg-white w-full  max-w-[345px] lg:max-w-[594px] mx-auto">
+        <div className="flex w-full ">
           <h2
-            className={`font-[600] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
+            className={`font-[600] mx-[15px] lg:mx-[40px] text-[20px] lg:text-[24px] leading-[24px]  tracking-[0.04em] text-[#212121] ${jost.className}`}
           >
             Tell us about yourself
           </h2>
         </div>
-
-        <hr className="min-w-[315px] lg:min-w-[494px] mx-[15px] lg:mx-[40px] my-[20px] bg-[#BFBFBF]/60 h-[1px] "></hr>
 
         <div className="w-full mt-[20px] flex flex-col gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[494px] mx-[15px] lg:mx-[40px]">
           <p
@@ -137,6 +127,7 @@ function InterestPage(props: Props) {
             <input
               placeholder="Search Topic"
               onChange={handleChange}
+              value={searchField}
               type="text"
               className="w-full bg-transparent  h-[48px] mx-[5px] pl-10 border border-1-[#BFBFBF]/60 outline-0 outline-[#BFBFBF]/60 rounded-[5px] bg-[#FFFFFF] focus:outline focus:outline-[#BFBFBF]/60 "
             />
@@ -146,7 +137,7 @@ function InterestPage(props: Props) {
               <div className="w-full mx-auto flex flex-col items-center justify-center ">
                 <FaSpinner className="animate-spin h-8 w-8 text-[#2F9B4E] text-center" />
                 <h2 className="text-center text-[16px] font-[600] mt-4">
-                  Loading Availlable Interests....
+                  Loading Interests....
                 </h2>
               </div>
             </div>
@@ -201,21 +192,29 @@ function InterestPage(props: Props) {
           )
         }
         {selectedInterests?.length! > 0 && (
-          topicFound === "" && (
             <div className="flex items-center  py-2 ml-auto  justify-end max-w-[315px] lg:min-w-[494px] mx-[15px] lg:mx-[40px]">
               <p className="w-full text-end text-[12px]  text-[#212121]/70">
                 You have selected {selectedInterests?.length} item/s
               </p>
             </div>
-          )
         )}
 
-        <button
-          onClick={onSubmit}
-          className={`mt-[35px] mx-[15px] lg:mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[494px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
-        >
-          {filteredInterests?.length! === 0 ? "Add Topic" : "Continue"}
-        </button>
+
+        {filteredInterests?.length! === 0 ? (
+          <button
+            onClick={addTopic}
+            className={`mt-[15px] mx-[15px] lg:mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[494px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
+          >
+            Add To Interests
+          </button>
+        ) : (
+          <button
+            onClick={onSubmit}
+            className={`mt-[15px] mx-[15px] lg:mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[494px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
+          >
+            Continue
+          </button>
+        )}
       </div>
     </div>
   );
