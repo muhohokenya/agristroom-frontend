@@ -21,6 +21,7 @@ import { toast } from "../hooks/use-toast";
 
 export const PostQuestion = () => {
   const router = useRouter();
+  const user = useAppSelector((state) => state.currentUser);
   const buttonRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch();
   const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
@@ -43,7 +44,6 @@ export const PostQuestion = () => {
   useEffect(() => {
     const getUser = async () => {
       let res: any = await dispatch(getCurrentUser());
-
       if (res?.payload?.success) {
         // setLoggedOut(false);
       } else {
@@ -67,33 +67,50 @@ export const PostQuestion = () => {
   };
 
   const upVotePost = async (post_id: number) => {
-    const data = {
-      post_id: post_id,
-      vote: 1
-    }
-    let resp: any = await dispatch(upVoteForQuestion(data))
-    if (resp?.payload.success) {
+    if (user?.user === null) {
       toast({
-        description: `Your up vote was successfully ${resp?.payload.response.response}`
-      })
-      let res: any = await dispatch(getPosts());
-      setPosts(res.payload.posts);
+        description: "Please log in first to upVote",
+        variant: "destructive",
+      });
+
+    } else {
+      const data = {
+        post_id: post_id,
+        vote: 1
+      }
+      let resp: any = await dispatch(upVoteForQuestion(data));
+      if (resp?.payload.success) {
+        toast({
+          description: `Your up vote was successfully ${resp?.payload.response.response}`
+        })
+        let res: any = await dispatch(getPosts());
+        setPosts(res.payload.posts);
+      }
     }
+
   }
 
   const downVotePost = async (post_id: number) => {
-    const data = {
-      post_id: post_id,
-      vote: -1
-    }
-    let resp: any = await dispatch(upVoteForQuestion(data))
-    if (resp?.payload.success) {
+    if (user?.user === null) {
       toast({
-        description: `Your down vote was successfully ${resp?.payload.response.response}`
-      })
-      let res: any = await dispatch(getPosts());
-      setPosts(res.payload.posts);
+        description: "Please log in first to downVote",
+        variant: "destructive",
+      });
+    } else {
+      const data = {
+        post_id: post_id,
+        vote: -1
+      }
+      let resp: any = await dispatch(upVoteForQuestion(data))
+      if (resp?.payload.success) {
+        toast({
+          description: `Your down vote was successfully ${resp?.payload.response.response}`
+        })
+        let res: any = await dispatch(getPosts());
+        setPosts(res.payload.posts);
+      }
     }
+
   }
 
   const filteredPosts = posts?.filter((post) => post?.title?.toLowerCase().includes(searchedValue.searchedValue.toLowerCase()));
@@ -233,7 +250,7 @@ export const PostQuestion = () => {
                           <p
                             className={`text-[#212121]/70 text-[12px] lg:text-[14px] leading-[16px] lg:leading-[22px] tracking-[-0.04em] ${satoshi.className} font-[500]`}
                           >
-                            {post?.replies?.length} {post?.replies?.length === 1 ? "reply" : "replies"} 
+                            {post?.replies?.length} {post?.replies?.length === 1 ? "reply" : "replies"}
                           </p>
                         </div>
                         <p
@@ -283,15 +300,15 @@ export const PostQuestion = () => {
               {posts.map((post) => {
                 return (
                   <p
-                  onClick={() => router.push(`/dashboard/post/${post?.id}`)}
-                  key={post.id}
-                  className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-                >
-                  <span>🍎</span>
-                  {post.title}
-                </p>
+                    onClick={() => router.push(`/dashboard/post/${post?.id}`)}
+                    key={post.id}
+                    className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
+                  >
+                    <span>🍎</span>
+                    {post.title}
+                  </p>
                 )
-              }).slice(0,6)}
+              }).slice(0, 6)}
             </div>
           </div>
         </div>

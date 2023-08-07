@@ -12,7 +12,6 @@ import Link from "next/link";
 import { upVoteForQuestion } from "../redux/actions/upvote";
 import { useAppDispatch } from "../hooks/react-redux-hooks";
 import { toast } from "../hooks/use-toast";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 type Props = {
@@ -85,6 +84,11 @@ export const DiscussionCard = ({ post }: Props) => {
           className={`text-[14px] lg:text-[20px] mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
         >
           {post?.title}
+        </p>
+        <p
+          className={`text-[10px] line-clamp-2 lg:text-[17px] mt-[10px] leading-[17px] lg:leading-[21px]  text-[#212121]/90 tracking-[-0.03em] ${satoshi.className}`}
+        >
+          {post?.description}
         </p>
         {post.image === null ? null : (
           <Image
