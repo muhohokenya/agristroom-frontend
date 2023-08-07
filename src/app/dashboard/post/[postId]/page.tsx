@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
 import { UseEditorModal } from "@/src/hooks/useEditorModalContext";
 import { formatDate, formatDateToTime } from "@/src/lib/constants";
+import { getCurrentUser } from "@/src/redux/actions/auth.action";
 import { getOneQuestion } from "@/src/redux/actions/getOneQuestion.action";
 import { getPosts } from "@/src/redux/actions/getPosts.action";
 import { getRepliesByPostId } from "@/src/redux/actions/getReplyByPostId";
@@ -55,6 +56,7 @@ function Page(props: Props) {
   const { params } = props;
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.currentUser);
   const answer = useAppSelector((state) => state.answerCreated);
   const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
   const answers = useAppSelector((state) => state.replies);
@@ -117,6 +119,18 @@ function Page(props: Props) {
   };
 
   useEffect(() => {
+    const getUser = async () => {
+      let res: any = await dispatch(getCurrentUser());
+      if (res?.payload?.success) {
+        // setLoggedOut(false);
+      } else {
+        // setLoggedOut(true);
+      }
+    };
+    getUser();
+  }, []);
+
+  useEffect(() => {
     const fetchOnePost = async () => {
       setLoading(true);
       let res: any = await dispatch(getOneQuestion(params.postId));
@@ -141,37 +155,53 @@ function Page(props: Props) {
   }, [answer, dispatch, params.postId])
 
   const upVoteReply = async (reply_id: number) => {
-    const data = {
-      reply_id,
-      vote: -1
-    }
-    let res: any = await dispatch(upVoteForReply(data))
-    if (res?.payload.success) {
+    if (user?.user === null) {
       toast({
-        description: `Your up vote was successfully ${res?.payload.response.response}`
-      })
+        description: "Please log in first to upVote",
+        variant: "destructive",
+      });
+    } else {
+      const data = {
+        reply_id,
+        vote: -1
+      }
+      let res: any = await dispatch(upVoteForReply(data))
+      if (res?.payload.success) {
+        toast({
+          description: `Your up vote was successfully ${res?.payload.response.response}`
+        })
+      }
+      setLoadingReplies(true);
+      let resp: any = await dispatch(getRepliesByPostId(params.postId));
+      setReplies(resp?.payload?.replies);
+      setLoadingReplies(false);
     }
-    setLoadingReplies(true);
-    let resp: any = await dispatch(getRepliesByPostId(params.postId));
-    setReplies(resp?.payload?.replies);
-    setLoadingReplies(false);
+
   }
 
   const downVoteReply = async (reply_id: number) => {
-    const data = {
-      reply_id,
-      vote: -1
-    }
-    let res: any = await dispatch(upVoteForReply(data))
-    if (res?.payload.success) {
+    if (user?.user === null) {
       toast({
-        description: `Your up vote was successfully ${res?.payload.response.response}`
-      })
+        description: "Please log in first to upVote",
+        variant: "destructive",
+      });
+    } else {
+      const data = {
+        reply_id,
+        vote: -1
+      }
+      let res: any = await dispatch(upVoteForReply(data))
+      if (res?.payload.success) {
+        toast({
+          description: `Your up vote was successfully ${res?.payload.response.response}`
+        })
+      }
+      setLoadingReplies(true);
+      let resp: any = await dispatch(getRepliesByPostId(params.postId));
+      setReplies(resp?.payload?.replies);
+      setLoadingReplies(false);
     }
-    setLoadingReplies(true);
-    let resp: any = await dispatch(getRepliesByPostId(params.postId));
-    setReplies(resp?.payload?.replies);
-    setLoadingReplies(false);
+
   }
 
   const upVotePost = async (post_id: number) => {
@@ -236,38 +266,38 @@ function Page(props: Props) {
         <div className="flex flex-col pt-[20px] pb-[21px] lg:pr-[30px] px-0 rounded-r-md ">
           <div className="flex flex-col">
             <BsArrowLeftCircleFill className=" my-3 text-[#2F9B4E] text-xl cursor-pointer" onClick={() => router.push("/dashboard")} />
-          <div className="flex items-center gap-[5px]">
-            {post?.user?.image === undefined ? (
-              <span className="max-h-8 p-2 rounded-full max-w-8 bg-[#DBF3D9]">
-                <FaRegUser className="text-slate-400 " />
-              </span>
-            ) : (
-              <Image
-                src="/user.png"
-                alt="prof"
-                width={18}
-                height={18}
-                className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px]"
-              />
-            )}
+            <div className="flex items-center gap-[5px]">
+              {post?.user?.image === undefined ? (
+                <span className="max-h-8 p-2 rounded-full max-w-8 bg-[#DBF3D9]">
+                  <FaRegUser className="text-slate-400 " />
+                </span>
+              ) : (
+                <Image
+                  src="/user.png"
+                  alt="prof"
+                  width={18}
+                  height={18}
+                  className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px]"
+                />
+              )}
 
-            <div className="flex items-center justify-center gap-[5px]">
-              <p
-                className={`flex items-center justify-center text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
-              >
-                <span className="">
-                  {post.user.first_name} - Kenya
-                </span>
-                <span className="max-h-3 max-w-3 flex items-center justify-center mt-1">
-                  <BsDot className="text-black text-xl" />{" "}
-                </span>
-                <span className="text-[12px] pt-[2px] ">
-                  {formatDate(post.created_at)} |{" "}
-                  {formatDateToTime(post.created_at)}
-                </span>
-              </p>
+              <div className="flex items-center justify-center gap-[5px]">
+                <p
+                  className={`flex items-center justify-center text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
+                >
+                  <span className="">
+                    {post.user.first_name} - Kenya
+                  </span>
+                  <span className="max-h-3 max-w-3 flex items-center justify-center mt-1">
+                    <BsDot className="text-black text-xl" />{" "}
+                  </span>
+                  <span className="text-[12px] pt-[2px] ">
+                    {formatDate(post.created_at)} |{" "}
+                    {formatDateToTime(post.created_at)}
+                  </span>
+                </p>
+              </div>
             </div>
-          </div>
           </div>
           <p
             className={`text-[14px] md:text-[18px] lg:text-[26px] mt-[10px] leading-[24px] lg:leading-[42px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
@@ -291,7 +321,7 @@ function Page(props: Props) {
         <div className="flex flex-col">
           <div className="flex mx-[30px] my-3 border border-slate-100">
             <div className="flex flex-col pt-[10px] pr-[8px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px]">
-              <MdArrowDropUp onClick={() => upVotePost(post?.id)}  className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
+              <MdArrowDropUp onClick={() => upVotePost(post?.id)} className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
               <span
                 className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
               >
@@ -462,18 +492,18 @@ function Page(props: Props) {
               Hot Topics
             </h2>
             <div className="flex flex-col gap-[20px] mt-[15px] py-[10px] w-full lg:w-[300px] h-[300px]  no-scrollbar overflow-auto ">
-             {posts.map((post) => {
-              return (
-                <p
-                key={post?.id}
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                <span>🍎</span>
-                {post?.title}
-              </p>
-              )
-             })}
-              
+              {posts.map((post) => {
+                return (
+                  <p
+                    key={post?.id}
+                    className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
+                  >
+                    <span>🍎</span>
+                    {post?.title}
+                  </p>
+                )
+              })}
+
             </div>
           </div>
         </div>
