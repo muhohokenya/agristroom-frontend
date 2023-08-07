@@ -478,12 +478,7 @@ function Page(props: Props) {
           </div>
         </div>
       </div>
-
-<<<<<<< HEAD
       <EditorModal route="/dashboard" />
-=======
-      <EditorModal />
->>>>>>> b1341ec (added some changes)
     </div>
   );
 }
