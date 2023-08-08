@@ -82,7 +82,7 @@ export default function Home() {
   }
 
   return (
-    <main className="">
+    <main>
       <Navbar />
       <div className="bg-[#FAFAFA] w-full">
         <div className="max-w-[1440px] mx-auto w-full">
