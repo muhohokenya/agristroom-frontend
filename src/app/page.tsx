@@ -24,6 +24,7 @@ import Link from "next/link";
 export default function Home() {
   const { searchedValue, setSearchedValue } = useContext(SearchContext);
   const { setOpenModal } = useContext(ManagedUI);
+  const user = useAppSelector((state) => state.currentUser);
   const router = useRouter();
   const dispatch = useAppDispatch()
   const post = useAppSelector((state) => state.post);
@@ -80,6 +81,10 @@ export default function Home() {
       searchedValue: e.target.value
     })
   }
+
+  useEffect(() => {
+   router.refresh()
+  },[router, user?.user])
 
   return (
     <main>
