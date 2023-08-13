@@ -18,6 +18,7 @@ import { AiOutlineReload } from "react-icons/ai";
 import { getCurrentUser } from "../redux/actions/auth.action";
 import { upVoteForQuestion } from "../redux/actions/upvote";
 import { toast } from "../hooks/use-toast";
+import { ManagedUI } from "../hooks/useModalContext";
 
 export const PostQuestion = () => {
   const router = useRouter();
@@ -25,6 +26,7 @@ export const PostQuestion = () => {
   const buttonRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch();
   const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
+  const { openModal, setOpenModal } = useContext(ManagedUI);
   const post = useAppSelector((state) => state.post);
 
   const { searchedValue, setSearchedValue } = useContext(SearchContext);
@@ -72,7 +74,8 @@ export const PostQuestion = () => {
         description: "Please log in first to upVote",
         variant: "destructive",
       });
-
+      router.push("/login");
+      setOpenModal(true)
     } else {
       const data = {
         post_id: post_id,
@@ -96,6 +99,8 @@ export const PostQuestion = () => {
         description: "Please log in first to downVote",
         variant: "destructive",
       });
+      router.push("/login");
+      setOpenModal(true)
     } else {
       const data = {
         post_id: post_id,
@@ -188,7 +193,7 @@ export const PostQuestion = () => {
                 return (
                   <div
                     key={indx}
-                    className="flex min-w-[350px] md:max-w-full lg:max-w-full  min-h-[167px] lg:min-h-[220px]  xl:min-h-[167px] cursor-pointer "
+                    className="flex min-w-[350px] md:max-w-full lg:max-w-full  h-auto cursor-pointer "
                   >
                     <div className="flex flex-col pt-[20px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
                       <MdArrowDropUp onClick={() => upVotePost(post?.id)} className="w-[35px] h-[25px] text-[#2F9B4E]" />
@@ -238,12 +243,19 @@ export const PostQuestion = () => {
                             /> */}
                         </div>
                       </div>
-                      <p
-                        className={`text-[14px] lg:text-[18px] py-0 line-clamp-3 mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
-                      >
-                        {post?.title}
-                      </p>
-                      <div className="flex flex-row items-center justify-between my-[14px] mr-[10px] ">
+                      <div className="flex flex-col">
+                        <p
+                          className={`text-[14px] lg:text-[18px] line-clamp-3 mt-[10px] leading-[24px] lg:leading-[31px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
+                        >
+                          {post?.title}
+                        </p>
+                        <p
+                          className={`text-[13px] lg:text-[16px] line-clamp-2 mt-[4px] leading-[18px] lg:leading-[20px] font-[400] text-[#212121]/90 tracking-[-0.03em] ${satoshi.className}`}
+                        >
+                          {post?.description}
+                        </p>
+                      </div>
+                      <div className="flex flex-row items-center justify-between mt-[14px] mr-[10px] ">
                         <div className="flex items-center gap-3">
                           <BiMessage className="w-[12.8px] lg:w-[20px] h-[12px] lg:h-[18px] text-[#212121]/70" />
 

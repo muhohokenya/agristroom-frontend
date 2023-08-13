@@ -22,6 +22,7 @@ interface IProps {
 const DashHeader = ({ toggleSideNav }: IProps) => {
   const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
+  const user = useAppSelector((state) => state.currentUser);
   const [LoggedOut, setLoggedOut] = useState(false);
   const dispatch = useAppDispatch();
   const state = useAppSelector((state:RootState) => state.currentUser);
@@ -50,12 +51,11 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
       }
     };
     getUser();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     router.refresh()
-  },[])
-
+  },[router])
 
   return (
     <div className="fixed top-0 w-full bg-white z-[999] h-[77px] flex justify-between items-center border-b-2 border-slate-600/20 pt-[17px] px-[15px] lg:px-[30px] ">
@@ -108,7 +108,7 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
             <BiSolidUserCircle className="profile text-[#2F9B4E] w-10 h-10 " />
           </li>
 
-          {LoggedOut ? (
+          {user?.user === null && LoggedOut ? (
             <li
               onClick={() => {
                 setOpenModal(true);

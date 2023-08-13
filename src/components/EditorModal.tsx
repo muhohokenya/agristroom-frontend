@@ -19,7 +19,7 @@ const EditorModal = ({ route = "" }: Props) => {
   const router = useRouter();
   const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
   const user = useAppSelector((state) => state.currentUser);
-  const { proceed, setProceed } = useContext(ManagedUI);
+  const { proceed, setProceed, openModal, setOpenModal } = useContext(ManagedUI);
   const [savingPost, setSavingPost] = useState(false);
   const [title, setTitle] = useState<string>("")
   const [value, setValue] = useState<number>(0)
@@ -53,7 +53,9 @@ const EditorModal = ({ route = "" }: Props) => {
           description: "Please log in first to post a question",
           variant: "destructive",
         });
-        setOpenEditorModal(false);
+        // setOpenEditorModal(false);
+        router.push("/login");
+        setOpenModal(true)
       } else {
         setSavingPost(true);
         const data = {
@@ -83,7 +85,7 @@ const EditorModal = ({ route = "" }: Props) => {
     setValue(title.length)
     if (value >= 20) {
       setProceed(true)
-    }else{
+    } else {
       setProceed(false)
     }
     if (title.length >= 100) {

@@ -6,6 +6,7 @@ import { jost, satoshi } from "@/src/fonts/Fonts";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
 import { UseEditorModal } from "@/src/hooks/useEditorModalContext";
+import { ManagedUI } from "@/src/hooks/useModalContext";
 import { formatDate, formatDateToTime } from "@/src/lib/constants";
 import { getCurrentUser } from "@/src/redux/actions/auth.action";
 import { getOneQuestion } from "@/src/redux/actions/getOneQuestion.action";
@@ -84,6 +85,7 @@ function Page(props: Props) {
   const [posting, setPosting] = useState(false);
   const [replies, setReplies] = useState([]);
   const [loadingReplies, setLoadingReplies] = useState(true);
+  const { openModal, setOpenModal } = useContext(ManagedUI);
   const [state, setState] = useState<Answer>({
     text: "",
     post_id: 0,
@@ -160,6 +162,8 @@ function Page(props: Props) {
         description: "Please log in first to upVote",
         variant: "destructive",
       });
+      router.push("/login");
+      setOpenModal(true)
     } else {
       const data = {
         reply_id,
@@ -185,6 +189,8 @@ function Page(props: Props) {
         description: "Please log in first to upVote",
         variant: "destructive",
       });
+      router.push("/login");
+      setOpenModal(true)
     } else {
       const data = {
         reply_id,
@@ -205,33 +211,53 @@ function Page(props: Props) {
   }
 
   const upVotePost = async (post_id: number) => {
-    const data = {
-      post_id: post_id,
-      vote: 1
-    }
-    let resp: any = await dispatch(upVoteForQuestion(data))
-    if (resp?.payload.success) {
+    if (user?.user === null) {
       toast({
-        description: `Your up vote was successfully ${resp?.payload.response.response}`
-      })
-      let res: any = await dispatch(getOneQuestion(params.postId));
-      setPost(res?.payload?.post[0]);
+        description: "Please log in first to upVote",
+        variant: "destructive",
+      });
+      router.push("/login");
+      setOpenModal(true)
+
+    } else {
+      const data = {
+        post_id: post_id,
+        vote: 1
+      }
+      let resp: any = await dispatch(upVoteForQuestion(data))
+      if (resp?.payload.success) {
+        toast({
+          description: `Your up vote was successfully ${resp?.payload.response.response}`
+        })
+        let res: any = await dispatch(getOneQuestion(params.postId));
+        setPost(res?.payload?.post[0]);
+      }
     }
   }
 
   const downVotePost = async (post_id: number) => {
-    const data = {
-      post_id: post_id,
-      vote: -1
-    }
-    let resp: any = await dispatch(upVoteForQuestion(data))
-    if (resp?.payload.success) {
+    if (user?.user === null) {
       toast({
-        description: `Your down vote was successfully ${resp?.payload.response.response}`
-      })
-      let res: any = await dispatch(getOneQuestion(params.postId));
-      setPost(res?.payload?.post[0]);
+        description: "Please log in first to upVote",
+        variant: "destructive",
+      });
+      router.push("/login");
+      setOpenModal(true)
+    } else {
+      const data = {
+        post_id: post_id,
+        vote: -1
+      }
+      let resp: any = await dispatch(upVoteForQuestion(data))
+      if (resp?.payload.success) {
+        toast({
+          description: `Your down vote was successfully ${resp?.payload.response.response}`
+        })
+        let res: any = await dispatch(getOneQuestion(params.postId));
+        setPost(res?.payload?.post[0]);
+      }
     }
+
   }
 
   const [posts, setPosts] = useState<Post[]>([]);
