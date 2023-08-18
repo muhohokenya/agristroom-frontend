@@ -28,7 +28,7 @@ export default function Home() {
   const user = useAppSelector((state) => state.currentUser);
   const router = useRouter();
   const dispatch = useAppDispatch()
-  const {} = useGetCurrentUser()
+  useGetCurrentUser()
   const post = useAppSelector((state) => state.post);
 
   //state

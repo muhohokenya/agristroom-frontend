@@ -1,19 +1,19 @@
 "use client";
 
-import React, { useContext, useState } from "react";
-import { FaEyeSlash, FaSpinner } from "react-icons/fa";
-import Link from "next/link";
-import { MdClose } from "react-icons/md";
-import { useRouter, usePathname } from "next/navigation";
 import { Input } from "@/src/components/ui/Input";
-import { useAppDispatch } from "../hooks/react-redux-hooks";
-import { getCurrentUser, loginUserAction } from "../redux/actions/auth.action";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { satoshi } from "../fonts/Fonts";
-import { toast } from "../hooks/use-toast";
-import { ManagedUI } from "../hooks/useModalContext";
+import { FaEyeSlash, FaSpinner } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
 import { AuthStateContext } from "../context/auth";
+import { satoshi } from "../fonts/Fonts";
+import { useAppDispatch } from "../hooks/react-redux-hooks";
+import { toast } from "../hooks/use-toast";
 import { UseLoginModal } from "../hooks/useLoginModal";
+import { ManagedUI } from "../hooks/useModalContext";
+import { getCurrentUser, loginUserAction } from "../redux/actions/auth.action";
 
 type LoginInput = {
   email: string;
@@ -27,7 +27,7 @@ const Login = ({ route = "" }: { route: string }) => {
   const dispatch = useAppDispatch();
   const { setOpenModal } = useContext(ManagedUI);
   const { openLoginModal, setOpenLoginModal } = useContext(UseLoginModal);
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthStateContext);
+  const { setUser } = useContext(AuthStateContext);
   const { handleSubmit, register } = useForm<LoginInput>();
 
   // state
@@ -40,17 +40,21 @@ const Login = ({ route = "" }: { route: string }) => {
     localStorage.setItem("access_token", JSON.stringify(res.payload.login_token))
 
     if (res.payload.success) {
-      await dispatch(getCurrentUser())
-      setIsLoggedIn(true);
+      let res: any = await dispatch(getCurrentUser());
+      if (res?.payload?.success) {
+        setUser(res?.payload?.user)
+      }
       setIsSubmitting(false)
       toast({
         description: "successfully logged in",
         variant: "secondary"
       })
+      setOpenModal(false)
+      setOpenLoginModal(false)
       if (pathname === "/login") {
         router.push("/dashboard")
       } else if (pathname.includes("/dashboard/post")) {
-        setOpenLoginModal(false)
+        return
       } else {
         router.push(route)
       }
@@ -58,13 +62,11 @@ const Login = ({ route = "" }: { route: string }) => {
 
     if (!res.payload.success) {
       setIsSubmitting(false)
-      setIsLoggedIn(false)
       toast({
         title: "Login Fail",
         description: "Something went wrong check your credentials",
         variant: "destructive"
       })
-      router.refresh()
     }
   };
 

@@ -69,7 +69,7 @@ const EditorModal = ({ route = "" }: Props) => {
             description: "You Successfully posted a question",
             variant: "secondary",
           });
-          router.push(route)
+          // router.push(route)
         }
         setOpenEditorModal(false);
         setProceed(false);

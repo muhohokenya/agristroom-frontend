@@ -17,7 +17,7 @@ const useGetCurrentUser = () => {
         getUser();
     }, [dispatch]);
 
-    return { user, setUser }
+    return null
 }
 
 export default useGetCurrentUser

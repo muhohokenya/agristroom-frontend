@@ -12,7 +12,7 @@ interface Props {
 const inter = Inter({ subsets: ["latin"] });
 
 function Layout(props: Props) {
-  const {} = useGetCurrentUser()
+  useGetCurrentUser()
   const { children } = props;
 
   return <DashLayout>{children}</DashLayout>;

@@ -1,21 +1,14 @@
 "use client";
 
-import React, { useContext } from "react";
-import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
+import { useAuthState } from "@/src/context/auth";
 import { toast } from "@/src/hooks/use-toast";
-import {
-  getCurrentUser,
-  logoutUserAction,
-} from "@/src/redux/actions/auth.action";
+import { ManagedUI } from "@/src/hooks/useModalContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Tooltip } from "primereact/tooltip";
+import { useContext } from "react";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
-import { ManagedUI } from "@/src/hooks/useModalContext";
-import { RootState } from "@/src/redux";
-import { Tooltip } from "primereact/tooltip";
-import useGetCurrentUser from "@/src/context/current-user";
-import { AuthStateContext } from "@/src/context/auth";
 
 interface IProps {
   toggleSideNav?: () => void;
@@ -24,26 +17,18 @@ interface IProps {
 const DashHeader = ({ toggleSideNav }: IProps) => {
   const router = useRouter();
   const { setOpenModal } = useContext(ManagedUI);
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthStateContext);
-  const state = useAppSelector((state: RootState) => state.currentUser);
-  const { user } = useGetCurrentUser()
-  const dispatch = useAppDispatch();
+  const { user, setUser } = useAuthState();
 
   const logOut = async () => {
-    const res: any = await dispatch(logoutUserAction());
-    if (res.payload?.success) {
-      setIsLoggedIn(false)
-      await dispatch(getCurrentUser())
-      window.location.reload();
-      return true;
-    }
+    setUser(null)
+    localStorage.clear();
     toast({
       description: "You have successfully logged out!",
       variant: "secondary",
     });
   };
 
-  const nameInitials = `${state?.user?.first_name?.split('')[0]}${state?.user?.last_name?.split('')[0]}`
+  const nameInitials = `${user?.first_name?.split('')?.[0] || ""}${user?.last_name?.split('')?.[0] || ""}`
 
   return (
     <div className="fixed top-0 w-full bg-white z-[999] h-[77px] flex justify-between items-center border-b-2 border-slate-600/20 pt-[17px] px-[15px] lg:px-[30px] ">
@@ -93,9 +78,9 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
             Events
           </li>
           <li className=" cursor-pointer group relative flex items-center justify-center rounded-full  bg-[#DBF3D9] ">
-            {state?.user ? (
+            {user ? (
               <>
-                <Tooltip target=".custom-tooltip-btn">{state?.user !== null && state?.user !== undefined ? `${state?.user?.first_name} ${state?.user?.last_name}` : '...'}</Tooltip>
+                <Tooltip target=".custom-tooltip-btn">{user !== null && user !== undefined ? `${user?.first_name} ${user?.last_name}` : '...'}</Tooltip>
                 <span className="bg-[#DBF3D9] custom-tooltip-btn flex items-center justify-center font-[500] text-sm text-[#212121] h-9 w-9 py-2 px-2 rounded-full">{nameInitials}</span>
               </>
             ) : (
@@ -103,7 +88,7 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
             )}
           </li>
 
-          {state?.user === null && !isLoggedIn ? (
+          {user === null ? (
             <li
               onClick={() => {
                 setOpenModal(true);

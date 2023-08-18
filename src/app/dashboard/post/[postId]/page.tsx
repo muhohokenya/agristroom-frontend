@@ -1,11 +1,12 @@
 "use client";
 
 import EditorModal from "@/src/components/EditorModal";
-import useGetCurrentUser from "@/src/context/current-user";
+import LoginModal from "@/src/components/LoginModal";
 import { jost, satoshi } from "@/src/fonts/Fonts";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
 import { UseEditorModal } from "@/src/hooks/useEditorModalContext";
+import { UseLoginModal } from "@/src/hooks/useLoginModal";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import { formatDate, formatDateToTime } from "@/src/lib/constants";
 import { getOneQuestion } from "@/src/redux/actions/getOneQuestion.action";
@@ -14,18 +15,16 @@ import { getRepliesByPostId } from "@/src/redux/actions/getReplyByPostId";
 import { postAnswer } from "@/src/redux/actions/postAnswer.action";
 import { upVoteForQuestion, upVoteForReply } from "@/src/redux/actions/upvote";
 import { Post } from "@/src/types/types";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useContext, useEffect, useState } from "react";
-import { BsArrowLeftCircleFill, BsDot, BsFillExclamationCircleFill } from "react-icons/bs";
-import { FaRegUser, FaSpinner } from "react-icons/fa";
-import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
-import { useForm, Controller } from "react-hook-form";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import dynamic from "next/dynamic";
-import { UseLoginModal } from "@/src/hooks/useLoginModal";
-import LoginModal from "@/src/components/LoginModal";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { BsArrowLeftCircleFill, BsDot, BsFillExclamationCircleFill } from "react-icons/bs";
+import { FaRegUser, FaSpinner } from "react-icons/fa";
+import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 const { convert } = require('html-to-text');
 
 const Editor = dynamic(
@@ -98,8 +97,7 @@ function Page(props: Props) {
   const [replies, setReplies] = useState([]);
   const [loadingReplies, setLoadingReplies] = useState(true);
   const { openModal, setOpenModal } = useContext(ManagedUI);
-  const { openLoginModal, setOpenLoginModal} = useContext(UseLoginModal);
-  const { user } = useGetCurrentUser();
+  const { openLoginModal, setOpenLoginModal } = useContext(UseLoginModal);
 
   const defaultValues = {
     someText: "",
@@ -499,6 +497,16 @@ function Page(props: Props) {
                           toolbarClassName={`flex !justify-start mx-auto min-w-[345px] lg:min-w-[802px]`}
                           editorClassName="mt-1 shadow-sm  px-2 min-h-[200px] min-w-[345px] lg:max-w-[802px] mx-auto"
                           onEditorStateChange={field.onChange}
+                          toolbar={
+                            {
+                              options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'history'],
+                              inline: { inDropdown: true },
+                              list: { inDropdown: true },
+                              textAlign: { inDropdown: true },
+                              link: { inDropdown: true },
+                              history: { inDropdown: true },
+                            }
+                          }
                         />
                       );
                     }}
@@ -506,7 +514,7 @@ function Page(props: Props) {
                   <button
                     type="submit"
                     disabled={posting}
-                    className={`mt-[35px]  ${posting ? "bg-[#2F9B4E]/70 cursor-not-allowed" : "bg-[#2F9B4E] cursor-pointer"} ml-auto w-[144px] h-[50px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
+                    className={`my-[35px]  ${posting ? "bg-[#2F9B4E]/70 cursor-not-allowed" : "bg-[#2F9B4E] cursor-pointer"} ml-auto w-[144px] h-[50px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
                   >
                     {posting ? <FaSpinner className="animate-spin h-8 w-8 text-white" /> : "Post Answer"}
                   </button>
