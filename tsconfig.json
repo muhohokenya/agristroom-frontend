@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/signup/accountinformations", "src/components/Modal.jsx", "src/hooks/useModalContext.jsx", "src/components/Partners.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/signup/accountinformations", "src/components/Modal.jsx", "src/hooks/useModalContext.jsx", "src/components/Partners.jsx", "src/hooks/useLoginModal.jsx"],
   "exclude": ["node_modules"]
 }

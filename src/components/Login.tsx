@@ -1,58 +1,64 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook, FaEyeSlash, FaSpinner } from "react-icons/fa";
+import React, { useContext, useState } from "react";
+import { FaEyeSlash, FaSpinner } from "react-icons/fa";
 import Link from "next/link";
 import { MdClose } from "react-icons/md";
-import { useRouter } from "next/navigation";
-import Button from "@/src/components/ui/Button";
+import { useRouter, usePathname } from "next/navigation";
 import { Input } from "@/src/components/ui/Input";
-import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
-import { RootState } from "../redux";
+import { useAppDispatch } from "../hooks/react-redux-hooks";
 import { getCurrentUser, loginUserAction } from "../redux/actions/auth.action";
 import { useForm } from "react-hook-form";
 import { satoshi } from "../fonts/Fonts";
 import { toast } from "../hooks/use-toast";
 import { ManagedUI } from "../hooks/useModalContext";
-import { resetNotifications } from "../redux/features/error.reducer";
+import { AuthStateContext } from "../context/auth";
+import { UseLoginModal } from "../hooks/useLoginModal";
 
 type LoginInput = {
   email: string;
   password: string;
+
 };
 
-const Login = () => {
+const Login = ({ route = "" }: { route: string }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const dispatch = useAppDispatch();
   const { setOpenModal } = useContext(ManagedUI);
-  const { formState, handleSubmit, register } = useForm<LoginInput>();
+  const { openLoginModal, setOpenLoginModal } = useContext(UseLoginModal);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthStateContext);
+  const { handleSubmit, register } = useForm<LoginInput>();
 
   // state
   const [showPassword, setShowPassword] = useState(false);
-  const result = useAppSelector((state: RootState) => state.auth);
-  const error = useAppSelector((state: RootState) => state.notifications);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  
 
   const submitLogin = async (data: LoginInput) => {
     setIsSubmitting(true)
     const res: any = await dispatch(loginUserAction(data));
     localStorage.setItem("access_token", JSON.stringify(res.payload.login_token))
-    
-    if(res.payload.success){
+
+    if (res.payload.success) {
+      await dispatch(getCurrentUser())
+      setIsLoggedIn(true);
       setIsSubmitting(false)
       toast({
-        title: "successfully logged in",
-        description: "Being directed to dashboard",
+        description: "successfully logged in",
         variant: "secondary"
       })
-      setOpenModal(false)
-      router.push("/dashboard")
+      if (pathname === "/login") {
+        router.push("/dashboard")
+      } else if (pathname.includes("/dashboard/post")) {
+        setOpenLoginModal(false)
+      } else {
+        router.push(route)
+      }
     }
 
-    if(!res.payload.success){
+    if (!res.payload.success) {
       setIsSubmitting(false)
+      setIsLoggedIn(false)
       toast({
         title: "Login Fail",
         description: "Something went wrong check your credentials",
@@ -62,25 +68,18 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-  
-  },[])
-
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetNotifications({}));
-    };
-  }, [dispatch]);
- 
 
   return (
     <div className="relative flex flex-col items-center justify-center max-h-[550px] lg:max-h-[616px] mt-10 py-[40px] bg-white w-full max-w-[345px] lg:max-w-[474px] mx-auto rounded-md shadow-md">
       <MdClose
         className="absolute top-3 right-3 text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
         onClick={() => {
-          router.back();
-          setOpenModal(false)
+          if (pathname.includes("/dashboard/post")) {
+            setOpenLoginModal(false)
+          } else {
+            router.back();
+            setOpenModal(false)
+          }
         }}
       />
       <div className="flex mt-[30px]">
@@ -145,10 +144,10 @@ const Login = () => {
         <div className=" mt-[35px] flex items-center justify-center">
           <button
             type="submit"
-            disabled= {isSubmitting}
+            disabled={isSubmitting}
             className={` bg-[#2F9B4E] ${isSubmitting ? "cursor-not-allowed" : "cursor-pointer"} flex items-center justify-center gap-1 max-w-[315px] lg:min-w-[394px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
           >
-           {isSubmitting && <FaSpinner className="animate-spin max-h-8 max-w-8 mr-2 text-white" />} Log In
+            {isSubmitting && <FaSpinner className="animate-spin max-h-8 max-w-8 mr-2 text-white" />} Log In
           </button>
         </div>
       </form>

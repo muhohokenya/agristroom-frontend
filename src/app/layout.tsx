@@ -1,3 +1,4 @@
+
 import { Metadata } from "next";
 
 import "primereact/resources/themes/mdc-light-indigo/theme.css";
@@ -12,7 +13,13 @@ import FormProvider from "../context/formstate";
 import {
   UseEditorModalProvider,
 } from "../hooks/useEditorModalContext";
+import {
+  UseLoginModalProvider
+} from "../hooks/useLoginModal";
 import SearchProvider from "../context/SearchState";
+import AuthProvider from "../context/auth";
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -34,7 +41,6 @@ interface Props {
   modal: React.ReactNode;
 }
 
-
 export default function RootLayout({ children, modal }: Props) {
   return (
     <html lang="en">
@@ -45,12 +51,16 @@ export default function RootLayout({ children, modal }: Props) {
           <Providers>
             <ManagedUIProvider>
               <UseEditorModalProvider>
+                <UseLoginModalProvider>
                 <FormProvider>
                   <SearchProvider>
+                    <AuthProvider>
                     {children}
                     {modal}
+                    </AuthProvider>
                   </SearchProvider>
                 </FormProvider>
+                </UseLoginModalProvider>
               </UseEditorModalProvider>
             </ManagedUIProvider>
           </Providers>

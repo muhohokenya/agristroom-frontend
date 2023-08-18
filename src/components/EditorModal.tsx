@@ -1,4 +1,4 @@
-import React, { SetStateAction, useContext, useEffect, useState } from "react";
+import React, {  useContext, useEffect, useState } from "react";
 import TextEditor from "./ui/TextEditor";
 import ModalEditor from "./ModalEditor";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
@@ -17,7 +17,7 @@ type Props = {
 const EditorModal = ({ route = "" }: Props) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
+  const { setOpenEditorModal } = useContext(UseEditorModal);
   const user = useAppSelector((state) => state.currentUser);
   const { proceed, setProceed, openModal, setOpenModal } = useContext(ManagedUI);
   const [savingPost, setSavingPost] = useState(false);

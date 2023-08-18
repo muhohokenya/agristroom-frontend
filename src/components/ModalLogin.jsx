@@ -1,21 +1,21 @@
 "use client";
 
 import React, { useContext, useRef } from "react";
-import { UseEditorModal } from "../hooks/useEditorModalContext";
+import { UseLoginModal } from "../hooks/useLoginModal";
 import { createPortal } from "react-dom";
 
-function ModalEditor(props) {
+function ModalLogin(props) {
   const { children } = props;
-  const { openEditorModal, setOpenEditorModal} = useContext(UseEditorModal);
+  const { openLoginModal, setOpenLoginModal} = useContext(UseLoginModal);
   const modalRef = useRef();
 
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setOpenEditorModal(false);
+      setOpenLoginModal(false);
     }
   };
 
-  if (openEditorModal) {
+  if (openLoginModal) {
     return createPortal(
       <div
         ref={modalRef}
@@ -31,4 +31,4 @@ function ModalEditor(props) {
   return <></>;
 }
 
-export default ModalEditor;
+export default ModalLogin;
