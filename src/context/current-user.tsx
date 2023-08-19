@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react';
 import { useAppDispatch } from '../hooks/react-redux-hooks';
 import { getCurrentUser } from '../redux/actions/auth.action';
 import { AuthStateContext } from './auth';

@@ -1,5 +1,5 @@
 "use client";
-import {DashLayout} from "@/src/components/layouts/dashboard/dash-layout";
+import { DashLayout } from "@/src/components/layouts/dashboard/dash-layout";
 import useGetCurrentUser from "@/src/context/current-user";
 import { Inter } from "next/font/google";
 import React from "react";
