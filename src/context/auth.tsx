@@ -1,5 +1,5 @@
 "use client"
-import React, { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
+import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
 
 interface User {
     first_name: string;
@@ -19,7 +19,7 @@ type AuthContextValue = {
 const AuthContextDefaultValue: AuthContextValue = {
     isLoggedIn: false,
     user: null,
-    setUser: () => {},
+    setUser: () => { },
     setIsLoggedIn: (boolean) => boolean
 }
 
@@ -28,15 +28,14 @@ export const AuthStateContext = createContext(AuthContextDefaultValue);
 const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(AuthContextDefaultValue.isLoggedIn)
     const [user, setUser] = useState(AuthContextDefaultValue.user)
-    
     return (
-        <AuthStateContext.Provider value={{isLoggedIn, setIsLoggedIn, user, setUser}}>
+        <AuthStateContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
             {children}
         </AuthStateContext.Provider>
     )
 }
 
-export const useAuthState = () =>  useContext(AuthStateContext);
+export const useAuthState = () => useContext(AuthStateContext);
 
 export function useFormContext() {
     const context = useContext(AuthStateContext)
