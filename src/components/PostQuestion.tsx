@@ -26,6 +26,7 @@ export const PostQuestion = () => {
   const buttonRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch();
   const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
+  const _state = useAppSelector((state) => state.currentUser);
   const { openModal, setOpenModal } = useContext(ManagedUI);
   const post = useAppSelector((state) => state.post);
 
@@ -140,7 +141,16 @@ export const PostQuestion = () => {
         </div>
         <button
           onClick={() => {
-            setOpenEditorModal(true);
+            if (_state?.user === null) {
+              toast({
+                description: "Please log in to post a question ",
+                variant: "destructive",
+              });
+              setOpenModal(true);
+              router.push("/login")
+            } else {
+              setOpenEditorModal(true);
+            }
           }}
           type="button"
           className={`mt-[15px] bg-[#2F9B4E] ml-0 lg:ml-[70px]  w-[144px] h-[44px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
@@ -188,7 +198,7 @@ export const PostQuestion = () => {
                 </div>
               </div>
             )}
-            <div className="flex flex-col mt-[15px] gap-[15px] w-full h-[600px] pb-[15px]  no-scrollbar overflow-auto">
+            <div className="flex flex-col mt-[15px] gap-[15px] w-full h-[800px] pb-[15px]  no-scrollbar overflow-auto">
               {filteredPosts?.map((post, indx) => {
                 return (
                   <div

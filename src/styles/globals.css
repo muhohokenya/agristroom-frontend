@@ -120,20 +120,24 @@
 }
 
 .fade-in-image2{
-  animation: fadeIn2 5s;
+  animation: fadeIn2 10s;
   animation-iteration-count: infinite;
   animation-delay: 75s;
 }
 .fade-in-image3{
-  animation: fadeIn3 5s;
+  animation: fadeIn3 15s;
   animation-iteration-count: infinite;
-  animation-delay: 105s;
+  animation-delay: 100s;
+}
+.fade-in-image4{
+  animation: fadeIn4 20s;
+  animation-iteration-count: infinite;
+  animation-delay: 150s;
 }
 
 @keyframes fadeIn {
   0% {
     opacity: 0;
-
   }
   25% {
    opacity: 0.25;
@@ -147,22 +151,46 @@
 }
 @keyframes fadeIn2 {
 
+  0% {
+    opacity: 0;
+  }
   25% {
-   opacity: 0;
+   opacity: 0.25;
   }
   50% {
    opacity: 0.5;
   }
   75% {
-  opacity: 0.75;
+  opacity: 1;
   }
-  100% {opacity: 1;}
 }
 @keyframes fadeIn3 {
-  75% {
-  opacity: 0;
+  0% {
+    opacity: 0;
   }
-  100% {opacity: 1;}
+  25% {
+   opacity: 0.25;
+  }
+  50% {
+   opacity: 0.5;
+  }
+  75% {
+  opacity: 1;
+  }
+}
+@keyframes fadeIn4 {
+  0% {
+    opacity: 0;
+  }
+  25% {
+   opacity: 0.25;
+  }
+  50% {
+   opacity: 0.5;
+  }
+  75% {
+  opacity: 1;
+  }
 }
 
 .ql-editor.ql-blank{

@@ -1,26 +1,38 @@
 "use client";
 
 import EditorModal from "@/src/components/EditorModal";
-import TextEditor from "@/src/components/ui/TextEditor";
+import LoginModal from "@/src/components/LoginModal";
 import { jost, satoshi } from "@/src/fonts/Fonts";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
 import { UseEditorModal } from "@/src/hooks/useEditorModalContext";
+import { UseLoginModal } from "@/src/hooks/useLoginModal";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import { formatDate, formatDateToTime } from "@/src/lib/constants";
-import { getCurrentUser } from "@/src/redux/actions/auth.action";
 import { getOneQuestion } from "@/src/redux/actions/getOneQuestion.action";
 import { getPosts } from "@/src/redux/actions/getPosts.action";
 import { getRepliesByPostId } from "@/src/redux/actions/getReplyByPostId";
 import { postAnswer } from "@/src/redux/actions/postAnswer.action";
 import { upVoteForQuestion, upVoteForReply } from "@/src/redux/actions/upvote";
 import { Post } from "@/src/types/types";
+import { EditorState, convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { SetStateAction, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsDot, BsFillExclamationCircleFill } from "react-icons/bs";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
+const { convert } = require('html-to-text');
+
+const Editor = dynamic(
+  () => import("react-draft-wysiwyg").then((module) => module.Editor),
+  {
+    ssr: false,
+  }
+);
 
 interface Props {
   params: {
@@ -57,11 +69,11 @@ function Page(props: Props) {
   const { params } = props;
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.currentUser);
+  const _state = useAppSelector((state) => state.currentUser);
   const answer = useAppSelector((state) => state.answerCreated);
-  const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
+  const { setOpenEditorModal } = useContext(UseEditorModal);
   const answers = useAppSelector((state) => state.replies);
-
+  const [posts, setPosts] = useState<Post[]>([]);
   const [post, setPost] = useState<SinglePost>({
     id: 0,
     image: "",
@@ -80,57 +92,63 @@ function Page(props: Props) {
       phone_number: "",
     },
   });
-  const [showSideNav, setShowSideNav] = useState(false);
   const [loading, setLoading] = useState(true);
   const [posting, setPosting] = useState(false);
   const [replies, setReplies] = useState([]);
   const [loadingReplies, setLoadingReplies] = useState(true);
   const { openModal, setOpenModal } = useContext(ManagedUI);
-  const [state, setState] = useState<Answer>({
-    text: "",
-    post_id: 0,
+  const { openLoginModal, setOpenLoginModal } = useContext(UseLoginModal);
+
+  const defaultValues = {
+    someText: "",
+    someDraft: EditorState.createEmpty()
+  };
+
+  const { handleSubmit, control, reset } = useForm({
+    defaultValues
   });
 
-  const toggleSideNav = () => {
-    setShowSideNav(!showSideNav);
-  };
-
-  const callback = (payload: string) => {
-    setState({
-      text: payload,
-      post_id: params.postId,
-    });
-  };
-
-  const submitAnswer = async () => {
-    setPosting(true)
+  const onSubmit = async ({ someDraft }: { someDraft: any }) => {
+    const _someDraft = draftToHtml(convertToRaw(someDraft.getCurrentContent()));
+    const text = convert(_someDraft, { wordwrap: 130 })
+    const state = {
+      text: text,
+      post_id: params.postId
+    }
     try {
-      let res: any = await dispatch(postAnswer(state));
-      if (res?.payload?.success) {
-        setPosting(false)
-        dispatch(getRepliesByPostId(params.postId));
+      if (_state?.user === null) {
         toast({
-          description: "You successfully posted your Answer",
-          variant: "primary"
-        })
+          description: "Please log in to submit your answer ",
+          variant: "secondary",
+        });
+        setOpenLoginModal(true)
+      } else if (state.text === "") {
+        toast({
+          description: "Can not post an empty answer ",
+          variant: "secondary",
+        });
+      } else {
+        setPosting(true)
+        let res: any = await dispatch(postAnswer(state));
+        if (res?.payload?.success) {
+          setPosting(false)
+          dispatch(getRepliesByPostId(params.postId));
+          toast({
+            description: "You successfully posted your Answer",
+            variant: "secondary"
+          })
+          reset(defaultValues);
+        }
       }
-    } catch (error) {
-      console.log("error", error);
+    } catch {
+      setPosting(false)
+    } finally {
       setPosting(false)
     }
+
   };
 
-  useEffect(() => {
-    const getUser = async () => {
-      let res: any = await dispatch(getCurrentUser());
-      if (res?.payload?.success) {
-        // setLoggedOut(false);
-      } else {
-        // setLoggedOut(true);
-      }
-    };
-    getUser();
-  }, []);
+  const onError = (data: any) => console.log("err: ", data);
 
   useEffect(() => {
     const fetchOnePost = async () => {
@@ -157,13 +175,12 @@ function Page(props: Props) {
   }, [answer, dispatch, params.postId])
 
   const upVoteReply = async (reply_id: number) => {
-    if (user?.user === null) {
+    if (_state?.user === null) {
       toast({
         description: "Please log in first to upVote",
         variant: "destructive",
       });
-      router.push("/login");
-      setOpenModal(true)
+      setOpenLoginModal(true)
     } else {
       const data = {
         reply_id,
@@ -184,13 +201,12 @@ function Page(props: Props) {
   }
 
   const downVoteReply = async (reply_id: number) => {
-    if (user?.user === null) {
+    if (_state?.user === null) {
       toast({
         description: "Please log in first to upVote",
         variant: "destructive",
       });
-      router.push("/login");
-      setOpenModal(true)
+      setOpenLoginModal(true)
     } else {
       const data = {
         reply_id,
@@ -211,13 +227,12 @@ function Page(props: Props) {
   }
 
   const upVotePost = async (post_id: number) => {
-    if (user?.user === null) {
+    if (_state?.user === null) {
       toast({
         description: "Please log in first to upVote",
         variant: "destructive",
       });
-      router.push("/login");
-      setOpenModal(true)
+      setOpenLoginModal(true)
 
     } else {
       const data = {
@@ -236,13 +251,12 @@ function Page(props: Props) {
   }
 
   const downVotePost = async (post_id: number) => {
-    if (user?.user === null) {
+    if (_state?.user === null) {
       toast({
         description: "Please log in first to upVote",
         variant: "destructive",
       });
-      router.push("/login");
-      setOpenModal(true)
+      setOpenLoginModal(true)
     } else {
       const data = {
         post_id: post_id,
@@ -260,7 +274,7 @@ function Page(props: Props) {
 
   }
 
-  const [posts, setPosts] = useState<Post[]>([]);
+
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -271,7 +285,6 @@ function Page(props: Props) {
     };
     fetchPost();
   }, []);
-
 
   if (loading) {
     return (
@@ -333,7 +346,15 @@ function Page(props: Props) {
         </div>
         <button
           onClick={() => {
-            setOpenEditorModal(true);
+            if (_state?.user === null) {
+              toast({
+                description: "Please log in to post a question ",
+                variant: "destructive",
+              });
+              setOpenLoginModal(true);
+            } else {
+              setOpenEditorModal(true);
+            }
           }}
           className="h-[44px] ml-auto mt-2 whitespace-nowrap w-[151px] bg-[#2F9B4E] rounded-[5px] py-[14px] px-[24px] font-[700] text-[16px] leading-[22px] tracking-[-0.04em] text-[#FFFFFF]"
         >
@@ -460,17 +481,44 @@ function Page(props: Props) {
                 >
                   Submit Your Answer
                 </h1>
-                <div className=" flex  items-end border border-slate-300 ">
-                  <TextEditor callback={callback} />
-                </div>
-                <button
-                  type="button"
-                  disabled={posting}
-                  onClick={submitAnswer}
-                  className={`mt-[35px]  ${posting ? "bg-[#2F9B4E]/70 cursor-not-allowed" : "bg-[#2F9B4E] cursor-pointer"} ml-auto w-[144px] h-[50px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
-                >
-                  {posting ? <FaSpinner className="animate-spin h-8 w-8 text-white" /> : "Post Answer"}
-                </button>
+                <form action="" onSubmit={handleSubmit(onSubmit, onError)} className=" flex flex-col items-end">
+                  <Controller
+                    name="someDraft"
+                    control={control}
+                    render={({ field }) => {
+                      return (
+                        <Editor
+                          editorStyle={{
+                            padding: "0px 10px 10px",
+                            height: "200px"
+                          }}
+                          editorState={field.value}
+                          wrapperClassName="wrapper-class"
+                          toolbarClassName={`flex !justify-start mx-auto min-w-[345px] lg:min-w-[802px]`}
+                          editorClassName="mt-1 shadow-sm  px-2 min-h-[200px] min-w-[345px] lg:max-w-[802px] mx-auto"
+                          onEditorStateChange={field.onChange}
+                          toolbar={
+                            {
+                              options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'history'],
+                              inline: { inDropdown: true },
+                              list: { inDropdown: true },
+                              textAlign: { inDropdown: true },
+                              link: { inDropdown: true },
+                              history: { inDropdown: true },
+                            }
+                          }
+                        />
+                      );
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    disabled={posting}
+                    className={`my-[35px]  ${posting ? "bg-[#2F9B4E]/70 cursor-not-allowed" : "bg-[#2F9B4E] cursor-pointer"} ml-auto w-[144px] h-[50px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
+                  >
+                    {posting ? <FaSpinner className="animate-spin h-8 w-8 text-white" /> : "Post Answer"}
+                  </button>
+                </form>
               </div>
             </div>
           </div>
@@ -522,6 +570,9 @@ function Page(props: Props) {
                 return (
                   <p
                     key={post?.id}
+                    onClick={() => {
+                      router.push(`/dashboard/post/${post.id}`)
+                    }}
                     className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
                   >
                     <span>🍎</span>
@@ -534,6 +585,7 @@ function Page(props: Props) {
           </div>
         </div>
       </div>
+      <LoginModal />
       <EditorModal route="/dashboard" />
     </div>
   );

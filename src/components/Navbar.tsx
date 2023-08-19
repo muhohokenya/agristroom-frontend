@@ -1,17 +1,12 @@
 "use client";
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ManagedUI } from "../hooks/useModalContext";
 import { useRouter } from "next/navigation";
-import { BsSearch } from "react-icons/bs";
-import SearchComponent from "./SearchComponent";
-import { SearchContext } from "../context/SearchState";
-interface Props { }
 
-function Navbar(props: Props) {
-  const { } = props;
+function Navbar() {
   const router = useRouter();
   const [showSideNav, setShowSideNav] = useState(false);
   const { openModal, setOpenModal } = useContext(ManagedUI);
