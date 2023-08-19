@@ -125,7 +125,7 @@ function Page(props: Props) {
       } else if (state.text === "") {
         toast({
           description: "Can not post an empty answer ",
-          variant: "primary",
+          variant: "secondary",
         });
       } else {
         setPosting(true)
@@ -135,7 +135,7 @@ function Page(props: Props) {
           dispatch(getRepliesByPostId(params.postId));
           toast({
             description: "You successfully posted your Answer",
-            variant: "primary"
+            variant: "secondary"
           })
           reset(defaultValues);
         }

@@ -18,7 +18,6 @@ import { getCurrentUser, loginUserAction } from "../redux/actions/auth.action";
 type LoginInput = {
   email: string;
   password: string;
-
 };
 
 const Login = ({ route = "" }: { route: string }) => {

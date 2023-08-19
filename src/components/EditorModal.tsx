@@ -1,20 +1,21 @@
-import React, {  useContext, useEffect, useState } from "react";
-import TextEditor from "./ui/TextEditor";
-import ModalEditor from "./ModalEditor";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
-import { postQuestion } from "../redux/actions/postQuestion.action";
 import { toast } from "../hooks/use-toast";
-import { useRouter } from "next/navigation";
 import { UseEditorModal } from "../hooks/useEditorModalContext";
-import { getCurrentUser } from "../redux/actions/auth.action";
 import { ManagedUI } from "../hooks/useModalContext";
+import { getCurrentUser } from "../redux/actions/auth.action";
+import { postQuestion } from "../redux/actions/postQuestion.action";
+import ModalEditor from "./ModalEditor";
 import Progress from "./ProgressBar";
+import TextEditor from "./ui/TextEditor";
 
 type Props = {
   route?: string;
 }
 
 const EditorModal = ({ route = "" }: Props) => {
+  const pathname = usePathname();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { setOpenEditorModal } = useContext(UseEditorModal);
@@ -63,13 +64,19 @@ const EditorModal = ({ route = "" }: Props) => {
           description: state.description
         }
         const res: any = await dispatch(postQuestion(data));
+        const returnedPost = res?.payload?.result?.data[0];
         if (res.payload.success) {
           setSavingPost(false);
           toast({
             description: "You Successfully posted a question",
             variant: "secondary",
           });
-          // router.push(route)
+          if (pathname.includes("/dashboard/post/")) {
+            router.replace(`/dashboard/post/${returnedPost?.id}`)
+          } else {
+            setOpenEditorModal(false);
+            return
+          }
         }
         setOpenEditorModal(false);
         setProceed(false);

@@ -1,26 +1,26 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
-import { MdArrowForwardIos } from "react-icons/md";
-import { jost, satoshi } from "../fonts/Fonts";
-import { Footer } from "../components/Footer";
-import { DiscussionCard } from "../components/DiscussionCard";
-import Navbar from "../components/Navbar";
-import { Card, Guide, MasterClass, Post } from "../types/types";
-import { cards, guides, masterClassesData } from "../lib/data/data";
-import ResponsiveDemo from "../components/carousel/CarouselDemo";
-import { ManagedUI } from "../hooks/useModalContext";
-import { useRouter } from "next/navigation";
-import { LikesViews } from "../components/LikesViews";
-import { SlotsLeft } from "../components/SlotsLeft";
-import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
-import { getPosts } from "../redux/actions/getPosts.action";
-import { SearchContext } from "../context/SearchState";
-import { FaSpinner } from "react-icons/fa";
-import { BsFillExclamationCircleFill } from "react-icons/bs";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
+import { BsFillExclamationCircleFill } from "react-icons/bs";
+import { FaSpinner } from "react-icons/fa";
+import { MdArrowForwardIos } from "react-icons/md";
+import { DiscussionCard } from "../components/DiscussionCard";
+import { Footer } from "../components/Footer";
+import { LikesViews } from "../components/LikesViews";
+import Navbar from "../components/Navbar";
+import { SlotsLeft } from "../components/SlotsLeft";
+import ResponsiveDemo from "../components/carousel/CarouselDemo";
+import { SearchContext } from "../context/SearchState";
 import useGetCurrentUser from "../context/current-user";
+import { jost, satoshi } from "../fonts/Fonts";
+import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
+import { ManagedUI } from "../hooks/useModalContext";
+import { cards, guides, masterClassesData } from "../lib/data/data";
+import { getPosts } from "../redux/actions/getPosts.action";
+import { Card, Guide, MasterClass, Post } from "../types/types";
 
 export default function Home() {
   const { setSearchedValue } = useContext(SearchContext);
@@ -85,8 +85,8 @@ export default function Home() {
   }
 
   useEffect(() => {
-   router.refresh()
-  },[router, user?.user])
+    router.refresh()
+  }, [router, user?.user])
 
   return (
     <main>
@@ -225,7 +225,7 @@ export default function Home() {
 
       <div className="w-full bg-[#2F9B4E]">
         <div className="max-w-[1440px] mx-auto w-full">
-          <div className="grid grid-cols-2 lg:grid-cols-4 items-center justify-center gap-4 min-h-[223px] py-[40px] lg:py-0">
+          <div className="grid grid-cols-2 md:grid-cols-4 items-center justify-center gap-4 min-h-[223px] py-[40px] lg:py-0">
             <div className="flex flex-col items-center justify-center w-full">
               <span
                 className={`text-[34px]  leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
