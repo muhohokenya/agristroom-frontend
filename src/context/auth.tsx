@@ -28,7 +28,6 @@ export const AuthStateContext = createContext(AuthContextDefaultValue);
 const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(AuthContextDefaultValue.isLoggedIn)
     const [user, setUser] = useState(AuthContextDefaultValue.user)
-
     return (
         <AuthStateContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
             {children}
