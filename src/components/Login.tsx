@@ -20,7 +20,11 @@ type LoginInput = {
   password: string;
 };
 
-const Login = ({ route = "" }: { route: string }) => {
+type Props = {
+  route?: string
+}
+
+const Login = ({ route = "" }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useAppDispatch();
