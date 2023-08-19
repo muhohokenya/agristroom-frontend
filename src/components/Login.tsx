@@ -29,7 +29,7 @@ const Login = ({ route = "" }: Props) => {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
   const { setOpenModal } = useContext(ManagedUI);
-  const { openLoginModal, setOpenLoginModal } = useContext(UseLoginModal);
+  const { setOpenLoginModal } = useContext(UseLoginModal);
   const { setUser } = useContext(AuthStateContext);
   const { handleSubmit, register } = useForm<LoginInput>();
 
