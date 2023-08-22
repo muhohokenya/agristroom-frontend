@@ -1,7 +1,7 @@
 "use client";
 
-import EditorModal from "@/src/components/EditorModal";
-import LoginModal from "@/src/components/LoginModal";
+import LoginModal from "@/src/components/auth/LoginModal";
+import EditorModal from "@/src/components/modals/EditorModal";
 import { jost, satoshi } from "@/src/fonts/Fonts";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
