@@ -109,10 +109,10 @@ export default function Home() {
                 Every farmer needs a community for a successful farming venture
               </p>
               <Link
-                href="/signup"
+                href="/auth/signup"
                 onClick={() => {
                   setOpenModal(true);
-                  router.push("/signup");
+                  router.push("/auth/signup");
                 }}
                 className={`bg-[#2F9B4E] w-fit cursor-pointer rounded-md py-[14px] px-[24px] flex items-center justify-center mt-[40px] text-white text-center text-[16px] tracking-[-0.04em] leading-[22px] font-[700]  ${satoshi.className}`}
               >

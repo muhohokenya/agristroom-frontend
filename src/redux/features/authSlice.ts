@@ -8,6 +8,7 @@ interface IAccessToken {
 
 const initialState = {
   access_token: {} as IAccessToken | null,
+  result: {} as string | null,
   loading: false,
 };
 
@@ -26,11 +27,11 @@ export const authSlice = createSlice({
       state.loading = true;
       state.access_token = null;
     });
-    builder.addCase(loginUserAction.pending, (state, action) => {
+    builder.addCase(loginUserAction?.pending, (state, action) => {
       state.loading = true;
       state.access_token = null;
     });
-   
+
     // fullied
     builder.addCase(signUpUserAction?.fulfilled, (state, action) => {
       state.loading = false;
@@ -53,7 +54,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const {logoutUserSuccess} = authSlice.actions;
+export const { logoutUserSuccess } = authSlice.actions;
 const { reducer } = authSlice;
 
 export default reducer;

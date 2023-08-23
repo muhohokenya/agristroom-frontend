@@ -1,15 +1,17 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import errorReducer from "./error.reducer";
 import reducer from "./authSlice";
 import CurrentUserSlice from "./currentUserSlice";
-import getInterestsSlice from "./interestsSlice";
+import errorReducer from "./error.reducer";
+import getOneQuestionSlice from "./getOneQuestionSlice";
 import getPosts from "./getPostsSlice";
-import postQuestion  from "./postQuestion.Slice";
-import  getOneQuestionSlice  from "./getOneQuestionSlice";
-import  postAnswerSlice  from "./postAnswerSlice";
 import getRepliesByPostId from "./getReplyBtPostIdSlice";
-import upvoteReply from "./upVoteForReplySlice";
+import getInterestsSlice from "./interestsSlice";
+import postAnswerSlice from "./postAnswerSlice";
+import postQuestion from "./postQuestion.Slice";
+import requestPasswordReset from "./requestPasswordRequest";
+import resetPasswordRequest from "./resetPassword";
 import upvotePost from "./upVoteForPostSlice";
+import upvoteReply from "./upVoteForReplySlice";
 
 
 export const rootReducer = combineReducers({
@@ -21,6 +23,8 @@ export const rootReducer = combineReducers({
     onePost: getOneQuestionSlice,
     answerCreated: postAnswerSlice,
     posts: getPosts,
+    resetPassword: resetPasswordRequest,
+    requestPasswordReset: requestPasswordReset,
     upvoteForReply: upvoteReply,
     upvoteForPost: upvotePost,
     replies: getRepliesByPostId
