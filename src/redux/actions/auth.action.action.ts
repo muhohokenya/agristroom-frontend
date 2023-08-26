@@ -102,7 +102,7 @@ export const resetPassword = createAsyncThunk(
   "reset/password",
   async (data: {
     password: string,
-    confirmPassword: string,
+    password_confirmation: string,
     token: string
   }, thunkAPI) => {
     try {

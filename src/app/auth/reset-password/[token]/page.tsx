@@ -3,6 +3,7 @@ import Navbar from "@/src/components/Navbar";
 import { Input } from "@/src/components/ui/Input";
 import { satoshi } from "@/src/fonts/Fonts";
 import { useAppDispatch } from "@/src/hooks/react-redux-hooks";
+import { toast } from "@/src/hooks/use-toast";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import { resetPassword } from "@/src/redux/actions/auth.action.action";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,7 +16,7 @@ import * as Yup from 'yup';
 
 interface ResetPassword {
     password: string
-    confirmPassword: string
+    password_confirmation: string
 }
 
 
@@ -24,7 +25,7 @@ const formSchema = Yup.object().shape({
         .required("Password is required")
         .min(4, "Password length should be at least 4 characters")
         .max(12, "Password cannot exceed more than 12 characters"),
-    confirmPassword: Yup.string()
+    password_confirmation: Yup.string()
         .required("Confirm Password is required")
         .min(4, "Password length should be at least 4 characters")
         .max(12, "Password cannot exceed more than 12 characters")
@@ -46,12 +47,16 @@ const Page = ({ params }: { params: { token: string } }) => {
         setIsSubmitting(true);
         const res: any = await dispatch(resetPassword({
             password: data.password,
-            confirmPassword: data.confirmPassword,
+            password_confirmation: data.password_confirmation,
             token: params?.token
         }));
         if (res?.payload?.success) {
             router.push("/dashboard")
             setIsSubmitting(false)
+            toast({
+                title: "You have successfully reset your password",
+                variant: "secondary"
+            })
         }
         setIsSubmitting(false)
     };
@@ -102,7 +107,7 @@ const Page = ({ params }: { params: { token: string } }) => {
                                         type={showPassword ? "text" : "password"}
                                         placeholder="Confirm your new password"
                                         className="focus-visible:ring-[#2F9B4E] w-[350px]"
-                                        {...register("confirmPassword", { required: true })}
+                                        {...register("password_confirmation", { required: true })}
                                     />
                                     <span className="flex items-start justify-end absolute cursor-pointer right-3">
                                         <FaEyeSlash
@@ -113,14 +118,14 @@ const Page = ({ params }: { params: { token: string } }) => {
                                         />
                                     </span>
                                 </div>
-                                {errors.confirmPassword && errors.confirmPassword.type === "required" && (
+                                {errors.password_confirmation && errors.password_confirmation.type === "required" && (
                                     <span className="text-red-400 text-[12px] mt-1 w-full">
                                         Confirm Password is required
                                     </span>
                                 )}
-                                {errors.confirmPassword?.message && (
+                                {errors.password_confirmation?.message && (
                                     <span className="text-red-400 text-[12px] mt-1 w-full">
-                                        {errors.confirmPassword?.message}
+                                        {errors.password_confirmation?.message}
                                     </span>
                                 )}
                             </div>

@@ -1,7 +1,7 @@
 import Navbar from "@/src/components/Navbar";
 import Login from "@/src/components/auth/Login";
 
-const page = () => {
+function LoginPage() {
   return (
     <div className="min-h-[100vh] bg-zinc-200 flex items-center justify-center">
       <Navbar />
@@ -10,4 +10,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default LoginPage;
