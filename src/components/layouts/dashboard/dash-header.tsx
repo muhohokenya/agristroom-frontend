@@ -92,7 +92,7 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
             <li
               onClick={() => {
                 setOpenModal(true);
-                router.push("/login");
+                router.push("/auth/login");
               }}
               className="text-[16px] bg-[#DBF3D9] py-2 px-[10px] rounded-md text-[#2F9B4E] flex items-center justify-center gap-[10px] leading-[18.9px] font-[500] cursor-pointer tracking-[-0.04em]"
             >

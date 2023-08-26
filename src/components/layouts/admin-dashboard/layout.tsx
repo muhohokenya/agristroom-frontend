@@ -1,35 +1,35 @@
 
 "use client"
-import React from "react";
-import { SidebarMenu } from "./components/sidebar-menu";
-import { TopBar } from "./components/top-bar";
-import { MAIN_CONTENT_ID, SIDEBAR_ID } from "@/src/lib/constants";
 import { AdminDashboardLayoutProvider } from "@/src/context/admin-dashboard";
-const AppLayout = ({children}: {children: React.ReactNode}) => {
+import React, { useState } from "react";
+import { NavigationBar } from "./components/navigation-bar";
+import { SidebarMenu } from "./components/sidebar-menu";
+
+
+const AppLayout = ({ children }: { children: React.ReactNode }) => {
+    const [openSideBar, setOpenSideBar] = useState(false);
+
+    const toggleSideNav = () => {
+        console.log('====================================');
+        console.log("toggling");
+        console.log('====================================');
+        setOpenSideBar(!openSideBar);
+    }
+
     return (
-        <>
-            <div className="fixed w-full z-10 top-0">
-                <TopBar />
+        <div className=" w-full max-h-screen overflow-hidden  ">
+            <NavigationBar toggleSideNav={toggleSideNav} />
+            <div className="flex overflow-hidden ">
+                <SidebarMenu setOpenSideBar={setOpenSideBar} openSideBar={openSideBar} />
+                <div className={`flex-1 h-[calc(100vh-77px)] light-scrollbar overflow-y-auto overflow-x-hidden`}>
+                    {children}
+                </div>
             </div>
-            <main className="flex fixed top-14 w-full h-[100vh]">
-                <div className='app-sidebar active' id={SIDEBAR_ID} data-testid='test-id__sidebar'>
-                    <SidebarMenu />
-                </div>
-                <div className='app-content w-full' id={MAIN_CONTENT_ID}>
-                    <div className="content-wrapper w-full">
-                        <div className="grid w-full">
-                            <div className="w-full col-12">
-                                {children}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </>
+        </div>
     )
 }
 
-const AdminDashboardLayoutContainer = ({ children }: { children: React.ReactNode }) =>  {
+const AdminDashboardLayoutContainer = ({ children }: { children: React.ReactNode }) => {
     return (
         <AdminDashboardLayoutProvider>
             <AppLayout>{children}</AppLayout>
@@ -37,4 +37,5 @@ const AdminDashboardLayoutContainer = ({ children }: { children: React.ReactNode
     )
 }
 
-export { AdminDashboardLayoutContainer }
+export { AdminDashboardLayoutContainer };
+

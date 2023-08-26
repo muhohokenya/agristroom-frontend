@@ -3,13 +3,10 @@
 import { jost } from "@/src/fonts/Fonts";
 import { useAppDispatch } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
-import { logoutUserAction } from "@/src/redux/actions/auth.action";
+import { logoutUserAction } from "@/src/redux/actions/auth.action.action";
 import { useRouter } from "next/navigation";
-import { Tooltip } from "primereact/tooltip";
 import { Dispatch, SetStateAction, useRef } from "react";
-import { BiSolidUserCircle } from "react-icons/bi";
 import { FaAppleAlt, FaHome, FaPlayCircle } from "react-icons/fa";
-import { FiLogOut } from "react-icons/fi";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 interface IProps {
@@ -41,11 +38,10 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
     <div
       className={`
           fixed inset-0 lg:w-[200px] lg:static z-[1000] transition
-          ${
-            showSideNav
-              ? "translate-x-0 transform transition-all duration-700"
-              : "-translate-x-[100%] lg:translate-x-0 transform transition-all duration-700"
-          }
+          ${showSideNav
+          ? "translate-x-0 transform transition-all duration-700"
+          : "-translate-x-[100%] lg:translate-x-0 transform transition-all duration-700"
+        }
           `}
       onClick={handleOutsideClick}
     >

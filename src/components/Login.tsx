@@ -13,7 +13,7 @@ import { useAppDispatch } from "../hooks/react-redux-hooks";
 import { toast } from "../hooks/use-toast";
 import { UseLoginModal } from "../hooks/useLoginModal";
 import { ManagedUI } from "../hooks/useModalContext";
-import { getCurrentUser, loginUserAction } from "../redux/actions/auth.action";
+import { getCurrentUser, loginUserAction } from "../redux/actions/auth.action.action";
 
 type LoginInput = {
   email: string;
@@ -159,7 +159,7 @@ const Login = ({ route = "" }: Props) => {
 
       <div className="mt-[15px] text-[14px] text-[#212121]/50 font-[500] leading-[19px] tracking-[-0.04em]">
         Dont have an account yet?{" "}
-        <Link className="ml-[5px] font-[700] text-[#2F9B4E]" href="/signup">
+        <Link className="ml-[5px] font-[700] text-[#2F9B4E]" href="/auth/signup">
           Sign Up
         </Link>
       </div>

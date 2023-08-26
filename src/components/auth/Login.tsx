@@ -7,7 +7,7 @@ import { useAppDispatch } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
 import { UseLoginModal } from "@/src/hooks/useLoginModal";
 import { ManagedUI } from "@/src/hooks/useModalContext";
-import { getCurrentUser, loginUserAction } from "@/src/redux/actions/auth.action";
+import { getCurrentUser, loginUserAction } from "@/src/redux/actions/auth.action.action";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useContext, useState } from "react";

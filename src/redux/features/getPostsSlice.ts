@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getPosts } from "../actions/getPosts.action";
 
-interface IPost {
+export interface IPost {
     id: string
     name: string,
     user_id: number;
     user: {
-       id: number,
-       first_name: string,
-       last_name: string,
-       phone_number: string 
+        id: number,
+        first_name: string,
+        last_name: string,
+        phone_number: string
     }
 }
 
@@ -38,7 +38,7 @@ export const getPostsSlice = createSlice({
     },
 })
 
-export const {} = getPostsSlice.actions;
+export const { } = getPostsSlice.actions;
 const { reducer } = getPostsSlice;
 
 export default reducer;

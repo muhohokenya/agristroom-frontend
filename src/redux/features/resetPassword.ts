@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { resetPassword } from "../actions/auth.action";
+import { resetPassword } from "../actions/auth.action.action";
 
 const initialState = {
   result: {} as string | null,

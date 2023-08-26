@@ -51,7 +51,7 @@ const SignUpPage = () => {
       }));
       setIsSubmitting(false);
       setOpenModal(true);
-      router.push("/signup/accountinformations");
+      router.push("/auth/signup/accountinformations");
     }
     if (emailResponse?.status === "taken") {
       setEmailErrorMessage(emailResponse?.status);

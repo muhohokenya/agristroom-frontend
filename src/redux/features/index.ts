@@ -2,6 +2,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import reducer from "./authSlice";
 import CurrentUserSlice from "./currentUserSlice";
 import errorReducer from "./error.reducer";
+import getAllUsers from "./getAllUsersSlice";
 import getOneQuestionSlice from "./getOneQuestionSlice";
 import getPosts from "./getPostsSlice";
 import getRepliesByPostId from "./getReplyBtPostIdSlice";
@@ -23,6 +24,7 @@ export const rootReducer = combineReducers({
     onePost: getOneQuestionSlice,
     answerCreated: postAnswerSlice,
     posts: getPosts,
+    users: getAllUsers,
     resetPassword: resetPasswordRequest,
     requestPasswordReset: requestPasswordReset,
     upvoteForReply: upvoteReply,

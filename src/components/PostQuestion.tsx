@@ -13,7 +13,7 @@ import { toast } from "../hooks/use-toast";
 import { UseEditorModal } from "../hooks/useEditorModalContext";
 import { ManagedUI } from "../hooks/useModalContext";
 import { formatDate, formatDateToTime } from "../lib/constants";
-import { getCurrentUser } from "../redux/actions/auth.action";
+import { getCurrentUser } from "../redux/actions/auth.action.action";
 import { getPosts } from "../redux/actions/getPosts.action";
 import { upVoteForQuestion } from "../redux/actions/upvote";
 import { Post } from "../types/types";

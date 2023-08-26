@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 export type Card = {
   heading?: string;
@@ -72,7 +72,7 @@ export interface UserLoginData {
   password: string;
 }
 
-export interface Post{
+export interface Post {
   id: number;
   title: string;
   description: string,
@@ -92,3 +92,23 @@ export interface Post{
     country: string
   }
 }
+
+export interface SinglePost {
+  id: number;
+  image?: string;
+  votes: number;
+  title: string;
+  description: string,
+  created_at: string;
+  user: {
+    country: string;
+    county: string;
+    email: string;
+    image?: string;
+    id: number;
+    first_name: string;
+    last_name: string;
+    phone_number: string;
+  };
+}
+

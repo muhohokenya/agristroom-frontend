@@ -1,6 +1,6 @@
 "use client"
-import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
+import { useEffect, useState } from 'react';
 
 export default function BasicDemo() {
     const [chartData, setChartData] = useState({});
@@ -18,14 +18,14 @@ export default function BasicDemo() {
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(153, 102, 255, 0.2)'
-                      ],
-                      borderColor: [
+                    ],
+                    borderColor: [
                         'rgb(255, 159, 64)',
                         'rgb(75, 192, 192)',
                         'rgb(54, 162, 235)',
                         'rgb(153, 102, 255)'
-                      ],
-                      borderWidth: 1
+                    ],
+                    borderWidth: 1
                 }
             ]
         };
@@ -43,7 +43,7 @@ export default function BasicDemo() {
 
     return (
         <div className="card">
-            <Chart type="bar" data={chartData} options={chartOptions} />
+            <Chart type="bar" width='400' height='300' data={chartData} options={chartOptions} />
         </div>
     )
 }

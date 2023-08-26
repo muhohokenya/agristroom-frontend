@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/react-redux-hooks";
 import { toast } from "../../hooks/use-toast";
 import { UseEditorModal } from "../../hooks/useEditorModalContext";
 import { ManagedUI } from "../../hooks/useModalContext";
-import { getCurrentUser } from "../../redux/actions/auth.action";
+import { getCurrentUser } from "../../redux/actions/auth.action.action";
 import { postQuestion } from "../../redux/actions/postQuestion.action";
 import Progress from "../ProgressBar";
 import TextEditor from "../ui/TextEditor";
