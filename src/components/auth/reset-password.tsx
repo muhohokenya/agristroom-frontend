@@ -3,7 +3,7 @@
 import { satoshi } from '@/src/fonts/Fonts';
 import { useAppDispatch } from '@/src/hooks/react-redux-hooks';
 import { ManagedUI } from '@/src/hooks/useModalContext';
-import { resetPassword } from '@/src/redux/actions/auth.action';
+import { resetPassword } from '@/src/redux/actions/auth.action.action';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';

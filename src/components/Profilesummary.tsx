@@ -1,22 +1,20 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { nanoid } from "nanoid";
-import {
-  MdArrowBackIos,
-  MdKeyboardArrowRight,
-  MdOutlineEdit,
-} from "react-icons/md";
 import { jost, satoshi } from "@/src/fonts/Fonts";
-import { ManagedUI } from "../hooks/useModalContext";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
+import { FaSpinner } from "react-icons/fa";
+import {
+  MdKeyboardArrowRight,
+  MdOutlineEdit
+} from "react-icons/md";
+import { useFormContext } from "../context/formstate";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
-import { signUpUserAction } from "../redux/actions/auth.action";
+import { toast } from "../hooks/use-toast";
+import { ManagedUI } from "../hooks/useModalContext";
+import { RootState } from "../redux";
+import { signUpUserAction } from "../redux/actions/auth.action.action";
 import { UserRegisterData } from "../types/types";
 import { InterestType } from "./Interest";
-import { RootState } from "../redux";
-import { FaSpinner } from "react-icons/fa";
-import { toast } from "../hooks/use-toast";
-import { useFormContext } from "../context/formstate";
 import Stepper from "./Stepper";
 
 const ProfileSummary = () => {
@@ -96,7 +94,7 @@ const ProfileSummary = () => {
             Profile Details Summary
           </h2>
         </div>
-      
+
         <div className="w-full mt-[15px] flex flex-col items-center justify-center gap-[15px] lg:gap-[20px] max-w-[315px] lg:min-w-[474px] mx-[15px] lg:mx-[40px]">
           <div className="flex w-full justify-between">
             <div className="flex flex-col">

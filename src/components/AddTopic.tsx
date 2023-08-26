@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { MdArrowBackIos } from "react-icons/md";
 import { jost, satoshi } from "@/src/fonts/Fonts";
-import { Input } from "./ui/Input";
-import { SubmitHandler, useForm } from "react-hook-form"
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { MdArrowBackIos } from "react-icons/md";
 import { useFormContext } from "../context/formstate";
+import { Input } from "./ui/Input";
 
 type Input = {
   topic: string
@@ -24,14 +24,14 @@ const AddTopic = () => {
       ...prevState,
       topic: data.topic
     }))
-    router.push("/signup/interest")
+    router.push("/auth/signup/interest")
   }
 
   const topicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTopic(e.target.value)
   }
 
-  
+
   const otherInterestsArray = searchTopic.split(",")
   let otherInterests = state.other_interests.length > 0 ? state.other_interests.concat(otherInterestsArray) : otherInterestsArray
   const addTopic = () => {

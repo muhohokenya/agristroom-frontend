@@ -4,7 +4,7 @@ import { Input } from "@/src/components/ui/Input";
 import { satoshi } from "@/src/fonts/Fonts";
 import { useAppDispatch } from "@/src/hooks/react-redux-hooks";
 import { ManagedUI } from "@/src/hooks/useModalContext";
-import { resetPassword } from "@/src/redux/actions/auth.action";
+import { resetPassword } from "@/src/redux/actions/auth.action.action";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
@@ -41,10 +41,6 @@ const Page = ({ params }: { params: { token: string } }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const { setOpenModal } = useContext(ManagedUI);
-
-    console.log('====================================');
-    console.log(params?.token);
-    console.log('====================================');
 
     const submitPassword = async (data: ResetPassword) => {
         setIsSubmitting(true);

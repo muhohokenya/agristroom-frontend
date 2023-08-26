@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCurrentUser } from "../actions/auth.action";
+import { getCurrentUser } from "../actions/auth.action.action";
 
 interface ICurrentUser {
     id: string,
@@ -11,7 +11,7 @@ interface ICurrentUser {
         id: string,
         name: string
     }
-    intereste: {id: string, name: string}[]
+    intereste: { id: string, name: string }[]
 }
 
 const initialState = {
@@ -40,7 +40,7 @@ export const CurrentUserSlice = createSlice({
     },
 })
 
-export const {} = CurrentUserSlice.actions;
+export const { } = CurrentUserSlice.actions;
 const { reducer } = CurrentUserSlice;
 
 export default reducer;

@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useAppDispatch } from '../hooks/react-redux-hooks';
-import { getCurrentUser } from '../redux/actions/auth.action';
+import { getCurrentUser } from '../redux/actions/auth.action.action';
 import { AuthStateContext } from './auth';
 
 const useGetCurrentUser = () => {

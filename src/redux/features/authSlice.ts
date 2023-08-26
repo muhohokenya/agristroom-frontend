@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUserAction, signUpUserAction } from "../actions/auth.action";
+import { loginUserAction, signUpUserAction } from "../actions/auth.action.action";
 
 interface IAccessToken {
   access_token: string;

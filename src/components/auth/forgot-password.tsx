@@ -3,7 +3,7 @@
 import { satoshi } from '@/src/fonts/Fonts';
 import { useAppDispatch } from '@/src/hooks/react-redux-hooks';
 import { ManagedUI } from '@/src/hooks/useModalContext';
-import { requestPasswordReset } from '@/src/redux/actions/auth.action';
+import { requestPasswordReset } from '@/src/redux/actions/auth.action.action';
 import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
@@ -23,13 +23,15 @@ const ForgetPassword = () => {
     const { setOpenModal } = useContext(ManagedUI);
 
     const submitPassword = async (data: ForgetPassword) => {
-        setIsSubmitting(true)
-        const res: any = await dispatch(requestPasswordReset(data));
         console.log('====================================');
         console.log(data);
-        console.log(res);
         console.log('====================================');
         setIsSubmitting(true)
+        const res: any = await dispatch(requestPasswordReset(data));
+        if (res?.payload?.success) {
+            setIsSubmitting(false);
+        }
+        setIsSubmitting(false)
     };
 
     const token = 'XRH74AzCbKyiS9s6RdQu8TWoKE0bPrR9EC6WKyHbuODhRcYVT0skEeitJtobsRWU7G';

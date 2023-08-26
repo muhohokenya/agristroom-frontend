@@ -1,14 +1,13 @@
 
 import { Metadata } from "next";
 
-import "primereact/resources/themes/mdc-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeflex/primeflex.css";
-import "../styles/globals.css";
 import { Inter } from "next/font/google";
-import { ManagedUIProvider } from "../hooks/useModalContext";
-import { Providers } from "../redux/provider";
+import "primeflex/primeflex.css";
+import "primereact/resources/primereact.min.css";
+import "primereact/resources/themes/mdc-light-indigo/theme.css";
 import { Toaster } from "../components/ui/Toaster";
+import SearchProvider from "../context/SearchState";
+import AuthProvider from "../context/auth";
 import FormProvider from "../context/formstate";
 import {
   UseEditorModalProvider,
@@ -16,8 +15,9 @@ import {
 import {
   UseLoginModalProvider
 } from "../hooks/useLoginModal";
-import SearchProvider from "../context/SearchState";
-import AuthProvider from "../context/auth";
+import { ManagedUIProvider } from "../hooks/useModalContext";
+import { Providers } from "../redux/provider";
+import "../styles/globals.css";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -48,23 +48,23 @@ export default function RootLayout({ children, modal }: Props) {
       <body
         className={`${inter.className} min-h-screen flex flex-col bg-[#FAFAFA] w-full`}
       >
-          <Providers>
-            <ManagedUIProvider>
-              <UseEditorModalProvider>
-                <UseLoginModalProvider>
+        <Providers>
+          <ManagedUIProvider>
+            <UseEditorModalProvider>
+              <UseLoginModalProvider>
                 <FormProvider>
                   <SearchProvider>
                     <AuthProvider>
-                    {children}
-                    {modal}
+                      {children}
+                      {modal}
                     </AuthProvider>
                   </SearchProvider>
                 </FormProvider>
-                </UseLoginModalProvider>
-              </UseEditorModalProvider>
-            </ManagedUIProvider>
-          </Providers>
-          <Toaster />
+              </UseLoginModalProvider>
+            </UseEditorModalProvider>
+          </ManagedUIProvider>
+        </Providers>
+        <Toaster />
       </body>
     </html>
   );

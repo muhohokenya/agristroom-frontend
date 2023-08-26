@@ -1,16 +1,15 @@
 "use client";
 
-import { MdArrowBackIos } from "react-icons/md";
-import { BiSearch } from "react-icons/bi";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
-import React, { useState, useContext, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { ManagedUI } from "@/src/hooks/useModalContext";
 import { jost, satoshi } from "@/src/fonts/Fonts";
+import { ManagedUI } from "@/src/hooks/useModalContext";
+import { useRouter } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
+import { BiSearch } from "react-icons/bi";
+import { FaSpinner, FaTimes } from "react-icons/fa";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useFormContext } from "../context/formstate";
 import { useAppDispatch } from "../hooks/react-redux-hooks";
 import { getInterests } from "../redux/actions/interest.action";
-import { FaSpinner, FaTimes } from "react-icons/fa";
-import { useFormContext } from "../context/formstate";
 import Stepper from "./Stepper";
 
 interface Props { }
@@ -60,8 +59,8 @@ function InterestPage(props: Props) {
   const onSubmit = () => {
     setOpenModal(true);
     filteredInterests?.length! === 0
-      ? router.push("/signup/addtopic")
-      : router.push("/signup/profilesummary")
+      ? router.push("/auth/signup/addtopic")
+      : router.push("/auth/signup/profilesummary")
     setState((prevState) => ({
       ...prevState,
       interests: [...selectedInterests!]
@@ -192,11 +191,11 @@ function InterestPage(props: Props) {
           )
         }
         {selectedInterests?.length! > 0 && (
-            <div className="flex items-center  py-2 ml-auto  justify-end max-w-[315px] lg:min-w-[494px] mx-[15px] lg:mx-[40px]">
-              <p className="w-full text-end text-[12px]  text-[#212121]/70">
-                You have selected {selectedInterests?.length} item/s
-              </p>
-            </div>
+          <div className="flex items-center  py-2 ml-auto  justify-end max-w-[315px] lg:min-w-[494px] mx-[15px] lg:mx-[40px]">
+            <p className="w-full text-end text-[12px]  text-[#212121]/70">
+              You have selected {selectedInterests?.length} item/s
+            </p>
+          </div>
         )}
 
 

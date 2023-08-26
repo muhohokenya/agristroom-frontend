@@ -7,14 +7,13 @@ import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
 import { UseEditorModal } from "@/src/hooks/useEditorModalContext";
 import { UseLoginModal } from "@/src/hooks/useLoginModal";
-import { ManagedUI } from "@/src/hooks/useModalContext";
 import { formatDate, formatDateToTime } from "@/src/lib/constants";
 import { getOneQuestion } from "@/src/redux/actions/getOneQuestion.action";
 import { getPosts } from "@/src/redux/actions/getPosts.action";
 import { getRepliesByPostId } from "@/src/redux/actions/getReplyByPostId";
 import { postAnswer } from "@/src/redux/actions/postAnswer.action";
 import { upVoteForQuestion, upVoteForReply } from "@/src/redux/actions/upvote";
-import { Post } from "@/src/types/types";
+import { Post, SinglePost } from "@/src/types/types";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import dynamic from "next/dynamic";
@@ -41,29 +40,7 @@ interface Props {
   };
 }
 
-interface SinglePost {
-  id: number;
-  image?: string;
-  votes: number;
-  title: string;
-  description: string,
-  created_at: string;
-  user: {
-    country: string;
-    county: string;
-    email: string;
-    image?: string;
-    id: number;
-    first_name: string;
-    last_name: string;
-    phone_number: string;
-  };
-}
 
-type Answer = {
-  text: string;
-  post_id: number;
-};
 
 function Page(props: Props) {
   const { params } = props;
@@ -96,7 +73,6 @@ function Page(props: Props) {
   const [posting, setPosting] = useState(false);
   const [replies, setReplies] = useState([]);
   const [loadingReplies, setLoadingReplies] = useState(true);
-  const { openModal, setOpenModal } = useContext(ManagedUI);
   const { openLoginModal, setOpenLoginModal } = useContext(UseLoginModal);
 
   const defaultValues = {
