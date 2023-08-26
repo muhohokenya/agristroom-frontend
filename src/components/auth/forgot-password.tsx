@@ -2,6 +2,7 @@
 
 import { satoshi } from '@/src/fonts/Fonts';
 import { useAppDispatch } from '@/src/hooks/react-redux-hooks';
+import { toast } from '@/src/hooks/use-toast';
 import { ManagedUI } from '@/src/hooks/useModalContext';
 import { requestPasswordReset } from '@/src/redux/actions/auth.action.action';
 import { useRouter } from 'next/navigation';
@@ -23,13 +24,14 @@ const ForgetPassword = () => {
     const { setOpenModal } = useContext(ManagedUI);
 
     const submitPassword = async (data: ForgetPassword) => {
-        console.log('====================================');
-        console.log(data);
-        console.log('====================================');
         setIsSubmitting(true)
         const res: any = await dispatch(requestPasswordReset(data));
         if (res?.payload?.success) {
             setIsSubmitting(false);
+            toast({
+                title: "Check for reset password link in your email",
+                variant: "secondary"
+            })
         }
         setIsSubmitting(false)
     };

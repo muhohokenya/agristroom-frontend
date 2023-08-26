@@ -3,6 +3,7 @@
 import PostsBarGraph from '@/src/components/PostsBarGrapgh'
 import UsersPieChart from '@/src/components/UsersPieChart'
 import { useAppDispatch } from '@/src/hooks/react-redux-hooks'
+import { getAllUsers } from '@/src/redux/actions/getAllUsers'
 import { getPosts } from '@/src/redux/actions/getPosts.action'
 import { useEffect, useState } from 'react'
 import { FaTasks, FaUsers } from 'react-icons/fa'
@@ -25,6 +26,13 @@ function Page() {
       setAnswers(totalAnswers);
     }
 
+    const getUsers = async () => {
+      let res: any = await dispatch(getAllUsers())
+      let users = res?.payload?.users
+      setUsers(users?.length ?? 0);
+    }
+
+    getUsers();
     getAllPosts()
   }, [dispatch, answers])
 
@@ -39,7 +47,7 @@ function Page() {
             <FaUsers className='text-[45px] text-[#2F9B4E]' />
             <div className="flex flex-col gap-3">
               <h1 className='text-[25px] leading-[20px] text-[#2F9B4E]'>Users</h1>
-              <span className='text-[45px] text-[#2F9B4E]'>18</span>
+              <span className='text-[45px] text-[#2F9B4E]'>{users}</span>
             </div>
           </div>
           <div className='w-[300px] bg-[#DBF3D9] h-[100px] pt-3 rounded-md shadow-md flex gap-10 px-3'>
