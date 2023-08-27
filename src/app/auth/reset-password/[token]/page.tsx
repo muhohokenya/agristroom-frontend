@@ -24,11 +24,11 @@ const formSchema = Yup.object().shape({
     password: Yup.string()
         .required("Password is required")
         .min(4, "Password length should be at least 4 characters")
-        .max(12, "Password cannot exceed more than 12 characters"),
+        .max(24, "Password cannot exceed more than 12 characters"),
     password_confirmation: Yup.string()
         .required("Confirm Password is required")
         .min(4, "Password length should be at least 4 characters")
-        .max(12, "Password cannot exceed more than 12 characters")
+        .max(24, "Password cannot exceed more than 12 characters")
         .oneOf([Yup.ref("password")], "Passwords do not match")
 });
 
@@ -45,16 +45,18 @@ const Page = ({ params }: { params: { token: string } }) => {
 
     const submitPassword = async (data: ResetPassword) => {
         setIsSubmitting(true);
-        const res: any = await dispatch(resetPassword({
+        const inputValue = {
+            token: params?.token,
             password: data.password,
             password_confirmation: data.password_confirmation,
-            token: params?.token
-        }));
+        }
+        const res: any = await dispatch(resetPassword(inputValue));
         if (res?.payload?.success) {
-            router.push("/dashboard")
+            router.refresh()
+            router.push("/auth/login")
             setIsSubmitting(false)
             toast({
-                title: "You have successfully reset your password",
+                title: `${res?.payload?.result?.message ?? ""}. Please login with your new Password`,
                 variant: "secondary"
             })
         }

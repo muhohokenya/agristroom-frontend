@@ -33,10 +33,15 @@ const ForgetPassword = () => {
                 variant: "secondary"
             })
         }
+        if (!res?.payload?.success) {
+            toast({
+                title: "Please confirm if your email is valid",
+                variant: "destructive"
+            })
+        }
         setIsSubmitting(false)
     };
 
-    const token = 'XRH74AzCbKyiS9s6RdQu8TWoKE0bPrR9EC6WKyHbuODhRcYVT0skEeitJtobsRWU7G';
     return (
         <div className='h-screen w-full flex items-center justify-center'>
 
@@ -46,7 +51,7 @@ const ForgetPassword = () => {
                     <MdClose
                         className=" absolute top-3 right-3  text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
                         onClick={() => {
-                            router.back();
+                            router.push("/");
                             setOpenModal(false)
                         }}
                     />
