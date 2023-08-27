@@ -72,6 +72,7 @@ const ForgetPassword = () => {
                                 )}
                             </div>
                         </div>
+
                         <div className=" mt-[35px] flex items-center justify-center">
                             <button
                                 type="submit"
