@@ -82,8 +82,8 @@ function Navbar() {
                 Sign Up
               </Link>
               <Link
-                href="/auth/login"
                 onClick={() => setOpenModal(true)}
+                href="/auth/login"
                 className="flex items-center text-[#2F9B4E] justify-center py-[10px] px-[20px] gap-[10px] w-[78px] h-[39px] bg-[#DBF3D9] rounded-[3px] text-[14px] whitespace-nowrap"
               >
                 Log In

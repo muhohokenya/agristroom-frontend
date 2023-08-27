@@ -84,7 +84,7 @@ export const requestPasswordReset = createAsyncThunk(
     try {
       const response = await axios.post(`${BaseURL}/request-password-reset`, data)
       return {
-        result: response.data[0],
+        result: response.data,
         success: true
       }
     } catch (error) {
@@ -106,9 +106,9 @@ export const resetPassword = createAsyncThunk(
     token: string
   }, thunkAPI) => {
     try {
-      const response = await axios.post(`${BaseURL}/reset-password`, { data })
+      const response = await axios.post(`${BaseURL}/reset-password`, data)
       return {
-        result: response.data[0],
+        result: response.data,
         success: true
       }
     } catch (error) {
