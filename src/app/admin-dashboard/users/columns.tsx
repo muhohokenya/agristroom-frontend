@@ -2,6 +2,7 @@
 
 import { DataTableColumnHeader } from "@/src/components/DataTableColumnHeader";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/components/DropDown";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/src/components/ui/AlertDialog";
 import { Button } from "@/src/components/ui/Button";
 import { Checkbox } from "@/src/components/ui/CheckBox";
 import { formatDate } from "@/src/lib/constants";
@@ -73,7 +74,7 @@ export const columns: ColumnDef<IUser>[] = [
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                    className="text-start whitespace-nowrap  px-0"
+                    className="text-start  px-0"
                 >
                     Date Registered
                     <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -161,7 +162,7 @@ export const columns: ColumnDef<IUser>[] = [
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="default" className="h-7 w-10 p-0 flex items-center justify-center rounded-md ">
+                        <Button variant="default" className="h-5 w-10 p-0 flex items-center justify-center rounded-md ">
                             <span className="sr-only">Open menu</span>
                             <MoreHorizontal className="h-4 w-4" />
                         </Button>
@@ -180,7 +181,28 @@ export const columns: ColumnDef<IUser>[] = [
                         <DropdownMenuItem>
                             <Link href={`/admin-dashboard/users/edit/${user?.id}`}>Edit User</Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>Delete User</DropdownMenuItem>
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <button className="px-2 py-1.5 text-sm text-red-500 font-semibold">Delete User</button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        This action cannot be undone. This will permanently delete the
+                                        user and remove from database.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel className="boarder !border-red-500">Cancel</AlertDialogCancel>
+                                    <AlertDialogAction onClick={() => {
+                                        console.log('====================================');
+                                        console.log("deleting");
+                                        console.log('====================================');
+                                    }} className="!bg-red-500">Continue</AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

@@ -46,13 +46,13 @@ export default async function RemovableSortUsersTable() {
   }, [dispatch])
 
   return (
-    <div className='mx-5 mt-[77px] py-[10px]'>
+    <div className='mx-2 mt-[77px] py-[10px]'>
       {loading ? (
         <div className='w-full h-screen flex items-center justify-center'>
           <FaSpinner className="animate-spin max-h-16 max-w-16 mr-2 text-[#2F9B4E]" />
         </div>
       ) : (
-        <DataTable columns={columns} data={users} />
+        <DataTable columns={columns} data={users} value='email' />
       )}
     </div>
   );

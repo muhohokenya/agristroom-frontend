@@ -22,11 +22,13 @@ import React from "react"
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    value: string
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
+    value
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -54,12 +56,12 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="rounded-md border">
-            <div className="flex items-center py-1 ml-1">
+            <div className="flex items-center py-1 mx-1">
                 <Input
-                    placeholder="Filter emails..."
-                    value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+                    placeholder={value === 'email' ? 'Filter Emails...' : 'Filter Titles....'}
+                    value={(table.getColumn(value)?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("email")?.setFilterValue(event.target.value)
+                        table.getColumn(value)?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm h-[30px] "
                 />
