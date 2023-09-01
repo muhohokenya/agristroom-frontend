@@ -81,7 +81,7 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
             {user ? (
               <>
                 <Tooltip target=".custom-tooltip-btn">{user !== null && user !== undefined ? `${user?.first_name} ${user?.last_name}` : '...'}</Tooltip>
-                <span className="bg-[#DBF3D9] custom-tooltip-btn flex items-center justify-center font-[500] text-sm text-[#212121] h-9 w-9 py-2 px-2 rounded-full">{nameInitials}</span>
+                <span className="bg-[#DBF3D9] custom-tooltip-btn flex items-center justify-center font-[500] text-sm text-[#212121] h-9 w-9 py-2 px-2 rounded-full uppercase">{nameInitials}</span>
               </>
             ) : (
               <BiSolidUserCircle className="profile text-[#2F9B4E] w-10 h-10 " />

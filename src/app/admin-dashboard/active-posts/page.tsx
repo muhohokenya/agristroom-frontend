@@ -1,9 +1,11 @@
-import React from 'react'
 
-function ActivePosts(){
+function ActivePosts() {
   return (
     <div>
-        <h1>All the active posts here</h1>
+      <h1>All the active posts here</h1>
+
+      {/* projectResourceExists = projectResourceExists
+                .Where(allocation => allocation.Date > DateTime.Today).ToList(); */}
     </div>
   )
 }
