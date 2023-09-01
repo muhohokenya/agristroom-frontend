@@ -300,8 +300,14 @@ function Page(props: Props) {
                 <p
                   className={`flex items-center justify-center text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
                 >
-                  <span className="">
-                    {post.user.first_name} - Kenya
+                  <span className=" flex items-center justify-center gap-2">
+                    {post.user.first_name} - <Image
+                      src="/Flag_of_Kenya.png"
+                      alt="photo"
+                      width={30}
+                      height={25}
+                      className="lg:block rounded-sm h-4"
+                    /> Kenya
                   </span>
                   <span className="max-h-3 max-w-3 flex items-center justify-center mt-1">
                     <BsDot className="text-black text-xl" />{" "}
@@ -471,7 +477,7 @@ function Page(props: Props) {
                           editorState={field.value}
                           wrapperClassName="wrapper-class"
                           toolbarClassName={`flex !justify-start mx-auto min-w-[345px] lg:min-w-[802px]`}
-                          editorClassName="mt-1 shadow-sm  px-2 min-h-[200px] min-w-[345px] lg:max-w-[802px] mx-auto"
+                          editorClassName=" shadow-sm border border-gray-400 rounded-md  px-2 min-h-[200px] min-w-[345px] lg:max-w-[802px] mx-auto"
                           onEditorStateChange={field.onChange}
                           toolbar={
                             {
@@ -481,6 +487,7 @@ function Page(props: Props) {
                               textAlign: { inDropdown: true },
                               link: { inDropdown: true },
                               history: { inDropdown: true },
+                              image: { inDropdown: true }
                             }
                           }
                         />

@@ -22,6 +22,7 @@ const EditorModal = ({ route = "" }: Props) => {
   const user = useAppSelector((state) => state.currentUser);
   const { proceed, setProceed, openModal, setOpenModal } = useContext(ManagedUI);
   const [savingPost, setSavingPost] = useState(false);
+  const [windowReady, setWindowReady] = useState(false);
   const [title, setTitle] = useState<string>("")
   const [value, setValue] = useState<number>(0)
   const [state, setState] = useState<{ description: string }>({
@@ -98,6 +99,12 @@ const EditorModal = ({ route = "" }: Props) => {
       setValue(100)
     }
   }, [setProceed, title.length, value])
+
+  useEffect(() => {
+    if (window !== undefined) {
+      setWindowReady(true)
+    }
+  }, [])
 
 
   return (

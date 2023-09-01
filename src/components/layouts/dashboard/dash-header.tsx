@@ -22,11 +22,18 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
   const logOut = async () => {
     setUser(null)
     localStorage.clear();
+    window.location.reload()
     toast({
       description: "You have successfully logged out!",
       variant: "secondary",
     });
+
+    console.log('====================================');
+    console.log(user);
+    console.log('====================================');
   };
+
+
 
   const nameInitials = `${user?.first_name?.split('')?.[0] || ""}${user?.last_name?.split('')?.[0] || ""}`
 

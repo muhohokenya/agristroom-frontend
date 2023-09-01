@@ -121,20 +121,22 @@ export default function Home() {
             </div>
             <div className="w-full  lg:w-[50%] flex items-center justify-center">
               <div className="relative  border-1 flex flex-col md:flex-row  mt-[50px] lg:mt-[50px] mb-[75px] lg:mb-[130px] h-[330px]  lg:h-[476px]  sm:w-[330px] lg:w-[476px] border border-[#DBF3D9] rounded-full">
+
                 <p
-                  className={` absolute fade-in-image2 bottom-4 lg:bottom-3 max-h-[56px] lg:max-h-[60px]   max-w-[152px] lg:max-w-[222px] right-0 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px]  leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em]`}
+                  className={` absolute fade-in-image  top-[220px]  lg:top-[310px] max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
                 >
                   Monitor and help smallholder farmers increase their resilience
                   and cope with devastating challenges in their crop and animal
                   farms.1
                 </p>
                 <p
-                  className={` absolute fade-in-image  top-[220px]  lg:top-[310px] max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                  className={` absolute fade-in-image2 bottom-4 lg:bottom-3 max-h-[56px] lg:max-h-[60px]   max-w-[152px] lg:max-w-[222px] right-0 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px]  leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em]`}
                 >
                   Monitor and help smallholder farmers increase their resilience
                   and cope with devastating challenges in their crop and animal
                   farms.2
                 </p>
+
                 <p
                   className={` absolute fade-in-image3   top-44 lg:top-52 max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] -right-8 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
                 >
