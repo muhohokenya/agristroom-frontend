@@ -24,6 +24,7 @@ const ForgetPassword = () => {
     const { setOpenModal } = useContext(ManagedUI);
 
     const submitPassword = async (data: ForgetPassword) => {
+        localStorage.setItem("email", data.email)
         setIsSubmitting(true)
         const res: any = await dispatch(requestPasswordReset(data));
         if (res?.payload?.success) {
@@ -32,6 +33,7 @@ const ForgetPassword = () => {
                 title: "Check for reset password link in your email",
                 variant: "secondary"
             })
+
         }
         if (!res?.payload?.success) {
             toast({

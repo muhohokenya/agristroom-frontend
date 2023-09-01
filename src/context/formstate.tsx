@@ -1,5 +1,5 @@
 "use client"
-import React, { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
+import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
 
 interface CurrentAccountCreationState {
     first_name: string;
@@ -38,7 +38,7 @@ const formContextDefaultValue: FormContextValue = {
         interests: [],
         other_interests: []
     },
-    setState: () => {}
+    setState: () => { }
 }
 
 export const FormStateContext = createContext(formContextDefaultValue);
@@ -46,7 +46,7 @@ export const FormStateContext = createContext(formContextDefaultValue);
 const FormProvider = ({ children }: { children: ReactNode }) => {
     const [state, setState] = useState(formContextDefaultValue.state)
     return (
-        <FormStateContext.Provider value={{state, setState}}>
+        <FormStateContext.Provider value={{ state, setState }}>
             {children}
         </FormStateContext.Provider>
     )

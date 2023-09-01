@@ -52,7 +52,7 @@ function Navbar() {
             </div>
           </div>
           <div className="flex gap-5 items-center">
-            <ul className="hidden lg:flex justify-between gap-3">
+            {/* <ul className="hidden lg:flex justify-between gap-3">
               <li className="text-[14px] leading-[18.9px] font-[500] text-[#212121]">
                 About Us ...
               </li>
@@ -71,7 +71,7 @@ function Navbar() {
               <li className="text-[14px] leading-[18.9px] font-[500] text-[#2F9B4E]">
                 Partner with us
               </li>
-            </ul>
+            </ul> */}
             <div className="flex items-center gap-3">
 
               <Link
