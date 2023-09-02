@@ -11,12 +11,14 @@ import { jost, satoshi } from "../fonts/Fonts";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
 import { toast } from "../hooks/use-toast";
 import { UseEditorModal } from "../hooks/useEditorModalContext";
+import { UseLoginModal } from "../hooks/useLoginModal";
 import { ManagedUI } from "../hooks/useModalContext";
 import { formatDate, formatDateToTime } from "../lib/constants";
 import { getCurrentUser } from "../redux/actions/auth.action.action";
 import { getPosts } from "../redux/actions/getPosts.action";
 import { upVoteForQuestion } from "../redux/actions/upvote";
 import { Post } from "../types/types";
+import LoginModal from "./auth/LoginModal";
 import EditorModal from "./modals/EditorModal";
 import { Skeleton } from "./ui/Skeleton";
 
@@ -28,6 +30,8 @@ export const PostQuestion = () => {
   const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
   const _state = useAppSelector((state) => state.currentUser);
   const { openModal, setOpenModal } = useContext(ManagedUI);
+  const { openLoginModal, setOpenLoginModal } = useContext(UseLoginModal);
+
   const post = useAppSelector((state) => state.post);
 
   const { searchedValue, setSearchedValue } = useContext(SearchContext);
@@ -75,7 +79,7 @@ export const PostQuestion = () => {
         description: "Please log in first to upVote",
         variant: "destructive",
       });
-      router.push("/login");
+      router.push("/auth/login");
       setOpenModal(true)
     } else {
       const data = {
@@ -100,7 +104,7 @@ export const PostQuestion = () => {
         description: "Please log in first to downVote",
         variant: "destructive",
       });
-      router.push("/login");
+      router.push("/auth/login");
       setOpenModal(true)
     } else {
       const data = {
@@ -146,8 +150,7 @@ export const PostQuestion = () => {
                 description: "Please log in to post a question ",
                 variant: "destructive",
               });
-              setOpenModal(true);
-              router.push("/login")
+              setOpenLoginModal(true);
             } else {
               setOpenEditorModal(true);
             }
@@ -244,13 +247,13 @@ export const PostQuestion = () => {
                           >
                             {post.user.first_name} - Kenya
                           </p>
-                          {/* <Image
-                              src={discussion.countryFlagImage!}
-                              alt="flag"
-                              width={21}
-                              height={15}
-                              className="w-[19px] lg:w-[21px] h-[14px] lg:h-[15px]"
-                            /> */}
+                          <Image
+                            src="/Flag_of_Kenya.png"
+                            alt="photo"
+                            width={30}
+                            height={25}
+                            className="lg:block rounded-sm h-4"
+                          />
                         </div>
                       </div>
                       <div className="flex flex-col">
@@ -335,7 +338,7 @@ export const PostQuestion = () => {
           </div>
         </div>
       </div>
-
+      <LoginModal />
       <EditorModal />
     </div>
   );

@@ -52,14 +52,14 @@
     --border: 216 34% 17%;
     --input: 216 34% 17%;
 
-    --primary: 137.2,53.5%,39.6%;
-    --primary-foreground: 137.2,53.5%,39.6%;
+    --primary: 137.2, 53.5%, 39.6%;
+    --primary-foreground: 137.2, 53.5%, 39.6%;
 
     --secondary: 222.2 47.4% 11.2%;
     --secondary-foreground: 210 40% 98%;
 
-    --success: #2F9B4E;
-    --error: #FF3131;
+    --success: #2f9b4e;
+    --error: #ff3131;
 
     --accent: 216 34% 17%;
     --accent-foreground: 210 40% 98%;
@@ -73,7 +73,6 @@
   }
 }
 
-
 @layer utilities {
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
@@ -86,16 +85,16 @@
   }
 }
 
-.light-scrollbar::-webkit-scrollbar{
+.light-scrollbar::-webkit-scrollbar {
   width: 10px;
 }
 
-.light-scrollbar::-webkit-scrollbar-track{
+.light-scrollbar::-webkit-scrollbar-track {
   background-color: #f2f2f2;
 }
 
-.light-scrollbar::-webkit-scrollbar-thumb{
-  background-color: rgba(47, 155, 78, .5);
+.light-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(47, 155, 78, 0.5);
   border-radius: 10px;
 }
 
@@ -113,91 +112,82 @@
   }
 }
 
-.fade-in-image{
-  animation: fadeIn 5s;
+.fade-in-image {
+  animation: fadeIn 3s;
   animation-iteration-count: infinite;
-  animation-delay: 45s;
+  animation-delay: 12s;
+  animation-duration: 12s;
 }
 
-.fade-in-image2{
-  animation: fadeIn2 10s;
+.fade-in-image2 {
+  animation: fadeIn2 6s;
   animation-iteration-count: infinite;
-  animation-delay: 75s;
+  animation-delay: 18s;
+  animation-duration: 12s;
 }
-.fade-in-image3{
-  animation: fadeIn3 15s;
+.fade-in-image3 {
+  animation: fadeIn3 9s;
   animation-iteration-count: infinite;
-  animation-delay: 100s;
+  animation-delay: 28s;
+  animation-duration: 18s;
 }
-.fade-in-image4{
-  animation: fadeIn4 20s;
+.fade-in-image4 {
+  animation: fadeIn4 6s;
   animation-iteration-count: infinite;
-  animation-delay: 150s;
+  animation-delay: 12s;
+  animation-duration: 12s;
 }
 
 @keyframes fadeIn {
   0% {
     opacity: 0;
+    filter: blur(5px);
   }
-  25% {
-   opacity: 0.25;
-  }
-  50% {
-   opacity: 0.5;
-  }
-  75% {
-  opacity: 1;
+
+  45% {
+    opacity: 1;
+    filter: blur(0px);
   }
 }
 @keyframes fadeIn2 {
-
   0% {
     opacity: 0;
+    filter: blur(5px);
   }
-  25% {
-   opacity: 0.25;
-  }
-  50% {
-   opacity: 0.5;
-  }
-  75% {
-  opacity: 1;
+
+  60% {
+    opacity: 1;
+    filter: blur(0px);
   }
 }
 @keyframes fadeIn3 {
   0% {
     opacity: 0;
+    filter: blur(5px);
   }
-  25% {
-   opacity: 0.25;
-  }
-  50% {
-   opacity: 0.5;
-  }
-  75% {
-  opacity: 1;
+
+  85% {
+    opacity: 1;
+    filter: blur(0px);
   }
 }
 @keyframes fadeIn4 {
-  0% {
-    opacity: 0;
-  }
-  25% {
-   opacity: 0.25;
-  }
   50% {
-   opacity: 0.5;
+    opacity: 0;
+    filter: blur(5px);
   }
-  75% {
-  opacity: 1;
+
+  100% {
+    opacity: 1;
+    filter: blur(0px);
   }
 }
 
-.ql-editor.ql-blank{
+.ql-editor.ql-blank {
   border: none !important;
   outline: none !important;
 }
-.ql-editor:focus.ql-blank:focus{
+.ql-editor:focus.ql-blank:focus {
   border: none !important;
   outline: none !important;
 }
