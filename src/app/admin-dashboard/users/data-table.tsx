@@ -142,12 +142,12 @@ export function DataTable<TData, TValue>({
             </Table>
             <div className="flex items-center justify-between mx-2 my-3 ">
                 <div className="flex-1 flex gap-2 items-center justify-start text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
+                    {/* {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                    {table.getFilteredRowModel().rows.length} row(s) selected. */}
 
                     <div className="flex items-center gap-2">
                         <span className="flex items-center gap-1">
-                            | Go to page:
+                            Go to page:
                             <input
                                 type="number"
                                 defaultValue={table.getState().pagination.pageIndex + 1}

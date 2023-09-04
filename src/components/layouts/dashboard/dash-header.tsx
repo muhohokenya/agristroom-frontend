@@ -4,11 +4,14 @@ import { useAuthState } from "@/src/context/auth";
 import { toast } from "@/src/hooks/use-toast";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Tooltip } from "primereact/tooltip";
 import { useContext } from "react";
 import { BiSolidUserCircle } from "react-icons/bi";
+import { FaUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 
 interface IProps {
   toggleSideNav?: () => void;
@@ -85,14 +88,30 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
             Events
           </li>
           <li className=" cursor-pointer group relative flex items-center justify-center rounded-full  bg-[#DBF3D9] ">
-            {user ? (
-              <>
-                <Tooltip target=".custom-tooltip-btn">{user !== null && user !== undefined ? `${user?.first_name} ${user?.last_name}` : '...'}</Tooltip>
-                <span className="bg-[#DBF3D9] custom-tooltip-btn flex items-center justify-center font-[500] text-sm text-[#212121] h-9 w-9 py-2 px-2 rounded-full uppercase">{nameInitials}</span>
-              </>
-            ) : (
-              <BiSolidUserCircle className="profile text-[#2F9B4E] w-10 h-10 " />
-            )}
+            <Popover>
+              <PopoverTrigger className=" cursor-pointer group relative flex items-center justify-center rounded-full  bg-[#DBF3D9] ">
+                {user ? (
+                  <>
+                    <Tooltip target=".custom-tooltip-btn">{user !== null && user !== undefined ? `${user?.first_name} ${user?.last_name}` : '...'}</Tooltip>
+                    <span className="bg-[#DBF3D9] custom-tooltip-btn flex items-center justify-center font-[500] text-sm text-[#212121] h-9 w-9 py-2 px-2 rounded-full uppercase">{nameInitials}</span>
+                  </>
+                ) : (
+                  <BiSolidUserCircle className="profile text-[#2F9B4E] w-10 h-10 " />
+                )}
+              </PopoverTrigger>
+              <PopoverContent className="!max-w-32 flex items-center justify-center">
+                <div className="flex flex-col">
+                  <span className="h-16 w-16 bg-[#DBF3D9] rounded-full flex items-center justify-center">
+                    <FaUser className="h-10 w-10 text-[#2F9B4E]" />
+                  </span>
+                  <div className="flex flex-col">
+                    <h2 className="text-slate-900 font-bold text-[18px] ">{`${user?.first_name} ${user?.last_name}`}</h2>
+                    <Link href="/dashboard/profile" className="text-slate-400 text-[15px] cursor-pointer">My Profile</Link>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
+
           </li>
 
           {user === null ? (

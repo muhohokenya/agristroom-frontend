@@ -4,6 +4,7 @@ import { jost } from "@/src/fonts/Fonts";
 import { useAppDispatch } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
 import { logoutUserAction } from "@/src/redux/actions/auth.action.action";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useRef } from "react";
 import { FaAppleAlt, FaHome, FaPlayCircle } from "react-icons/fa";
@@ -57,12 +58,13 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
             FEEDS
           </h4>
           <div className="flex flex-col mt-[16px] gap-[24px]">
-            <span
+            <Link
+              href="/dashboard"
               className={`flex gap-[14px] items-center text-[16px] leading-[22px] font-[400] tracking-[-0.02em] text-[#2F9B4E] cursor-pointer ${jost.className}`}
             >
               <FaHome />
               <span>Home</span>
-            </span>
+            </Link>
             <span className="flex gap-[16px] items-center text-[14px] leading-[22px] font-[400] tracking-[-0.02em] text-[#212121]/70 cursor-pointer">
               <FaPlayCircle className=" rotate-45" /> <span>Popular</span>
             </span>

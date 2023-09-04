@@ -5,7 +5,20 @@ interface User {
     first_name: string;
     last_name: string;
     email: string;
-    phone: string
+    phone_number: string
+    account: {
+        id: number;
+        name: string
+    }
+    created_at: string;
+    interests: {
+        created_at: string;
+        id: number;
+        name: string
+    }[]
+    username: string
+    country: string
+    county: string
 }
 
 type AuthContextValue = {
