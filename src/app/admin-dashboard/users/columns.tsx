@@ -8,6 +8,7 @@ import { Checkbox } from "@/src/components/ui/CheckBox";
 import { formatDate } from "@/src/lib/constants";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import Image from 'next/image';
 import Link from "next/link";
 import { IUser } from "./page";
 
@@ -38,7 +39,7 @@ export const columns: ColumnDef<IUser>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "fullname",
+        accessorKey: "username",
         header: ({ column }) => {
             return (
                 <Button
@@ -51,6 +52,17 @@ export const columns: ColumnDef<IUser>[] = [
                 </Button>
             )
         },
+        cell: ({ row }) => {
+            const username: string = row.getValue("username")
+            return <div className="flex items-center gap-3 justify-start">{username}
+                <Image
+                    src="/Flag_of_Kenya.png"
+                    alt="photo"
+                    width={20}
+                    height={10}
+                    className="lg:block rounded-sm h-4"
+                /></div>
+        }
     },
     {
         accessorKey: "email",
