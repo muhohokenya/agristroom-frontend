@@ -45,6 +45,10 @@ export default async function RemovableSortUsersTable() {
     fetchUsers();
   }, [dispatch])
 
+  console.log('====================================');
+  console.log(users);
+  console.log('====================================');
+
   return (
     <div className='mx-2 mt-[77px] py-[10px]'>
       {loading ? (

@@ -54,7 +54,7 @@ const Login = ({ route = "" }: Props) => {
       })
       setOpenModal(false)
       setOpenLoginModal(false)
-      if (pathname === "/login") {
+      if (pathname === "/auth/login") {
         router.push("/dashboard")
       } else if (pathname.includes("/dashboard/post")) {
         return

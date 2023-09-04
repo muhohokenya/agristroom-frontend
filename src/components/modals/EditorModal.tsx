@@ -35,6 +35,7 @@ const EditorModal = ({ route = "" }: Props) => {
   const user = useAppSelector((state) => state.currentUser);
   const { proceed, setProceed, openModal, setOpenModal } = useContext(ManagedUI);
   const [savingPost, setSavingPost] = useState(false);
+  const [disableButton, setDisableButton] = useState(true)
   const [windowReady, setWindowReady] = useState(false);
   const [title, setTitle] = useState<string>("")
   const [value, setValue] = useState<number>(0)
@@ -65,6 +66,7 @@ const EditorModal = ({ route = "" }: Props) => {
     setValue(title.length)
     if (value >= 20) {
       setProceed(true)
+      setDisableButton(false)
     } else {
       setProceed(false)
     }
@@ -190,8 +192,8 @@ const EditorModal = ({ route = "" }: Props) => {
               </button>
               <button
                 type="submit"
-                disabled={savingPost}
-                className={`  ${savingPost ? "bg-[#2F9B4E]/70 cursor-not-allowed" : "bg-[#2F9B4E] cursor-pointer"} ml-auto w-fit h-[40px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
+                disabled={savingPost || disableButton}
+                className={`  ${savingPost || disableButton ? "bg-[#2F9B4E]/70 cursor-not-allowed" : "bg-[#2F9B4E] cursor-pointer"} ml-auto w-fit h-[40px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 {savingPost ? <FaSpinner className="animate-spin h-8 w-8 text-white" /> : "Post Question"}
               </button>

@@ -51,8 +51,11 @@ export function DataTable<TData, TValue>({
             columnFilters,
             columnVisibility,
             rowSelection
-        }
+        },
+
     })
+
+
 
     return (
         <div className="rounded-md border">
@@ -138,9 +141,36 @@ export function DataTable<TData, TValue>({
                 </TableBody>
             </Table>
             <div className="flex items-center justify-between mx-2 my-3 ">
-                <div className="flex-1 text-sm text-muted-foreground">
+                <div className="flex-1 flex gap-2 items-center justify-start text-sm text-muted-foreground">
                     {table.getFilteredSelectedRowModel().rows.length} of{" "}
                     {table.getFilteredRowModel().rows.length} row(s) selected.
+
+                    <div className="flex items-center gap-2">
+                        <span className="flex items-center gap-1">
+                            | Go to page:
+                            <input
+                                type="number"
+                                defaultValue={table.getState().pagination.pageIndex + 1}
+                                onChange={e => {
+                                    const page = e.target.value ? Number(e.target.value) - 1 : 0
+                                    table.setPageIndex(page)
+                                }}
+                                className="border p-1 rounded w-16"
+                            />
+                        </span>
+                        <select
+                            value={table.getState().pagination.pageSize}
+                            onChange={e => {
+                                table.setPageSize(Number(e.target.value))
+                            }}
+                        >
+                            {[10, 20, 30, 40, 50].map(pageSize => (
+                                <option key={pageSize} value={pageSize}>
+                                    Show {pageSize}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
                 <div className="flex items-center justify-end space-x-2">
                     <Button
