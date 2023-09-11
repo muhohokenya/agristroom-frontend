@@ -1,9 +1,9 @@
 import { BaseURL } from "@/src/lib/constants";
 import parseError from "@/src/lib/parseError";
+import { getLoggedInUserToken } from "@/src/lib/utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setErrorNotification } from "../features/error.reducer";
-import { getLoggedInUserToken } from "@/src/lib/utils";
 
 export const postQuestion = createAsyncThunk(
   "post/question",
@@ -14,6 +14,7 @@ export const postQuestion = createAsyncThunk(
       const response = await axios.post(`${BaseURL}/post/create`, data, {
         headers: {
           Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
+          "Content-Type": "multipart/form-data"
         },
       });
       console.log("response from pos question", response);

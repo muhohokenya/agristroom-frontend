@@ -2,9 +2,10 @@
 
 import { jost, satoshi } from "@/src/fonts/Fonts";
 import { ManagedUI } from "@/src/hooks/useModalContext";
-import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { FaSpinner } from "react-icons/fa";
 import { useFormContext } from "../context/formstate";
 import Stepper from "./Stepper";
 import { Input } from "./ui/Input";
@@ -19,14 +20,15 @@ type Inputs = {
 };
 
 function AccountInformation(props: Props) {
-  const { state, setState } = useFormContext();
   const router = useRouter();
+  const pathname = usePathname();
+  const { state, setState } = useFormContext();
   const { setOpenModal } = useContext(ManagedUI);
+  const [submit, setSubmitting] = useState(false)
 
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
     reset,
     setError,
@@ -40,6 +42,7 @@ function AccountInformation(props: Props) {
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    setSubmitting(true)
     setOpenModal(true);
     router.push("/auth/signup/createaccounts");
     setState((prevState) => ({
@@ -48,6 +51,10 @@ function AccountInformation(props: Props) {
       last_name: data.lastName,
       phone_number: data.phone
     }))
+
+    if (pathname !== "/auth/signup/accountinformations") {
+      setSubmitting(false)
+    }
   };
 
   console.log("info state", state);
@@ -59,7 +66,7 @@ function AccountInformation(props: Props) {
       phone: state.phone_number
     })
     setValue("phone", state.phone_number)
-  }, [reset])
+  }, [reset, setValue, state.first_name, state.last_name, state.phone_number])
 
 
   return (
@@ -115,12 +122,15 @@ function AccountInformation(props: Props) {
               </div>
             </div>
 
-            <input
+            <button
               type="submit"
-              className={`my-[20px] bg-[#2F9B4E] cursor-pointer w-full py-[14px]  h-[50px] rounded-[5px] text-white  text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
-
-              value="Continue"
-            />
+              className={`my-[20px] bg-[#2F9B4E] flex items-center gap-3 justify-center cursor-pointer w-full py-[14px]  h-[50px] rounded-[5px] text-white  text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
+            >
+              {submit && (
+                <FaSpinner className="animate-spin max-h-10 max-w-10 text-white" />
+              )}
+              <span>Continue</span>
+            </button>
           </div>
         </form>
       </div>

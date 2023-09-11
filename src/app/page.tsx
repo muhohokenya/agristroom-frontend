@@ -25,7 +25,6 @@ import { Card, Guide, MasterClass, Post } from "../types/types";
 export default function Home() {
   const { setSearchedValue } = useContext(SearchContext);
   const { setOpenModal } = useContext(ManagedUI);
-  const user = useAppSelector((state) => state.currentUser);
   const router = useRouter();
   const dispatch = useAppDispatch()
   useGetCurrentUser()
@@ -74,7 +73,7 @@ export default function Home() {
       setLoading(false);
     };
     fetchPosts();
-  }, [post, dispatch]);
+  }, [dispatch]);
 
 
 
@@ -85,8 +84,28 @@ export default function Home() {
   }
 
   useEffect(() => {
-    router.refresh()
-  }, [router, user?.user])
+    const texts = ["Passion Farming", "Avocado Farming", "Dragon Fruit farming", "Apple farming"]
+    const el = document.getElementById('slider');
+    const ul: HTMLElement = el!;
+    let counter = 0;
+
+    function addAnimation() {
+      const li = document.createElement("li");
+      li.innerText = texts[counter];
+      ul.appendChild(li);
+
+
+      li.classList.add("animated-item");
+      li.addEventListener('animationend', (e: any) => {
+        e.target.remove();
+        counter++;
+        if (counter == texts.length) counter = 0;
+        addAnimation();
+      });
+    }
+
+    addAnimation();
+  }, [])
 
   return (
     <main>
@@ -97,12 +116,14 @@ export default function Home() {
             className={`w-full mt-[100px] -z-50 pt-[50px] flex flex-col justify-between  lg:flex-row lg:items-center px-[15px] lg:px-[100px] gap-[50px] lg:gap-[100px]`}
           >
             <div className=" w-full   lg:w-[50%] lg:min-w-[607px] mt-[10px] lg:mt-[58px] min-h-[220px] lg:mb-[75px] ">
-              <p
-                className={`text-[23px] md:text-[34px] text-[#212121] tracking-[-0.04em] leading-[30px] md:leading-[48px] text-start font-[800] ${jost.className}`}
+              <div
+                className={`text-[23px] relative md:text-[34px] text-[#212121] tracking-[-0.04em] leading-[30px] md:leading-[48px] text-start font-[800] ${jost.className}`}
               >
                 Make important connections to improve your{" "}
-                <span className="text-[#2F9B4E]">Apple farming</span> experience
-              </p>
+                <ul id="slider" className="list absolute top-12 left-20 slider text-[#2F9B4E]">
+                </ul>{" "}
+                {/* <span className=" absolute top-12 right-auto">experience</span> */}
+              </div>
               <p
                 className={`mt-[10px] md:mt-[20px] text-[16px] md:text-[18px] leading-[27px] tracking-[-0.02em] md:leading-[24px] font-[400] text-[#212121]/70 ${satoshi.className}`}
               >
@@ -227,54 +248,56 @@ export default function Home() {
 
       <div className="w-full bg-[#2F9B4E]">
         <div className="max-w-[1440px] mx-auto w-full">
-          <div className="grid grid-cols-2 md:grid-cols-4 items-center justify-center gap-4 min-h-[223px] py-[40px] lg:py-0">
-            <div className="flex flex-col items-center justify-center w-full">
-              <span
-                className={`text-[34px]  leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
-              >
-                20+
-              </span>
-              <p
-                className={`font-[400] text-[14px] lg:text-[18px] w-[100%] text-center leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
-              >
-                Active Farmers
-              </p>
-            </div>
-            <div className="flex flex-col items-center justify-center w-full">
-              <span
-                className={`text-[34px] leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
-              >
-                1,000+
-              </span>
-              <p
-                className={`font-[400] w-[100%] text-center text-[14px] lg:text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
-              >
-                Vibrant Communities
-              </p>
-            </div>
-            <div className="flex flex-col items-center justify-center w-full">
-              <span
-                className={`text-[34px]  leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
-              >
-                2,100+
-              </span>
-              <p
-                className={`font-[400] w-[100%] text-center text-[14px] lg:text-[18px] leading-[20px] lg:leading-[28px] text-white whitespace-normal lg:whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
-              >
-                Cumulative years of experience
-              </p>
-            </div>
-            <div className="flex flex-col items-center justify-center w-full">
-              <span
-                className={`text-[34px] leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
-              >
-                5,000+
-              </span>
-              <p
-                className={`font-[400] w-[100%] text-center text-[14px] lg:text-[18px] leading-[28px] text-white whitespace-normal lg:whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
-              >
-                Discussions to learn from
-              </p>
+          <div className="w-full ">
+            <div className="grid grid-cols-2 md:grid-cols-4 items-center justify-center gap-4 min-h-[223px] py-[40px] lg:py-0">
+              <div className="flex flex-col items-center justify-center w-full">
+                <span
+                  className={`text-[34px]  leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
+                >
+                  20+
+                </span>
+                <p
+                  className={`font-[400] text-[14px] lg:text-[18px] w-[100%] text-center leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+                >
+                  Active Farmers
+                </p>
+              </div>
+              <div className="flex flex-col items-center justify-center w-full">
+                <span
+                  className={`text-[34px] leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
+                >
+                  1,000+
+                </span>
+                <p
+                  className={`font-[400] w-[100%] text-center text-[14px] lg:text-[18px] leading-[28px] text-white whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+                >
+                  Vibrant Communities
+                </p>
+              </div>
+              <div className="flex flex-col items-center justify-center w-full">
+                <span
+                  className={`text-[34px]  leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
+                >
+                  2,100+
+                </span>
+                <p
+                  className={`font-[400] w-[100%] text-center text-[14px] lg:text-[18px] leading-[20px] lg:leading-[28px] text-white whitespace-normal lg:whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+                >
+                  Cumulative years of experience
+                </p>
+              </div>
+              <div className="flex flex-col items-center justify-center w-full">
+                <span
+                  className={`text-[34px] leading-[40px] font-[800] text-white tracking-[-0.04em] ${jost.className}`}
+                >
+                  5,000+
+                </span>
+                <p
+                  className={`font-[400] w-[100%] text-center text-[14px] lg:text-[18px] leading-[28px] text-white whitespace-normal lg:whitespace-nowrap tracking-[-0.04em] ${satoshi.className}`}
+                >
+                  Discussions to learn from
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -333,15 +356,15 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-[#2F9B4E] w-full   ">
+      <div className="bg-white w-full   ">
         <div className="max-w-[1440px] mx-auto w-full flex flex-col  mt-[140px] pb-[60px] ">
           <h2
-            className={`font-[800] text-[34px] leading-[43px] mt-[60px] text-white tracking-tighter text-center ${jost.className}`}
+            className={`font-[800] text-[34px] leading-[43px] mt-[60px] text-slate-900 tracking-tighter text-center ${jost.className}`}
           >
             Our Impact
           </h2>
           <p
-            className={` text-center max-w-[1091px] mx-[15px] lg:mx-auto text-[18px] leading-[32px] font-[400] text-white tracking-[-0.01em] ${satoshi.className}`}
+            className={` text-center max-w-[1091px] mx-[15px] lg:mx-auto text-[18px] leading-[32px] font-[400] text-slate-900 tracking-[-0.01em] ${satoshi.className}`}
           >
             We are committed to making a positive and lasting impact in the
             world through our work. We believe by aligning our agenda with the
@@ -349,110 +372,76 @@ export default function Home() {
             to contribute to a more sustainable and equitable future for all.
           </p>
 
-          <div className="flex flex-wrap w-full items-center justify-center gap-[50px] mt-[30px]">
+          <div className="flex flex-wrap w-full items-center justify-center gap-[25px] mt-[30px]">
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/people-two.png"
+                src="/impact/poverty.png"
                 alt=""
-                width={142}
-                height={61}
-                className="w-[142px] h-[61px]"
+                width={150}
+                height={150}
+                className="w-[150px] h-[150px]"
               />
-              <p
-                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-              >
-                No Poverty
-              </p>
+
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/coffee.png"
+                src="/impact/hunger.png"
                 alt=""
-                width={70}
-                height={60}
-                className=""
+                width={150}
+                height={150}
+                className="w-[150px] h-[150px]"
               />
-              <p
-                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-              >
-                Zero Hunger
-              </p>
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/health.png"
+                src="/impact/health.png"
                 alt=""
-                width={86}
-                height={60}
-                className=""
+                width={150}
+                height={150}
+                className="w-[150px] h-[150px]"
               />
-              <p
-                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-              >
-                Good Health and Well-being
-              </p>
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/together.png"
+                src="/impact/partnership.png"
                 alt=""
-                width={61}
-                height={60}
-                className=""
+                width={150}
+                height={150}
+                className="w-[150px] h-[150px]"
               />
-              <p
-                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-              >
-                Partnership for the Goals
-              </p>
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/education.png"
+                src="/impact/education.png"
                 alt=""
-                width={74}
-                height={60}
-                className=""
+                width={150}
+                height={150}
+                className="w-[150px] h-[150px]"
               />
-              <p
-                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-              >
-                Partnership for the Goals
-              </p>
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/climate.png"
+                src="/impact/climate.png"
                 alt=""
-                width={117}
-                height={60}
-                className=""
+                width={150}
+                height={150}
+                className="w-[150px] h-[150px]"
               />
-              <p
-                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-              >
-                Climate Actions
-              </p>
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/life.png"
+                src="/impact/land.png"
                 alt=""
-                width={61}
-                height={60}
-                className=""
+                width={150}
+                height={150}
+                className="w-[150px] h-[150px]"
               />
-              <p
-                className={`font-[500] text-[16px] lg:text-[18px] leading-[28px] tracking-[-0.04em] text-white max-w-[130px] text-center ${satoshi.className}`}
-              >
-                Life on Land
-              </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center w-full py-[35px] lg:py-[80px]">
+      {/* <div className="flex flex-col justify-center items-center w-full py-[35px] lg:py-[80px]">
         <div className=" max-w-[1440px]  mx-auto w-full">
           <h2
             className={`text-center  font-[800] text-[23px] lg:text-[34px] leading-[34px] lg:leading-[43px] tracking-[-0.04em] text-[#2F9b4E] ${jost.className}`}
@@ -479,7 +468,7 @@ export default function Home() {
             template={masterTemplate}
           />
         </div>
-      </div>
+      </div> */}
 
       <Partners />
 

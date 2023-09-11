@@ -51,38 +51,48 @@ export const masterClassesData: MasterClass[] = [
 export const cards: Card[] = [
   {
     heading: "Farmers",
-    image: "/people.jpg",
+    image: "/svgs/communities/farmer2.svg",
     text: "Connect and network with strategic players to learn and maximize productivity of your farm with sustainable farming techniques.",
   },
   {
     heading: "Agri-experts",
-    image: "/tractor.png",
+    image: "/svgs/communities/agri-expert.svg",
     text: "Join a network of new and experienced experts, grow your knowledge and help solve real on-farm challenges farmers face in their communities daily.",
   },
   {
-    heading: "Agribusiness partners",
-    image: "/profile-2user.png",
-    text: "Access thousands of farmers and share your customized agribusiness solution to help farmers access quality farm inputs, market for their produce and financing for their farms.",
-  },
-  {
-    heading: "Farm Insurance partners",
-    image: "/shield-tick.png",
-    text: "Monitor and help smallholder farmers increase their resilience and cope with devastating challenges in their crop and animal farms.",
-  },
-  {
-    heading: "Farm Intelligence",
-    image: "/light.png",
+    heading: "Farm intelligence ",
+    image: "/svgs/communities/smart-farm.svg",
     text: "Get insights and make better decisions for your agribusiness venture. We collect accurate farm data to aid forecasting and ensure actionable and valuable insights.",
   },
   {
-    heading: "Quality input suppliers",
-    image: "/message-question.svg",
-    text: "Access thousands of farmers to market and supply quality solutions for the farm problems aligned with sustainable farming practices",
+    heading: "Input suppliers ",
+    image: "/svgs/communities/supplier.svg",
+    text: "Access thousands of farmers to market and supply quality inputs for the farm problems aligned with sustainable farming practices.",
   },
   {
-    heading: "Aggregators",
-    image: "/global.png",
-    text: "After good harvests, farmers need a market. Connect with producers to aggregate and help farmers sell their produce locally and internationally.",
+    heading: "Off-takers",
+    image: "/svgs/communities/off-takers.svg",
+    text: "Connect with producers to aggregate and help farmers sell their produce locally and internationally",
+  },
+  {
+    heading: "Agriprocessors",
+    image: "/svgs/communities/agri-processors.svg",
+    text: "We partner with innovative players to transform farm produce through value addition and help farmers meet market demands, unlock new opportunities and reduce food wastage.",
+  },
+  {
+    heading: "Agrifinanciers ",
+    image: "/svgs/communities/financers2.svg",
+    text: "Meet the unique financial needs in the farming sector and fuel growth through tailored financial solutions and expert guidance.",
+  },
+  {
+    heading: "Researchers & policy makers",
+    image: "/svgs/communities/research.svg",
+    text: "Bridge the gap between research and impactful policies for ag advancement. Collaborate with us and promote sustainable farming practices to ensure food security for present and future generations.",
+  },
+  {
+    heading: "Investors ",
+    image: "/svgs/communities/investors.svg",
+    text: "Connect with promising ag ventures and get valuable insights and expertise to navigate and strategically invest in the dynamic agricultural environment.",
   },
 ];
 

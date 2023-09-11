@@ -1,18 +1,14 @@
 import Image from "next/image";
-import {
-  MdArrowDropUp,
-  MdArrowDropDown,
-} from "react-icons/md";
-import { BiMessage } from "react-icons/bi";
-import { Post } from "../types/types";
-import { jost, satoshi } from "../fonts/Fonts";
-import { formatDate, formatDateToTime } from "../lib/constants";
-import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
-import { upVoteForQuestion } from "../redux/actions/upvote";
+import { BiMessage } from "react-icons/bi";
+import { FaUserCircle } from "react-icons/fa";
+import thumpsup from "../../public/svgs/thumbs-up.svg";
+import { jost, satoshi } from "../fonts/Fonts";
 import { useAppDispatch } from "../hooks/react-redux-hooks";
 import { toast } from "../hooks/use-toast";
-import { useRouter } from "next/navigation";
+import { formatDate, formatDateToTime } from "../lib/constants";
+import { upVoteForQuestion } from "../redux/actions/upvote";
+import { Post } from "../types/types";
 
 type Props = {
   post: Post
@@ -20,8 +16,7 @@ type Props = {
 
 export const DiscussionCard = ({ post }: Props) => {
   const dispatch = useAppDispatch();
-  const router = useRouter();
-  
+
   const upVotePost = async (post_id: number) => {
     const data = {
       post_id: post_id,
@@ -35,33 +30,27 @@ export const DiscussionCard = ({ post }: Props) => {
     }
   }
 
-  const downVotePost = async (post_id: number) => {
-    const data = {
-      post_id: post_id,
-      vote: -1
-    }
-    let res: any = await dispatch(upVoteForQuestion(data))
-    if (res?.payload.success) {
-      toast({
-        description: `Your down vote was successfully ${res?.payload.response.response}`
-      })
-    }
-  }
-
   return (
     <div className="flex">
       <div className="flex flex-col pt-[20px] px-[8px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
-        <MdArrowDropUp onClick={() => upVotePost(post?.id)} className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
+        <div onClick={() => upVotePost(post?.id)} className="mb-2">
+          <Image
+            src={thumpsup}
+            alt="prof"
+            width={18}
+            height={18}
+            className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px] text-red-500"
+          />
+
+        </div>
         <span
           className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
         >
           {post?.votes || 0}
         </span>
-        <MdArrowDropDown onClick={() => downVotePost(post?.id)} className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
       </div>
       <Link href={`/dashboard/post/${post?.id}`} className="flex cursor-pointer flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px] bg-[#FAFAFA] w-full rounded-r-md ">
         <div className="flex gap-[5px]">
-
           <FaUserCircle
             className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px] text-[#DBF3D9]"
           />
@@ -90,13 +79,13 @@ export const DiscussionCard = ({ post }: Props) => {
         >
           {post?.description}
         </p>
-        {post.image === null ? null : (
+        {post.image === "http://dev.agristroom.com/api/uploads/posts" ? null : (
           <Image
             src={post?.image!}
-            alt="photo"
-            width={724}
-            height={277}
-            className="hidden lg:block rounded-sm mt-[21px]"
+            alt="prof"
+            width={550}
+            height={300}
+            className="rounded-md mt-2 h-[270px] object-cover object-left"
           />
         )}
         <div className="flex flex-row items-center justify-between mt-[21px]">

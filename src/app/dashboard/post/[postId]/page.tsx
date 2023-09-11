@@ -14,24 +14,14 @@ import { getRepliesByPostId } from "@/src/redux/actions/getReplyByPostId";
 import { postAnswer } from "@/src/redux/actions/postAnswer.action";
 import { upVoteForQuestion, upVoteForReply } from "@/src/redux/actions/upvote";
 import { Post, SinglePost } from "@/src/types/types";
-import { EditorState, convertToRaw } from "draft-js";
-import draftToHtml from "draftjs-to-html";
-import dynamic from "next/dynamic";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useContext, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsDot, BsFillExclamationCircleFill } from "react-icons/bs";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
-import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
-const { convert } = require('html-to-text');
-
-const Editor = dynamic(
-  () => import("react-draft-wysiwyg").then((module) => module.Editor),
-  {
-    ssr: false,
-  }
-);
+import thumbsup from "../../../../../public/svgs/thumbs-up.svg";
 
 interface Props {
   params: {
@@ -40,17 +30,24 @@ interface Props {
   };
 }
 
-
-
 function Page(props: Props) {
   const { params } = props;
   const router = useRouter();
+  const imageUploadRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const _state = useAppSelector((state) => state.currentUser);
-  const answer = useAppSelector((state) => state.answerCreated);
-  const { setOpenEditorModal } = useContext(UseEditorModal);
   const answers = useAppSelector((state) => state.replies);
+  const _state = useAppSelector((state) => state.currentUser);
+  const { setOpenEditorModal } = useContext(UseEditorModal);
+  const { handleSubmit } = useForm();
+  const [loadingReplies, setLoadingReplies] = useState(true);
+  const { setOpenLoginModal } = useContext(UseLoginModal);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [posting, setPosting] = useState(false);
+  const [replies, setReplies] = useState([]);
+  const [answer, setAnswer] = useState("")
+  const [profileImage, setProfileImage] = useState("")
+  const [loadingImage, setLoadingImage] = useState(false)
   const [post, setPost] = useState<SinglePost>({
     id: 0,
     image: "",
@@ -69,26 +66,11 @@ function Page(props: Props) {
       phone_number: "",
     },
   });
-  const [loading, setLoading] = useState(true);
-  const [posting, setPosting] = useState(false);
-  const [replies, setReplies] = useState([]);
-  const [loadingReplies, setLoadingReplies] = useState(true);
-  const { openLoginModal, setOpenLoginModal } = useContext(UseLoginModal);
 
-  const defaultValues = {
-    someText: "",
-    someDraft: EditorState.createEmpty()
-  };
 
-  const { handleSubmit, control, reset } = useForm({
-    defaultValues
-  });
-
-  const onSubmit = async ({ someDraft }: { someDraft: any }) => {
-    const _someDraft = draftToHtml(convertToRaw(someDraft.getCurrentContent()));
-    const text = convert(_someDraft, { wordwrap: 130 })
+  const onSubmit = async () => {
     const state = {
-      text: text,
+      text: answer,
       post_id: params.postId
     }
     try {
@@ -113,7 +95,7 @@ function Page(props: Props) {
             description: "You successfully posted your Answer",
             variant: "secondary"
           })
-          reset(defaultValues);
+          setAnswer("")
         }
       }
     } catch {
@@ -122,33 +104,37 @@ function Page(props: Props) {
       setPosting(false)
     }
 
-  };
-
-  const onError = (data: any) => console.log("err: ", data);
+  }
 
   useEffect(() => {
+    //get posts
+    const fetchPosts = async () => {
+      setLoading(true);
+      let res: any = await dispatch(getPosts());
+      setPosts(res.payload.posts);
+      setLoading(false);
+    };
+    //get post
     const fetchOnePost = async () => {
       setLoading(true);
       let res: any = await dispatch(getOneQuestion(params.postId));
       setPost(res?.payload?.post[0]);
       setLoading(false);
     };
-    fetchOnePost();
-  }, [dispatch, params?.postId]);
 
-  useEffect(() => {
+    //get replies
     const fetchRepliesByPostId = async () => {
       setLoadingReplies(true);
       let res: any = await dispatch(getRepliesByPostId(params.postId));
       setReplies(res?.payload?.replies);
       setLoadingReplies(false);
     };
+
+    fetchPosts()
+    fetchOnePost();
     fetchRepliesByPostId();
   }, [dispatch, params?.postId]);
 
-  useEffect(() => {
-    dispatch(getRepliesByPostId(params.postId));
-  }, [answer, dispatch, params.postId])
 
   const upVoteReply = async (reply_id: number) => {
     if (_state?.user === null) {
@@ -176,31 +162,6 @@ function Page(props: Props) {
 
   }
 
-  const downVoteReply = async (reply_id: number) => {
-    if (_state?.user === null) {
-      toast({
-        description: "Please log in first to upVote",
-        variant: "destructive",
-      });
-      setOpenLoginModal(true)
-    } else {
-      const data = {
-        reply_id,
-        vote: -1
-      }
-      let res: any = await dispatch(upVoteForReply(data))
-      if (res?.payload.success) {
-        toast({
-          description: `Your up vote was successfully ${res?.payload.response.response}`
-        })
-      }
-      setLoadingReplies(true);
-      let resp: any = await dispatch(getRepliesByPostId(params.postId));
-      setReplies(resp?.payload?.replies);
-      setLoadingReplies(false);
-    }
-
-  }
 
   const upVotePost = async (post_id: number) => {
     if (_state?.user === null) {
@@ -226,42 +187,6 @@ function Page(props: Props) {
     }
   }
 
-  const downVotePost = async (post_id: number) => {
-    if (_state?.user === null) {
-      toast({
-        description: "Please log in first to upVote",
-        variant: "destructive",
-      });
-      setOpenLoginModal(true)
-    } else {
-      const data = {
-        post_id: post_id,
-        vote: -1
-      }
-      let resp: any = await dispatch(upVoteForQuestion(data))
-      if (resp?.payload.success) {
-        toast({
-          description: `Your down vote was successfully ${resp?.payload.response.response}`
-        })
-        let res: any = await dispatch(getOneQuestion(params.postId));
-        setPost(res?.payload?.post[0]);
-      }
-    }
-
-  }
-
-
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      setLoading(true);
-      let res: any = await dispatch(getPosts());
-      setPosts(res.payload.posts);
-      setLoading(false);
-    };
-    fetchPost();
-  }, []);
-
   if (loading) {
     return (
       <div className=" w-full flex items-center justify-center mt-20 ">
@@ -280,7 +205,9 @@ function Page(props: Props) {
       <div className="flex flex-col-reverse lg:flex-row mt-[15px] lg:mt-0 items-start lg:gap-[120px] justify-between px-[30px] ">
         <div className="flex flex-col pt-[20px] pb-[21px] lg:pr-[30px] px-0 rounded-r-md ">
           <div className="flex flex-col">
-            <BsArrowLeftCircleFill className=" my-3 text-[#2F9B4E] text-xl cursor-pointer" onClick={() => router.push("/dashboard")} />
+            <Link href="/dashboard" className="my-3 text-[#2F9B4E] text-xl cursor-pointer">
+              <BsArrowLeftCircleFill />
+            </Link>
             <div className="flex items-center gap-[5px]">
               {post?.user?.image === undefined ? (
                 <span className="max-h-8 p-2 rounded-full max-w-8 bg-[#DBF3D9]">
@@ -350,13 +277,21 @@ function Page(props: Props) {
         <div className="flex flex-col">
           <div className="flex mx-[30px] my-3 border border-slate-100">
             <div className="flex flex-col pt-[10px] pr-[8px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px]">
-              <MdArrowDropUp onClick={() => upVotePost(post?.id)} className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
+              <div onClick={() => upVotePost(post?.id)} className="mb-2">
+                <Image
+                  src={thumbsup}
+                  alt="prof"
+                  width={18}
+                  height={18}
+                  className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px] cursor-pointer "
+                />
+
+              </div>
               <span
                 className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
               >
                 {post?.votes ?? 0}
               </span>
-              <MdArrowDropDown onClick={() => downVotePost(post?.id)} className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
             </div>
             <div className="flex bg-white flex-col pb-[21px] px-[12px] ">
               <p
@@ -364,6 +299,15 @@ function Page(props: Props) {
               >
                 {post?.description}
               </p>
+              {post?.image === "http://dev.agristroom.com/api/uploads/posts" ? null : (
+                <Image
+                  src={post?.image!}
+                  alt="prof"
+                  width={550}
+                  height={300}
+                  className="rounded-md mt-2 h-[250px] object-cover object-left"
+                />
+              )}
             </div>
           </div>
           <div className=" w-full border-t border-slate-200">
@@ -396,14 +340,22 @@ function Page(props: Props) {
                       <div key={indx} className=" w-full ">
                         <div className="flex px-[30px] w-full">
                           <div className="flex flex-col pt-[10px] pr-[8px] items-center justify-start bg-white w-[42px] lg:w-[64px]">
-                            <MdArrowDropUp onClick={() => upVoteReply(reply?.id)} className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
+                            <div onClick={() => upVoteReply(reply?.id)} className="mb-2">
+                              <Image
+                                src={thumbsup}
+                                alt="prof"
+                                width={18}
+                                height={18}
+                                className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px] text-red-500 cursor-pointer"
+                              />
+
+                            </div>
 
                             <span
                               className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
                             >
                               {reply?.up_votes?.length}
                             </span>
-                            <MdArrowDropDown onClick={() => downVoteReply(reply?.id)} className="w-[35px] cursor-pointer h-[25px] text-[#2F9B4E]" />
                           </div>
                           <div className="flex w-full flex-col pb-[21px] px-[12px] lg:pr-[30px] bg-white ">
                             <p
@@ -431,10 +383,18 @@ function Page(props: Props) {
                                   className={`flex flex-col  items-start text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
                                 >
                                   <span className="text-[12px]">Answered by</span>
-                                  <span className="text-[12px] text-[#2F9B4E]">
+                                  <span className="text-[12px] flex items-center justify-center gap-1 text-[#2F9B4E]">
                                     {" "}
                                     {reply?.user?.first_name} -{" "}
-                                    {reply?.user?.last_name},{" "}
+                                    {reply?.user?.last_name},
+                                    <Image
+                                      src="/Flag_of_Kenya.png"
+                                      alt="photo"
+                                      width={20}
+                                      height={10}
+                                      className="lg:block rounded-sm h-4"
+                                    />
+                                    {" "}
                                     {reply?.user?.country === null
                                       ? "Kenya"
                                       : reply?.user?.country}{" "}
@@ -457,43 +417,15 @@ function Page(props: Props) {
 
               <hr className="mt-[30px]"></hr>
 
-              <div className="flex flex-col items-start gap-[20px] px-[15px] lg:px-[30px] ">
+              <div className="flex flex-col items-start gap-[10px] px-[15px] lg:px-[30px] ">
                 <h1
-                  className={`leading-[38px] py-[15px] font-[600] text-[26px] tracking-[-0.04em] text-[#212121] ${jost.className}`}
+                  className={`leading-[38px] py-[10px] font-[600] text-[26px] tracking-[-0.04em] text-[#212121] ${jost.className}`}
                 >
                   Submit Your Answer
                 </h1>
-                <form action="" onSubmit={handleSubmit(onSubmit, onError)} className=" flex flex-col items-end">
-                  <Controller
-                    name="someDraft"
-                    control={control}
-                    render={({ field }) => {
-                      return (
-                        <Editor
-                          editorStyle={{
-                            padding: "0px 10px 10px",
-                            height: "200px"
-                          }}
-                          editorState={field.value}
-                          wrapperClassName="wrapper-class"
-                          toolbarClassName={`flex !justify-start mx-auto min-w-[345px] lg:min-w-[802px]`}
-                          editorClassName=" shadow-sm border border-gray-400 rounded-md  px-2 min-h-[200px] min-w-[345px] lg:max-w-[802px] mx-auto"
-                          onEditorStateChange={field.onChange}
-                          toolbar={
-                            {
-                              options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'history'],
-                              inline: { inDropdown: true },
-                              list: { inDropdown: true },
-                              textAlign: { inDropdown: true },
-                              link: { inDropdown: true },
-                              history: { inDropdown: true },
-                              image: { inDropdown: true }
-                            }
-                          }
-                        />
-                      );
-                    }}
-                  />
+                <form action="" onSubmit={handleSubmit(onSubmit)} className=" flex flex-col items-end">
+                  <textarea value={answer} onChange={(e) => setAnswer(e.target.value)} rows={6} className="shadow-sm p-2 outline-0 border border-gray-400 rounded-md  px-2 min-h-[200px] min-w-[802px] w-full mx-auto" />
+
                   <button
                     type="submit"
                     disabled={posting}
@@ -516,32 +448,7 @@ function Page(props: Props) {
               className="w-[350px] lg:w-[450px] rounded-md"
             />
           </div>
-          {/* <div className="mt-[25px] border border-[#FAFAFA] shadow-sm mx-[15px] px-[5px] ">
-            <h2
-              className={`font-[600] py-[15px] bg-[#FAFAFA]  text-[18px] leading-[26px] tracking-[-0.03em] text-[#212121]/90 ${jost.className}`}
-            >
-              Blog Posts
-            </h2>
-            <div className="flex flex-col gap-[20px] mt-[15px] py-[10px] w-full lg:w-[300px] ">
-              <p
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                Can any agronomist please share with me a nutritional program
-                for apples suitable for Kilifi-south sub-county?
-              </p>
-              <p
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                A nutritional program for apples suitable
-              </p>
-              <p
-                className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
-              >
-                Can any agronomist please share with me a nutritional program
-                for apples suitable for Kilifi-south sub-county?
-              </p>
-            </div>
-          </div> */}
+
           <div className="mt-[25px] border border-[#FAFAFA] shadow-sm mx-[15px] px-[5px] ">
             <h2
               className={`font-[600] py-[15px] bg-[#FAFAFA]  text-[18px] leading-[26px] tracking-[-0.03em] text-[#212121]/90 ${jost.className}`}
@@ -569,7 +476,7 @@ function Page(props: Props) {
         </div>
       </div>
       <LoginModal />
-      <EditorModal route="/dashboard" />
+      <EditorModal />
     </div>
   );
 }

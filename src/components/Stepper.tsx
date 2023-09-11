@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
-import { useFormContext } from "../context/formstate";
 import { usePathname, useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 import { BsCheck } from "react-icons/bs";
 import { MdClose } from "react-icons/md";
+import { useFormContext } from "../context/formstate";
 import { ManagedUI } from "../hooks/useModalContext";
 
 const Stepper = () => {
@@ -54,10 +54,9 @@ const Stepper = () => {
             <h1 className="w-full text-center mt-4 text-[#2F9B4E] ">Registration steps</h1>
             <div className="flex gap-2 lg:gap-4 my-2 items-center">
               <div
-                onClick={() => router.push("/signup")}
-                className={`cursor-pointer flex gap-[1px] items-center justify-center ${
-                  loacation === "/signup" ? "text-[#2F9B4E] underline" : ""
-                }`}
+                onClick={() => router.push("/auth/signup")}
+                className={`cursor-pointer flex gap-[1px] items-center justify-center ${loacation === "/auth/signup" ? "text-[#2F9B4E] underline" : ""
+                  }`}
               >
                 {showAddressCheck && (
                   <BsCheck className="text-[#2F9B4E] h-12 text-sm md:text-2xl" />
@@ -65,12 +64,11 @@ const Stepper = () => {
                 <span className="text-[12px] md:text-[14px]">Address</span>
               </div>
               <div
-                onClick={() => router.push("/signup/accountinformations")}
-                className={`cursor-pointer flex gap-[1px] items-center justify-center ${
-                  loacation === "/signup/accountinformations"
+                onClick={() => router.push("/auth/signup/accountinformations")}
+                className={`cursor-pointer flex gap-[1px] items-center justify-center ${loacation === "/auth/signup/accountinformations"
                     ? "text-[#2F9B4E] underline"
                     : ""
-                }`}
+                  }`}
               >
                 {showDetailsCheck && (
                   <BsCheck className="text-[#2F9B4E] h-12 text-sm md:text-2xl" />
@@ -78,12 +76,11 @@ const Stepper = () => {
                 <span className="text-[12px] md:text-[14px]">Details</span>
               </div>
               <div
-                onClick={() => router.push("/signup/createaccounts")}
-                className={` cursor-pointer flex gap-[1px] items-center justify-center ${
-                  loacation === "/signup/createaccounts"
+                onClick={() => router.push("/auth/signup/createaccounts")}
+                className={` cursor-pointer flex gap-[1px] items-center justify-center ${loacation === "/auth/signup/createaccounts"
                     ? "text-[#2F9B4E] underline"
                     : ""
-                }`}
+                  }`}
               >
                 {showAccountCheck && (
                   <BsCheck className="text-[#2F9B4E] h-12 text-sm md:text-2xl" />
@@ -93,12 +90,11 @@ const Stepper = () => {
                 </span>
               </div>
               <div
-                onClick={() => router.push("/signup/interest")}
-                className={`cursor-pointer flex gap-[1px] items-center justify-center ${
-                  loacation === "/signup/interest"
+                onClick={() => router.push("/auth/signup/interest")}
+                className={`cursor-pointer flex gap-[1px] items-center justify-center ${loacation === "/auth/signup/interest"
                     ? "text-[#2F9B4E] underline"
                     : ""
-                }`}
+                  }`}
               >
                 {showInterestCheck && (
                   <BsCheck className="text-[#2F9B4E] h-12 text-sm md:text-2xl" />
@@ -106,12 +102,11 @@ const Stepper = () => {
                 <span className="text-[12px] md:text-[14px]">Interests</span>
               </div>
               <div
-                onClick={() => router.push("/signup/profilesummary")}
-                className={`cursor-pointer flex gap-[1px] items-center justify-center ${
-                  loacation === "/signup/profilesummary"
+                onClick={() => router.push("/auth/signup/profilesummary")}
+                className={`cursor-pointer flex gap-[1px] items-center justify-center ${loacation === "/auth/signup/profilesummary"
                     ? "text-[#2F9B4E] underline"
                     : ""
-                }`}
+                  }`}
               >
                 <span className="text-[12px] md:text-[14px]">Finish</span>
               </div>

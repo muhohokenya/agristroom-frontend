@@ -2,7 +2,7 @@
 
 import { jost, satoshi } from "@/src/fonts/Fonts";
 import { ManagedUI } from "@/src/hooks/useModalContext";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { FaSpinner, FaTimes } from "react-icons/fa";
@@ -22,18 +22,17 @@ export type InterestType = {
 function InterestPage(props: Props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const pathname = usePathname();
   const { state, setState } = useFormContext();
   const { setOpenModal } = useContext(ManagedUI);
 
   const [interestList, setInterestList] = useState<InterestType[]>([]);
   const [loading, setLoading] = useState(true);
-  const [topicFound, setTopicFound] = useState("");
+  const [submit, setSubmitting] = useState(false);
   const [searchField, setSearchField] = useState("");
   const [searchTopic, setSearchTopic] = useState("");
 
-  const [selectedInterests, setSelectedInterests] = useState<
-    InterestType[] | undefined
-  >([]);
+  const [selectedInterests, setSelectedInterests] = useState<InterestType[] | undefined>([]);
 
   const removeitem = (topic: InterestType) => {
     if (selectedInterests?.some((interest) => interest.id === topic.id)) {
@@ -57,7 +56,7 @@ function InterestPage(props: Props) {
 
 
   const onSubmit = () => {
-    setOpenModal(true);
+    setSubmitting(true)
     filteredInterests?.length! === 0
       ? router.push("/auth/signup/addtopic")
       : router.push("/auth/signup/profilesummary")
@@ -65,6 +64,10 @@ function InterestPage(props: Props) {
       ...prevState,
       interests: [...selectedInterests!]
     }))
+
+    if (pathname !== "/auth/signup/interest") {
+      setSubmitting(false)
+    }
   }
 
   useEffect(() => {
@@ -209,9 +212,11 @@ function InterestPage(props: Props) {
         ) : (
           <button
             onClick={onSubmit}
-            className={`mt-[15px] mx-[15px] lg:mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[494px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
+            className={`mt-[15px] mx-[15px] flex items-center justify-center lg:mx-[40px] bg-[#2F9B4E] max-w-[315px] lg:max-w-[494px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className}`}
           >
-            Continue
+            {submit ? (
+              <FaSpinner className="animate-spin max-h-10 max-w-10 text-white" />
+            ) : "Continue"}
           </button>
         )}
       </div>
