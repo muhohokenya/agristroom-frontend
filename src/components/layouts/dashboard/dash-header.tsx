@@ -30,10 +30,6 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
       description: "You have successfully logged out!",
       variant: "secondary",
     });
-
-    console.log('====================================');
-    console.log(user);
-    console.log('====================================');
   };
 
 
@@ -100,15 +96,22 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
                 )}
               </PopoverTrigger>
               <PopoverContent className="!max-w-32 flex items-center justify-center">
-                <div className="flex flex-col">
-                  <span className="h-16 w-16 bg-[#DBF3D9] rounded-full flex items-center justify-center">
-                    <FaUser className="h-10 w-10 text-[#2F9B4E]" />
-                  </span>
-                  <div className="flex flex-col">
-                    <h2 className="text-slate-900 font-bold text-[18px] ">{`${user?.first_name} ${user?.last_name}`}</h2>
-                    <Link href="/dashboard/profile" className="text-slate-400 text-[15px] cursor-pointer">My Profile</Link>
+                {user === null ? (
+                  <div>
+                    <h4 className="text-slate-900 font-bold text-[14px] ">You are logged out. Please Log in</h4>
                   </div>
-                </div>
+                ) : (
+                  <div className="flex flex-col">
+                    <span className="h-16 w-16 bg-[#DBF3D9] rounded-full flex items-center justify-center">
+                      <FaUser className="h-10 w-10 text-[#2F9B4E]" />
+                    </span>
+                    <div className="flex flex-col">
+                      <h2 className="text-slate-900 font-bold text-[18px] ">{`${user?.first_name} ${user?.last_name}`}</h2>
+
+                      <Link href="/dashboard/profile" className="text-slate-400 text-[15px] cursor-pointer">My Profile</Link>
+                    </div>
+                  </div>
+                )}
               </PopoverContent>
             </Popover>
 

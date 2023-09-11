@@ -5,7 +5,7 @@ import { AiOutlineReload } from "react-icons/ai";
 import { BiMessage } from "react-icons/bi";
 import { BsFillExclamationCircleFill, BsSearch } from "react-icons/bs";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
-import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
+import thumpsup from "../../public/svgs/thumbs-up.svg";
 import { SearchContext } from "../context/SearchState";
 import { jost, satoshi } from "../fonts/Fonts";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
@@ -27,10 +27,10 @@ export const PostQuestion = () => {
   const user = useAppSelector((state) => state.currentUser);
   const buttonRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch();
-  const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
+  const { setOpenEditorModal } = useContext(UseEditorModal);
   const _state = useAppSelector((state) => state.currentUser);
-  const { openModal, setOpenModal } = useContext(ManagedUI);
-  const { openLoginModal, setOpenLoginModal } = useContext(UseLoginModal);
+  const { setOpenModal } = useContext(ManagedUI);
+  const { setOpenLoginModal } = useContext(UseLoginModal);
 
   const post = useAppSelector((state) => state.post);
 
@@ -42,6 +42,9 @@ export const PostQuestion = () => {
     const fetchPost = async () => {
       setLoading(true);
       let res: any = await dispatch(getPosts());
+      console.log('====================================');
+      console.log(res);
+      console.log('====================================');
       setPosts(res.payload.posts);
       setLoading(false);
     };
@@ -58,7 +61,7 @@ export const PostQuestion = () => {
       }
     };
     getUser();
-  }, []);
+  }, [dispatch]);
 
 
   const onFocus = () => {
@@ -97,35 +100,7 @@ export const PostQuestion = () => {
     }
 
   }
-
-  const downVotePost = async (post_id: number) => {
-    if (user?.user === null) {
-      toast({
-        description: "Please log in first to downVote",
-        variant: "destructive",
-      });
-      router.push("/auth/login");
-      setOpenModal(true)
-    } else {
-      const data = {
-        post_id: post_id,
-        vote: -1
-      }
-      let resp: any = await dispatch(upVoteForQuestion(data))
-      if (resp?.payload.success) {
-        toast({
-          description: `Your down vote was successfully ${resp?.payload.response.response}`
-        })
-        let res: any = await dispatch(getPosts());
-        setPosts(res.payload.posts);
-      }
-    }
-
-  }
-
   const filteredPosts = posts?.filter((post) => post?.title?.toLowerCase().includes(searchedValue.searchedValue.toLowerCase()));
-
-  useEffect(() => { router.refresh() }, [router])
 
 
   return (
@@ -209,14 +184,21 @@ export const PostQuestion = () => {
                     className="flex min-w-[350px] md:max-w-full lg:max-w-full  h-auto cursor-pointer "
                   >
                     <div className="flex flex-col pt-[20px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
-                      <MdArrowDropUp onClick={() => upVotePost(post?.id)} className="w-[35px] h-[25px] text-[#2F9B4E]" />
+                      <div onClick={() => upVotePost(post?.id)} className="mb-2">
+                        <Image
+                          src={thumpsup}
+                          alt="prof"
+                          width={18}
+                          height={18}
+                          className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px] text-red-500"
+                        />
 
+                      </div>
                       <span
                         className={`text-[12px] lg:text-[16px] leading-[18px] font-[500] text-[#2F9B4E] tracking-[-0.04em] ${satoshi.className}`}
                       >
                         {post?.votes}
                       </span>
-                      <MdArrowDropDown onClick={() => downVotePost(post?.id)} className="w-[35px] h-[25px] text-[#2F9B4E]" />
                     </div>
                     <div
                       onClick={() =>
@@ -267,6 +249,15 @@ export const PostQuestion = () => {
                         >
                           {post?.description}
                         </p>
+                        {post?.image === "http://dev.agristroom.com/api/uploads/posts" ? null : (
+                          <Image
+                            src={post?.image!}
+                            alt="prof"
+                            width={550}
+                            height={300}
+                            className="rounded-md mt-2 h-[250px] object-cover object-left"
+                          />
+                        )}
                       </div>
                       <div className="flex flex-row items-center justify-between mt-[14px] mr-[10px] ">
                         <div className="flex items-center gap-3">

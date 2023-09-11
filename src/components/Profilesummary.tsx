@@ -133,7 +133,7 @@ const ProfileSummary = () => {
               >
                 {state?.account.name}{" "}
                 <MdOutlineEdit
-                  onClick={() => router.push("/signup/createaccounts")}
+                  onClick={() => router.push("/auth/signup/createaccounts")}
                   className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
                 />
               </span>
@@ -142,7 +142,7 @@ const ProfileSummary = () => {
               >
                 {fullName}{" "}
                 <MdOutlineEdit
-                  onClick={() => router.push("/signup/accountinformations")}
+                  onClick={() => router.push("/auth/signup/accountinformations")}
                   className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
                 />
               </span>
@@ -151,7 +151,7 @@ const ProfileSummary = () => {
               >
                 {state?.username}{" "}
                 <MdOutlineEdit
-                  onClick={() => router.push("/signup")}
+                  onClick={() => router.push("/auth/signup")}
                   className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
                 />
               </span>
@@ -160,7 +160,7 @@ const ProfileSummary = () => {
               >
                 {state?.email}{" "}
                 <MdOutlineEdit
-                  onClick={() => router.push("/signup")}
+                  onClick={() => router.push("/auth/signup")}
                   className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
                 />
               </span>
@@ -170,7 +170,7 @@ const ProfileSummary = () => {
                 >
                   {state?.phone_number}{" "}
                   <MdOutlineEdit
-                    onClick={() => router.push("/signup/accountinformations")}
+                    onClick={() => router.push("/auth/signup/accountinformations")}
                     className="h-[16px w-[16px] !cursor-pointer !text-[#2F9B4E]"
                   />
                 </span>
@@ -185,7 +185,7 @@ const ProfileSummary = () => {
               Selected Interests
             </span>
             <span
-              onClick={() => router.push("/signup/interest")}
+              onClick={() => router.push("/auth/signup/interest")}
               className={` font-[500] whitespace-nowrap flex items-center text-[14px] leading-[19px] tracking-[-0.04em] text-[#2F9B4E] justify-center cursor-pointer ${satoshi.className}`}
             >
               Add Interests{" "}
@@ -230,10 +230,10 @@ const ProfileSummary = () => {
               } flex items-center justify-center gap-3 mx-[15px] lg:mx-[40px] bg-[#2F9B4E] min-w-[315px] lg:min-w-[474px] py-[14px] px-[24px] h-[50px] rounded-[5px] text-white w-full text-center text-[16px] leading-[22px] tracking-[-0.0em] ${satoshi.className
               }`}
           >
-            {isSubmitting && (
+            {isSubmitting ? (
               <FaSpinner className="animate-spin h-8 w-8 text-white" />
-            )}{" "}
-            Create Account
+            ) : "Create Account"}
+
           </button>
         </div>
       </div>

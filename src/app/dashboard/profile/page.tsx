@@ -2,90 +2,50 @@
 
 
 import { Button } from "@/src/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/Card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/src/components/ui/Dialog";
 import { Input } from "@/src/components/ui/Input";
 import { Label } from "@/src/components/ui/label";
 import { useAuthState } from "@/src/context/auth";
 import useGetCurrentUser from "@/src/context/current-user";
-import { useAppDispatch } from "@/src/hooks/react-redux-hooks";
-import { toast } from "@/src/hooks/use-toast";
-import { resetPassword } from "@/src/redux/actions/auth.action.action";
-import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { BiEditAlt } from "react-icons/bi";
 import { BsThreeDots } from "react-icons/bs";
-import * as Yup from 'yup';
 
-interface ResetPassword {
-  password: string
-  password_confirmation: string
-}
-
-
-const formSchema = Yup.object().shape({
-  password: Yup.string()
-    .required("Password is required")
-    .min(4, "Password length should be at least 4 characters")
-    .max(24, "Password cannot exceed more than 12 characters"),
-  password_confirmation: Yup.string()
-    .required("Confirm Password is required")
-    .min(4, "Password length should be at least 4 characters")
-    .max(24, "Password cannot exceed more than 12 characters")
-    .oneOf([Yup.ref("password")], "Passwords do not match")
-});
 
 function Page() {
   const [showImageUploadButton, setShowImageUploadButton] = useState(false);
   const router = useRouter();
-  const dispatch = useAppDispatch();
-  const { handleSubmit, register, formState: { errors } } = useForm<ResetPassword>({
-    mode: "onTouched",
-    resolver: yupResolver(formSchema)
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const { user, setUser } = useAuthState();
-  useGetCurrentUser()
-
-    ;
-
-  const submitPassword = async (data: ResetPassword) => {
-    setIsSubmitting(true);
-    const inputValue = {
-      token: "params?.token",
-      email: localStorage.getItem("email") as string,
-      password: data.password,
-      password_confirmation: data.password_confirmation,
-    }
-    const res: any = await dispatch(resetPassword(inputValue));
-    if (res?.payload?.success) {
-      router.refresh()
-      router.push("/auth/login")
-      setIsSubmitting(false)
-      toast({
-        title: `${res?.payload?.result?.message ?? ""}. Please login with your new Password`,
-        variant: "secondary"
-      })
-    } else {
-      toast({
-        title: `Something went wrong`,
-        variant: "destructive"
-      })
-    }
-    setIsSubmitting(false)
-  };
+  useGetCurrentUser();
 
   useEffect(() => {
+    if (user === null) {
+      router.push("/dashboard")
+    }
+  }, [router, user])
 
-  }, [])
 
-  console.log('====================================');
-  console.log(user);
-  console.log('====================================');
-
+  if (user === null) {
+    return (
+      <div className="flex items-center h-[cal(100%_-_100px)] w-full justify-center">
+        <div className="bg-white max-w-[1200px] mx-[20px] lg:mx-auto w-full h-auto pt-16 mt-5  ">
+          <div className="">
+            <Card>
+              <CardHeader>
+                <CardTitle>Failed to load page</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>You must be logged in to access this page</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    )
+  }
   return (
     <div className="flex items-center h-[cal(100%_-_100px)] w-full justify-center">
       <div className="bg-white max-w-[1200px] mx-[20px] lg:mx-auto w-full h-auto pt-16 mt-5  ">
@@ -146,14 +106,14 @@ function Page() {
                     <DialogTrigger asChild>
                       <BiEditAlt className="h-7 w-7 text-slate-600" />
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[575px]">
+                    <DialogContent className="sm:max-w-[575px] flex flex-col">
                       <DialogHeader>
                         <DialogTitle>Edit profile</DialogTitle>
                         <DialogDescription>
                           Make changes to your profile here. Click save when you&apos;re done.
                         </DialogDescription>
                       </DialogHeader>
-                      <>
+                      <div className="">
                         <div className="flex gap-4 pt-2">
                           <div className="flex flex-col items-start justify-start gap-2">
                             <Label htmlFor="name" className="text-right">
@@ -191,8 +151,7 @@ function Page() {
                           </div>
 
                         </div>
-
-                      </>
+                      </div>
                       <DialogFooter>
                         <Button type="submit">Save changes</Button>
                       </DialogFooter>
@@ -205,7 +164,7 @@ function Page() {
                       <span className="text-slate-400 text-[14px] leading-5">
                         First Name
                       </span>
-                      <span className="text-slate-800 text-[14px] leading-5">
+                      <span className="text-slate-800 text-[14px] leading-5 capitalize">
                         {`${user?.first_name}`}
                       </span>
                     </div>
@@ -213,7 +172,7 @@ function Page() {
                       <span className="text-slate-400 text-[14px] leading-5">
                         Last Name
                       </span>
-                      <span className="text-slate-800 text-[14px] leading-5">
+                      <span className="text-slate-800 text-[14px] leading-5 capitalize">
                         {`${user?.last_name}`}
                       </span>
                     </div>

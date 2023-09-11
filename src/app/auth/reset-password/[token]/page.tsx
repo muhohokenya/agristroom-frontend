@@ -1,7 +1,6 @@
 'use client'
 import Navbar from "@/src/components/Navbar";
 import { Input } from "@/src/components/ui/Input";
-import { useFormContext } from "@/src/context/formstate";
 import { satoshi } from "@/src/fonts/Fonts";
 import { useAppDispatch } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
@@ -42,7 +41,6 @@ const Page = ({ params }: { params: { token: string } }) => {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const { state, setState } = useFormContext();
     const { setOpenModal } = useContext(ManagedUI);
 
     ;

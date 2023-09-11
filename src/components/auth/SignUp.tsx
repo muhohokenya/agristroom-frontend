@@ -4,7 +4,7 @@ import { Input } from "@/src/components/ui/Input";
 import { satoshi } from "@/src/fonts/Fonts";
 import { ManagedUI } from "@/src/hooks/useModalContext";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaEyeSlash, FaSpinner } from "react-icons/fa";
@@ -20,6 +20,7 @@ type Inputs = {
 
 const SignUpPage = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { setOpenModal } = useContext(ManagedUI);
   const { state, setState } = useFormContext();
   const [showPassword, setShowPassword] = useState(false);
@@ -49,9 +50,11 @@ const SignUpPage = () => {
         email: data.email,
         password: data.password,
       }));
-      setIsSubmitting(false);
       setOpenModal(true);
       router.push("/auth/signup/accountinformations");
+    }
+    if (pathname !== "/auth/signup") {
+      setIsSubmitting(false)
     }
     if (emailResponse?.status === "taken") {
       setEmailErrorMessage(emailResponse?.status);
