@@ -17,7 +17,7 @@ import { Post, SinglePost } from "@/src/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsDot, BsFillExclamationCircleFill } from "react-icons/bs";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
@@ -26,14 +26,13 @@ import thumbsup from "../../../../../public/svgs/thumbs-up.svg";
 interface Props {
   params: {
     id: number;
-    postId: number;
+    postId: string;
   };
 }
 
 function Page(props: Props) {
   const { params } = props;
   const router = useRouter();
-  const imageUploadRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   const answers = useAppSelector((state) => state.replies);
   const _state = useAppSelector((state) => state.currentUser);
@@ -46,8 +45,6 @@ function Page(props: Props) {
   const [posting, setPosting] = useState(false);
   const [replies, setReplies] = useState([]);
   const [answer, setAnswer] = useState("")
-  const [profileImage, setProfileImage] = useState("")
-  const [loadingImage, setLoadingImage] = useState(false)
   const [post, setPost] = useState<SinglePost>({
     id: 0,
     image: "",
@@ -67,11 +64,12 @@ function Page(props: Props) {
     },
   });
 
+  const postId = parseInt(params.postId.split("-")[1])
 
   const onSubmit = async () => {
     const state = {
       text: answer,
-      post_id: params.postId
+      post_id: postId
     }
     try {
       if (_state?.user === null) {
@@ -90,7 +88,7 @@ function Page(props: Props) {
         let res: any = await dispatch(postAnswer(state));
         if (res?.payload?.success) {
           setPosting(false)
-          dispatch(getRepliesByPostId(params.postId));
+          dispatch(getRepliesByPostId(postId));
           toast({
             description: "You successfully posted your Answer",
             variant: "secondary"
@@ -117,7 +115,7 @@ function Page(props: Props) {
     //get post
     const fetchOnePost = async () => {
       setLoading(true);
-      let res: any = await dispatch(getOneQuestion(params.postId));
+      let res: any = await dispatch(getOneQuestion(postId));
       setPost(res?.payload?.post[0]);
       setLoading(false);
     };
@@ -125,7 +123,7 @@ function Page(props: Props) {
     //get replies
     const fetchRepliesByPostId = async () => {
       setLoadingReplies(true);
-      let res: any = await dispatch(getRepliesByPostId(params.postId));
+      let res: any = await dispatch(getRepliesByPostId(postId));
       setReplies(res?.payload?.replies);
       setLoadingReplies(false);
     };
@@ -133,7 +131,7 @@ function Page(props: Props) {
     fetchPosts()
     fetchOnePost();
     fetchRepliesByPostId();
-  }, [dispatch, params?.postId]);
+  }, [dispatch, postId]);
 
 
   const upVoteReply = async (reply_id: number) => {
@@ -155,7 +153,7 @@ function Page(props: Props) {
         })
       }
       setLoadingReplies(true);
-      let resp: any = await dispatch(getRepliesByPostId(params.postId));
+      let resp: any = await dispatch(getRepliesByPostId(postId));
       setReplies(resp?.payload?.replies);
       setLoadingReplies(false);
     }
@@ -173,7 +171,7 @@ function Page(props: Props) {
 
     } else {
       const data = {
-        post_id: post_id,
+        post_id: postId,
         vote: 1
       }
       let resp: any = await dispatch(upVoteForQuestion(data))
@@ -181,7 +179,7 @@ function Page(props: Props) {
         toast({
           description: `Your up vote was successfully ${resp?.payload.response.response}`
         })
-        let res: any = await dispatch(getOneQuestion(params.postId));
+        let res: any = await dispatch(getOneQuestion(postId));
         setPost(res?.payload?.post[0]);
       }
     }
@@ -228,7 +226,7 @@ function Page(props: Props) {
                   className={`flex items-center justify-center text-[14px] lg:text-[16px] leading-[16px] lg:leading-[22px] font-[400] text-[#212121]/70 tracking-[-0.04em] ${satoshi.className}`}
                 >
                   <span className=" flex items-center justify-center gap-2">
-                    {post.user.first_name} - <Image
+                    {post?.user?.first_name} - <Image
                       src="/Flag_of_Kenya.png"
                       alt="photo"
                       width={30}
@@ -240,8 +238,8 @@ function Page(props: Props) {
                     <BsDot className="text-black text-xl" />{" "}
                   </span>
                   <span className="text-[12px] pt-[2px] ">
-                    {formatDate(post.created_at)} |{" "}
-                    {formatDateToTime(post.created_at)}
+                    {formatDate(post?.created_at)} |{" "}
+                    {formatDateToTime(post?.created_at)}
                   </span>
                 </p>
               </div>
@@ -250,7 +248,7 @@ function Page(props: Props) {
           <p
             className={`text-[14px] md:text-[18px] lg:text-[26px] mt-[10px] leading-[24px] lg:leading-[42px] font-[600] text-[#212121]/90 tracking-[-0.03em] ${jost.className}`}
           >
-            {post.title}
+            {post?.title}
           </p>
         </div>
         <button
@@ -461,7 +459,7 @@ function Page(props: Props) {
                   <p
                     key={post?.id}
                     onClick={() => {
-                      router.push(`/dashboard/post/${post.id}`)
+                      router.push(`/dashboard/post/${post?.title}-${post?.id}`)
                     }}
                     className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
                   >

@@ -49,7 +49,7 @@ export const DiscussionCard = ({ post }: Props) => {
           {post?.votes || 0}
         </span>
       </div>
-      <Link href={`/dashboard/post/${post?.id}`} className="flex cursor-pointer flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px] bg-[#FAFAFA] w-full rounded-r-md ">
+      <Link href={`/dashboard/post/${post?.title}-${post?.id}`} className="flex cursor-pointer flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px] bg-[#FAFAFA] w-full rounded-r-md ">
         <div className="flex gap-[5px]">
           <FaUserCircle
             className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px] text-[#DBF3D9]"

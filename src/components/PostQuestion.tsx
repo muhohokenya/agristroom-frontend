@@ -42,9 +42,6 @@ export const PostQuestion = () => {
     const fetchPost = async () => {
       setLoading(true);
       let res: any = await dispatch(getPosts());
-      console.log('====================================');
-      console.log(res);
-      console.log('====================================');
       setPosts(res.payload.posts);
       setLoading(false);
     };
@@ -202,7 +199,7 @@ export const PostQuestion = () => {
                     </div>
                     <div
                       onClick={() =>
-                        router.push(`/dashboard/post/${post.id}`)
+                        router.push(`/dashboard/post/${post?.title}-${post?.id}`)
                       }
                       className="flex w-full flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px]  bg-[#FAFAFA] rounded-r-md "
                     >
@@ -316,7 +313,7 @@ export const PostQuestion = () => {
               {posts.map((post) => {
                 return (
                   <p
-                    onClick={() => router.push(`/dashboard/post/${post?.id}`)}
+                    onClick={() => router.push(`/dashboard/post/${post?.title}-${post?.id}`)}
                     key={post.id}
                     className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
                   >
