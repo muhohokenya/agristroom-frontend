@@ -208,7 +208,7 @@ const EditorModal = () => {
               <button
                 type="submit"
                 disabled={savingPost || disableButton}
-                className={`  ${savingPost || disableButton ? "bg-[#2F9B4E]/70 cursor-not-allowed" : "bg-[#2F9B4E] cursor-pointer"} ml-auto w-fit h-[40px]  py-[14px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
+                className={`  ${savingPost || disableButton ? "bg-[#2F9B4E]/70 cursor-not-allowed" : "bg-[#2F9B4E] cursor-pointer"} ml-auto w-fit h-[40px] px-[24px] rounded-[5px] text-white  text-center text-[16px] leading-[21px] tracking-[-0.04em] ${satoshi.className}`}
               >
                 {savingPost ? <FaSpinner className="animate-spin h-8 w-8 text-white" /> : "Post Question"}
               </button>

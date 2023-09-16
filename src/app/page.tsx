@@ -18,17 +18,22 @@ import useGetCurrentUser from "../context/current-user";
 import { jost, satoshi } from "../fonts/Fonts";
 import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
 import { ManagedUI } from "../hooks/useModalContext";
+import { TypePhase, useTypedSuperpower } from "../hooks/useTypedWords";
 import { cards, guides, masterClassesData } from "../lib/data/data";
+import { cn } from "../lib/utils";
 import { getPosts } from "../redux/actions/getPosts.action";
 import { Card, Guide, MasterClass, Post } from "../types/types";
 
 export default function Home() {
+  const texts = ["Passion Farming", "Avocado Farming", "Dragon Fruit farming", "Apple farming"]
   const { setSearchedValue } = useContext(SearchContext);
   const { setOpenModal } = useContext(ManagedUI);
   const router = useRouter();
   const dispatch = useAppDispatch()
   useGetCurrentUser()
   const post = useAppSelector((state) => state.post);
+  const { typedSuperpower, selectedSuperpower, phase, resume } =
+    useTypedSuperpower(texts)
 
   //state
   const [show, setShow] = useState(3);
@@ -75,37 +80,91 @@ export default function Home() {
     fetchPosts();
   }, [dispatch]);
 
-
-
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchedValue({
       searchedValue: e.target.value
     })
   }
 
+  const [currentIndexOne, setCurrentIndexOne] = useState(0)
+  const [currentIndexTwo, setCurrentIndexTwo] = useState(0)
+  const [currentIndexThree, setCurrentIndexThree] = useState(0)
+  const [currentIndexFour, setCurrentIndexFour] = useState(0)
+
+  const animationOne = [
+    {
+      image: "/svgs/communities/farmer2.svg",
+      text: "Connect and network with strategic players to learn and maximize productivity of your farm with sustainable farming techniques."
+    },
+    {
+      image: "/svgs/communities/agri-expert.svg",
+      text: "Join a network of new and experienced experts, grow your knowledge and help solve real on-farm challenges farmers face in their communities daily."
+    },
+  ]
+  const animationTwo = [
+
+    {
+      image: "/svgs/communities/smart-farm.svg",
+      text: "Get insights and make better decisions for your agribusiness venture. We collect accurate farm data to aid forecasting and ensure actionable and valuable insights."
+    },
+    {
+      image: "/svgs/communities/supplier.svg",
+      text: "Access thousands of farmers to market and supply quality inputs for the farm problems aligned with sustainable farming practices."
+    },
+
+  ]
+  const animationThree = [
+    {
+      image: "/svgs/communities/off-takers.svg",
+      text: "Connect with producers to aggregate and help farmers sell their produce locally and internationally"
+    },
+    {
+      image: "/svgs/communities/agri-processors.svg",
+      text: "We partner with innovative players to transform farm produce through value addition and help farmers meet market demands, unlock new opportunities and reduce food wastage."
+    },
+
+  ]
+  const animationFour = [
+    {
+      image: "/svgs/communities/financers2.svg",
+      text: "Meet the unique financial needs in the farming sector and fuel growth through tailored financial solutions and expert guidance."
+    },
+    {
+      image: "/svgs/communities/research.svg",
+      text: "Bridge the gap between research and impactful policies for ag advancement. Collaborate with us and promote sustainable farming practices to ensure food security for present and future generations."
+    },
+    {
+      image: "/svgs/communities/investors.svg",
+      text: "Connect with promising ag ventures and get valuable insights and expertise to navigate and strategically invest in the dynamic agricultural environment."
+    },
+  ]
   useEffect(() => {
-    const texts = ["Passion Farming", "Avocado Farming", "Dragon Fruit farming", "Apple farming"]
-    const el = document.getElementById('slider');
-    const ul: HTMLElement = el!;
-    let counter = 0;
+    const interval = setInterval(() => {
+      setCurrentIndexOne((prevIndex) => prevIndex === animationOne.length - 1 ? 0 : prevIndex + 1);
+    }, 3000)
+    return () => clearInterval(interval);
+  }, [animationOne.length, currentIndexOne])
 
-    function addAnimation() {
-      const li = document.createElement("li");
-      li.innerText = texts[counter];
-      ul.appendChild(li);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndexTwo((prevIndex) => prevIndex === animationTwo.length - 1 ? 0 : prevIndex + 1);
+    }, 3000)
+    return () => clearInterval(interval);
+  }, [animationTwo.length, currentIndexTwo])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndexThree((prevIndex) => prevIndex === animationThree.length - 1 ? 0 : prevIndex + 1);
+    }, 3000)
+    return () => clearInterval(interval);
+  }, [animationThree.length, currentIndexThree])
 
-      li.classList.add("animated-item");
-      li.addEventListener('animationend', (e: any) => {
-        e.target.remove();
-        counter++;
-        if (counter == texts.length) counter = 0;
-        addAnimation();
-      });
-    }
-
-    addAnimation();
-  }, [])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndexFour((prevIndex) => prevIndex === animationFour.length - 1 ? 0 : prevIndex + 1);
+    }, 3000)
+    return () => clearInterval(interval);
+  }, [animationFour.length, currentIndexFour])
 
   return (
     <main>
@@ -119,10 +178,16 @@ export default function Home() {
               <div
                 className={`text-[23px] relative md:text-[34px] text-[#212121] tracking-[-0.04em] leading-[30px] md:leading-[48px] text-start font-[800] ${jost.className}`}
               >
-                Make important connections to improve your{" "}
-                <ul id="slider" className="list absolute top-12 left-20 slider text-[#2F9B4E]">
-                </ul>{" "}
-                {/* <span className=" absolute top-12 right-auto">experience</span> */}
+                Make important connections to improve your {
+                  (
+                    <span className={cn('text-[#2F9B4E] pt-4 pb-12 min-h-[10rem]', {
+                      ['end-cursor']: phase !== TypePhase.Deleting,
+                      ['blinking']: phase === TypePhase.Pausing,
+                    })}
+                      aria-label={selectedSuperpower}>{typedSuperpower}</span>
+                  )
+                }
+                <span className="ml-1 absolute top-12 right-auto">experience</span>
               </div>
               <p
                 className={`mt-[10px] md:mt-[20px] text-[16px] md:text-[18px] leading-[27px] tracking-[-0.02em] md:leading-[24px] font-[400] text-[#212121]/70 ${satoshi.className}`}
@@ -142,77 +207,85 @@ export default function Home() {
             </div>
             <div className="w-full  lg:w-[50%] flex items-center justify-center">
               <div className="relative  border-1 flex flex-col md:flex-row  mt-[50px] lg:mt-[50px] mb-[75px] lg:mb-[130px] h-[330px]  lg:h-[476px]  sm:w-[330px] lg:w-[476px] border border-[#DBF3D9] rounded-full">
-
-                <p
-                  className={` absolute fade-in-image  top-[220px]  lg:top-[310px] max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
-                >
-                  Monitor and help smallholder farmers increase their resilience
-                  and cope with devastating challenges in their crop and animal
-                  farms.1
-                </p>
-                <p
-                  className={` absolute fade-in-image2 bottom-4 lg:bottom-3 max-h-[56px] lg:max-h-[60px]   max-w-[152px] lg:max-w-[222px] right-0 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px]  leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em]`}
-                >
-                  Monitor and help smallholder farmers increase their resilience
-                  and cope with devastating challenges in their crop and animal
-                  farms.2
-                </p>
-
-                <p
-                  className={` absolute fade-in-image3   top-44 lg:top-52 max-h-[56px] lg:max-[60px]  max-w-[135px]  lg:max-w-[215px] -right-8 lg:-right-16  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
-                >
-                  Monitor and help smallholder farmers increase their resilience
-                  and cope with devastating challenges in their crop and animal
-                  farms.3
-                </p>
-                <p
-                  className={` absolute fade-in-image4  top-10 lg:top-20 max-h-[56px] lg:max-[60px] max-w-[135px]  lg:max-w-[215px] left-28  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
-                >
-                  Monitor and help smallholder farmers increase their resilience
-                  and cope with devastating challenges in their crop and animal
-                  farms.4
-                </p>
                 <div className="m-[42px] lg:m-[61px] relative border border-[#DBF3D9] rounded-full h-[245px] lg:h-[354px] w-[245px] lg:w-[354px] ">
-                  <div className="absolute fade-in-image4 -top-12 left-24 bg-[#DBF3D9] rounded-full w-[48px] lg:w-[70px] h-[48px] lg:h-[70px] flex items-center justify-center">
-                    <Image
-                      src="/user-4.png"
-                      alt="Logo"
-                      priority
-                      width={37}
-                      height={44}
-                      className="object-contain w-[37px] h-[44px]"
-                    />
+                  {/* animation one */}
+                  <div className="absolute transition-all ease-in-out duration-1000  top-32 lg:top-44 -left-3 lg:-left-10 ">
+                    <div className=" bg-[#DBF3D9] transition-all ease-in-out duration-500  rounded-full w-[60px] h-[60px] flex items-center justify-center">
+                      <Image
+                        src={animationOne[currentIndexOne]?.image!}
+                        alt="Logo"
+                        priority
+                        width={44}
+                        height={44}
+                        className="object-contain w-[44px] h-[44px] transition-opacity ease-in-out duration-500 "
+                      />
+                    </div>
+                    <p
+                      className={` absolute line-clamp-3 top-[70px] left-1 w-[300px] ease-in-out duration-500  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                    >
+                      {animationOne[currentIndexOne]?.text}
+                    </p>
                   </div>
-                  <div className="absolute fade-in-image top-32 lg:top-44 -left-3 lg:-left-10 bg-[#DBF3D9] rounded-full w-[48px] lg:w-[70px] h-[48px] lg:h-[70px] flex items-center justify-center">
-                    <Image
-                      src="/Vector.png"
-                      alt="Logo"
-                      priority
-                      width={37}
-                      height={44}
-                      className="object-contain w-[37px] h-[44px]"
-                    />
+
+                  {/* animation two */}
+                  <div className="absolute -bottom-5 right-16">
+                    <div className=" w-[60px]  h-[60px] bg-[#DBF3D9] rounded-full flex items-center justify-center ">
+                      <Image
+                        src={animationTwo[currentIndexTwo]?.image}
+                        alt="Logo"
+                        priority
+                        width={44}
+                        height={44}
+                        className="object-contain w-[44px] h-[44px] "
+                      />
+                    </div>
+                    <p
+                      className={` absolute line-clamp-3 top-[60px] w-[230px] text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em]`}
+                    >
+                      {animationTwo[currentIndexTwo]?.text}
+                    </p>
+
                   </div>
-                  <div className="absolute fade-in-image2 bottom-2 right-16 w-[45px] lg:w-[66px] h-[45px] lg:h-[66px] ">
-                    <Image
-                      src="/user-3.png"
-                      alt="Logo"
-                      priority
-                      width={66}
-                      height={66}
-                      className="object-contain w-[45px] lg:w-[66px] h-[45px] lg:h-[66px] bg-[#F8F29F] rounded-full"
-                    />
+
+                  {/* animation three */}
+                  <div className="absolute -right-4 top-24">
+                    <div className="w-[60px] h-[60px] rounded-full bg-[#DBF3D9] flex items-center justify-center">
+                      <Image
+                        src={animationThree[currentIndexThree]?.image}
+                        alt="Logo"
+                        priority
+                        width={44}
+                        height={44}
+                        className="object-contain w-[44px]  h-[44px]"
+                      />
+                    </div>
+                    <p
+                      className={` absolute line-clamp-3 top-[60px] w-[230px] -left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                    >
+                      {animationThree[currentIndexThree]?.text}
+                    </p>
+
                   </div>
-                  <div className="absolute fade-in-image3 -right-4 top-20 w-[48px] lg:w-[70px] h-[48px] lg:h-[70px]">
-                    <Image
-                      src="/user-2.png"
-                      alt="Logo"
-                      priority
-                      width={70}
-                      height={70}
-                      className="object-contain w-[48px] lg:w-[70px] h-[48px] lg:h-[70px] bg-[#DBF3D9] rounded-full"
-                    />
+
+                  {/* animation four */}
+                  <div className="absolute -top-12 left-24" >
+                    <div className=" bg-[#DBF3D9] rounded-full w-[60px] h-[60px] flex items-center justify-center">
+                      <Image
+                        src={animationFour[currentIndexFour]?.image}
+                        alt="Logo"
+                        priority
+                        width={44}
+                        height={44}
+                        className="object-contain w-[44px] h-[44px]"
+                      />
+                    </div>
+                    <p
+                      className={` absolute line-clamp-3 top-10 lg:top-[60px] w-[230px] left-2  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                    >
+                      {animationFour[currentIndexFour]?.text}
+                    </p>
                   </div>
+
                   <div className="m-[34px] lg:m-[50px] border border-[#DBF3D9] rounded-full h-[175px] lg:h-[254px] w-[175px] lg:w-[254px] ">
                     <div className="m-[33px] lg:m-[49px] bg-[#DBF3D9] rounded-full h-[108px]  lg:h-[150px] w-[108px] lg:w-[150px] flex items-center justify-center ">
                       <Image
@@ -356,7 +429,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-white w-full   ">
+      <div className="bg-white w-full">
         <div className="max-w-[1440px] mx-auto w-full flex flex-col  mt-[140px] pb-[60px] ">
           <h2
             className={`font-[800] text-[34px] leading-[43px] mt-[60px] text-slate-900 tracking-tighter text-center ${jost.className}`}
