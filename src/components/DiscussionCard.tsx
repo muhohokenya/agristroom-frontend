@@ -31,7 +31,8 @@ export const DiscussionCard = ({ post }: Props) => {
   }
 
   return (
-    <div className="flex">
+    // <div className="flex">
+    <Link href={`/questions/${post?.title.split(" ").join("-")}-${post?.id}`} className="flex">
       <div className="flex flex-col pt-[20px] px-[8px] lg:px-[15px] items-center justify-start bg-[#DBF3D9] w-[42px] lg:w-[64px] rounded-l-md">
         <div onClick={() => upVotePost(post?.id)} className="mb-2">
           <Image
@@ -49,7 +50,7 @@ export const DiscussionCard = ({ post }: Props) => {
           {post?.votes || 0}
         </span>
       </div>
-      <Link href={`/dashboard/post/${post?.title}-${post?.id}`} className="flex cursor-pointer flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px] bg-[#FAFAFA] w-full rounded-r-md ">
+      <div className="flex cursor-pointer flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px] bg-[#FAFAFA] w-full rounded-r-md ">
         <div className="flex gap-[5px]">
           <FaUserCircle
             className="w-[18px] lg:w-[22px] h-[18px] lg:h-[22px] text-[#DBF3D9]"
@@ -104,7 +105,8 @@ export const DiscussionCard = ({ post }: Props) => {
             {formatDate(post?.created_at!)} | {formatDateToTime(post?.created_at!)}
           </p>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
+    // </div>
   );
 };

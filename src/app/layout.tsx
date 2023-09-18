@@ -1,6 +1,6 @@
 
-import { Metadata } from "next";
 
+import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "primeflex/primeflex.css";
 import "primereact/resources/primereact.min.css";

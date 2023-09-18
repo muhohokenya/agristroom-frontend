@@ -3,6 +3,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { AiOutlineClose } from "react-icons/ai";
 import { FaSpinner } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../hooks/react-redux-hooks";
 import { toast } from "../../hooks/use-toast";
@@ -89,8 +90,8 @@ const EditorModal = () => {
             description: "You Successfully posted a question",
             variant: "secondary",
           });
-          if (pathname.includes("/dashboard/post/")) {
-            router.push(`/dashboard/post/${returnedPost?.id}`)
+          if (pathname.includes("/questions/")) {
+            router.push(`/questions/${returnedPost?.id}`)
           } else {
             setOpenEditorModal(false);
           }
@@ -117,8 +118,11 @@ const EditorModal = () => {
 
   return (
     <ModalEditor>
-      <div className="flex flex-col bg-white h-auto rounded-md px-2">
-        <div className="flex flex-col mt-2 px-2 py-1 rounded-md border border-slate-400 ">
+      <div className="flex relative flex-col bg-white h-auto rounded-md px-2">
+        <div onClick={() => setOpenEditorModal(false)} className="absolute top-3 right-3 cursor-pointer ">
+          <AiOutlineClose className="text-[20px] text-slate-700 hover:text-[24px] hover:text-slate-950 transition-all ease-in-out duration-500 " />
+        </div>
+        <div className="flex flex-col mt-6 px-2 py-1 rounded-md border border-slate-400 ">
           <h2 className="text-[16px] text-black leading-4">Title</h2>
           <p className="text-[13px] text-black mt-1">Be specific and imagine you are asking a question to another person.</p>
           <p className="text-[10px] text-black mt-1">A range of 20 to 100 characters.</p>

@@ -55,8 +55,8 @@ const Login = ({ route = "" }: Props) => {
       setOpenModal(false)
       setOpenLoginModal(false)
       if (pathname === "/auth/login") {
-        router.push("/dashboard")
-      } else if (pathname.includes("/dashboard/post")) {
+        router.push("/questions")
+      } else if (pathname.includes("/questions/")) {
         return
       } else {
         router.push(route)

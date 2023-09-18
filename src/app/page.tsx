@@ -175,8 +175,8 @@ export default function Home() {
             className={`w-full mt-[100px] -z-50 pt-[50px] flex flex-col justify-between  lg:flex-row lg:items-center px-[15px] lg:px-[100px] gap-[50px] lg:gap-[100px]`}
           >
             <div className=" w-full   lg:w-[50%] lg:min-w-[607px] mt-[10px] lg:mt-[58px] min-h-[220px] lg:mb-[75px] ">
-              <div
-                className={`text-[23px] relative md:text-[34px] text-[#212121] tracking-[-0.04em] leading-[30px] md:leading-[48px] text-start font-[800] ${jost.className}`}
+              <p
+                className={`text-[23px]  relative md:text-[34px] text-[#212121] tracking-[-0.04em] leading-[30px] md:leading-[48px] text-start font-[800] ${jost.className}`}
               >
                 Make important connections to improve your {
                   (
@@ -187,8 +187,8 @@ export default function Home() {
                       aria-label={selectedSuperpower}>{typedSuperpower}</span>
                   )
                 }
-                <span className="ml-1 absolute top-12 right-auto">experience</span>
-              </div>
+                <span className="ml-1">experience</span>
+              </p>
               <p
                 className={`mt-[10px] md:mt-[20px] text-[16px] md:text-[18px] leading-[27px] tracking-[-0.02em] md:leading-[24px] font-[400] text-[#212121]/70 ${satoshi.className}`}
               >
@@ -209,7 +209,7 @@ export default function Home() {
               <div className="relative  border-1 flex flex-col md:flex-row  mt-[50px] lg:mt-[50px] mb-[75px] lg:mb-[130px] h-[330px]  lg:h-[476px]  sm:w-[330px] lg:w-[476px] border border-[#DBF3D9] rounded-full">
                 <div className="m-[42px] lg:m-[61px] relative border border-[#DBF3D9] rounded-full h-[245px] lg:h-[354px] w-[245px] lg:w-[354px] ">
                   {/* animation one */}
-                  <div className="absolute transition-all ease-in-out duration-1000  top-32 lg:top-44 -left-3 lg:-left-10 ">
+                  <div className="absolute transition-all w-full ease-in-out duration-1000  top-28 lg:top-44 -left-8 lg:-left-10">
                     <div className=" bg-[#DBF3D9] transition-all ease-in-out duration-500  rounded-full w-[60px] h-[60px] flex items-center justify-center">
                       <Image
                         src={animationOne[currentIndexOne]?.image!}
@@ -221,14 +221,14 @@ export default function Home() {
                       />
                     </div>
                     <p
-                      className={` absolute line-clamp-3 top-[70px] left-1 w-[300px] ease-in-out duration-500  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                      className={`absolute line-clamp-3 top-[70px] left-1 max-w-[150px] lg:max-w-[300px] ease-in-out duration-500  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
                     >
                       {animationOne[currentIndexOne]?.text}
                     </p>
                   </div>
 
                   {/* animation two */}
-                  <div className="absolute -bottom-5 right-16">
+                  <div className="absolute -bottom-5 right-16 ">
                     <div className=" w-[60px]  h-[60px] bg-[#DBF3D9] rounded-full flex items-center justify-center ">
                       <Image
                         src={animationTwo[currentIndexTwo]?.image}
@@ -240,7 +240,7 @@ export default function Home() {
                       />
                     </div>
                     <p
-                      className={` absolute line-clamp-3 top-[60px] w-[230px] text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em]`}
+                      className={`max-w-[150px] lg:max-w-[300px] absolute line-clamp-3 top-[60px] w-[230px] text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em]`}
                     >
                       {animationTwo[currentIndexTwo]?.text}
                     </p>
@@ -260,7 +260,7 @@ export default function Home() {
                       />
                     </div>
                     <p
-                      className={` absolute line-clamp-3 top-[60px] w-[230px] -left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                      className={`max-w-[120px] lg:max-w-[300px] absolute line-clamp-3 top-[60px] w-[230px] -left-10  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
                     >
                       {animationThree[currentIndexThree]?.text}
                     </p>
@@ -280,7 +280,7 @@ export default function Home() {
                       />
                     </div>
                     <p
-                      className={` absolute line-clamp-3 top-10 lg:top-[60px] w-[230px] left-2  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
+                      className={`max-w-[150px] lg:max-w-[300px] absolute line-clamp-3 top-[60px] lg:top-[60px] w-[230px] left-2  text-center lg:mx-auto text-[8px] lg:text-[11px] leading-[10px] lg:leading-[16px] font-[500] text-[#212121]/80 tracking-[-0.04em] lg:tracking-[-0.02em]`}
                     >
                       {animationFour[currentIndexFour]?.text}
                     </p>
@@ -305,7 +305,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-white w-full px-[15px] lg:px-[100px] pb-[90px]">
+      <div className="bg-white w-full lg:px-[100px] pb-[90px]">
         <div className="max-w-[1440px] mx-auto w-full flex flex-col items-center justify-center lg:px-[70px]">
           <h1
             className={`mt-[90px] mb-[30px] text-[23px] lg:text-[34px] leading-[33px] lg:leading-[43px] tracking-[-0.04em] font-[800] text-[#2F9B4E] ${jost.className}`}
@@ -387,7 +387,7 @@ export default function Home() {
           <div className="flex items-center w-full lg:w-[500px] max-w-[800px] mx-auto justify-center py-2 px-3">
             <input onChange={onInputChange} className="w-full lg:w-[500px] px-2 h-[40px] outline-0 ring-0 border border-[#2F9B4E] focus:outline-0 focus:ring-0 rounded-l-[3px]" />
             <button onClick={() => {
-              router.push("/dashboard")
+              router.push("/questions")
             }} className="flex items-center text-white justify-center py-[10px] px-[20px] gap-[10px] w-[78px] md:w-[88px] h-[40px] bg-[#2F9B4E] rounded-r-[3px] text-[14px] whitespace-nowrap">
               Search
             </button>
@@ -448,7 +448,7 @@ export default function Home() {
           <div className="flex flex-wrap w-full items-center justify-center gap-[25px] mt-[30px]">
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/impact/poverty.png"
+                src="/impact/svg/poverty.svg"
                 alt=""
                 width={150}
                 height={150}
@@ -458,7 +458,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/impact/hunger.png"
+                src="/impact/svg/hunger.svg"
                 alt=""
                 width={150}
                 height={150}
@@ -467,7 +467,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/impact/health.png"
+                src="/impact/svg/health.svg"
                 alt=""
                 width={150}
                 height={150}
@@ -476,7 +476,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/impact/partnership.png"
+                src="/impact/svg/partnership.svg"
                 alt=""
                 width={150}
                 height={150}
@@ -485,7 +485,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/impact/education.png"
+                src="/impact/svg/education.svg"
                 alt=""
                 width={150}
                 height={150}
@@ -494,7 +494,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/impact/climate.png"
+                src="/impact/svg/climate.svg"
                 alt=""
                 width={150}
                 height={150}
@@ -503,7 +503,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-center justify-center gap-[19px]  !max-w-[250px]">
               <Image
-                src="/impact/land.png"
+                src="/impact/svg/land.svg"
                 alt=""
                 width={150}
                 height={150}

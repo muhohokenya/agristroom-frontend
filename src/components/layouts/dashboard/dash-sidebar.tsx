@@ -59,7 +59,7 @@ const DashSidebar = ({ showSideNav, setShowSideNav }: IProps) => {
           </h4>
           <div className="flex flex-col mt-[16px] gap-[24px]">
             <Link
-              href="/dashboard"
+              href="/questions"
               className={`flex gap-[14px] items-center text-[16px] leading-[22px] font-[400] tracking-[-0.02em] text-[#2F9B4E] cursor-pointer ${jost.className}`}
             >
               <FaHome />
