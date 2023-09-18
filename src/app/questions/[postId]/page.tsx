@@ -7,13 +7,15 @@ import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
 import { UseEditorModal } from "@/src/hooks/useEditorModalContext";
 import { UseLoginModal } from "@/src/hooks/useLoginModal";
-import { formatDate, formatDateToTime } from "@/src/lib/constants";
+import { BaseURL, formatDate, formatDateToTime } from "@/src/lib/constants";
 import { getOneQuestion } from "@/src/redux/actions/getOneQuestion.action";
 import { getPosts } from "@/src/redux/actions/getPosts.action";
 import { getRepliesByPostId } from "@/src/redux/actions/getReplyByPostId";
 import { postAnswer } from "@/src/redux/actions/postAnswer.action";
 import { upVoteForQuestion, upVoteForReply } from "@/src/redux/actions/upvote";
 import { Post, SinglePost } from "@/src/types/types";
+import axios from "axios";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -21,12 +23,21 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsDot, BsFillExclamationCircleFill } from "react-icons/bs";
 import { FaRegUser, FaSpinner } from "react-icons/fa";
-import thumbsup from "../../../../../public/svgs/thumbs-up.svg";
+import thumbsup from "../../../../public/svgs/thumbs-up.svg";
 
 interface Props {
   params: {
     id: number;
     postId: string;
+  };
+}
+
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  let res: any = await axios.get(`${BaseURL}/post/${parseInt(params.postId.split("-")[params.postId.split("-").length - 1])}`);
+  let description = res?.data?.data?.[0].description;
+  return {
+    title: `${params?.postId}-Agristroom`,
+    description: description,
   };
 }
 
@@ -64,7 +75,7 @@ function Page(props: Props) {
     },
   });
 
-  const postId = parseInt(params.postId.split("-")[1])
+  const postId = parseInt(params.postId.split("-")[params.postId.split("-").length - 1])
 
   const onSubmit = async () => {
     const state = {
@@ -203,7 +214,7 @@ function Page(props: Props) {
       <div className="flex flex-col-reverse lg:flex-row mt-[15px] lg:mt-0 items-start lg:gap-[120px] justify-between px-[30px] ">
         <div className="flex flex-col pt-[20px] pb-[21px] lg:pr-[30px] px-0 rounded-r-md ">
           <div className="flex flex-col">
-            <Link href="/dashboard" className="my-3 text-[#2F9B4E] text-xl cursor-pointer">
+            <Link href="/questions" className="my-3 text-[#2F9B4E] text-xl cursor-pointer">
               <BsArrowLeftCircleFill />
             </Link>
             <div className="flex items-center gap-[5px]">
@@ -459,7 +470,8 @@ function Page(props: Props) {
                   <p
                     key={post?.id}
                     onClick={() => {
-                      router.push(`/dashboard/post/${post?.title}-${post?.id}`)
+                      let id = `${post?.title?.split(" ").join("-")}-${post?.id}`
+                      router.push(`/questions/${id}`)
                     }}
                     className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
                   >

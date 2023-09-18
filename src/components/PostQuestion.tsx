@@ -12,7 +12,6 @@ import { useAppDispatch, useAppSelector } from "../hooks/react-redux-hooks";
 import { toast } from "../hooks/use-toast";
 import { UseEditorModal } from "../hooks/useEditorModalContext";
 import { UseLoginModal } from "../hooks/useLoginModal";
-import { ManagedUI } from "../hooks/useModalContext";
 import { formatDate, formatDateToTime } from "../lib/constants";
 import { getCurrentUser } from "../redux/actions/auth.action.action";
 import { getPosts } from "../redux/actions/getPosts.action";
@@ -29,7 +28,6 @@ export const PostQuestion = () => {
   const dispatch = useAppDispatch();
   const { setOpenEditorModal } = useContext(UseEditorModal);
   const _state = useAppSelector((state) => state.currentUser);
-  const { setOpenModal } = useContext(ManagedUI);
   const { setOpenLoginModal } = useContext(UseLoginModal);
 
   const post = useAppSelector((state) => state.post);
@@ -79,8 +77,7 @@ export const PostQuestion = () => {
         description: "Please log in first to upVote",
         variant: "destructive",
       });
-      router.push("/auth/login");
-      setOpenModal(true)
+      setOpenLoginModal(true);
     } else {
       const data = {
         post_id: post_id,
@@ -199,7 +196,7 @@ export const PostQuestion = () => {
                     </div>
                     <div
                       onClick={() =>
-                        router.push(`/dashboard/post/${post?.title}-${post?.id}`)
+                        router.push(`/questions/${post?.title.split(" ").join("-")}-${post?.id}`)
                       }
                       className="flex w-full flex-col pt-[20px] pb-[21px] px-[12px] lg:pl-[20px] lg:pr-[30px]  bg-[#FAFAFA] rounded-r-md "
                     >
@@ -313,7 +310,11 @@ export const PostQuestion = () => {
               {posts.map((post) => {
                 return (
                   <p
-                    onClick={() => router.push(`/dashboard/post/${post?.title}-${post?.id}`)}
+                    onClick={() => {
+                      let id = `${post?.title?.split(" ").join("-")}-${post?.id}`
+                      router.push(`/questions/${id}`)
+                    }
+                    }
                     key={post.id}
                     className={`font-[400] ${satoshi.className} text-[14px] leading-[22px] tracking-[-0.04em] text-[#2F9B4E] cursor-pointer flex items-start gap-[5px]`}
                   >

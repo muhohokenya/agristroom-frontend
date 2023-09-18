@@ -66,7 +66,7 @@ const ProfileSummary = () => {
         variant: "secondary",
       });
       setIsSubmitting(false);
-      router.push("/dashboard");
+      router.push("/questions");
       setOpenModal(false)
     }
 

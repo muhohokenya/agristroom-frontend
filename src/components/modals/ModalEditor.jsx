@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useContext, useRef } from "react";
+import { useContext } from "react";
 import { createPortal } from "react-dom";
 import { UseEditorModal } from "../../hooks/useEditorModalContext";
 
 function ModalEditor(props) {
   const { children } = props;
   const { openEditorModal, setOpenEditorModal } = useContext(UseEditorModal);
-  const modalRef = useRef();
+  // const modalRef = useRef();
 
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
@@ -18,8 +18,8 @@ function ModalEditor(props) {
   if (openEditorModal) {
     return createPortal(
       <div
-        ref={modalRef}
-        onClick={(e) => closeModal(e)}
+        // ref={modalRef}
+        // onClick={(e) => closeModal(e)}
         className="fixed px-2 w-[100vw] min-h-screen z-[999] top-0 left-0 flex justify-center items-center bg-black/70 "
       >
         {children}

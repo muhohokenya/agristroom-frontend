@@ -108,7 +108,7 @@ const DashHeader = ({ toggleSideNav }: IProps) => {
                     <div className="flex flex-col">
                       <h2 className="text-slate-900 font-bold text-[18px] ">{`${user?.first_name} ${user?.last_name}`}</h2>
 
-                      <Link href="/dashboard/profile" className="text-slate-400 text-[15px] cursor-pointer">My Profile</Link>
+                      <Link href="/questions/profile" className="text-slate-400 text-[15px] cursor-pointer">My Profile</Link>
                     </div>
                   </div>
                 )}

@@ -55,8 +55,8 @@ const Login = ({ route = "" }: Props) => {
       setOpenModal(false)
       setOpenLoginModal(false)
       if (pathname === "/auth/login") {
-        router.push("/dashboard")
-      } else if (pathname.includes("/dashboard/post")) {
+        router.push("/questions")
+      } else if (pathname.includes("/questions/")) {
         return
       } else {
         router.push(route)
@@ -79,7 +79,7 @@ const Login = ({ route = "" }: Props) => {
       <MdClose
         className="absolute top-3 right-3 text-lg h-[25px] w-[25px] text-[#212121]/70 cursor-pointer"
         onClick={() => {
-          if (pathname.includes("/dashboard/post")) {
+          if (pathname.includes("/questions/")) {
             setOpenLoginModal(false)
           } else {
             router.back();
