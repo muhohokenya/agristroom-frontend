@@ -1,7 +1,9 @@
-import React, { ReactNode, useState } from "react";
+"use client"
+
+import { ReactNode, useState } from "react";
+import { Skeleton } from "../../ui/Skeleton";
 import DashHeader from "./dash-header";
 import DashSidebar from "./dash-sidebar";
-import { Skeleton } from "../../ui/Skeleton";
 
 export const DashLayout = ({ children }: { children: ReactNode }) => {
   const [showSideNav, setShowSideNav] = useState(false);
