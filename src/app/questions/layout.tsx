@@ -1,6 +1,5 @@
-
+"use client";
 import { DashLayout } from "@/src/components/layouts/dashboard/dash-layout";
-import useGetCurrentUser from "@/src/context/current-user";
 import { BaseURL } from "@/src/lib/constants";
 import axios from "axios";
 import { Metadata } from "next";
@@ -28,7 +27,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
 }
 
 function Layout(props: Props) {
-  useGetCurrentUser()
   const { children } = props;
 
   return <DashLayout>{children}</DashLayout>;

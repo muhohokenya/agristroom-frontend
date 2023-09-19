@@ -1,9 +1,7 @@
 
 "use client"
 import { PostQuestion } from "@/src/components/PostQuestion";
-import { BaseURL } from "@/src/lib/constants";
-import axios from "axios";
-import { Metadata } from "next";
+import useGetCurrentUser from "@/src/context/current-user";
 
 
 // export const generateMetadata = async (): Promise<Metadata> => {
@@ -20,6 +18,7 @@ import { Metadata } from "next";
 // }
 
 const Dashboard = async () => {
+  useGetCurrentUser()
   return (
     <div className="px-[15px] py-[30px]  max-w-[1200px] mx-auto bg-white ">
       <PostQuestion />
