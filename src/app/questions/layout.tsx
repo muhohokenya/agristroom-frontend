@@ -1,4 +1,4 @@
-"use client";
+
 import { DashLayout } from "@/src/components/layouts/dashboard/dash-layout";
 import useGetCurrentUser from "@/src/context/current-user";
 import { BaseURL } from "@/src/lib/constants";
