@@ -7,15 +7,13 @@ import { useAppDispatch, useAppSelector } from "@/src/hooks/react-redux-hooks";
 import { toast } from "@/src/hooks/use-toast";
 import { UseEditorModal } from "@/src/hooks/useEditorModalContext";
 import { UseLoginModal } from "@/src/hooks/useLoginModal";
-import { BaseURL, formatDate, formatDateToTime } from "@/src/lib/constants";
+import { formatDate, formatDateToTime } from "@/src/lib/constants";
 import { getOneQuestion } from "@/src/redux/actions/getOneQuestion.action";
 import { getPosts } from "@/src/redux/actions/getPosts.action";
 import { getRepliesByPostId } from "@/src/redux/actions/getReplyByPostId";
 import { postAnswer } from "@/src/redux/actions/postAnswer.action";
 import { upVoteForQuestion, upVoteForReply } from "@/src/redux/actions/upvote";
 import { Post, SinglePost } from "@/src/types/types";
-import axios from "axios";
-import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -29,15 +27,6 @@ interface Props {
   params: {
     id: number;
     postId: string;
-  };
-}
-
-export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
-  let res: any = await axios.get(`${BaseURL}/post/${parseInt(params.postId.split("-")[params.postId.split("-").length - 1])}`);
-  let description = res?.data?.data?.[0].description;
-  return {
-    title: `${params?.postId}-Agristroom`,
-    description: description,
   };
 }
 
