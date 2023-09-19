@@ -1,9 +1,8 @@
-"use client";
+
 import { DashLayout } from "@/src/components/layouts/dashboard/dash-layout";
 import { BaseURL } from "@/src/lib/constants";
 import axios from "axios";
 import { Metadata } from "next";
-import { Inter } from "next/font/google";
 import React from "react";
 
 interface Props {
@@ -11,7 +10,6 @@ interface Props {
   questions?: React.ReactNode;
   children?: React.ReactNode;
 }
-const inter = Inter({ subsets: ["latin"] });
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const response = await axios.get(`${BaseURL}/posts`);
