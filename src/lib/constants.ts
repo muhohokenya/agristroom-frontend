@@ -1,6 +1,6 @@
 import { ScreenSize } from "../context/types";
 
-export const BaseURL = 'https://dev.agristroom.com/api/api';
+export const BaseURL = 'https://agristroom.com/api/api';
 
 export const formatDate = (dateString:string) => {
     const dt = new Date(dateString).getDate()
